@@ -1,0 +1,2 @@
+# Dominio
+Soy precioso
