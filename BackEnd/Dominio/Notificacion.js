@@ -1,9 +1,12 @@
 
+var indicacionIncidencia = require('./IndicacionIncidencia');
 
-const id = 1;
 
-const getid = () => {
-    return id
+function Notificacion(incid) {
+    this.incidenciaFenomeno = incid;
+    this.indicacionIncidencia = new indicacionIncidencia.IndicacionIncidencia('huye');
+    //anadir indicaciones
 }
 
-module.exports = {getid}
+
+module.exports = { Notificacion }

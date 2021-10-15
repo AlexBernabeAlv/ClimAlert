@@ -1,17 +1,20 @@
 const express = require('express');
-const notificacion = require('./Dominio/Notificacion')
-const app = express()
+const incidenciaFenomeno = require('./Dominio/IncidenciaFenomeno');
+const app = express();
 
 //app.get
 app.get('/', (req, res) => {
-    console.log('GET request recived')
-    res.status(200).send('Home Page')
+    console.log('GET request recived');
+    res.status(200).send('Home Page');
 })
 
 app.get('/notificacion', (req, res) => {
-    console.log('GET request recived')
-    var id = notificacion.getid()
-    res.status(200).send(`${id}`)
+    console.log('GET request recived');
+    var IncidenciaFenomeno = new incidenciaFenomeno.IncidenciaFenomeno("15/10/2021", "17:09");
+    //var notif = notificacion.create()
+    //notif.incidenciaFenomeno.incidencia.setGravedad(2);
+    var Notificacion = IncidenciaFenomeno.getNotificacion();
+    res.status(200).json({ "Notificacion": Notificacion });
 })
 
 //app.all
