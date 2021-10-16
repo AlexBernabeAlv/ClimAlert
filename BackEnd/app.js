@@ -22,7 +22,7 @@ app.all('*', (req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>')
 })
 
-app.listen(80, () => {
+app.listen(process.env.PORT, () => {
     console.log('server is ready on port 5000.')
 })
 
