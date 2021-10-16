@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\BackEnd",
-    "\\BackEnd\\Dominio",
     "\\FrontEnd"
   ],
-  "SelectedNode": "\\BackEnd\\package.json",
+  "SelectedNode": "\\BackEnd",
   "PreviewInSolutionExplorer": false
 }
