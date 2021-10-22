@@ -1,4 +1,5 @@
-const https = require("https");
+const https = require('https');
+const fs = require('fs');
 const eventTimers = require('./EventTimers');
 const externalApis = require('./ExternalApis');
 
@@ -13,34 +14,34 @@ function isOutdated(timestamp) {
 
 function checkRainEvents() {
 	for (const api of RainApis) {
+		//if(api.timestamp == null || isOutdated(api.timestamp))
+		callApi(api);
 		console.log(api);
-		if(api.timestamp == null || isOutdated(api.timestamp)) {
-			//callApi(api);
-			console.log(api);
-		}
-		
+		/*
 		for (const altert of api.lastData) {
 			console.log(alert.severity);
-			/*
 			if(alert.severity == 'Moderate') {
 				saveIncidence(api, 'flood');
 			} else {
 				//deleteIncidence(api, 'flood');
-			}*/
-		}
+			}
+		}*/
 	}
 }
 
 function callApi(api) {
-	https.get(api.url, resp => {
+	https.get(api.url + api.key, resp => {
 		let data = "";
 		resp.on("data", chunk => {
 			data += chunk;
 		});
 		resp.on("end", () => {
 			dataJson = JSON.parse(data);
-			console.log(dataJson);
 			api.lastData = dataJson;
+			const dataStr = JSON.stringify(dataJson);
+			fs.writeFile(externalApis.dataPath + api.name + '.json', dataStr, (err) => {
+				if (err) { throw err; }
+			});
 		});
 		api.timestamp = Date.now();
 	})

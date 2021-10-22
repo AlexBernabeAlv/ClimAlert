@@ -1,21 +1,33 @@
 const fs = require('fs');
 
+const keyPath = '../../climalertKeys/';
+const dataPath = './ApisResults/';
+
 function getKey(apiName) {
-	fs.readFile('../../climalertKeys/' + apiName + '.txt', 'utf8', (err, file) => {
-		//console.log(file);
-		if(err) console.log(err);
-		else return file;
-	});
+	let keyFile = fs.readFileSync(keyPath + apiName + '.txt', 'utf8');
+	return keyFile;
+}
+
+function getLastData(apiName) {
+	try {
+		let dataFile = fs.readFileSync(dataPath + apiName + '.json', 'utf8');
+		return JSON.parse(dataFile.toString());
+	} catch (err) {
+		//console.log(err);
+		return '';
+	}
 }
 
 const WeatherApiCom = {
+	'name': 'WeatherApiCom',
 	'key': getKey('WeatherApiCom'),
-	'lastData': '',
+	'lastData': getLastData('WeatherApiCom'),
 	'timestamp': '',
-	'url': 'https://api.weatherapi.com/v1/forecast.json?q=Barcelona', //forecast
-	//'url': 'https://api.weatherapi.com/v1/current.json?q=Barcelona' //current
+	'url': 'https://api.weatherapi.com/v1/forecast.json?q=Barcelona&key=', //forecast
+	//'url': 'https://api.weatherapi.com/v1/current.json?q=Barcelona&key=' //current
 }
 
 module.exports = {
-	WeatherApiCom
+	WeatherApiCom,
+	dataPath
 }
