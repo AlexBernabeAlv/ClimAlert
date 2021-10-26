@@ -1,12 +1,11 @@
 
+class Localizacion {
 
-
-
-function Localizacion(Latitud, Longitud) {
-
-    this.latitud = Latitud;
-    this.longitud = Longitud;
+    constructor(Latitud, Longitud){
+        this.latitud = Latitud;
+        this.longitud = Longitud;
+    }
 
 }
 
-module.exports = { Localizacion }
+module.exports = Localizacion;
