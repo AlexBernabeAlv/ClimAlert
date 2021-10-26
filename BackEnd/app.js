@@ -1,5 +1,6 @@
 const express = require('express');
 const incidenciaFenomeno = require('./Dominio/IncidenciaFenomeno');
+
 const app = express();
 
 //app.get
@@ -26,6 +27,7 @@ app.listen(process.env.PORT, () => {
     console.log('server is ready on port 5000.')
 })
 
+const externalEvents = require('./ExternalEvents/ExternalEvents')
 
 //app.post
 //app.puto
