@@ -2,8 +2,16 @@
 //var descripcion
 //var consejos
 
-function FenomenoMeteo(Nombre) {
-    this.nombre = Nombre;
+const ObjetoUtil = require('./ObjetoUtil');
+
+class FenomenoMeteo{
+
+    constructor(Nombre)
+    {
+        this.nombre = Nombre;
+        this.objetosUtiles = [];
+    }
+    
 }
 
-module.exports = { FenomenoMeteo };
+module.exports = FenomenoMeteo;

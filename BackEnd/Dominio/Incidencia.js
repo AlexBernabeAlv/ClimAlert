@@ -1,16 +1,18 @@
 
-var localizacion = require('./Localizacion');
+const Localizacion = require('./Localizacion');
 
 
-function Incidencia(Radio, Gravedad) {
+class Incidencia {
 
+    constructor(Radio, Gravedad, Loc) {
 
-    this.radio = Radio;
-    this.gravedad = Gravedad;
-    this.localizacion = new localizacion.Localizacion(41.377349232394856, 2.1437691962266148);
-    //var setGravedad = function(valueGravedad){ this.gravedad = valueGravedad;}
+        this.radio = Radio;
+        this.gravedad = Gravedad;
+        this.localizacion = Loc;
+        //var setGravedad = function(valueGravedad){ this.gravedad = valueGravedad;}
+    }
 }
 
 
 
-module.exports = { Incidencia };
+module.exports = Incidencia;
