@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\BackEnd",
+    "\\BackEnd\\Dominio",
+    "\\BackEnd\\ExternalEvents",
     "\\FrontEnd"
   ],
-  "SelectedNode": "\\BackEnd",
+  "SelectedNode": "\\BackEnd\\Dominio\\IncidenciaFenomeno.js",
   "PreviewInSolutionExplorer": false
 }
