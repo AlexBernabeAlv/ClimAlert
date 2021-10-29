@@ -7,10 +7,14 @@ const Localizacion = require('./Dominio/Localizacion');
 
 const app = express();
 
+const DataController = require('./BD/DataController');
+
+
 //app.get
 app.get('/', (req, res) => {
     console.log('GET request recived');
     res.status(200).send('Home Page');
+    
 })
 
 app.get('/notificacion', (req, res) => {
@@ -18,8 +22,8 @@ app.get('/notificacion', (req, res) => {
     var incidenciaFenomeno = new IncidenciaFenomeno("15/10/2021", "17:09");
     //var notif = notificacion.create()
     //notif.incidenciaFenomeno.incidencia.setGravedad(2);
-    let usu = new UsuarioEstandar("tostusmuertos.joputa@gmail.com");
- 
+    let usu = new UsuarioEstandar("tostusmuertos.joputa@gmail.com", "password");
+
 
     var loc1 = new Localizacion(41.38792802563911, 2.1136743796936894);
     var loc2 = new Localizacion(41.42503546418125, 1.957847309078282);
@@ -30,7 +34,15 @@ app.get('/notificacion', (req, res) => {
     usu.setNotificacion(incid1.getNotificacion());
     usu.setNotificacion(incid2.getNotificacion());
 
-    res.status(200).json(usu);
+    var dataController = new DataController();
+
+   
+    var usu2 = dataController.getUsuario("tostusmuertos.joputa@gmail.com", res);
+
+    //setTimeout(() => console.log(usu2), 10000);
+    //setTimeout(() => res.status(200).json(usu2),20000);
+    //console.log(usu2);
+    //res.status(200).json(usu2);
 })
 
 //app.all

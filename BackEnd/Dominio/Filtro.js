@@ -6,10 +6,20 @@ class Filtro {
     localizacion1;
     localizacion2;
 
-    constructor(Gravedad, RadioEfecto)
+    constructor()
     {
-        this.gravedad = Gravedad;
-        this.radioEfecto = RadioEfecto;
+        this.gravedad = 0;
+        this.radioEfecto = 1;
+    }
+
+    setGravedad(g) {
+
+        this.gravedad = g;
+    }
+
+    setRadioEfecto(r) {
+
+        this.radioEfecto = r;
     }
         
 }

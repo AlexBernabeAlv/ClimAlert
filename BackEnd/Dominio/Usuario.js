@@ -5,15 +5,26 @@ const Notificacion = require('./Notificacion');
 
 class Usuario {
 
-    constructor(Email) {
+    constructor(Email, Passwd) {
+
         this.email = Email;
+        this.password = Passwd;
         this.notificaciones = [];
-        
+        this.filtro = new Filtro();
     }
 
     setNotificacion(notif) {
 
         this.notificaciones.push(notif);
+    }
+
+    isAdmin() {
+    }
+
+    setFiltro(g, r) {
+
+        this.filtro.setGravedad(g);
+        this.filtro.setRadioEfecto(r);
     }
 
 }
