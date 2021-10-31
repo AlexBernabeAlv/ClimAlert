@@ -5,7 +5,7 @@ const Usuario = require('../Dominio/Usuario');
 
 
 const connectionString =
-    'postgres://qtwtxysoehktdh:8ed8bd9ee0226a25039223d258099e1ac3fe09a2737f452ec06d5bf921d06f76@ec2-176-34-222-188.eu-west-1.compute.amazonaws.com:5432/d98umvumg9coc8';
+    'postgres://qjsfwqmfowyyqi:880ddc879215c58013d8a54fb6d804418052f61f05045d2ec6085d77c6f5a6b4@ec2-52-211-158-144.eu-west-1.compute.amazonaws.com:5432/d2gb6gkivm6r90';
 
 const pool = new Pool({
     connectionString,
