@@ -14,7 +14,6 @@ class Usuario {
     }
 
     setNotificacion(notif) {
-
         this.notificaciones.push(notif);
     }
 

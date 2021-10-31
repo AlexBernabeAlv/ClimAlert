@@ -23,30 +23,23 @@ class DataController {
     }
 
 
-    createUsuario(usuario) {
+    createUsuario(usuario, respuesta) {
 
-        pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto]);
+        pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+
+            if (err) {
+
+                respuesta.status(409).send("Usuario ya existe");
+            } else {
+
+                respuesta.status(200).json(usuario);
+            }
+        });
     }
 
-    getUsuario(Email, app) {
+    getUsuario(Email, respuesta) {
 
         var usuario;
-        /*
-        const res = await pool.query("SELECT * FROM usuario u WHERE u.email = $1", [Email]);
-
-        if (res.rows[0].admin) {
-
-            usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
-
-        } else {
-
-            usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
-        }
-
-        usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
-
-        return usuario;
-        */
 
         pool.query("SELECT * FROM usuario u WHERE u.email = $1", [Email], (err, res) => {
 
@@ -54,8 +47,12 @@ class DataController {
                 console.log(err.stack)
             } else {
 
-                //console.log(res.rows[0].email);
 
+                if (res.rows.length == 0) {
+
+                    respuesta.status(404).send("Usuario no existe");
+                    return;
+                }
                 if (res.rows[0].admin) {
 
                     usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
@@ -67,37 +64,11 @@ class DataController {
 
                 usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
 
-                app.status(200).json(usuario);
+                respuesta.status(200).json(usuario);
 
-                //console.log(res.rows[0]);
-
-                //setTimeout(() => console.log(usuario), 10000);
             }
         });
-        //return usuario;
 
-/*
-        pool
-            .query("SELECT * FROM usuario u WHERE u.email = $1", [Email])
-            .then(res => {
-
-
-                if (res.rows[0].admin) {
-
-                    usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
-
-                } else {
-
-                    usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
-                }
-
-                usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
-
-                return usuario;
-
-            })
-            .catch(err => console.log(err.stack));
-*/
     }
 }
 
