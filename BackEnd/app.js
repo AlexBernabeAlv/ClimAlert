@@ -80,7 +80,7 @@ app.listen((process.env.PORT || 5000), () => {
     console.log('server is ready on port 5000.')
 })
 
-const externalEvents = require('./ExternalEvents/ExternalEvents')
+//const externalEvents = require('./ExternalEvents/ExternalEvents')
 
 //app.post
 //app.puto
