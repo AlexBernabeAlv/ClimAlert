@@ -1,29 +1,33 @@
 
-var fenomenoMeteo = require('./FenomenoMeteo');
-var incidencia = require('./Incidencia');
-var notificacion = require('./Notificacion');
+const FenomenoMeteo = require('./FenomenoMeteo');
+const Incidencia = require('./Incidencia');
+const Notificacion = require('./Notificacion');
+const GestorIncidencias = require('./GestorIncidencias');
+const ConsultorRefugios = require('./ConsultorRefugios');
+const AdapterPrestamos = require('./AdapterPrestamos');
 
+class IncidenciaFenomeno{
 
-function IncidenciaFenomeno(Fecha, Hora) {
-    this.valido = false;
-    this.fecha = Fecha;
-    this.hora = Hora;
-    this.incidencia = new incidencia.Incidencia(1, 1);
-    this.fenomenoMeteo = new fenomenoMeteo.FenomenoMeteo('Diluvio Universal');
+    #notif;
 
-    var notif = new notificacion.Notificacion(this);
+    constructor(Fecha, Hora, NombreFenomeno, Radio, Gravedad, Loc)
+    {
+        this.valido = false;
+        this.fecha = Fecha;
+        this.hora = Hora;
+        this.incidencia = new Incidencia(Radio, Gravedad, Loc);
+        this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno);
+        this.#notif = new Notificacion(this, null, null);
+    }
+    
 
-    this.getNotificacion = function() {
-        return notif;
+    getNotificacion() {
+        return this.#notif;
     }
 
-    this.setValido = function(){
+    setValido(){
         this.valido = true;
     }
 }
 
-function getNotificacion() {
-    return notif;
-}
-
-module.exports = { IncidenciaFenomeno };
+module.exports = IncidenciaFenomeno;
