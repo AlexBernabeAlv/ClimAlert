@@ -1,33 +1,45 @@
 const fs = require('fs');
 
 const keyPath = '../../climalertKeys/';
-const dataPath = './ApisResults/';
 
 function getKey(apiName) {
 	let keyFile = fs.readFileSync(keyPath + apiName + '.txt', 'utf8');
 	return keyFile;
 }
 
-function getLastData(apiName) {
-	try {
-		let dataFile = fs.readFileSync(dataPath + apiName + '.json', 'utf8');
-		return JSON.parse(dataFile.toString());
-	} catch (err) {
-		//console.log(err);
-		return '';
+const WeatherApiComCurrent = {
+	name: 'WeatherApiComCurrent',
+	key: getKey('WeatherApiCom'),
+	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=', //current
+	getUrl(loc) {
+		return this.baseUrl + loc + '&key=' + this.key;
+	},
+	fenomenos: [
+		'inundacion',
+		'insolacion'
+	],
+	getFecha(evento) {
+		return evento.location.localtime.split(" ")[0];
+	},
+	getHora(evento) {
+		return evento.location.localtime.split(" ")[1];
+	},
+	getGravedad(evento, fenomeno) {
+		switch(fenomeno) {
+		case 'inundacion':
+			if (evento.current.precip_mm > 0.04) return 'critico';
+			if (evento.current.precip_mm > 0.03) return 'noCritico';
+			return 'inocuo';
+		case 'insolacion':
+			if (evento.current.temp_c > 16) return 'critico';
+			if (evento.current.temp_c > 15) return 'noCritico';
+			return 'inocuo';
+		}
 	}
 }
 
-const WeatherApiCom = {
-	'name': 'WeatherApiCom',
-	'key': getKey('WeatherApiCom'),
-	'lastData': getLastData('WeatherApiCom'),
-	'timestamp': '',
-	'url': 'https://api.weatherapi.com/v1/forecast.json?q=Barcelona&key=', //forecast
-	//'url': 'https://api.weatherapi.com/v1/current.json?q=Barcelona&key=' //current
-}
+	//baseUrl: 'https://api.weatherapi.com/v1/forecast.json?q=', //forecast
 
 module.exports = {
-	WeatherApiCom,
-	dataPath
+	WeatherApiComCurrent
 }
