@@ -1,0 +1,20 @@
+com/example/testgooglemaps/BuildConfig.java
+ com.example.testgooglemaps.BuildConfig
+com/example/testgooglemaps/BlankFragment.java
+ com.example.testgooglemaps.BlankFragment
+com/example/testgooglemaps/databinding/FragmentBlankBinding.java
+ com.example.testgooglemaps.databinding.FragmentBlankBinding
+com/example/testgooglemaps/databinding/ActivityMapsBinding.java
+ com.example.testgooglemaps.databinding.ActivityMapsBinding
+com/example/testgooglemaps/MapsActivity.java
+ com.example.testgooglemaps.MapsActivity
+ com.example.testgooglemaps.MapsActivity$1
+ com.example.testgooglemaps.MapsActivity$10
+ com.example.testgooglemaps.MapsActivity$2
+ com.example.testgooglemaps.MapsActivity$3
+ com.example.testgooglemaps.MapsActivity$4
+ com.example.testgooglemaps.MapsActivity$5
+ com.example.testgooglemaps.MapsActivity$6
+ com.example.testgooglemaps.MapsActivity$7
+ com.example.testgooglemaps.MapsActivity$8
+ com.example.testgooglemaps.MapsActivity$9
