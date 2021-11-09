@@ -46,6 +46,27 @@ app.post('/usuario/new', (req, res) => {
     dataController.createUsuario(usu, res);
 })
 
+app.put('/usuario/update', (req, res) => {
+
+    var email = req.query.email;
+    var psswd = req.body.password;
+    var gravedad = req.body.gravedad;
+    var radioefecto = req.body.radioEfecto;
+
+    var usu = new UsuarioEstandar(email, psswd);
+    usu.setFiltro(gravedad, radioefecto);
+
+    dataController.updateUsuario(usu, res);
+})
+
+app.delete('/usuario/delete', (req, res) => {
+
+    var email = req.query.email;
+    var psswd = req.body.password;
+
+    dataController.deleteUsuario(email, psswd, res);
+})
+
 /*
 app.get('/notificacion', (req, res) => {
     console.log('GET request recived');
@@ -80,7 +101,7 @@ app.listen(5000, () => {
     console.log('server is ready on port 5000.')
 })
 
-const externalEvents = require('./ExternalEvents/ExternalEvents')
+//const externalEvents = require('./ExternalEvents/ExternalEvents')
 
 //app.post
 //app.puto
