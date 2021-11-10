@@ -16,8 +16,8 @@ class IncidenciaFenomeno{
         this.fecha = Fecha;
         this.hora = Hora;
         this.incidencia = new Incidencia(Radio, Gravedad, Loc);
-        this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno);
-        this.#notif = new Notificacion(this, null, null);
+        this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno, "descripcion...");
+        this.#notif = new Notificacion(this, "indicaciones");
     }
     
 
