@@ -21,6 +21,10 @@ class GestorUsuarios {
         dataController.createUsuario(usu, respuesta);
     }
 
+    updateUsuario(Email, Password, respuesta) {
+
+    }
+
     deleteUsuario(Email, Password, respuesta) {
 
         dataController.deleteUsuario(Email, Password, respuesta);
