@@ -1,7 +1,6 @@
 const { Pool } = require('pg');
 const UsuarioEstandar = require('../Dominio/UsuarioEstandar');
 const UsuarioAdmin = require('../Dominio/UsuarioAdmin');
-const Usuario = require('../Dominio/Usuario');
 
 
 const connectionString =
@@ -14,14 +13,12 @@ const pool = new Pool({
     }
 })
 
-
-class DataController {
-
-    constructor() {
+//Esta clase es singleton
+class DataController{
+    constructor(){
 
         pool.connect();
     }
-
 
     createUsuario(usuario, respuesta) {
 
@@ -49,7 +46,7 @@ class DataController {
 
 
                 if (res.rows.length == 0) {
-                    
+
                     respuesta.status(404).send("Usuario no existe");
                     return;
                 }
@@ -70,9 +67,9 @@ class DataController {
         });
 
     }
-    
+
     updateUsuario(usuario, respuesta) {
-        
+
         pool.query("UPDATE usuario SET password = $2, gravedad = $3, radioEfecto = $4 WHERE email = $1;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
 
             if (err) {
@@ -88,7 +85,7 @@ class DataController {
                 }
             }
         });
-        
+
     }
 
     deleteUsuario(Email, Password, respuesta) {
@@ -199,4 +196,4 @@ class DataController {
 }
 
 
-module.exports = DataController;
+module.exports = new DataController();

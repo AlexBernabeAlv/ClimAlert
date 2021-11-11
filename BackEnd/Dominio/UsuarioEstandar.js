@@ -2,9 +2,10 @@
 const Usuario = require('./Usuario');
 const GestorIncidencias = require('./GestorIncidencias');
 
-class UsuarioEstandar extends Usuario{
+class UsuarioEstandar extends Usuario {
 
     constructor(Email, Passwd) {
+
         super(Email, Passwd);
     }
 
