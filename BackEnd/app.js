@@ -79,7 +79,7 @@ app.post('/usuario/:email/notificacion/new', (req, res) => {
 app.get('/usuario/:email/notificacion', (req, res) => {
 
     var email = req.params.email;
-    dataController.getNotificacion(email, res);
+    gestorUsuarios.getNotificaciones(email, res);
 })
 
 
@@ -113,7 +113,7 @@ app.all('*', (req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>')
 })
 
-app.listen(5000, () => {
+app.listen((5000 || process.env.PORT), () => {
     console.log('server is ready on port 5000.')
 })
 

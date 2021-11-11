@@ -1,20 +1,17 @@
 
 const Notificacion = require('./Notificacion');
+const Usuario = require('./Usuario')
 
 //SINGLETON NO LLAMAR CONSTRUCTOR
 class EnviadorNotificaciones {
 
-    constructor(notif) {
-        this.notificacion = notif;
+    constructor() {
     }
 
-    static getInstance() {
 
-        if (!this.instance) {
-            this.instance = new EnviadorNotificaciones();
-        }
-        return this.instance;
+    getNotificaciones(Email, respuesta) {
+
     }
 }
 
-module.exports = EnviadorNotificaciones;
+module.exports = new GestorUsuarios;
