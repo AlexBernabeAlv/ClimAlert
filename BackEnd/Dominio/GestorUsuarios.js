@@ -21,8 +21,12 @@ class GestorUsuarios {
         dataController.createUsuario(usu, respuesta);
     }
 
-    updateUsuario(Email, Password, respuesta) {
+    updateUsuario(Email, Password, Gravedad, RadioEfecto, respuesta) {
 
+        var usu = new UsuarioEstandar(Email, Password);
+        usu.setFiltro(Gravedad, RadioEfecto);
+
+        dataController.updateUsuario(usu, respuesta);
     }
 
     deleteUsuario(Email, Password, respuesta) {

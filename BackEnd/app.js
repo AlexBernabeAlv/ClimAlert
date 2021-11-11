@@ -52,12 +52,8 @@ app.put('/usuario/:email/update', (req, res) => {
     var psswd = req.body.password;
     var gravedad = req.body.gravedad;
     var radioefecto = req.body.radioEfecto;
-
-    var usu = new UsuarioEstandar(email, psswd);
-    usu.setFiltro(gravedad, radioefecto);
-
     
-    dataController.updateUsuario(usu, res);
+    gestorUsuarios.updateUsuario(email, psswd, gravedad, radioefecto, res);
 })
 
 app.delete('/usuario/:email/delete', (req, res) => {
@@ -117,7 +113,7 @@ app.all('*', (req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>')
 })
 
-app.listen((process.env.PORT || 5000), () => {
+app.listen(5000, () => {
     console.log('server is ready on port 5000.')
 })
 
