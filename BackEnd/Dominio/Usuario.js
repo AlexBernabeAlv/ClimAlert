@@ -1,6 +1,6 @@
 
 const Filtro = require('./Filtro');
-const GestorUsuarios = require('./GestorUsuarios');
+//const GestorUsuarios = require('./GestorUsuarios');
 const Notificacion = require('./Notificacion');
 
 class Usuario {

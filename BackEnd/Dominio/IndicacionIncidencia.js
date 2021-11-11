@@ -1,12 +1,10 @@
 
-const ObjetoPrestado = require('./ObjetoPrestado');
 const Refugio = require('./Refugio');
 
 class IndicacionIncidencia {
 
-    constructor(Indicacion, ObjetoPrestado, Refugio){
+    constructor(Indicacion, Refugio){
         this.indicacion = Indicacion;
-        this.objetoPrestado = ObjetoPrestado;
         this.refugio = Refugio;
     }
 }

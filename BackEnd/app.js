@@ -3,7 +3,9 @@ const IncidenciaFenomeno = require('./Dominio/IncidenciaFenomeno');
 const GestorIncidencias = require('./Dominio/GestorIncidencias');
 const Notificacion = require('./Dominio/Notificacion');
 const UsuarioEstandar = require('./Dominio/UsuarioEstandar');
+const UsuarioAdmin = require('./Dominio/UsuarioAdmin');
 const Localizacion = require('./Dominio/Localizacion');
+const gestorUsuarios = require('./Dominio/GestorUsuarios');
 
 const multer = require('multer');
 const upload = multer();
@@ -20,20 +22,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(express.static('public'));
 
-const DataController = require('./BD/DataController');
-const dataController = new DataController();
+const dataController = require('./BD/DataController');
 
 //app.get
 app.get('/', (req, res) => {
+
     console.log('GET request recived');
     res.status(200).send('Home Page');
-    
 })
 
-app.get('/usuario', (req, res) => {
+//LLamadas api usuarios
+app.get('/usuario/:email', (req, res) => {
 
-    var email = req.query.email;
-    var usu = dataController.getUsuario(email, res);
+    var email = req.params.email;
+    gestorUsuarios.getUsuario(email, res);
 })
 
 app.post('/usuario/new', (req, res) => {
@@ -41,10 +43,49 @@ app.post('/usuario/new', (req, res) => {
     var email = req.body.email;
     var psswd = req.body.password;
 
-    var usu = new UsuarioEstandar(email, psswd);
-
-    dataController.createUsuario(usu, res);
+    gestorUsuarios.createUsuario(email, psswd, res);
 })
+
+app.put('/usuario/:email/update', (req, res) => {
+
+    var email = req.params.email;
+    var psswd = req.body.password;
+    var gravedad = req.body.gravedad;
+    var radioefecto = req.body.radioEfecto;
+
+    var usu = new UsuarioEstandar(email, psswd);
+    usu.setFiltro(gravedad, radioefecto);
+
+    
+    dataController.updateUsuario(usu, res);
+})
+
+app.delete('/usuario/:email/delete', (req, res) => {
+
+    var email = req.params.email;
+    var psswd = req.body.password;
+
+    gestorUsuarios.deleteUsuario(email, psswd, res);
+    
+})
+
+
+
+//llamadas api notificaciones
+
+app.post('/usuario/:email/notificacion/new', (req, res) => {
+
+    var loc = new Localizacion(10.10, 10.10);
+    var incidenciaFemomeno = new IncidenciaFenomeno('10/11/21', '18:30', 'Incendio', 3, 0, loc);
+    dataController.createNotificacion(incidenciaFenomeno, req.params.email, res);
+})
+
+app.get('/usuario/:email/notificacion', (req, res) => {
+
+    var email = req.params.email;
+    dataController.getNotificacion(email, res);
+})
+
 
 /*
 app.get('/notificacion', (req, res) => {

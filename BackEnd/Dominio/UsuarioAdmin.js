@@ -9,10 +9,14 @@ class UsuarioAdmin extends Usuario {
         super(Email, Passwd);
     }
 
-    isAdmin() {
+    setEmail(Email) {
+        this.email = Email;
+    }
 
+    isAdmin() {
         return true;
     }
+
 }
 
 module.exports = UsuarioAdmin;

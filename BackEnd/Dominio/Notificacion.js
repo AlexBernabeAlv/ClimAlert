@@ -4,11 +4,11 @@ const IncidenciaFenomeno = require('./IncidenciaFenomeno');
 
 class Notificacion {
 
-    constructor(incid, Indicacion, ObjetoPrestado){
+    constructor(incid, indicacion){
         this.incidenciaFenomeno = incid;
-        this.indicacionIncidencia = Indicacion;
-        this.objetoPrestado = ObjetoPrestado;
-        //anadir indicaciones
+        this.indicacionIncidencia = [];
+        indicacion = new IndicacionIncidencia(indicacion, null);
+        indicacionIncidencia.push(indicacion);
     }
 }
 
