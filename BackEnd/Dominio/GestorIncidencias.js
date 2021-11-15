@@ -15,18 +15,20 @@ class GestorIncidencias {
     }
     */
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
+    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
 
-        var nombre = dataController.getFenomeno(NombreFenomeno);
+        var nombre = await dataController.getFenomeno(NombreFenomeno);
 
-        console.log(nombre);
-        console.log(NombreFenomeno);
 
         if (nombre == NombreFenomeno) {
-            dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, respuesta);
+            
+           var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre);
+           
         } else {
-            respuesta.status(400).send("Fenomeno no existe");
+            result = "Fenomeno no existe";
         }
+
+        return result;
     }
 }
 

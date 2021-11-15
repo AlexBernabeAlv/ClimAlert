@@ -119,27 +119,73 @@ class DataController{
         });
     }
 
-    getFenomeno(NombreFenomeno) {
-        pool.query("SELECT * FROM fenomenometeo f WHERE f.nombre = $1", [NombreFenomeno], (err, res) => {
-            console.log(res);
-            return res.rows[0].nombre;
+    async getFenomeno(NombreFenomeno) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT * FROM fenomenometeo f WHERE f.nombre = $1", [NombreFenomeno], (err, res) => {
+
+                if (err) {
+
+                    console.log(err);
+                    reject(err);
+                } else {
+                    
+                    resolve(res.rows[0].nombre);
+                }
+
+            })
+
         })
+
+        return promise;
     }
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
-        pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4 RETURNING incfenid);", [false, Fecha, Hora, NombreFenomeno], (err, res) => {
-            if (res.rowCount == 1) {
-                pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud) VALUES($1, $2, $3, $4, $5)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud], (err, res) => {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno], (err, res) => {
+
+                if (err) {
+
+                    console.log(err);
+
+                } else {
+
+                    
+
                     if (res.rowCount == 1) {
-                        respuesta.status(200).send("SOS PUTO 2");
-                    } else {
-                        respuesta.status(400).send("Error al crear Incidencia");
+
+                        pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud) VALUES($1, $2, $3, $4, $5)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud], (err, res) => {
+
+                            if (err) {
+
+                                reject(err);
+
+                            } else {
+
+                                if (res.rowCount == 1) {
+
+                                    var result = "Incidencia creada";
+                                    
+                                    resolve(result);
+                                } 
+
+                            }
+
+                        });
+
                     }
-                });
-            } else {
-                respuesta.status(400).send("Error al crear IncidenciaFenomeno");
-            }
+
+                }
+
+
+            });
+
         });
+
+        return promise;
     }
 
     getIncidencia() {

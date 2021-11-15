@@ -81,7 +81,7 @@ app.delete('/usuario/:email/delete', (req, res) => {
 
 //llamadas api notificaciones
 
-app.post('/incidencia/new', (req, res) => {
+app.post('/incidencia/new', async (req, res) => {
 
     var nombreFenomeno = req.body.nombreFenomeno;
     var latitud = req.body.latitud;
@@ -89,7 +89,9 @@ app.post('/incidencia/new', (req, res) => {
     var fecha = req.body.fecha;
     var hora = req.body.hora;
 
-    GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, res);
+    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, res);
+
+    res.status(200).send(result);
 })
 
 
