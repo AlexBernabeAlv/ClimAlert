@@ -33,6 +33,22 @@ app.get('/notificacion', (req, res) => {
     res.status(200).json(usu);
 })
 
+app.post('/incidencia', (req, res, next) => {
+	const { user, fenomeno, loc } = req.body;
+	const date = new Date();
+	const yyyy = date.getFullYear();
+	const mm = String(date.getMonth() + 1).padStart(2, '0');
+	const dd = String(date.getDate()).padStart(2, '0');
+	const fecha = yyyy + '/' + mm + '/' + dd;
+	const hh = String(date.getHours()).padStart(2, '0');
+	const min = String(date.getMinutes()).padStart(2, '0');
+	const hora = hh + ':' + min;
+	const radio = 1;
+	const grave = false;
+	const incidencia = new incidencia(fecha, hora, fenomeno, radio, grave, loc);
+	//añadir campo fuente = api || user
+});
+
 //app.all
 app.all('*', (req, res) => {
     res.status(404).send('<h1>404 Not Found</h1>')
