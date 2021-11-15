@@ -2,7 +2,7 @@
 const FenomenoMeteo = require('./FenomenoMeteo');
 const Incidencia = require('./Incidencia');
 const Notificacion = require('./Notificacion');
-const GestorIncidencias = require('./GestorIncidencias');
+//const GestorIncidencias = require('./GestorIncidencias');
 const ConsultorRefugios = require('./ConsultorRefugios');
 const AdapterPrestamos = require('./AdapterPrestamos');
 

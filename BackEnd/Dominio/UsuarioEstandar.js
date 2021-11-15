@@ -1,6 +1,5 @@
 
 const Usuario = require('./Usuario');
-const GestorIncidencias = require('./GestorIncidencias');
 
 class UsuarioEstandar extends Usuario {
 

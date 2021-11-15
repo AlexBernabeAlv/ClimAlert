@@ -20,6 +20,23 @@ class DataController{
         pool.connect();
     }
 
+    resetBD(respuesta) {
+
+        //Crear FenomenoMeteo
+
+        pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES('incdendio', 'cosa que quema');", (err, res) => {
+
+            if (res.rowCount == 1) {
+
+                respuesta.status(200).send("FenomenoMeteoCreat");
+            } else {
+                respuesta.status(400).send("Error al crear FenomenoMeteo");
+            }
+
+        });
+
+    }
+
     createUsuario(usuario, respuesta) {
 
         pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
@@ -102,97 +119,33 @@ class DataController{
         });
     }
 
-    getNotificacion(Email, respuesta) {
+    getFenomeno(NombreFenomeno) {
+        pool.query("SELECT * FROM fenomenometeo f WHERE f.nombre = $1", [NombreFenomeno], (err, res) => {
+            console.log(res);
+            return res.rows[0].nombre;
+        })
+    }
 
-        var notif;
-
-        pool.query("SELECT * FROM notificacion n, notificacionusuario nu WHERE nu.emailusr = $1 AND n.idnot = nu.idnot", [Email], (err, res) => {
-
-            if (err) {
-                console.log(err.stack)
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
+        pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4 RETURNING incfenid);", [false, Fecha, Hora, NombreFenomeno], (err, res) => {
+            if (res.rowCount == 1) {
+                pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud) VALUES($1, $2, $3, $4, $5)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud], (err, res) => {
+                    if (res.rowCount == 1) {
+                        respuesta.status(200).send("SOS PUTO 2");
+                    } else {
+                        respuesta.status(400).send("Error al crear Incidencia");
+                    }
+                });
             } else {
-
-
-                if (res.rows.length == 0) {
-
-                    respuesta.status(404).send("Usuario no existe");
-                    return;
-                }
-                if (res.rows[0].admin) {
-
-                    usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
-
-                } else {
-
-                    usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
-                }
-
-                usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
-
-                respuesta.status(200).json(notif);
-
+                respuesta.status(400).send("Error al crear IncidenciaFenomeno");
             }
         });
     }
 
-    createNotificacion(IncidenciaFenomeno, Email, respuesta) {
-        /*
-        //fenomenometeo
-        pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2);", [IncidenciaFenomeno.fenomenoMeteo.nombre, IncidenciaFenomeno.fenomenoMeteo.descripcion]);
+    getIncidencia() {
 
-        //incidenciafenomeno
-        pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4)", [IncidenciaFenomeno.valido, IncidenciaFenomeno.fecha, IncidenciaFenomeno.hora, IncidenciaFenomeno.fenomenoMeteo.nombre]);
-
-        var idincidfen;
-        //notificacion
-        pool.query("SELECT incfenid FROM incidenciafenomeno if WHERE if.fecha = $1 AND if.hora = $2 AND if.nombrefen = $3;", [IncidenciaFenomeno.fecha, IncidenciaFenomeno.hora, IncidenciaFenomeno.fenomenoMeteo.nombre], (err, res) => {
-
-            if (err) {
-                console.log(err.stack);
-            } else {
-                if (res.rows.length != 1) {
-
-                    respuesta.status(500).send("Error interno BD");
-                    return;
-                }
-                else {
-
-                    idincidfen = res.rows[0].incfenid;
-                }
-            }
-        });
-        pool.query("INSERT INTO notificacion(idinc) VALUES($1);", [idincidfen])
-
-
-        //indicaciones
-        pool.query("SELECT incfenid FROM incidenciafenomeno if WHERE if.fecha = $1 AND if.hora = $2 AND if.nombrefen = $3;", [IncidenciaFenomeno.fecha, IncidenciaFenomeno.hora, IncidenciaFenomeno.fenomenoMeteo.nombre], (err, res) => {
-
-            if (err) {
-                console.log(err.stack);
-            } else {
-                if (res.rows.length != 1) {
-
-                    respuesta.status(500).send("Error interno BD");
-                    return;
-                }
-                else {
-
-                    idincidfen = res.rows[0].incfenid;
-                }
-            }
-        });
-        pool.query("INSERT INTO indicacionincidencia(indicacion, idnot, refugio, objetopres) VALUES($1, $2, $3);", [Notificacion.indicacionIncidencia])
-        pool.query("INSERT INTO notificacion(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
-
-            if (err) {
-
-                respuesta.status(409).send("Notificacion no se ha podido crear");
-            } else {
-
-                respuesta.status(200).json(usuario);
-            }
-        });*/
     }
+
 }
 
 

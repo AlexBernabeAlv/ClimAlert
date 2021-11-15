@@ -1,21 +1,33 @@
 
 const IncidenciaFenomeno = require('./IncidenciaFenomeno')
+const dataController = require('../BD/DataController');
 
 //SINGLETON NO LLAMAR CONSTRUCTOR
 class GestorIncidencias {
 
     constructor() {
-
-        this.incidenciasFenomenos = [];
     }
 
-    static getInstance() {
+    /*
+    getIncidencia(l, respuesta) {
 
-        if (!this.instance) {
-            this.instance = new GestorIncidencias();
+        dataController.getUsuario(Email, respuesta);
+    }
+    */
+
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
+
+        var nombre = dataController.getFenomeno(NombreFenomeno);
+
+        console.log(nombre);
+        console.log(NombreFenomeno);
+
+        if (nombre == NombreFenomeno) {
+            dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, respuesta);
+        } else {
+            respuesta.status(400).send("Fenomeno no existe");
         }
-        return this.instance;
     }
 }
 
-module.exports = GestorIncidencias;
+module.exports = new GestorIncidencias;

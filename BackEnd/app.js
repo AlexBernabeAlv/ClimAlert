@@ -7,6 +7,7 @@ const UsuarioAdmin = require('./Dominio/UsuarioAdmin');
 const Localizacion = require('./Dominio/Localizacion');
 const gestorUsuarios = require('./Dominio/GestorUsuarios');
 
+
 const multer = require('multer');
 const upload = multer();
 
@@ -23,6 +24,13 @@ app.use(upload.array());
 app.use(express.static('public'));
 
 const dataController = require('./BD/DataController');
+
+//Inicializar base datos
+
+app.post('/BD/reset', (req, res) => {
+
+    dataController.resetBD(res);
+})
 
 //app.get
 app.get('/', (req, res) => {
@@ -73,17 +81,15 @@ app.delete('/usuario/:email/delete', (req, res) => {
 
 //llamadas api notificaciones
 
-app.post('/usuario/:email/notificacion/new', (req, res) => {
+app.post('/incidencia/new', (req, res) => {
 
-    var loc = new Localizacion(10.10, 10.10);
-    var incidenciaFemomeno = new IncidenciaFenomeno('10/11/21', '18:30', 'Incendio', 3, 0, loc);
-    dataController.createNotificacion(incidenciaFenomeno, req.params.email, res);
-})
+    var nombreFenomeno = req.body.nombreFenomeno;
+    var latitud = req.body.latitud;
+    var longitud = req.body.longitud;
+    var fecha = req.body.fecha;
+    var hora = req.body.hora;
 
-app.get('/usuario/:email/notificacion', (req, res) => {
-
-    var email = req.params.email;
-    dataController.getNotificacion(email, res);
+    GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, res);
 })
 
 
