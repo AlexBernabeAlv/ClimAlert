@@ -10,24 +10,49 @@ class GestorUsuarios {
     }
 
 
-    getUsuario(Email, respuesta) {
+    async getUsuario(Email) {
+        
+        var res = await dataController.getUsuario(Email);
 
-        dataController.getUsuario(Email, respuesta);
+
+
+        var usuario;
+
+        if (res.rows.length == 0) {
+
+            return false;
+
+        } else if(res.rows[0].isAdmin){
+
+            usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
+
+        } else {
+
+            usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
+        }
+
+        usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
+
+        return usuario;
     }
 
-    createUsuario(Email, Password, respuesta) {
+    async createUsuario(Email, Password) {
 
         var usu = new UsuarioEstandar(Email, Password);
-        dataController.createUsuario(usu, respuesta);
+        return await dataController.createUsuario(usu).catch(error => { console.error(error) });
     }
 
-    updateUsuario(Email, Password, respuesta) {
+    async updateUsuario(Email, Password, Gravedad, RadioEfecto) {
 
+        var usu = new UsuarioEstandar(Email, Password);
+        usu.setFiltro(Gravedad, RadioEfecto);
+
+        return await dataController.updateUsuario(usu).catch(error => { console.error(error) });
     }
 
-    deleteUsuario(Email, Password, respuesta) {
+    async deleteUsuario(Email, Password) {
 
-        dataController.deleteUsuario(Email, Password, respuesta);
+        return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
     }
 }
 

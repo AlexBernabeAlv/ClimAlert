@@ -20,106 +20,133 @@ class DataController{
         pool.connect();
     }
 
-    resetBD(respuesta) {
 
-        //Crear FenomenoMeteo
+    resetBD() {
 
-        pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES('incdendio', 'cosa que quema');", (err, res) => {
+        var promise = new Promise((resolve, reject) => {
 
-            if (res.rowCount == 1) {
+            //Crear FenomenosMeteo
 
-                respuesta.status(200).send("FenomenoMeteoCreat");
-            } else {
-                respuesta.status(400).send("Error al crear FenomenoMeteo");
-            }
+            var fenomenosMeteos = ["Incendio", "Terremotos", "Tornados", "Tsunami", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria"];
+            var descripcionesFenomenosMeteo = [
 
-        });
+                "Cosa que quema",
+                "Cosa que tiembla",
+                "Cosa que airea",
+                "Cosa que moja",
+                "Cosa que tira cosas encima de cosas",
+                "Cosa que moja, pero poco y mal",
+                "Cosa que explota",
+                "Cosa que hace canicas los hue.."
+            ];
 
-    }
+            pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7]], (err, res) => {
 
-    createUsuario(usuario, respuesta) {
+                if (err) {
 
-        pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
-
-            if (err) {
-
-                respuesta.status(409).send("Usuario ya existe");
-            } else {
-
-                respuesta.status(200).json(usuario);
-            }
-        });
-    }
-
-    getUsuario(Email, respuesta) {
-
-        var usuario;
-
-        pool.query("SELECT * FROM usuario u WHERE u.email = $1", [Email], (err, res) => {
-
-            if (err) {
-                console.log(err.stack)
-            } else {
-
-
-                if (res.rows.length == 0) {
-
-                    respuesta.status(404).send("Usuario no existe");
-                    return;
-                }
-                if (res.rows[0].admin) {
-
-                    usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
-
+                    reject(err);
                 } else {
 
-                    usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
-                }
+                    resolve("Reset realizado");
+                }   
+            });
 
-                usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
-
-                respuesta.status(200).json(usuario);
-
-            }
+            
         });
 
+        return promise;
     }
 
-    updateUsuario(usuario, respuesta) {
+    createUsuario(usuario) {
 
-        pool.query("UPDATE usuario SET password = $2, gravedad = $3, radioEfecto = $4 WHERE email = $1;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+        var promise = new Promise((resolve, reject) => {
 
-            if (err) {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
 
-                respuesta.status(409).send("Usuario no existe");
-            } else {
+                if (err) {
 
-                if (res.rowCount == 0) {
-                    respuesta.status(409).send("Usuario no existe");
+                    reject(err);
+                } else {
+
+                    resolve(usuario);
                 }
-                else if (res.rowCount == 1) {
-                    respuesta.status(200).json(usuario);
-                }
-            }
+            });
         });
 
+        
+        return promise;
     }
 
-    deleteUsuario(Email, Password, respuesta) {
+    getUsuario(Email) {
 
-        pool.query("DELETE FROM usuario WHERE email = $1 AND password = $2", [Email, Password], (err, res) => {
+        var promise = new Promise((resolve, reject) => {
+            
+            pool.query("SELECT * FROM usuario u WHERE u.email = $1", [Email], (err, res) => {
 
-            if (err) {
+                if (err) {
 
-                respuesta.status(409).send("Usuario no existe");
-            } else {
+                    reject(err);
+                } else {
 
-                respuesta.status(200).send("SOS PUTO");
-            }
+                    resolve(res);
+                }
+            });
         });
+
+        return promise;
     }
 
-    async getFenomeno(NombreFenomeno) {
+    updateUsuario(usuario) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("UPDATE usuario SET gravedad = $3, radioEfecto = $4 WHERE email = $1 AND password = $2;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject(err);
+                    }
+                    else if (res.rowCount == 1) {
+                        resolve(usuario);
+                    }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    deleteUsuario(Email, Password) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("DELETE FROM usuario WHERE email = $1 AND password = $2", [Email, Password], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject(err);
+                    }
+                    else if (res.rowCount == 1) {
+                        resolve("Usuario borrado");
+                    }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getFenomeno(NombreFenomeno) {
 
         var promise = new Promise((resolve, reject) => {
 
@@ -127,16 +154,22 @@ class DataController{
 
                 if (err) {
 
-                    console.log(err);
                     reject(err);
+
                 } else {
+
+                    if (res.rows.length == 0) {
+
+                        reject(false);
+                    } else {
+
+                        resolve(res.rows[0].nombre);
+                    }
                     
-                    resolve(res.rows[0].nombre);
                 }
 
-            })
-
-        })
+            });
+        });
 
         return promise;
     }
@@ -149,7 +182,7 @@ class DataController{
 
                 if (err) {
 
-                    console.log(err);
+                    reject(err);
 
                 } else {
 
@@ -167,10 +200,8 @@ class DataController{
 
                                 if (res.rowCount == 1) {
 
-                                    var result = "Incidencia creada";
-                                    
-                                    resolve(result);
-                                } 
+                                    resolve("Incidencia creada");
+                                }
 
                             }
 

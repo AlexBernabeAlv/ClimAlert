@@ -17,12 +17,12 @@ class GestorIncidencias {
 
     async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
 
-        var nombre = await dataController.getFenomeno(NombreFenomeno);
+        var nombre = await dataController.getFenomeno(NombreFenomeno).catch(error => { console.error(error) });
 
 
         if (nombre == NombreFenomeno) {
             
-           var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre);
+            var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre).catch(error => { console.error(error) });
            
         } else {
             result = "Fenomeno no existe";

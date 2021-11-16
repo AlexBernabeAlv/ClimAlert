@@ -27,9 +27,10 @@ const dataController = require('./BD/DataController');
 
 //Inicializar base datos
 
-app.post('/BD/reset', (req, res) => {
+app.post('/BD/reset', async (req, res) => {
 
-    dataController.resetBD(res);
+    var result = await dataController.resetBD().catch(error => { console.error(error) });
+    res.status(200).send(result);
 })
 
 //app.get
@@ -40,41 +41,77 @@ app.get('/', (req, res) => {
 })
 
 //LLamadas api usuarios
-app.get('/usuario/:email', (req, res) => {
+app.get('/usuario/:email', async (req, res) => {
 
     var email = req.params.email;
-    gestorUsuarios.getUsuario(email, res);
+    var result = await gestorUsuarios.getUsuario(email);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
+
 })
 
-app.post('/usuario/new', (req, res) => {
+app.post('/usuario/new', async (req, res) => {
     
     var email = req.body.email;
     var psswd = req.body.password;
 
-    gestorUsuarios.createUsuario(email, psswd, res);
+    var result = await gestorUsuarios.createUsuario(email, psswd);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario ya existe");
+
+    }
 })
 
-app.put('/usuario/:email/update', (req, res) => {
+app.put('/usuario/:email/update', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
     var gravedad = req.body.gravedad;
     var radioefecto = req.body.radioEfecto;
 
-    var usu = new UsuarioEstandar(email, psswd);
-    usu.setFiltro(gravedad, radioefecto);
+    var result = await gestorUsuarios.updateUsuario(email, psswd, gravedad, radioefecto);
 
-    
-    dataController.updateUsuario(usu, res);
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
 })
 
-app.delete('/usuario/:email/delete', (req, res) => {
+app.delete('/usuario/:email/delete', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
 
-    gestorUsuarios.deleteUsuario(email, psswd, res);
-    
+    var result = await gestorUsuarios.deleteUsuario(email, psswd);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
 })
 
 
@@ -91,7 +128,15 @@ app.post('/incidencia/new', async (req, res) => {
 
     var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, res);
 
-    res.status(200).send(result);
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send(result);
+
+    }
 })
 
 
