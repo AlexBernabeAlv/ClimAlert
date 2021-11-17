@@ -32,6 +32,9 @@ class GestorUsuarios {
         }
 
         usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
+        usuario.filtro.setLocalizacion1(res.rows[0].latitud, res.rows[0].longitud);
+        usuario.filtro.setLocalizacion2(res.rows[1].latitud, res.rows[1].longitud);
+
 
         return usuario;
     }
@@ -53,6 +56,39 @@ class GestorUsuarios {
     async deleteUsuario(Email, Password) {
 
         return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
+    }
+
+    async createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2) {
+
+        var usuario = await this.getUsuario(email);
+
+        if (usuario && usuario.password == psswd) {
+
+            var result = await dataController.createLocalizacionesUsuario(email, lat1, lon1, lat2, lon2);
+        } else {
+
+            var result = "Usuario no existe";
+        }
+
+        return result;
+
+    }
+
+    async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
+
+        var usuario = await this.getUsuario(email);
+
+        if (usuario && usuario.password == psswd) {
+
+            var result = await dataController.updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2);
+
+        } else {
+
+            var result = "Usuario no existe";
+        }
+
+        return result;
+
     }
 }
 

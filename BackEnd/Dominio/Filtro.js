@@ -21,6 +21,17 @@ class Filtro {
 
         this.radioEfecto = r;
     }
+
+    setLocalizacion1(latitud, longitud) {
+
+        this.localizacion1 = new Localizacion(latitud, longitud);
+    }
+
+    setLocalizacion2(latitud, longitud) {
+
+        this.localizacion2 = new Localizacion(latitud, longitud);
+
+    }
         
 }
 

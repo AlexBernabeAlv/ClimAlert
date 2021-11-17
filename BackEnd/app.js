@@ -115,6 +115,55 @@ app.delete('/usuario/:email/delete', async (req, res) => {
 })
 
 
+//localizaciones usuario
+
+app.post('/usuario/:email/localizaciones/new', async (req, res) => {
+
+    var email = req.params.email;
+    var psswd = req.body.password;
+    var lat1 = req.body.latitud1;
+    var lon1 = req.body.longitud1;
+    var lat2 = req.body.latitud2;
+    var lon2 = req.body.longitud2;
+
+
+    var result = await gestorUsuarios.createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
+})
+
+app.put('/usuario/:email/localizaciones/update', async (req, res) => {
+
+    var email = req.params.email;
+    var psswd = req.body.password;
+    var lat1 = req.body.latitud1;
+    var lon1 = req.body.longitud1;
+    var lat2 = req.body.latitud2;
+    var lon2 = req.body.longitud2;
+
+    var result = await gestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
+})
+
+
+
 
 //llamadas api notificaciones
 
@@ -139,31 +188,6 @@ app.post('/incidencia/new', async (req, res) => {
     }
 })
 
-
-/*
-app.get('/notificacion', (req, res) => {
-    console.log('GET request recived');
-    var incidenciaFenomeno = new IncidenciaFenomeno("15/10/2021", "17:09");
-
-    let usu = new UsuarioEstandar("tostusmuertos.joputa@gmail.com", "password");
-
-    var loc1 = new Localizacion(41.38792802563911, 2.1136743796936894);
-    var loc2 = new Localizacion(41.42503546418125, 1.957847309078282);
-
-    var incid1 = new IncidenciaFenomeno("26/10/21", "19.30", "Incendio", 1, 1, loc1);
-    var incid2 = new IncidenciaFenomeno("26/10/21", "19.20", "Diluvio", 2, 2, loc2);
-
-    usu.setFiltro(1, 1);
-
-    usu.setNotificacion(incid1.getNotificacion());
-    usu.setNotificacion(incid2.getNotificacion());
-
-    dataController.createUsuario(usu);
-
-    res.status(200).json(usu);
-    //var usu2 = dataController.getUsuario("tostusmuertos.joputa@gmail.com", res);
-})
-*/
 
 //app.all
 app.all('*', (req, res) => {

@@ -45,12 +45,20 @@ class DataController{
                 if (err) {
 
                     reject(err);
-                } else {
-
-                    resolve("Reset realizado");
-                }   
+                }  
             });
 
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', false, '0', '3');", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve("Reset correcto");
+                }
+            });
             
         });
 
@@ -81,7 +89,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
             
-            pool.query("SELECT * FROM usuario u WHERE u.email = $1", [Email], (err, res) => {
+            pool.query("SELECT * FROM usuario u, localizacionusuario l WHERE u.email = $1 AND u.email = l.emailusr", [Email], (err, res) => {
 
                 if (err) {
 
@@ -134,7 +142,7 @@ class DataController{
 
                     if (res.rowCount == 0) {
 
-                        reject(err);
+                        reject("Usuario no existe");
                     }
                     else if (res.rowCount == 1) {
                         resolve("Usuario borrado");
@@ -145,6 +153,64 @@ class DataController{
 
         return promise;
     }
+
+
+    createLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
+
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve("Localizaciones Creadas");
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("DELETE FROM localizacionusuario WHERE emailusr = $1", [email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject("Usuario no existe");
+                    }
+                    
+                }
+            });
+
+
+            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve("Localizaciones Modificadas");
+                }
+            });
+        });
+
+        return promise;
+
+    }
+
 
     getFenomeno(NombreFenomeno) {
 
