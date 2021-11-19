@@ -20,179 +20,302 @@ class DataController{
         pool.connect();
     }
 
-    createUsuario(usuario, respuesta) {
 
-        pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+    resetBD() {
 
-            if (err) {
+        var promise = new Promise((resolve, reject) => {
 
-                respuesta.status(409).send("Usuario ya existe");
-            } else {
+            //Crear FenomenosMeteo
 
-                respuesta.status(200).json(usuario);
-            }
+            var fenomenosMeteos = ["Incendio", "Terremotos", "Tornados", "Tsunami", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria"];
+            var descripcionesFenomenosMeteo = [
+
+                "Cosa que quema",
+                "Cosa que tiembla",
+                "Cosa que airea",
+                "Cosa que moja",
+                "Cosa que tira cosas encima de cosas",
+                "Cosa que moja, pero poco y mal",
+                "Cosa que explota",
+                "Cosa que hace canicas los hue.."
+            ];
+
+            pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7]], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                }  
+            });
+
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', false, '0', '3');", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve("Reset correcto");
+                }
+            });
+            
         });
+
+        return promise;
     }
 
-    getUsuario(Email, respuesta) {
+    createUsuario(usuario) {
 
-        var usuario;
+        var promise = new Promise((resolve, reject) => {
 
-        pool.query("SELECT * FROM usuario u WHERE u.email = $1", [Email], (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
 
-            if (err) {
-                console.log(err.stack)
-            } else {
+                if (err) {
 
+                    reject(err);
+                } else {
 
-                if (res.rows.length == 0) {
-
-                    respuesta.status(404).send("Usuario no existe");
-                    return;
+                    resolve(usuario);
                 }
-                if (res.rows[0].admin) {
+            });
+        });
 
-                    usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
+        
+        return promise;
+    }
+
+    getUsuario(Email) {
+
+        var promise = new Promise((resolve, reject) => {
+            
+            pool.query("SELECT * FROM usuario u LEFT OUTER JOIN localizacionusuario l ON u.email = l.emailusr WHERE u.email = $1;", [Email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    updateUsuario(usuario, oldPassword) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("UPDATE usuario SET password = $2, gravedad = $3, radioEfecto = $4 WHERE email = $1 AND password = $5;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto, oldPassword], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject(err);
+                    }
+                    else if (res.rowCount == 1) {
+                        resolve(usuario);
+                    }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    deleteUsuario(Email, Password) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("DELETE FROM usuario WHERE email = $1 AND password = $2", [Email, Password], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject("Usuario no existe");
+                    }
+                    else if (res.rowCount == 1) {
+                        resolve("Usuario borrado");
+                    }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+
+    createLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
+
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve("Localizaciones Creadas");
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("DELETE FROM localizacionusuario WHERE emailusr = $1", [email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject("Usuario no existe");
+                    }
+                    
+                }
+            });
+
+
+            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve("Localizaciones Modificadas");
+                }
+            });
+        });
+
+        return promise;
+
+    }
+
+
+    getFenomeno(NombreFenomeno) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT * FROM fenomenometeo f WHERE f.nombre = $1", [NombreFenomeno], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
 
                 } else {
 
-                    usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
+                    if (res.rows.length == 0) {
+
+                        reject(false);
+                    } else {
+
+                        resolve(res.rows[0].nombre);
+                    }
+                    
                 }
 
-                usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
-
-                respuesta.status(200).json(usuario);
-
-            }
+            });
         });
 
+        return promise;
     }
 
-    updateUsuario(usuario, respuesta) {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno) {
 
-        pool.query("UPDATE usuario SET password = $2, gravedad = $3, radioEfecto = $4 WHERE email = $1;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+        var promise = new Promise((resolve, reject) => {
 
-            if (err) {
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno], (err, res) => {
 
-                respuesta.status(409).send("Usuario no existe");
-            } else {
+                if (err) {
 
-                if (res.rowCount == 0) {
-                    respuesta.status(409).send("Usuario no existe");
-                }
-                else if (res.rowCount == 1) {
-                    respuesta.status(200).json(usuario);
-                }
-            }
-        });
-
-    }
-
-    deleteUsuario(Email, Password, respuesta) {
-
-        pool.query("DELETE FROM usuario WHERE email = $1 AND password = $2", [Email, Password], (err, res) => {
-
-            if (err) {
-
-                respuesta.status(409).send("Usuario no existe");
-            } else {
-
-                respuesta.status(200).send("SOS PUTO");
-            }
-        });
-    }
-
-    getNotificacion(Email, respuesta) {
-
-        var notif;
-
-        pool.query("SELECT * FROM notificacion n, notificacionusuario nu WHERE nu.emailusr = $1 AND n.idnot = nu.idnot", [Email], (err, res) => {
-
-            if (err) {
-                console.log(err.stack)
-            } else {
-
-
-                if (res.rows.length == 0) {
-
-                    respuesta.status(404).send("Usuario no existe");
-                    return;
-                }
-                if (res.rows[0].admin) {
-
-                    usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
+                    reject(err);
 
                 } else {
 
-                    usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
+                    
+
+                    if (res.rowCount == 1) {
+
+                        pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud) VALUES($1, $2, $3, $4, $5)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud], (err, res) => {
+
+                            if (err) {
+
+                                reject(err);
+
+                            } else {
+
+                                if (res.rowCount == 1) {
+
+                                    resolve("Incidencia creada");
+                                }
+
+                            }
+
+                        });
+
+                    }
+
                 }
 
-                usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
 
-                respuesta.status(200).json(notif);
+            });
 
-            }
         });
+
+        return promise;
     }
 
-    createNotificacion(IncidenciaFenomeno, Email, respuesta) {
-        /*
-        //fenomenometeo
-        pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2);", [IncidenciaFenomeno.fenomenoMeteo.nombre, IncidenciaFenomeno.fenomenoMeteo.descripcion]);
+    getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto) {
 
-        //incidenciafenomeno
-        pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4)", [IncidenciaFenomeno.valido, IncidenciaFenomeno.fecha, IncidenciaFenomeno.hora, IncidenciaFenomeno.fenomenoMeteo.nombre]);
+        var promise = new Promise((resolve, reject) => {
 
-        var idincidfen;
-        //notificacion
-        pool.query("SELECT incfenid FROM incidenciafenomeno if WHERE if.fecha = $1 AND if.hora = $2 AND if.nombrefen = $3;", [IncidenciaFenomeno.fecha, IncidenciaFenomeno.hora, IncidenciaFenomeno.fenomenoMeteo.nombre], (err, res) => {
+            //calcular TEOREMA DE PITAGORAS
+            var sqrRadioEfecto = RadioEfecto * RadioEfecto;
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad = $4", [sqrRadioEfecto, Latitud, Longitud, Gravedad], (err, res) => {
+                console.log("Radio*Radio: " + sqrRadioEfecto + " Latitud: " + Latitud + " Longitud: " + Longitud + " Gravedad: " + Gravedad);
+                console.log("incidencias en BD:");
+                console.log(res.rows);
+                if (err) {
 
-            if (err) {
-                console.log(err.stack);
-            } else {
-                if (res.rows.length != 1) {
+                    reject(err);
+                } else {
 
-                    respuesta.status(500).send("Error interno BD");
-                    return;
+                    if (res.rows.length == 0) {
+
+                        reject(false);
+                    } else {
+
+                        resolve(res);
+                    }
+
                 }
-                else {
 
-                    idincidfen = res.rows[0].incfenid;
-                }
-            }
+            });
         });
-        pool.query("INSERT INTO notificacion(idinc) VALUES($1);", [idincidfen])
 
-
-        //indicaciones
-        pool.query("SELECT incfenid FROM incidenciafenomeno if WHERE if.fecha = $1 AND if.hora = $2 AND if.nombrefen = $3;", [IncidenciaFenomeno.fecha, IncidenciaFenomeno.hora, IncidenciaFenomeno.fenomenoMeteo.nombre], (err, res) => {
-
-            if (err) {
-                console.log(err.stack);
-            } else {
-                if (res.rows.length != 1) {
-
-                    respuesta.status(500).send("Error interno BD");
-                    return;
-                }
-                else {
-
-                    idincidfen = res.rows[0].incfenid;
-                }
-            }
-        });
-        pool.query("INSERT INTO indicacionincidencia(indicacion, idnot, refugio, objetopres) VALUES($1, $2, $3);", [Notificacion.indicacionIncidencia])
-        pool.query("INSERT INTO notificacion(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
-
-            if (err) {
-
-                respuesta.status(409).send("Notificacion no se ha podido crear");
-            } else {
-
-                respuesta.status(200).json(usuario);
-            }
-        });*/
+        return promise;
     }
+
 }
 
 
