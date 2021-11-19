@@ -89,7 +89,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
             
-            pool.query("SELECT * FROM usuario u, localizacionusuario l WHERE u.email = $1 AND u.email = l.emailusr", [Email], (err, res) => {
+            pool.query("SELECT * FROM usuario u LEFT OUTER JOIN localizacionusuario l ON u.email = l.emailusr WHERE u.email = $1;", [Email], (err, res) => {
 
                 if (err) {
 
@@ -104,11 +104,11 @@ class DataController{
         return promise;
     }
 
-    updateUsuario(usuario) {
+    updateUsuario(usuario, oldPassword) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("UPDATE usuario SET gravedad = $3, radioEfecto = $4 WHERE email = $1 AND password = $2;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+            pool.query("UPDATE usuario SET password = $2, gravedad = $3, radioEfecto = $4 WHERE email = $1 AND password = $5;", [usuario.email, usuario.password, usuario.filtro.gravedad, usuario.filtro.radioEfecto, oldPassword], (err, res) => {
 
                 if (err) {
 
@@ -285,8 +285,35 @@ class DataController{
         return promise;
     }
 
-    getIncidencia() {
+    getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto) {
 
+        var promise = new Promise((resolve, reject) => {
+
+            //calcular TEOREMA DE PITAGORAS
+            var sqrRadioEfecto = RadioEfecto * RadioEfecto;
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad = $4", [sqrRadioEfecto, Latitud, Longitud, Gravedad], (err, res) => {
+                console.log("Radio*Radio: " + sqrRadioEfecto + " Latitud: " + Latitud + " Longitud: " + Longitud + " Gravedad: " + Gravedad);
+                console.log("incidencias en BD:");
+                console.log(res.rows);
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rows.length == 0) {
+
+                        reject(false);
+                    } else {
+
+                        resolve(res);
+                    }
+
+                }
+
+            });
+        });
+
+        return promise;
     }
 
 }

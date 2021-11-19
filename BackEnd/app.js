@@ -5,7 +5,8 @@ const Notificacion = require('./Dominio/Notificacion');
 const UsuarioEstandar = require('./Dominio/UsuarioEstandar');
 const UsuarioAdmin = require('./Dominio/UsuarioAdmin');
 const Localizacion = require('./Dominio/Localizacion');
-const gestorUsuarios = require('./Dominio/GestorUsuarios');
+const GestorUsuarios = require('./Dominio/GestorUsuarios');
+const EnviadorNotificaciones = require('./Dominio/EnviadorNotificaciones')
 
 
 const multer = require('multer');
@@ -23,13 +24,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(express.static('public'));
 
-const dataController = require('./BD/DataController');
+const DataController = require('./BD/DataController');
 
 //Inicializar base datos
 
 app.post('/BD/reset', async (req, res) => {
 
-    var result = await dataController.resetBD().catch(error => { console.error(error) });
+    var result = await DataController.resetBD().catch(error => { console.error(error) });
     res.status(200).send(result);
 })
 
@@ -44,7 +45,7 @@ app.get('/', (req, res) => {
 app.get('/usuario/:email', async (req, res) => {
 
     var email = req.params.email;
-    var result = await gestorUsuarios.getUsuario(email);
+    var result = await GestorUsuarios.getUsuario(email);
 
     if (result) {
 
@@ -63,7 +64,7 @@ app.post('/usuario/new', async (req, res) => {
     var email = req.body.email;
     var psswd = req.body.password;
 
-    var result = await gestorUsuarios.createUsuario(email, psswd);
+    var result = await GestorUsuarios.createUsuario(email, psswd);
 
     if (result) {
 
@@ -83,7 +84,7 @@ app.put('/usuario/:email/update', async (req, res) => {
     var gravedad = req.body.gravedad;
     var radioefecto = req.body.radioEfecto;
 
-    var result = await gestorUsuarios.updateUsuario(email, psswd, gravedad, radioefecto);
+    var result = await GestorUsuarios.updateUsuario(email, psswd, gravedad, radioefecto);
 
     if (result) {
 
@@ -101,7 +102,7 @@ app.delete('/usuario/:email/delete', async (req, res) => {
     var email = req.params.email;
     var psswd = req.body.password;
 
-    var result = await gestorUsuarios.deleteUsuario(email, psswd);
+    var result = await GestorUsuarios.deleteUsuario(email, psswd);
 
     if (result) {
 
@@ -127,7 +128,7 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
     var lon2 = req.body.longitud2;
 
 
-    var result = await gestorUsuarios.createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2);
+    var result = await GestorUsuarios.createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2);
 
     if (result) {
 
@@ -149,7 +150,7 @@ app.put('/usuario/:email/localizaciones/update', async (req, res) => {
     var lat2 = req.body.latitud2;
     var lon2 = req.body.longitud2;
 
-    var result = await gestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
+    var result = await GestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
 
     if (result) {
 
@@ -183,6 +184,28 @@ app.post('/incidencia/new', async (req, res) => {
 
     } else {
 
+        res.status(404).send(result);
+
+    }
+})
+
+app.get('/usuario/:email/notificaciones', async (req, res) => {
+
+    var email = req.params.email;
+    var pssword = req.body.password;
+    var lat = req.body.latitud;
+    var lon = req.body.longitud;
+
+    var result = await EnviadorNotificaciones.getNotificaciones(email, pssword, lat, lon);
+
+    if (result) {
+
+        console.log("return result");
+        res.status(200).send(result);
+
+    } else {
+
+        console.log("return error");
         res.status(404).send(result);
 
     }

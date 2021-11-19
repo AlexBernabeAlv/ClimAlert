@@ -3,9 +3,9 @@ const Refugio = require('./Refugio');
 
 class IndicacionIncidencia {
 
-    constructor(Indicacion, Refugio){
+    constructor(Indicacion, Refugio, Latitud, Longitud){
         this.indicacion = Indicacion;
-        this.refugio = Refugio;
+        this.refugio = new Refugio(Refugio, Latitud, Longitud);
     }
 }
 

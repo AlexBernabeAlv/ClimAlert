@@ -9,10 +9,9 @@ class GestorUsuarios {
     constructor() {
     }
 
-
     async getUsuario(Email) {
-        
-        var res = await dataController.getUsuario(Email);
+
+        var res = await dataController.getUsuario(Email).catch(error => { console.error(error) });
 
 
 
@@ -32,17 +31,38 @@ class GestorUsuarios {
         }
 
         usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
-        usuario.filtro.setLocalizacion1(res.rows[0].latitud, res.rows[0].longitud);
-        usuario.filtro.setLocalizacion2(res.rows[1].latitud, res.rows[1].longitud);
 
+        if (res.rows[0].latitud && res.rows[0].longitud) {
+
+            usuario.filtro.setLocalizacion1(res.rows[0].latitud, res.rows[0].longitud);
+        }
+
+        if (res.rows.length > 1 && res.rows[1].latitud && res.rows[1].longitud) {
+
+            usuario.filtro.setLocalizacion2(res.rows[1].latitud, res.rows[1].longitud);
+        }
+        
 
         return usuario;
     }
 
     async createUsuario(Email, Password) {
 
-        var usu = new UsuarioEstandar(Email, Password);
-        return await dataController.createUsuario(usu).catch(error => { console.error(error) });
+        var usuario = await this.getUsuario(Email);
+       
+        var usu;
+
+        if (usuario && usuario.email == Email) {
+
+            var oldPassword = usuario.password;
+            usuario.password = Password;
+            return await dataController.updateUsuario(usuario, oldPassword).catch(error => { console.error(error) });
+        } else {
+
+            usu = new UsuarioEstandar(Email, Password);
+            return await dataController.createUsuario(usu).catch(error => { console.error(error) });
+        }
+        
     }
 
     async updateUsuario(Email, Password, Gravedad, RadioEfecto) {
@@ -50,7 +70,7 @@ class GestorUsuarios {
         var usu = new UsuarioEstandar(Email, Password);
         usu.setFiltro(Gravedad, RadioEfecto);
 
-        return await dataController.updateUsuario(usu).catch(error => { console.error(error) });
+        return await dataController.updateUsuario(usu, usu.password).catch(error => { console.error(error) });
     }
 
     async deleteUsuario(Email, Password) {

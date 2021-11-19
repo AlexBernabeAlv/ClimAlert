@@ -9,12 +9,7 @@ class Usuario {
 
         this.email = Email;
         this.password = Passwd;
-        this.notificaciones = [];
         this.filtro = new Filtro();
-    }
-
-    setNotificacion(notif) {
-        this.notificaciones.push(notif);
     }
 
     isAdmin() {

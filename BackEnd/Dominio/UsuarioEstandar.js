@@ -8,10 +8,6 @@ class UsuarioEstandar extends Usuario {
         super(Email, Passwd);
     }
 
-    setEmail(Email) {
-        this.email = Email;
-    }
-
     isAdmin() {
         return false;
     }
