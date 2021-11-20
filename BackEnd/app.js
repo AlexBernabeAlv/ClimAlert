@@ -189,7 +189,7 @@ app.post('/incidencia/new', async (req, res) => {
     }
 })
 
-app.get('/usuario/:email/notificaciones', async (req, res) => {
+app.post('/usuario/:email/notificaciones', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
