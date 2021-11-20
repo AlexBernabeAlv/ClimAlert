@@ -224,8 +224,8 @@ public class MapsFragment extends Fragment {
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("password", us.password);
-            mapa.put("latitud", "23");
-            mapa.put("longitud", "32");
+            mapa.put("latitud", "14");  //ACTUAL, SI NO TENGO NO HAGO ESTAS 2
+            mapa.put("longitud", "11");
         } catch (JSONException e) {
             e.printStackTrace();
         }
