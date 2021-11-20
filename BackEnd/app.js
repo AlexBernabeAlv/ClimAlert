@@ -206,7 +206,7 @@ app.post('/usuario/:email/notificaciones', async (req, res) => {
     if (result) {
 
         console.log("return result");
-        res.status(200).send({result});
+        res.status(200).send(result);
 
     } else {
 
