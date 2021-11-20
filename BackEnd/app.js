@@ -196,6 +196,11 @@ app.get('/usuario/:email/notificaciones', async (req, res) => {
     var lat = req.body.latitud;
     var lon = req.body.longitud;
 
+    console.log(email);
+    console.log(pssword);
+    console.log(lat);
+    console.log(lon);
+
     var result = await EnviadorNotificaciones.getNotificaciones(email, pssword, lat, lon);
 
     if (result) {
