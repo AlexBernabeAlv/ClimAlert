@@ -1,33 +1,46 @@
 package com.example.climalert;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
-
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.climalert.CosasDeTeo.Notificacion;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,26 +51,84 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.Vector;
 
 public class MapsFragment extends Fragment {
     private GoogleMap mMap;
     AlertDialog alert = null;
     double lat;
     double lon;
+    LatLng userLatLong;
     LatLng ll1;
     LatLng ll2;
     Marker UBI1;
     Marker UBI2;
-    String[][] res;
+    Notificacion[] res;
+    LocationManager locationManager;
+    LocationListener locationListener;
+    private static final String TAG = "MapsFragment";
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private Boolean mLocationPermissionsGranted = false;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
 
-/*
-    @Override
+
+    public class myJsonArrayRequest extends JsonRequest<JSONArray>{
+        public myJsonArrayRequest(int method, String url, JSONObject JsonRequest,
+                                  Response.Listener<JSONArray> listener, Response.ErrorListener errorListener){
+            super(method,url,(JsonRequest == null) ? null : JsonRequest.toString(), listener, errorListener);
+        }
+
+        @Override
+        protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+            try {
+                String JsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+                return Response.success(new JSONArray(JsonString), HttpHeaderParser.parseCacheHeaders(response));
+            } catch (JSONException e){
+                return Response.error(new ParseError(e));
+            } catch (UnsupportedEncodingException e){
+                return Response.error(new ParseError(e));
+            }
+        }
+    }
+
+
+    /* //esta activada? tienes permisos? preguntar permisos?
+
+        if(tienes permisos)
+            if(localizacion activada)
+                perfe, se la paso a server
+            else
+                pido que active la localizacion
+        else no tengo permisos
+            pregunto por permisos
+            if(localizacion activada)
+                perfe, se la paso a server
+            else
+                pido que active la localizacion
+        -Mostrar ubicacion en mapa y pasar a servidor
+        -Pillar ubi de servidor y mostrar en mapa
+    * */
+
+
+
+    /*
+
+@Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d( "ALGO", "voy a coger incidencias en oncreate");
+        coger_incidencias();
+        Log.d( "ALGO", "he cogido incidencias ne oncreate");
+
     }
     @Override
     public void onPause() {
@@ -95,101 +166,126 @@ public class MapsFragment extends Fragment {
 
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
-                    Log.d("ACVE", "onMapReady: ha entrado");
-                    mMap = googleMap;
-                    LatLng sydney = new LatLng(-34, 151);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                Log.d( "ALGO", "onMapReady: ha entrado");
+                mMap = googleMap;
+                LatLng sydney = new LatLng(-34, 151);
+                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                //Log.d( "ALGO", "voy a coger incidencias");
+                coger_incidencias();
+                //Log.d( "ALGO","he cogido incidencias");
+                //  Log.d( "ALGO","res1 :" + res[0][0]);
+                // Log.d( "ALGO","res2 : " + res[0].length);
+                // Log.d( "ALGO","res : " + res);
+                //   Log.d( "ALGO","res4 : " + res.length);
 
-                    mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-                        @Override
-                        public void onMapLongClick(@NonNull LatLng latLng) {
-                            if(ll1 == null) {
-                                Alert(1, latLng);
-                            }
-                            else if(ll2 == null) {
-                                Alert(2, latLng);
-                            }
-                            else{
-                                Alert(3, null);
-                            }
+
+
+                mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                    @Override
+                    public void onMapLongClick(@NonNull LatLng latLng) {
+                        if (ll1 == null) {
+                            Alert(1, latLng);
+                        } else if (ll2 == null) {
+                            Alert(2, latLng);
+                        } else {
+                            Alert(3, latLng);
                         }
-
-                    });
-
+                    }
+                });
             }
         });
-
         return view;
     }
 
 
+
     //////////FUNCIONES
-/*
+
+    public void print_incidencias(){
+        Log.d( "ALGO", "res: " +  res);
+        if(res != null) {
+            Log.d( "ALGO", "res > 0");
+            for (int i = 0; i < res.length; ++i) {
+                Log.d("ALGO", "accedo a res en el bucle");
+                LatLng ll = new LatLng((res[i].latitud), (res[i].longitud));
+                generarMarcadores(ll, (res[i].descripcion), res[i].nombre, (res[i].radio));
+            }
+        }
+    }
+
     public void coger_incidencias(){
+        Log.d("ALGO", "coger incidencias entro");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/notificacion";
+        String url = "https://climalert.herokuapp.com/usuario/yo@gmail.com/notificaciones";
+
+        JSONObject mapa = new JSONObject();
+        try {
+            mapa.put("password", "1234");
+            mapa.put("latitud", "23");
+            mapa.put("longitud", "32");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("ALGO", mapa.toString());
 
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+        myJsonArrayRequest request = new myJsonArrayRequest(Request.Method.POST, url, mapa,
                 new Response.Listener<JSONArray>() {
+
                     @Override
                     public void onResponse(JSONArray response) {
                         JSONObject Notificacion;
-                        res = new String[response.length()][6];
+                        res = new Notificacion[response.length()];
                         try {
-                            // Log.d("ALGO", String.valueOf(response.length()));
                             for (int i = 0; i < response.length(); ++i) {
                                 Notificacion = response.getJSONObject(i);
-                                JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
-                                res[i][0] = incidenciaFenomeno.getString("fecha");
-                                JSONObject IndicacionIncidencia = Notificacion.getJSONObject("indicacionIncidencia");
-                                res[i][1] = IndicacionIncidencia.getString("indicacion");
-                                JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");
-                                res[i][2] = incidencia.getString("radio");
-                                JSONObject localizacion = incidencia.getJSONObject("localizacion");
-                                res[i][3] = localizacion.getString("latitud");
-                                res[i][4] = localizacion.getString("longitud");
-                                JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
-                                res[i][5] = femomenoMeteo.getString("nombre");
-                                Log.d("ALGO", "estoy en el bucle");
-                                Log.d("ALGO", res[i][0]);
 
-                                       /*  Log.d("ALGO2","1");
-                                         Log.d("ALGO2",res[0][0]);
-                                         Log.d("ALGO2",res[0][1]);
-                                         Log.d("ALGO2",res[0][2]);
-                                         Log.d("ALGO2",res[0][3]);
-                                         Log.d("ALGO2",res[0][4]);*//*
+                                JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
+                                JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
+                                Log.d("ALGO3", "INCIDENCIAFENOMENO " + incidenciaFenomeno);
+                                String fecha =  incidenciaFenomeno.getString("fecha");
+                                Vector<String> indicaciones =  new Vector<String>();
+                                for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
+                                    indicaciones.add(IndicacionIncidencia.getString(j));
+                                }
+                                JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");
+                                Integer radio = Integer.parseInt(incidencia.getString("radio"));
+                                JSONObject localizacion = incidencia.getJSONObject("localizacion");
+                                Float latitud = Float.parseFloat(localizacion.getString("latitud"));
+                                Float longitud = Float.parseFloat(localizacion.getString("longitud"));
+                                JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
+                                String nombre = femomenoMeteo.getString("nombre");
+                                String descripcion = femomenoMeteo.getString("descripcion");
+                                res[i] = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion);
+
                             }
-                            Log.d("ALGO", "he acabado el bucle");
+                            print_incidencias();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("ALGO", "SOCORRO");
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.d("ALGO", "ERROR VOLLEY " + error);
             }
         });
         // Add the request to the RequestQueue.
         queue.add(request);
     }
-    */
 
-    public void dar_localizacion(){
-
+    public void dar_localizacion() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuario/email/localizaciones/new";
+        String url = "https://climalert.herokuapp.com/usuario/yo@gmail.com/localizaciones/new";
         JSONObject mapa = new JSONObject();
         try {
-            //mapa.put("password", account.getId());
-            if(ll1 != null) {
+            mapa.put("password", "1234");
+            if (ll1 != null) {
                 mapa.put("latitud1", ll1.latitude);
                 mapa.put("longitud1", ll1.longitude);
             }
-            if(ll2 != null) {
+            if (ll2 != null) {
                 mapa.put("latitud2", ll2.latitude);
                 mapa.put("longitud2", ll2.longitude);
             }
@@ -213,12 +309,10 @@ public class MapsFragment extends Fragment {
                         error.printStackTrace();
                     }
 
-                }){
+                }) {
         };
         queue.add(request);
     }
-
-
 
     private void Alert(int i, LatLng latLng) {
         if(i == 0) {
@@ -246,12 +340,12 @@ public class MapsFragment extends Fragment {
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             ll1 = latLng;
-
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(ll1));
+                            dar_localizacion();
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -274,6 +368,7 @@ public class MapsFragment extends Fragment {
                                     .alpha(0.7f)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                                     .position(ll2));
+                            dar_localizacion();
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -297,18 +392,29 @@ public class MapsFragment extends Fragment {
                     .setNeutralButton("La primera  ", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             UBI1.remove();
-                            ll1 = null;
+                            ll1 = latLng;
+                            UBI1 = mMap.addMarker(new MarkerOptions()
+                                    .anchor(0.0f, 1.0f)
+                                    .alpha(0.7f)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                                    .position(ll1));
+                            dar_localizacion();
                         }
                     })
                     .setNegativeButton("La segunda", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             UBI2.remove();
-                            ll2 = null;
+                            ll2 = latLng;
+                            UBI2 = mMap.addMarker(new MarkerOptions()
+                                    .anchor(0.0f, 1.0f)
+                                    .alpha(0.7f)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                                    .position(ll2));
+                            dar_localizacion();
                         }
                     });
             alert = builder.create();
             alert.show();
-
         }
 
     }
@@ -332,7 +438,7 @@ public class MapsFragment extends Fragment {
         // Specifying the center of the circle
         circleOptions.center(point);
         // Radius of the circle
-        circleOptions.radius(rad);
+        circleOptions.radius(rad*10);
         // Border color of the circle
         circleOptions.strokeColor(Color.BLACK);
         // Fill color of the circle
@@ -346,6 +452,7 @@ public class MapsFragment extends Fragment {
 
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio) {
         Log.d("ALGO","3");
+        Log.d("ALGO5", mMap.toString());
         mMap.addMarker(new MarkerOptions()
                 .snippet(info)
                 .position(latLng)
@@ -354,3 +461,20 @@ public class MapsFragment extends Fragment {
         drawCircle(latLng, radio * 2000);
     }
 }
+
+//CEMENTERIO
+/*
+
+                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                locationListener = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(@NonNull Location location) {
+                        userLatLong = new LatLng(location.getLatitude(), location.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(userLatLong).title("Your location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLong));
+                    }
+                };
+                askLocatonPermission();
+
+    private void askLocationPermission(){}
+ */
