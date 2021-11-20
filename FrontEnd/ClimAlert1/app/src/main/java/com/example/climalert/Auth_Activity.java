@@ -1,3 +1,4 @@
+
 package com.example.climalert;
 
 import android.content.Intent;
@@ -25,7 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Auth_Activity extends AppCompatActivity {
-
+    String mail;
     int RC_SIGN_IN = 0;
     GoogleSignInClient mGoogleSignInClient;
     @Override
@@ -34,20 +35,20 @@ public class Auth_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_auth);
         final SignInButton button = findViewById(R.id.sign_in_button);
         button.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              switch (v.getId()) {
-                  case R.id.sign_in_button:
-                      signIn();
-                      break;
-              }
-              }
-          });
-           GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                   //requestIdToken(getString(R.string.))
-                   requestEmail().
-                           build();
-            mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.sign_in_button:
+                        signIn();
+                        break;
+                }
+            }
+        });
+        GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                //requestIdToken(getString(R.string.))
+                        requestEmail().
+                        build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
 
 
     }
@@ -69,6 +70,7 @@ public class Auth_Activity extends AppCompatActivity {
         Intent singInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(singInIntent, RC_SIGN_IN);
         Intent maini = new Intent(this, MainActivity.class);
+        maini.putExtra("email", mail);
         startActivityForResult(maini, 0);
     }
 
@@ -90,7 +92,7 @@ public class Auth_Activity extends AppCompatActivity {
 
     private void handleSignInResult (Task<GoogleSignInAccount> completedTask) throws ApiException {
         GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-        String mail = account.getEmail();
+        mail = account.getEmail();
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://climalert.herokuapp.com/usuario/new";
@@ -133,7 +135,7 @@ public class Auth_Activity extends AppCompatActivity {
                         mapa.put("password", account.getServerAuthCode());
                         return mapa;
                     }*/
-                };
+        };
         // Add the request to the RequestQueue.
         queue.add(request);
 
@@ -148,7 +150,3 @@ public class Auth_Activity extends AppCompatActivity {
     }
 
 }
-
-
-
-

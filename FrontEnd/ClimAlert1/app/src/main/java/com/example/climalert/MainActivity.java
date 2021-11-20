@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,14 +19,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    Bundle account;
     Fragment fragment;
+    String email_account;
     private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Auth_Activity login = new Auth_Activity();
-        //login.onCreate(new Bundle());
+        account = getIntent().getExtras();
+        email_account = account.getString("email");
+        //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
         fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -111,7 +115,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-
-
 }
