@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:863788857384:android:6d3eec16570e0e83c09d1d",
+        "mobilesdk_app_id": "1:863788857384:android:488472c8c77f1436c09d1d",
         "android_client_info": {
           "package_name": "com.example.climalert"
         }
       },
       "oauth_client": [
         {
-          "client_id": "863788857384-40qq39n0gk9ep9bsvc14go6k1r7vkq96.apps.googleusercontent.com",
+          "client_id": "863788857384-bm0moek32ajlvn9gids0c17qrb7jhshr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.climalert",
-            "certificate_hash": "e4c991b0e05018813eca11a3c90c380b4424ebef"
+            "certificate_hash": "1b83ed3c6f845c801ae16f77960db4344929e70b"
           }
         },
         {

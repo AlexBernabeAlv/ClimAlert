@@ -3,6 +3,7 @@ package com.example.climalert;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -29,10 +31,13 @@ public class Auth_Activity extends AppCompatActivity {
     String mail;
     int RC_SIGN_IN = 0;
     GoogleSignInClient mGoogleSignInClient;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+
         final SignInButton button = findViewById(R.id.sign_in_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +49,10 @@ public class Auth_Activity extends AppCompatActivity {
                 }
             }
         });
-        GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                //requestIdToken(getString(R.string.))
-                        requestEmail().
-                        build();
+        GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.prefs_file))
+                        .requestEmail()
+                        .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
 
 
@@ -69,9 +74,8 @@ public class Auth_Activity extends AppCompatActivity {
     private void signIn() {
         Intent singInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(singInIntent, RC_SIGN_IN);
-        Intent maini = new Intent(this, MainActivity.class);
-        maini.putExtra("email", mail);
-        startActivityForResult(maini, 0);
+
+
     }
 
 
@@ -84,6 +88,7 @@ public class Auth_Activity extends AppCompatActivity {
             try {
                 handleSignInResult(task);
             } catch (ApiException e) {
+
                 e.printStackTrace();
             }
             //setContentView(R.layout.activity_main);
@@ -112,13 +117,16 @@ public class Auth_Activity extends AppCompatActivity {
                         //JSONObject usuario;
                         try {
                             String usuario = response.getString("email");
-                            //Log.d("ALGO", "usuario obtenido");
+                            InformacionUsuario.getInstance().email = usuario;
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             //Log.d("ALGO", "usuario no obtenido");
                         }
 
-                        //Log.d("ALGO", "he acabado el bucle");
+                        Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
+                        startActivity(maini);
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -138,7 +146,6 @@ public class Auth_Activity extends AppCompatActivity {
         };
         // Add the request to the RequestQueue.
         queue.add(request);
-
 
 
         //account.
