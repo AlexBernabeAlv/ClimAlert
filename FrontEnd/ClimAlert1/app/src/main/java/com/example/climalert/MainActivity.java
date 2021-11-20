@@ -3,6 +3,7 @@ package com.example.climalert;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,8 +15,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         account = getIntent().getExtras();
         email_account = account.getString("email");
+        getUsuario(email_account);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
         fragment = new MapsFragment();
         getSupportFragmentManager()
@@ -58,6 +70,61 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
 
 
+    }
+
+    private void getUsuario(String email){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://climalert.herokuapp.com/usuario/" + email;
+                // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String password = "";
+                        float latitud1 = 0;
+                        float longitud1 = 0;
+                        float latitud2 = 0;
+                        float longitud2 = 0;
+                        int gravedad = 0;
+                        int radio = 0;
+
+                        try {
+                            password = response.getString("password");
+                            JSONObject filtro = response.getJSONObject("filtro");
+                            if(filtro != null)
+                            {
+                                JSONObject localizacion1 = filtro.getJSONObject("localizacion1");
+                                if(localizacion1 != null) {
+                                    latitud1 = Float.parseFloat(localizacion1.getString("latitud"));
+                                    longitud1 = Float.parseFloat(localizacion1.getString("longitud"));
+                                }
+                                JSONObject localizacion2 = filtro.getJSONObject("localizacion2");
+                                if(localizacion2 != null) {
+                                    latitud2 = Float.parseFloat(localizacion2.getString("latitud"));
+                                    longitud2 = Float.parseFloat(localizacion2.getString("longitud"));
+                                }
+                                radio = Integer.parseInt(filtro.getString("radioEfecto"));
+                                gravedad = Integer.parseInt(filtro.getString("gravedad"));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        InformacionUsuario.getInstance().SetInformacion(email, password, latitud1, longitud1, latitud2, longitud2, radio, gravedad);
+
+                        Log.d("a", String.valueOf(response));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+
+                }) {
+        };
+        queue.add(request);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener(){

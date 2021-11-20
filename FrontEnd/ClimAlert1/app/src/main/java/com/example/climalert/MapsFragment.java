@@ -38,6 +38,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -217,11 +218,12 @@ public class MapsFragment extends Fragment {
     public void coger_incidencias(){
         Log.d("ALGO", "coger incidencias entro");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuario/yo@gmail.com/notificaciones";
+        InformacionUsuario us = InformacionUsuario.getInstance();
+        String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
 
         JSONObject mapa = new JSONObject();
         try {
-            mapa.put("password", "1234");
+            mapa.put("password", us.password);
             mapa.put("latitud", "23");
             mapa.put("longitud", "32");
         } catch (JSONException e) {
@@ -277,10 +279,10 @@ public class MapsFragment extends Fragment {
 
     public void dar_localizacion() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuario/yo@gmail.com/localizaciones/new";
+        String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
         JSONObject mapa = new JSONObject();
         try {
-            mapa.put("password", "1234");
+            mapa.put("password", InformacionUsuario.getInstance().password);
             if (ll1 != null) {
                 mapa.put("latitud1", ll1.latitude);
                 mapa.put("longitud1", ll1.longitude);
