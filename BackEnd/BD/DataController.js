@@ -154,27 +154,6 @@ class DataController{
         return promise;
     }
 
-
-    createLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
-
-
-        var promise = new Promise((resolve, reject) => {
-
-            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
-
-                if (err) {
-
-                    reject(err);
-                } else {
-
-                    resolve("Localizaciones Creadas");
-                }
-            });
-        });
-
-        return promise;
-    }
-
     updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
 
         var promise = new Promise((resolve, reject) => {
@@ -184,31 +163,36 @@ class DataController{
                 if (err) {
 
                     reject(err);
-                } else {
+                }
+            });
 
-                    if (res.rowCount == 0) {
+            if (lat1 && lon1) {
 
-                        reject("Usuario no existe");
+                pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
+
+                    if (err) {
+
+                        reject(err);
                     }
-                    
-                }
-            });
+                });
 
+            }
 
-            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
+            if (lat2 && lon2) {
 
-                if (err) {
+                pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
 
-                    reject(err);
-                } else {
+                    if (err) {
 
-                    resolve("Localizaciones Modificadas");
-                }
-            });
+                        reject(err);
+                    }
+                });
+
+            }
+
         });
 
         return promise;
-
     }
 
 

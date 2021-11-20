@@ -78,22 +78,6 @@ class GestorUsuarios {
         return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
     }
 
-    async createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2) {
-
-        var usuario = await this.getUsuario(email);
-
-        if (usuario && usuario.password == psswd) {
-
-            var result = await dataController.createLocalizacionesUsuario(email, lat1, lon1, lat2, lon2);
-        } else {
-
-            var result = "Usuario no existe";
-        }
-
-        return result;
-
-    }
-
     async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
 
         var usuario = await this.getUsuario(email);

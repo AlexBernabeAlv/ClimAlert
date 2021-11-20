@@ -127,29 +127,6 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
     var lat2 = req.body.latitud2;
     var lon2 = req.body.longitud2;
 
-
-    var result = await GestorUsuarios.createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2);
-
-    if (result) {
-
-        res.status(200).send(result);
-
-    } else {
-
-        res.status(404).send("Usuario no existe");
-
-    }
-})
-
-app.put('/usuario/:email/localizaciones/update', async (req, res) => {
-
-    var email = req.params.email;
-    var psswd = req.body.password;
-    var lat1 = req.body.latitud1;
-    var lon1 = req.body.longitud1;
-    var lat2 = req.body.latitud2;
-    var lon2 = req.body.longitud2;
-
     var result = await GestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
 
     if (result) {
@@ -162,7 +139,6 @@ app.put('/usuario/:email/localizaciones/update', async (req, res) => {
 
     }
 })
-
 
 
 
