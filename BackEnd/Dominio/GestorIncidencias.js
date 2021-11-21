@@ -1,6 +1,7 @@
 
 const IncidenciaFenomeno = require('./IncidenciaFenomeno')
 const dataController = require('../BD/DataController');
+const AdapterAPIs = require('../ExternalEvents/EventQueries');
 
 //SINGLETON NO LLAMAR CONSTRUCTOR
 class GestorIncidencias {
@@ -15,14 +16,14 @@ class GestorIncidencias {
     }
     */
 
-    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, respuesta) {
+    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Api) {
 
         var nombre = await dataController.getFenomeno(NombreFenomeno).catch(error => { console.error(error) });
 
 
         if (nombre == NombreFenomeno) {
             
-            var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre).catch(error => { console.error(error) });
+            var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, Api).catch(error => { console.error(error) });
            
         } else {
             result = "Fenomeno no existe";
@@ -49,6 +50,26 @@ class GestorIncidencias {
         console.log("incidencias:");
         console.log(incidenciasfenomeno);
         return incidenciasfenomeno;
+    }
+
+    async getIncidenciasFromAPIs() {
+
+        await dataController.deleteIncidenciasFromAPIs();
+
+        var incidenciasFenomeno = AdapterAPIs.checkEventos();
+
+        for (var i = 0; i < incidenciasFenomeno.length; i++) {
+
+            var Latitud = incidenciasFenomeno[i].latitud;
+            var Longitud = incidenciasFenomeno[i].longitud;
+            var Fecha = incidenciasFenomeno[i].fecha;
+            var Hora = incidenciasFenomeno[i].hora;
+            var NombreFenomeno = incidenciasFenomeno[i].nombreFenomeno;
+
+
+            createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, true);
+        }
+
     }
 }
 

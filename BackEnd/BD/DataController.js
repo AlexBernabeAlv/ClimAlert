@@ -48,7 +48,6 @@ class DataController{
                 }  
             });
 
-
             pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', false, '0', '3');", (err, res) => {
 
                 if (err) {
@@ -59,6 +58,10 @@ class DataController{
                     resolve("Reset correcto");
                 }
             });
+
+            this.createIncidencia(41.3879, 2.16992, "2021/11/19", "23:59", "Incendio", true);
+
+            this.createIncidencia(45, 54, "2021/11/21", "19:27", "Incendio", false);
             
         });
 
@@ -224,11 +227,11 @@ class DataController{
         return promise;
     }
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno) {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Api) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno], (err, res) => {
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno, Api], (err, res) => {
 
                 if (err) {
 
@@ -240,7 +243,7 @@ class DataController{
 
                     if (res.rowCount == 1) {
 
-                        pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud) VALUES($1, $2, $3, $4, $5)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud], (err, res) => {
+                        pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud, api) VALUES($1, $2, $3, $4, $5, $6)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud, Api], (err, res) => {
 
                             if (err) {
 
@@ -292,6 +295,35 @@ class DataController{
                         resolve(res);
                     }
 
+                }
+
+            });
+        });
+
+        return promise;
+    }
+
+    deleteIncidenciasFromAPIs() {
+
+        var promise = new Promise((resolve, reject) => {
+
+            var sqrRadioEfecto = RadioEfecto * RadioEfecto;
+            pool.query("DELETE FROM incidencia WHERE api = true;", (err, res) => {
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    pool.query("DELETE FROM incidenciafenomeno WHERE api = true;",
+                        (err, res) => {
+                            if (err) {
+
+                                reject(err);
+                            } else {
+
+                                resolve(true);
+                            }
+                        });
                 }
 
             });
