@@ -10,7 +10,7 @@ function getKey(fileName) {
 const WeatherApiComCurrent = {
 	name: 'WeatherApiComCurrent',
 	key: getKey('WeatherApiCom'),
-	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=', //current
+	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=',
 	getUrl(loc) {
 		return this.baseUrl + loc + '&key=' + this.key;
 	},
@@ -20,16 +20,17 @@ const WeatherApiComCurrent = {
 	],
 	getEventos(respuesta) {
 		let eventos = [];
-		eventos.push(JSON.parse(respuesta));
+		if (respuesta != '') eventos.push(JSON.parse(respuesta));
 		return eventos;
 	},
+	getLoc(evento) {
+		return evento.location.lat + ',' + evento.location.lon;
+	},
 	getFecha(evento) {
-		return new Date();
-		//return evento.location.localtime.split(' ')[0];
+		return evento.location.localtime.split(' ')[0];
 	},
 	getHora(evento) {
-		return new Date();
-		//return evento.location.localtime.split(' ')[1];
+		return evento.location.localtime.split(' ')[1];
 	},
 	getGravedad(evento, fenomeno) {
 		switch(fenomeno) {
@@ -52,23 +53,17 @@ const FirmsViirsSnppNrt = {
 	getUrl(loc) {
 		const latitud = loc.split(',')[0];
 		const longitud = loc.split(',')[1];
-		console.log('loc: ' + loc);
-		console.log('latitud: ' + latitud);
-		console.log('longitud: ' + longitud);
 		//const north = latitud + 0.015;
 		//const south = latitud - 0.015;
 		//const east = longitud + 0.02;
 		//const west = longitud - 0.02;
-		const north = latitud + 2.015;
-		const south = latitud - 2.015;
-		const east = longitud + 2.02;
-		const west = longitud - 2.02;
+		const north = latitud + 16.015;
+		const south = latitud - 16.015;
+		const east = longitud + 16.02;
+		const west = longitud - 16.02;
 		const area = west + ',' + south + ',' + east + ',' + north;
-		console.log('area: ' + area)
 		const date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1).toString().padStart(2, "0") + '-' + new Date().getDate().toString().padStart(2, "0");
-		console.log('date: ' + date);
-		console.log('type of date: ' + typeof(date));
-		return this.baseUrl + this.key + '/VIIRS_SNPP_NRT/' + area + '/1/' + date;
+		return this.baseUrl + this.key + '/VIIRS_SNPP_NRT/' + area + '/2/' + date;
 	},
 	fenomenos: [
 		'incendio'
@@ -87,18 +82,62 @@ const FirmsViirsSnppNrt = {
 		}
 		return eventos;
 	},
+	getLoc(evento) {
+		return evento.latitude + ',' + evento.longitude;
+	},
 	getFecha(evento) {
-		return new Date();
+		return evento.time;
 	},
 	getHora(evento) {
-		return new Date();
+		return '00:00';
 	},
 	getGravedad(evento, fenomeno) {
 		return 'critico';
 	}
 }
 
+const SeismicPortalEu = {
+	name: 'SeismicPortalEu',
+	baseUrl: 'www.seismicportal.eu/fdsnws/event/1/query?limit=10',
+	getUrl(loc) {
+		const latitud = '&lat=' + loc.split(',')[0];
+		const longitud = '&lon=' + loc.split(',')[1];
+		const start = '&start=' + new Date().getFullYear() + '-' + (new Date().getMonth() + 1).toString().padStart(2, "0") + '-' + new Date().getDate().toString().padStart(2, "0");
+		const radius = '&maxradius=' + 80;
+		return this.baseUrl + latitud + longitud + radius + '&format=json';
+	},
+	fenomenos: [
+		'terremoto'
+	],
+	getEventos(respuesta) {
+		let eventos = [];
+		if (respuesta != '') {
+			const features = JSON.parse(respuesta).features;
+			for (let i = 0; i < features.length; i++) {
+				eventos.push(features.i.properties);
+			}
+		}
+		return eventos;
+	},
+	getLoc(evento) {
+		return evento.lat + ',' + evento.lon;
+	},
+	getFecha(evento) {
+		return evento.time.split('T')[0];
+	},
+	getHora(evento) {
+		const time = evento.time.split('T')[1];
+		return time.split(':')[0] + ':' + time.split(':')[1];
+	},
+	getGravedad(evento, fenomeno) {
+		if (evento.mag >= 7) return 'critico';
+		if (evento.mag >= 5) return 'noCritico';
+		return 'inocuo';
+	}
+}
+
 module.exports = {
 	WeatherApiComCurrent,
-	FirmsViirsSnppNrt
+	FirmsViirsSnppNrt,
+	SeismicPortalEu
 };
