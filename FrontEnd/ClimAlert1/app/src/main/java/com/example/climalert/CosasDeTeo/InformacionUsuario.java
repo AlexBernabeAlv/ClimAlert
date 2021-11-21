@@ -88,7 +88,7 @@ public class InformacionUsuario {
         getloc(a);
         coger_incidencias(a);
         getLocalizacionesSecundarias(a);
-        refresh(1000, a);
+        refresh(500, a);
     }
 
     private void refresh(int milliseconds, Activity a){
