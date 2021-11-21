@@ -236,8 +236,12 @@ public class InformacionUsuario {
         // Get the location manager
         //he puesto el getactivity por la cara la verdad
         LocationManager locationManager = (LocationManager) a.getSystemService(LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
              Alert(a);
+            MapsFragment.alertaSinGPSMostrada = true;
+        }
+        else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
+            MapsFragment.alertaSinGPSMostrada = false;
         }
         Criteria criteria = new Criteria();
         Log.d("per","entro en permisoss1");

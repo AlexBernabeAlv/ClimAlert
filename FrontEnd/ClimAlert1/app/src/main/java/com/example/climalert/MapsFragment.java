@@ -85,6 +85,7 @@ public class MapsFragment extends Fragment {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Boolean mLocationPermissionsGranted = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    static public boolean alertaSinGPSMostrada = false;
 
 
     //CLASE PORQUE JSONARRAY REQUEST ORIGINAL TE PIDE DE ENTRADA UNA ARRAY Y QUEREMOS QUE SEA OBJECT
@@ -149,6 +150,7 @@ public class MapsFragment extends Fragment {
             Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
+        }
             if(ll1.latitude != 0) {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
@@ -163,7 +165,7 @@ public class MapsFragment extends Fragment {
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
             }
-        }
+
 
         print_incidencias(InformacionUsuario.getInstance().res);
         refresh(10000);
