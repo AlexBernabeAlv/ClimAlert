@@ -5,6 +5,7 @@ const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
 async function checkEventos(loc, api) {
 	let incidencias = [];
 	const url = api.getUrl(loc);
+	console.log('url: ' + url);
 	const respuesta = await callApi(api, url);
 	//const respuesta = '';
 	const eventos = api.getEventos(respuesta);
@@ -14,11 +15,12 @@ async function checkEventos(loc, api) {
 		const fecha = api.getFecha(evento);
 		const hora = api.getHora(evento);
 		for (let fenomeno of api.fenomenos) {
-			let gravedad = api.getGravedad(evento, fenomeno);
+			const gravedad = api.getGravedad(evento, fenomeno);
+			const localizacion = api.getLoc(evento);
 			if (gravedad != 'inocuo') {
-				let grave = (gravedad == 'critico');
-				let radio = 1;
-				let incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, radio, grave, loc);
+				const grave = (gravedad == 'critico');
+				const radio = 1;
+				const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, radio, grave, loc);
 				//let name = api.name;
 				incidencias.push(incidencia);
 			}
