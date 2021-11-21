@@ -168,7 +168,7 @@ public class MapsFragment extends Fragment {
 
 
         print_incidencias(InformacionUsuario.getInstance().res);
-        refresh(10000);
+        refresh(2000);
     }
 
     private void refresh(int milliseconds){
