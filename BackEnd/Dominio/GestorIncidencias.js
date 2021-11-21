@@ -56,7 +56,7 @@ class GestorIncidencias {
 
         await dataController.deleteIncidenciasFromAPIs();
 
-        var incidenciasFenomeno = AdapterAPIs.checkEventos();
+        var incidenciasFenomeno = ExternalEvents.checkEventos();
 
         for (var i = 0; i < incidenciasFenomeno.length; i++) {
 
