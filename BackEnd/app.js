@@ -140,6 +140,22 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
     }
 })
 
+app.get('/usuario/:email/filtro', async (req, res) => {
+
+    var email = req.params.email;
+    var result = await GestorUsuarios.getFiltro(email);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
+
+})
 
 
 //llamadas api notificaciones

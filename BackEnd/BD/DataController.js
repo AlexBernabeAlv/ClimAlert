@@ -157,6 +157,7 @@ class DataController{
         return promise;
     }
 
+
     updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
 
         var promise = new Promise((resolve, reject) => {
