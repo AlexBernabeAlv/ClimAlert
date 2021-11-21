@@ -14,16 +14,19 @@ const WeatherApiComCurrent = {
 		]
 	},
 	fenomenos: [
-		'inundacion',
-		'insolacion'
+		'Inundacion',
+		'Insolacion'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
 		if (respuesta != '') eventos.push(JSON.parse(respuesta));
 		return eventos;
 	},
-	getLoc(evento) {
-		return evento.location.lat + ',' + evento.location.lon;
+	getLatitud(evento) {
+		return evento.location.lat;
+	},
+	getLongitud(evento) {
+		return evento.location.lon;
 	},
 	getFecha(evento) {
 		return evento.location.localtime.split(' ')[0];
@@ -33,11 +36,11 @@ const WeatherApiComCurrent = {
 	},
 	getGravedad(evento, fenomeno) {
 		switch(fenomeno) {
-		case 'inundacion':
+		case 'Inundacion':
 			if (evento.current.precip_mm > 0.04) return 'critico';
 			if (evento.current.precip_mm > 0.03) return 'noCritico';
 			return 'inocuo';
-		case 'insolacion':
+		case 'Insolacion':
 			if (evento.current.temp_c > 16) return 'critico';
 			if (evento.current.temp_c > 15) return 'noCritico';
 			return 'inocuo';
@@ -58,7 +61,7 @@ const FirmsViirsSnppNrt = {
 		return [this.baseUrl + area + '/2/' + date];
 	},
 	fenomenos: [
-		'incendio'
+		'Incendio'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
@@ -74,8 +77,11 @@ const FirmsViirsSnppNrt = {
 		}
 		return eventos;
 	},
-	getLoc(evento) {
-		return evento.latitude + ',' + evento.longitude;
+	getLatitud(evento) {
+		return evento.latitude;
+	},
+	getLongitud(evento) {
+		return evento.longitude;
 	},
 	getFecha(evento) {
 		return evento.time;
@@ -102,7 +108,7 @@ const SeismicPortalEu = {
 		return [this.baseUrl + maxlat + minlat + maxlon + minlon + '&format=json&minmag=3.4'];
 	},
 	fenomenos: [
-		'terremoto'
+		'Terremoto'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
@@ -118,8 +124,11 @@ const SeismicPortalEu = {
 		}
 		return eventos;
 	},
-	getLoc(evento) {
-		return evento.lat + ',' + evento.lon;
+	getLatitud(evento) {
+		return evento.lat;
+	},
+	getLongitud(evento) {
+		return evento.lon;
 	},
 	getFecha(evento) {
 		return evento.time.split('T')[0];

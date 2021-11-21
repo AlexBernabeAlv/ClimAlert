@@ -17,18 +17,19 @@ async function checkEventos(api, incidencias) {
 			const hora = api.getHora(evento);
 			for (let fenomeno of api.fenomenos) {
 				const gravedad = api.getGravedad(evento, fenomeno);
-				const loc = api.getLoc(evento);
+				const latitud = api.getLatitud(evento);
+				const longitud = api.getLongitud(evento);
 				if (gravedad != 'inocuo') {
 					const grave = (gravedad == 'critico');
 					const radio = 1;
-					const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, radio, grave, loc);
+					//Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
+					const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
 					//let name = api.name;
 					incidencias.push(incidencia);
 				}
 			}
 		}
 	}
-	console.log('incidencias: ' + JSON.stringify(incidencias, null, 2));
 	return incidencias;
 }
 
