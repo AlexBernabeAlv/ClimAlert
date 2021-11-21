@@ -1,14 +1,22 @@
 package com.example.climalert;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +31,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.databinding.ActivityMainBinding;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -46,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.contenedor, fragment)
                 .commit();
+
+        InformacionUsuario.getInstance().buclear(this);
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -139,11 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_home:
 
-                    f = fragment;
+                    f = new MapsFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .remove(f)
-                            .replace(R.id.contenedor, fragment)
+                            .replace(R.id.contenedor, f)
                             .commit();
 
                     break;

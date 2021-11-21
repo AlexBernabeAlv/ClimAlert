@@ -1,5 +1,7 @@
 package com.example.climalert;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +19,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,19 +66,19 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 public class MapsFragment extends Fragment {
     private GoogleMap mMap;
     AlertDialog alert = null;
-    double lat;
-    double lon;
     LatLng userLatLong;
+    Timer timer;
     LatLng ll1;
     LatLng ll2;
     Marker UBI1;
     Marker UBI2;
-    Notificacion[] res;
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -82,24 +87,10 @@ public class MapsFragment extends Fragment {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
 
 
-    public class myJsonArrayRequest extends JsonRequest<JSONArray>{
-        public myJsonArrayRequest(int method, String url, JSONObject JsonRequest,
-                                  Response.Listener<JSONArray> listener, Response.ErrorListener errorListener){
-            super(method,url,(JsonRequest == null) ? null : JsonRequest.toString(), listener, errorListener);
-        }
+    //CLASE PORQUE JSONARRAY REQUEST ORIGINAL TE PIDE DE ENTRADA UNA ARRAY Y QUEREMOS QUE SEA OBJECT
 
-        @Override
-        protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
-            try {
-                String JsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-                return Response.success(new JSONArray(JsonString), HttpHeaderParser.parseCacheHeaders(response));
-            } catch (JSONException e){
-                return Response.error(new ParseError(e));
-            } catch (UnsupportedEncodingException e){
-                return Response.error(new ParseError(e));
-            }
-        }
-    }
+
+
 
 
     /* //esta activada? tienes permisos? preguntar permisos?
@@ -122,15 +113,11 @@ public class MapsFragment extends Fragment {
 
 
     /*
-
 @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d( "ALGO", "voy a coger incidencias en oncreate");
-        coger_incidencias();
-        Log.d( "ALGO", "he cogido incidencias ne oncreate");
-
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -152,7 +139,49 @@ public class MapsFragment extends Fragment {
     public void onStop() {
         super.onStop();
     }
+
 */
+
+    private void buclear(){
+        Log.d("ALGO1234", "buclear: ");
+        mMap.clear();
+        if(InformacionUsuario.getInstance().latitudactual != -1){
+            Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
+            LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
+            mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
+            if(ll1.latitude != 0) {
+                UBI1 = mMap.addMarker(new MarkerOptions()
+                        .anchor(0.0f, 1.0f)
+                        .alpha(0.7f)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                        .position(ll1));
+            }
+            if(ll2.latitude != 0) {
+                UBI2 = mMap.addMarker(new MarkerOptions()
+                        .anchor(0.0f, 1.0f)
+                        .alpha(0.7f)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                        .position(ll2));
+            }
+        }
+
+        print_incidencias(InformacionUsuario.getInstance().res);
+        refresh(10000);
+    }
+
+    private void refresh(int milliseconds){
+        final Handler handler = new Handler();
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                buclear();
+            }
+        };
+        handler.postDelayed(runnable, milliseconds);
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -169,29 +198,42 @@ public class MapsFragment extends Fragment {
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 Log.d( "ALGO", "onMapReady: ha entrado");
                 mMap = googleMap;
-                LatLng sydney = new LatLng(-34, 151);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                 //Log.d( "ALGO", "voy a coger incidencias");
-                coger_incidencias();
+              //  coger_incidencias();
+               // getloc();
                 //Log.d( "ALGO","he cogido incidencias");
                 //  Log.d( "ALGO","res1 :" + res[0][0]);
                 // Log.d( "ALGO","res2 : " + res[0].length);
                 // Log.d( "ALGO","res : " + res);
                 //   Log.d( "ALGO","res4 : " + res.length);
-
+                if(InformacionUsuario.getInstance().latitudactual != -1){
+                    LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
+                    mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
+                }
+                ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
+                ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
+                if(ll1.latitude != 0){
+                    UBI1 = mMap.addMarker(new MarkerOptions()
+                            .anchor(0.0f, 1.0f)
+                            .alpha(0.7f)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                            .position(ll1));
+                }
+                if(ll2.latitude != 0) {
+                    UBI2 = mMap.addMarker(new MarkerOptions()
+                            .anchor(0.0f, 1.0f)
+                            .alpha(0.7f)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                            .position(ll2));
+                }
+                buclear();
 
 
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(@NonNull LatLng latLng) {
-                        if (ll1 == null) {
-                            Alert(1, latLng);
-                        } else if (ll2 == null) {
-                            Alert(2, latLng);
-                        } else {
-                            Alert(3, latLng);
-                        }
+                        Alert(1, latLng); //set primera
                     }
                 });
             }
@@ -201,9 +243,10 @@ public class MapsFragment extends Fragment {
 
 
 
-    //////////FUNCIONES
+    ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
 
-    public void print_incidencias(){
+
+    public void print_incidencias(Notificacion[] res){
         Log.d( "ALGO", "res: " +  res);
         if(res != null) {
             Log.d( "ALGO", "res > 0");
@@ -213,68 +256,6 @@ public class MapsFragment extends Fragment {
                 generarMarcadores(ll, (res[i].descripcion), res[i].nombre, (res[i].radio));
             }
         }
-    }
-
-    public void coger_incidencias(){
-        Log.d("ALGO", "coger incidencias entro");
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        InformacionUsuario us = InformacionUsuario.getInstance();
-        String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
-
-        JSONObject mapa = new JSONObject();
-        try {
-            mapa.put("password", us.password);
-            mapa.put("latitud", "14");  //ACTUAL, SI NO TENGO NO HAGO ESTAS 2
-            mapa.put("longitud", "11");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("ALGO", mapa.toString());
-
-        // Request a string response from the provided URL.
-        myJsonArrayRequest request = new myJsonArrayRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject Notificacion;
-                        res = new Notificacion[response.length()];
-                        try {
-                            for (int i = 0; i < response.length(); ++i) {
-                                Notificacion = response.getJSONObject(i);
-
-                                JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
-                                JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
-                                Log.d("ALGO3", "INCIDENCIAFENOMENO " + incidenciaFenomeno);
-                                String fecha =  incidenciaFenomeno.getString("fecha");
-                                Vector<String> indicaciones =  new Vector<String>();
-                                for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
-                                    indicaciones.add(IndicacionIncidencia.getString(j));
-                                }
-                                JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");
-                                Integer radio = Integer.parseInt(incidencia.getString("radio"));
-                                JSONObject localizacion = incidencia.getJSONObject("localizacion");
-                                Float latitud = Float.parseFloat(localizacion.getString("latitud"));
-                                Float longitud = Float.parseFloat(localizacion.getString("longitud"));
-                                JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
-                                String nombre = femomenoMeteo.getString("nombre");
-                                String descripcion = femomenoMeteo.getString("descripcion");
-                                res[i] = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion);
-
-                            }
-                            print_incidencias();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ALGO", "ERROR VOLLEY " + error);
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(request);
     }
 
     public void dar_localizacion() {
@@ -337,10 +318,11 @@ public class MapsFragment extends Fragment {
         }
         if(i == 1) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("¿Deseas añadir este punto como ubicación secundaria 1?")
+            builder.setMessage("Editar ubicaciones")
                     .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Ubicacion1", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            if(UBI1 != null) UBI1.remove();
                             ll1 = latLng;
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
@@ -350,13 +332,29 @@ public class MapsFragment extends Fragment {
                             dar_localizacion();
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("Borrar Ubicaciones", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
+                            if(UBI1 != null) UBI1.remove();
+                            if(UBI2 != null) UBI2.remove();
+                            dar_localizacion();
                         }
-                    });
+                    })
+                    .setNegativeButton("Ubicacion2", new DialogInterface.OnClickListener() {
+                public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                    if(UBI2 != null) UBI2.remove();
+                    ll2 = latLng;
+                    UBI2 = mMap.addMarker(new MarkerOptions()
+                            .anchor(0.0f, 1.0f)
+                            .alpha(0.7f)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                            .position(ll2));
+                    dar_localizacion();
+                    }
+                 });
+
             alert = builder.create();
             alert.show();
+
         }
         if(i == 2) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //quizas es getcontext
@@ -418,7 +416,6 @@ public class MapsFragment extends Fragment {
             alert = builder.create();
             alert.show();
         }
-
     }
 
     //el this por el getactivity
@@ -458,7 +455,8 @@ public class MapsFragment extends Fragment {
         mMap.addMarker(new MarkerOptions()
                 .snippet(info)
                 .position(latLng)
-                .alpha(0.7f)
+                .alpha(0.9f)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                 .title(tip));
         drawCircle(latLng, radio * 2000);
     }
@@ -467,6 +465,8 @@ public class MapsFragment extends Fragment {
 //CEMENTERIO
 /*
 
+
+------------------------------------------------------------------------------------------------------------------
                 locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
                 locationListener = new LocationListener() {
                     @Override
