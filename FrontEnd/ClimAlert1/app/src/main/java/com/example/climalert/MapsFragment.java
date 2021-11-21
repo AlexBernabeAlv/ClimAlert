@@ -79,6 +79,7 @@ public class MapsFragment extends Fragment {
     LatLng ll2;
     Marker UBI1;
     Marker UBI2;
+    Vector<Marker> marcadoresIncidencias =  new Vector<Marker>();
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -145,28 +146,12 @@ public class MapsFragment extends Fragment {
 
     private void buclear(){
         Log.d("ALGO1234", "buclear: ");
-        mMap.clear();
+        limpiar_incidencias();
         if(InformacionUsuario.getInstance().latitudactual != -1){
             Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }
-            if(ll1.latitude != 0) {
-                UBI1 = mMap.addMarker(new MarkerOptions()
-                        .anchor(0.0f, 1.0f)
-                        .alpha(0.7f)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                        .position(ll1));
-            }
-            if(ll2.latitude != 0) {
-                UBI2 = mMap.addMarker(new MarkerOptions()
-                        .anchor(0.0f, 1.0f)
-                        .alpha(0.7f)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                        .position(ll2));
-            }
-
-
         print_incidencias(InformacionUsuario.getInstance().res);
         refresh(1000);
     }
@@ -358,7 +343,78 @@ public class MapsFragment extends Fragment {
             alert.show();
 
         }
-        if(i == 2) {
+    }
+
+    //el this por el getactivity
+    private BitmapDescriptor bitmapDescriptorFromVector(MapsFragment context, @DrawableRes int vectorDrawableResourceId) {
+        Drawable background = ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher_background);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+        Drawable vectorDrawable = ContextCompat.getDrawable(getActivity(), vectorDrawableResourceId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth() + 0, vectorDrawable.getIntrinsicHeight() + 0);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        background.draw(canvas);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private void drawCircle(LatLng point, int rad) {
+        // Instantiating CircleOptions to draw a circle around the marker
+        CircleOptions circleOptions = new CircleOptions();
+        // Specifying the center of the circle
+        circleOptions.center(point);
+        // Radius of the circle
+        circleOptions.radius(rad*10);
+        // Border color of the circle
+        circleOptions.strokeColor(Color.BLACK);
+        // Fill color of the circle
+        circleOptions.fillColor(Color.argb(150, 235, 165, 171));
+        // Border width of the circle
+        circleOptions.strokeWidth(2);
+        // Adding the circle to the GoogleMap
+        mMap.addCircle(circleOptions);
+    }
+
+    private void limpiar_incidencias(){
+        for(int i = 0; i < marcadoresIncidencias.size(); ++i){
+            marcadoresIncidencias.get(i).remove();
+        }
+        marcadoresIncidencias.removeAllElements();
+    }
+
+    public void generarMarcadores(LatLng latLng, String info, String tip, int radio) {
+        Log.d("ALGO","3");
+        Log.d("ALGO5", mMap.toString());
+        Marker m  = mMap.addMarker(new MarkerOptions()
+                .snippet(info)
+                .position(latLng)
+                .alpha(0.9f)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .title(tip));
+        drawCircle(latLng, radio * 2000);
+        marcadoresIncidencias.add(m);
+    }
+}
+
+//CEMENTERIO
+/*
+
+
+------------------------------------------------------------------------------------------------------------------
+                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                locationListener = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(@NonNull Location location) {
+                        userLatLong = new LatLng(location.getLatitude(), location.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(userLatLong).title("Your location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLong));
+                    }
+                };
+                askLocatonPermission();
+
+    private void askLocationPermission(){}
+
+    if(i == 2) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //quizas es getcontext
             builder.setMessage("¿Deseas añadir este punto como ubicación secundaria 2?")
                     .setCancelable(false)
@@ -418,67 +474,4 @@ public class MapsFragment extends Fragment {
             alert = builder.create();
             alert.show();
         }
-    }
-
-    //el this por el getactivity
-    private BitmapDescriptor bitmapDescriptorFromVector(MapsFragment context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher_background);
-        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
-        Drawable vectorDrawable = ContextCompat.getDrawable(getActivity(), vectorDrawableResourceId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth() + 0, vectorDrawable.getIntrinsicHeight() + 0);
-        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        background.draw(canvas);
-        vectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
-
-    private void drawCircle(LatLng point, int rad) {
-        // Instantiating CircleOptions to draw a circle around the marker
-        CircleOptions circleOptions = new CircleOptions();
-        // Specifying the center of the circle
-        circleOptions.center(point);
-        // Radius of the circle
-        circleOptions.radius(rad*10);
-        // Border color of the circle
-        circleOptions.strokeColor(Color.BLACK);
-        // Fill color of the circle
-        circleOptions.fillColor(Color.argb(150, 235, 165, 171));
-        // Border width of the circle
-        circleOptions.strokeWidth(2);
-        // Adding the circle to the GoogleMap
-        mMap.addCircle(circleOptions);
-    }
-
-
-    public void generarMarcadores(LatLng latLng, String info, String tip, int radio) {
-        Log.d("ALGO","3");
-        Log.d("ALGO5", mMap.toString());
-        mMap.addMarker(new MarkerOptions()
-                .snippet(info)
-                .position(latLng)
-                .alpha(0.9f)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                .title(tip));
-        drawCircle(latLng, radio * 2000);
-    }
-}
-
-//CEMENTERIO
-/*
-
-
-------------------------------------------------------------------------------------------------------------------
-                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                locationListener = new LocationListener() {
-                    @Override
-                    public void onLocationChanged(@NonNull Location location) {
-                        userLatLong = new LatLng(location.getLatitude(), location.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(userLatLong).title("Your location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLong));
-                    }
-                };
-                askLocatonPermission();
-
-    private void askLocationPermission(){}
  */

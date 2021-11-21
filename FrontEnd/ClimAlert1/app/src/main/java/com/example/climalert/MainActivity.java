@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         InformacionUsuario.getInstance().buclear(this);
+        InformacionUsuario.getInstance().getLocalizacionesSecundarias(this);
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

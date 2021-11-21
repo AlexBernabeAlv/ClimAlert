@@ -87,7 +87,6 @@ public class InformacionUsuario {
         Log.d("ALGO1234", "buclear: ");
         getloc(a);
         coger_incidencias(a);
-        getLocalizacionesSecundarias(a);
         refresh(500, a);
     }
 
