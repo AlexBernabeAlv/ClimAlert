@@ -115,7 +115,7 @@ class GestorUsuarios {
 
     async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
 
-        var usuario = await this.getUsuario(email);
+        var usuario = await this.getUsuario(email).catch(error => { console.error(error) });
 
         if (usuario && usuario.password == psswd) {
 
