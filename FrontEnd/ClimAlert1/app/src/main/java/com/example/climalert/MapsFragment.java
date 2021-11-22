@@ -26,10 +26,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -87,8 +92,77 @@ public class MapsFragment extends Fragment {
     private Boolean mLocationPermissionsGranted = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     static public boolean alertaSinGPSMostrada = false;
+    private RadioGroup mOptions;
+    private Marker mIncendio;
+    private Marker mUBI1;
 
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
+        // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
+        // "title" and "snippet".
+        private final View mWindow;
+
+        private final View mContents;
+
+        CustomInfoWindowAdapter() {
+            mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+                // This means that getInfoContents will be called.
+                return null;
+            }
+            render(marker, mWindow);
+            return mWindow;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
+                // This means that the default info contents will be used.
+                return null;
+            }
+            render(marker, mContents);
+            return mContents;
+        }
+
+        private void render(Marker marker, View view) {
+            int badge;
+            // Use the equals() method on a Marker to check for equals.  Do not use ==.
+            if (marker.equals(mUBI1)) {
+                badge = R.drawable.fire;
+            } else {
+                // Passing 0 to setImageResource will clear the image view.
+                badge = 0;
+            }
+            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+
+            String title = marker.getTitle();
+            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+            if (title != null) {
+                // Spannable string allows us to edit the formatting of the text.
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+                titleUi.setText(titleText);
+            } else {
+                titleUi.setText("");
+            }
+
+            String snippet = marker.getSnippet();
+            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            if (snippet != null && snippet.length() > 12) {
+                SpannableString snippetText = new SpannableString(snippet);
+                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12, snippet.length(), 0);
+                snippetUi.setText(snippetText);
+            } else {
+                snippetUi.setText("");
+            }
+        }
+    }
     //CLASE PORQUE JSONARRAY REQUEST ORIGINAL TE PIDE DE ENTRADA UNA ARRAY Y QUEREMOS QUE SEA OBJECT
 
 
@@ -214,6 +288,7 @@ public class MapsFragment extends Fragment {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(ll2));
                 }
+                mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
                 buclear();
 
 
@@ -325,6 +400,9 @@ public class MapsFragment extends Fragment {
                                     .alpha(0.7f)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(latLng));
+                            Log.d("LLEGA");
+                            mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+                            Log.d("LLEGA2")
                         }
                     })
                     .setNeutralButton("Borrar Ubicaciones", new DialogInterface.OnClickListener() {
