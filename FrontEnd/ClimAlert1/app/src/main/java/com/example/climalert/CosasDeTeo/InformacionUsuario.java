@@ -68,7 +68,7 @@ public class InformacionUsuario {
          radioEfecto = re;
          gravedad = g;
     }
-    public void SetLocalizaiones(float la1, float lo1, float la2, float lo2){
+    public void SetLocalizaciones(float la1, float lo1, float la2, float lo2){
         latitud1 = la1;
         longitud1 = lo1;
         latitud2 =la2;
@@ -87,7 +87,7 @@ public class InformacionUsuario {
         Log.d("ALGO1234", "buclear: ");
         getloc(a);
         coger_incidencias(a);
-        refresh(500, a);
+        refresh(4000, a);
     }
 
     private void refresh(int milliseconds, Activity a){
@@ -132,7 +132,7 @@ public class InformacionUsuario {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        InformacionUsuario.getInstance().SetLocalizaiones(latitud1, longitud1, latitud2, longitud2);
+                        InformacionUsuario.getInstance().SetLocalizaciones(latitud1, longitud1, latitud2, longitud2);
 
                       //  Log.d("a", String.valueOf(response));
                     }

@@ -53,6 +53,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -75,11 +76,10 @@ public class MapsFragment extends Fragment {
     AlertDialog alert = null;
     LatLng userLatLong;
     Timer timer;
-    LatLng ll1;
-    LatLng ll2;
     Marker UBI1;
     Marker UBI2;
     Vector<Marker> marcadoresIncidencias =  new Vector<Marker>();
+    Vector<Circle> CirculosMarcadoresIncidencias =  new Vector<Circle>();
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -153,7 +153,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }
         print_incidencias(InformacionUsuario.getInstance().res);
-        refresh(1000);
+        refresh(6000);
     }
 
     private void refresh(int milliseconds){
@@ -198,8 +198,8 @@ public class MapsFragment extends Fragment {
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
-                ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
-                ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
+                LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
+                LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
                 if(ll1.latitude != 0){
                     UBI1 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
@@ -220,7 +220,7 @@ public class MapsFragment extends Fragment {
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(@NonNull LatLng latLng) {
-                        Alert(1, latLng); //set primera
+                        Alert(1, latLng);
                     }
                 });
             }
@@ -251,13 +251,13 @@ public class MapsFragment extends Fragment {
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("password", InformacionUsuario.getInstance().password);
-            if (ll1 != null) {
-                mapa.put("latitud1", ll1.latitude);
-                mapa.put("longitud1", ll1.longitude);
+            if (InformacionUsuario.getInstance().latitud1 != 0) {
+                mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
+                mapa.put("longitud1", InformacionUsuario.getInstance().longitud1);
             }
-            if (ll2 != null) {
-                mapa.put("latitud2", ll2.latitude);
-                mapa.put("longitud2", ll2.longitude);
+            if (InformacionUsuario.getInstance().latitud2 != 0) {
+                mapa.put("latitud2", InformacionUsuario.getInstance().latitud2);
+                mapa.put("longitud2", InformacionUsuario.getInstance().longitud2);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -310,32 +310,40 @@ public class MapsFragment extends Fragment {
                     .setPositiveButton("Ubicacion1", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             if(UBI1 != null) UBI1.remove();
-                            ll1 = latLng;
+                            InformacionUsuario.getInstance().latitud1 = (float) latLng.latitude;
+                            InformacionUsuario.getInstance().longitud1 = (float) latLng.longitude;
+                            dar_localizacion();
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                                    .position(ll1));
-                            dar_localizacion();
+                                    .position(latLng));
                         }
                     })
                     .setNeutralButton("Borrar Ubicaciones", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             if(UBI1 != null) UBI1.remove();
                             if(UBI2 != null) UBI2.remove();
+                            InformacionUsuario.getInstance().latitud1 = 0;
+                            InformacionUsuario.getInstance().longitud1 = 0;
+                            InformacionUsuario.getInstance().latitud2 = 0;
+                            InformacionUsuario.getInstance().longitud2 = 0;
+
                             dar_localizacion();
                         }
                     })
                     .setNegativeButton("Ubicacion2", new DialogInterface.OnClickListener() {
                 public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                     if(UBI2 != null) UBI2.remove();
-                    ll2 = latLng;
+                    InformacionUsuario.getInstance().latitud2 = (float) latLng.latitude;
+                    InformacionUsuario.getInstance().longitud2 = (float) latLng.longitude;
+                    dar_localizacion();
+
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                            .position(ll2));
-                    dar_localizacion();
+                            .position(latLng));
                     }
                  });
 
@@ -368,18 +376,22 @@ public class MapsFragment extends Fragment {
         // Border color of the circle
         circleOptions.strokeColor(Color.BLACK);
         // Fill color of the circle
-        circleOptions.fillColor(Color.argb(150, 235, 165, 171));
+        circleOptions.fillColor(Color.argb(100, 235, 165, 171));
         // Border width of the circle
         circleOptions.strokeWidth(2);
         // Adding the circle to the GoogleMap
-        mMap.addCircle(circleOptions);
+        Circle C = mMap.addCircle(circleOptions);
+        CirculosMarcadoresIncidencias.add(C);
     }
 
     private void limpiar_incidencias(){
         for(int i = 0; i < marcadoresIncidencias.size(); ++i){
             marcadoresIncidencias.get(i).remove();
+            CirculosMarcadoresIncidencias.get(i).remove();
+
         }
         marcadoresIncidencias.removeAllElements();
+        CirculosMarcadoresIncidencias.removeAllElements();
     }
 
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio) {

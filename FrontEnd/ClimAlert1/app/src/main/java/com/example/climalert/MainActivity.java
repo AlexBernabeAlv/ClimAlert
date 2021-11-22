@@ -42,7 +42,6 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
 
-    Fragment fragment;
     String email_account;
     private BottomNavigationView bottomNavigationView;
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         email_account = InformacionUsuario.getInstance().email;
         getUsuario(email_account);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
-        fragment = new MapsFragment();
+        Fragment fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, fragment)
