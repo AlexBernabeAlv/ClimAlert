@@ -119,7 +119,7 @@ class GestorUsuarios {
 
         if (usuario && usuario.password == psswd) {
 
-            var result = await dataController.updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2);
+            return await dataController.updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2);
 
         } else {
 

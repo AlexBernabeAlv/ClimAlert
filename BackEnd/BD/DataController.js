@@ -167,32 +167,39 @@ class DataController{
                 if (err) {
 
                     reject(err);
+                } else {
+
+                    if (lat1 && lon1) {
+
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
+
+                            if (err) {
+
+                                reject(err);
+                            } else {
+
+
+                                if (lat2 && lon2) {
+
+                                    pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
+
+                                        if (err) {
+
+                                            reject(err);
+                                        }
+                                    });
+
+                                }
+
+                            }
+                        });
+
+                    }
+
+
                 }
             });
 
-            if (lat1 && lon1) {
-
-                pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
-
-                    if (err) {
-
-                        reject(err);
-                    }
-                });
-
-            }
-
-            if (lat2 && lon2) {
-
-                pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
-
-                    if (err) {
-
-                        reject(err);
-                    }
-                });
-
-            }
 
         });
 
