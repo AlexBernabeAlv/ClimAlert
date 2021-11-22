@@ -176,21 +176,20 @@ class DataController{
                             if (err) {
 
                                 reject(err);
-                            } else {
+                            } 
 
+                            
+                        });
 
-                                if (lat2 && lon2) {
+                    }
 
-                                    pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
+                    if (lat2 && lon2) {
 
-                                        if (err) {
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
 
-                                            reject(err);
-                                        }
-                                    });
+                            if (err) {
 
-                                }
-
+                                reject(err);
                             }
                         });
 
