@@ -3,9 +3,9 @@ const Localizacion = require('./Localizacion');
 
 class Refugio {
 
-    constructor(Nombre, Localizacion) {
+    constructor(Nombre, Latitud, Longitud) {
         this.nombre = Nombre;
-        this.localizacion = Localizacion;
+        this.localizacion = new Localizacion(Latitud, Longitud);
     }
 }
 

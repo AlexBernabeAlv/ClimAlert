@@ -1,30 +1,32 @@
-const fs = require('fs');
-
-const keyPath = '../../climalertKeys/';
-
-function getKey(fileName) {
-	let keyFile = fs.readFileSync(keyPath + fileName + '.txt', 'utf8');
-	return keyFile;
-}
-
 const WeatherApiComCurrent = {
 	name: 'WeatherApiComCurrent',
-	key: getKey('WeatherApiCom'),
 	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=',
-	getUrl(loc) {
-		return this.baseUrl + loc + '&key=' + this.key;
+	getUrls() {
+		return [
+			this.baseUrl + '42.2667,2.9667&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '42.3167,2.3667&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '41.9489,2.2799&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '42.22,1.28&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '41.6167,0.6221&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '40.7160,0.8823&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '41.1166,1.25&key=3d0ae8c28ac641dd84f183611211210',
+			this.baseUrl + '41.3887,2.1589&key=3d0ae8c28ac641dd84f183611211210',
+		]
 	},
 	fenomenos: [
-		'inundacion',
-		'insolacion'
+		'Inundacion',
+		'Insolacion'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
 		if (respuesta != '') eventos.push(JSON.parse(respuesta));
 		return eventos;
 	},
-	getLoc(evento) {
-		return evento.location.lat + ',' + evento.location.lon;
+	getLatitud(evento) {
+		return evento.location.lat;
+	},
+	getLongitud(evento) {
+		return evento.location.lon;
 	},
 	getFecha(evento) {
 		return evento.location.localtime.split(' ')[0];
@@ -34,11 +36,11 @@ const WeatherApiComCurrent = {
 	},
 	getGravedad(evento, fenomeno) {
 		switch(fenomeno) {
-		case 'inundacion':
+		case 'Inundacion':
 			if (evento.current.precip_mm > 0.04) return 'critico';
 			if (evento.current.precip_mm > 0.03) return 'noCritico';
 			return 'inocuo';
-		case 'insolacion':
+		case 'Insolacion':
 			if (evento.current.temp_c > 16) return 'critico';
 			if (evento.current.temp_c > 15) return 'noCritico';
 			return 'inocuo';
@@ -48,25 +50,18 @@ const WeatherApiComCurrent = {
 
 const FirmsViirsSnppNrt = {
 	name: 'FirmsViirsSnppNrt',
-	key: getKey('NasaGovFirms'),
-	baseUrl: 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/',
-	getUrl(loc) {
-		const latitud = loc.split(',')[0];
-		const longitud = loc.split(',')[1];
-		//const north = latitud + 0.015;
-		//const south = latitud - 0.015;
-		//const east = longitud + 0.02;
-		//const west = longitud - 0.02;
-		const north = latitud + 16.015;
-		const south = latitud - 16.015;
-		const east = longitud + 16.02;
-		const west = longitud - 16.02;
+	baseUrl: 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/6092ec0d3b6b37225112d6016c6dd223/VIIRS_SNPP_NRT/',
+	getUrls() {
+		const north = 43;
+		const south = 40;
+		const east = 3;
+		const west = 0;
 		const area = west + ',' + south + ',' + east + ',' + north;
 		const date = new Date().getFullYear() + '-' + (new Date().getMonth() + 1).toString().padStart(2, "0") + '-' + new Date().getDate().toString().padStart(2, "0");
-		return this.baseUrl + this.key + '/VIIRS_SNPP_NRT/' + area + '/2/' + date;
+		return [this.baseUrl + area + '/2/' + date];
 	},
 	fenomenos: [
-		'incendio'
+		'Incendio'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
@@ -82,8 +77,11 @@ const FirmsViirsSnppNrt = {
 		}
 		return eventos;
 	},
-	getLoc(evento) {
-		return evento.latitude + ',' + evento.longitude;
+	getLatitud(evento) {
+		return evento.latitude;
+	},
+	getLongitud(evento) {
+		return evento.longitude;
 	},
 	getFecha(evento) {
 		return evento.time;
@@ -98,41 +96,54 @@ const FirmsViirsSnppNrt = {
 
 const SeismicPortalEu = {
 	name: 'SeismicPortalEu',
-	baseUrl: 'www.seismicportal.eu/fdsnws/event/1/query?limit=10',
-	getUrl(loc) {
-		const latitud = '&lat=' + loc.split(',')[0];
-		const longitud = '&lon=' + loc.split(',')[1];
-		const start = '&start=' + new Date().getFullYear() + '-' + (new Date().getMonth() + 1).toString().padStart(2, "0") + '-' + new Date().getDate().toString().padStart(2, "0");
-		const radius = '&maxradius=' + 80;
-		return this.baseUrl + latitud + longitud + radius + '&format=json';
+	baseUrl: 'https://www.seismicportal.eu/fdsnws/event/1/query?limit=20',
+	getUrls() {
+		const maxlat = '&maxlat=' + 43;
+		const minlat = '&minlat=' + 40;
+		const maxlon = '&maxlon=' + 3;
+		const minlon = '&minlon=' + 0;
+		let month = new Date().getMonth();
+		if (month == 0) month = 12;
+		const start = '&start=' + new Date().getFullYear() - 1 + '-' + month + '-01';
+		return [this.baseUrl + maxlat + minlat + maxlon + minlon + '&format=json&minmag=3.4'];
 	},
 	fenomenos: [
-		'terremoto'
+		'Terremoto'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
 		if (respuesta != '') {
 			const features = JSON.parse(respuesta).features;
+			//console.log('features: ' + JSON.stringify(features, null, 2));
 			for (let i = 0; i < features.length; i++) {
-				eventos.push(features.i.properties);
+				const feature = features[i];
+				//console.log('feature: ' + JSON.stringify(feature, null, 2));
+				eventos.push(feature.properties);
+				i++;
 			}
 		}
 		return eventos;
 	},
-	getLoc(evento) {
-		return evento.lat + ',' + evento.lon;
+	getLatitud(evento) {
+		return evento.lat;
+	},
+	getLongitud(evento) {
+		return evento.lon;
 	},
 	getFecha(evento) {
 		return evento.time.split('T')[0];
+		//return time = new Date();
 	},
 	getHora(evento) {
 		const time = evento.time.split('T')[1];
 		return time.split(':')[0] + ':' + time.split(':')[1];
+		//return time = new Date();
 	},
 	getGravedad(evento, fenomeno) {
-		if (evento.mag >= 7) return 'critico';
-		if (evento.mag >= 5) return 'noCritico';
-		return 'inocuo';
+		//if (evento.mag >= 7) return 'critico';
+		//if (evento.mag >= 5) return 'noCritico';
+		//return 'inocuo';
+		return 'critico';
 	}
 }
 

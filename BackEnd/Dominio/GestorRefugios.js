@@ -5,17 +5,7 @@ const Refugio = require('./Refugio');
 class GestorRefugios {
 
     constructor() {
-
-        this.refugio;
-    }
-
-    static getInstance() {
-
-        if (!this.instance) {
-            this.instance = new GestorRefugios();
-        }
-        return this.instance;
     }
 }
 
-module.exports = GestorRefugios;
+module.exports = new GestorRefugios;
