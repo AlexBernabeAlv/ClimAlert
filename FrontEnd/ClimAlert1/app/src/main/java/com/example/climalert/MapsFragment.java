@@ -153,7 +153,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }
         print_incidencias(InformacionUsuario.getInstance().res);
-        refresh(6000);
+        refresh(3000);
     }
 
     private void refresh(int milliseconds){
@@ -249,16 +249,23 @@ public class MapsFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
         JSONObject mapa = new JSONObject();
+        String a="";
+        String b="";
         try {
             mapa.put("password", InformacionUsuario.getInstance().password);
             if (InformacionUsuario.getInstance().latitud1 != 0) {
+                a = "soy feo";
                 mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
                 mapa.put("longitud1", InformacionUsuario.getInstance().longitud1);
             }
             if (InformacionUsuario.getInstance().latitud2 != 0) {
+                b = "soy MUY feo";
                 mapa.put("latitud2", InformacionUsuario.getInstance().latitud2);
                 mapa.put("longitud2", InformacionUsuario.getInstance().longitud2);
             }
+            Log.d("XDDDD", a+b);
+            a="";
+            b="";
         } catch (JSONException e) {
             e.printStackTrace();
         }

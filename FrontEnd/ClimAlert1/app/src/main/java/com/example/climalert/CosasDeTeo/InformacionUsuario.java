@@ -87,7 +87,7 @@ public class InformacionUsuario {
         Log.d("ALGO1234", "buclear: ");
         getloc(a);
         coger_incidencias(a);
-        refresh(4000, a);
+        refresh(1000, a);
     }
 
     private void refresh(int milliseconds, Activity a){
