@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/activity_auth.xml" value="0.1" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" value="0.1" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_info.xml" value="0.1796875" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_informacion.xml" value="0.1796875" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_llamadita.xml" value="0.1796875" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" value="0.1" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android API 31 Platform" project-jdk-type="Android SDK" />
 </project>

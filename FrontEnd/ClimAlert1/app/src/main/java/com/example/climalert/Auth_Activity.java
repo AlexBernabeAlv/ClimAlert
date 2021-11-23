@@ -58,9 +58,6 @@ public class Auth_Activity extends AppCompatActivity {
                     .build();
             mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
         }
-
-
-
     }
 
     private boolean signedIn() {

@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         InformacionUsuario.getInstance().buclear(this);
         InformacionUsuario.getInstance().getLocalizacionesSecundarias(this);
 
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding;
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
