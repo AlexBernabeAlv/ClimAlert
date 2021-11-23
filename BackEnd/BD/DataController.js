@@ -162,8 +162,6 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            var count = 0;
-
             pool.query("DELETE FROM localizacionusuario WHERE emailusr = $1", [email], (err, res) => {
 
                 if (err) {
@@ -180,7 +178,7 @@ class DataController{
                                 reject(err);
                             } else {
 
-                                count++;
+                                resolve("Cambios en ubicaciones aplicados");
                             }
 
                             
@@ -197,24 +195,12 @@ class DataController{
                                 reject(err);
                             } else {
 
-                                count++;
+                                resolve("Cambios en ubicaciones aplicados");
                             }
                         });
 
                     }
 
-                    if (count == 0) {
-
-                        response("0 localizaciones creadas");
-                    }
-                    if (count == 1) {
-
-                        response("1 localizaciones creadas");
-                    }
-                    if (count == 2) {
-
-                        response("2 localizaciones creadas");
-                    }
 
                 }
             });
