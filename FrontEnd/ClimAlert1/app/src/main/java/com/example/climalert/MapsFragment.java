@@ -97,7 +97,6 @@ public class MapsFragment extends Fragment {
     private Marker mUBI1;
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
         // "title" and "snippet".
         private final View mWindow;
@@ -105,8 +104,13 @@ public class MapsFragment extends Fragment {
         private final View mContents;
 
         CustomInfoWindowAdapter() {
+            Log.d("CustomInfoWindowAdapter", "entra a CustomInfoWindowAdapter");
+            Log.d("CustomInfoWindowAdapter", "entra a mWindow");
             mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+            Log.d("CustomInfoWindowAdapter", "sale de mWindow");
+            Log.d("CustomInfoWindowAdapter", "entra a mContents");
             mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+            Log.d("CustomInfoWindowAdapter", "sale de mContents");
         }
 
         @Override
@@ -155,8 +159,7 @@ public class MapsFragment extends Fragment {
             TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
             if (snippet != null && snippet.length() > 12) {
                 SpannableString snippetText = new SpannableString(snippet);
-                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12, snippet.length(), 0);
+                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, snippet.length(), 0);
                 snippetUi.setText(snippetText);
             } else {
                 snippetUi.setText("");
@@ -279,16 +282,23 @@ public class MapsFragment extends Fragment {
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                            .position(ll1));
+                            .position(ll1)
+                            .title("UBI1")
+                            .snippet("Esta es la ubicación 1"));
+                    mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+                    UBI1.showInfoWindow();
                 }
                 if(ll2.latitude != 0) {
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                            .position(ll2));
+                            .position(ll2)
+                            .title("UBI2")
+                            .snippet("Esta es la ubicación 2"));
+                    mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+                    UBI2.showInfoWindow();
                 }
-                mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
                 buclear();
 
 
@@ -400,9 +410,10 @@ public class MapsFragment extends Fragment {
                                     .alpha(0.7f)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(latLng));
-                            Log.d("LLEGA");
-                            mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-                            Log.d("LLEGA2")
+                            Log.d("creacion UBI1", "entra a setInfoWindowAdapter");
+                            //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+                            Log.d("creacion UBI1", "sale de setInfoWindowAdapter");
+                            //UBI1.showInfoWindow();
                         }
                     })
                     .setNeutralButton("Borrar Ubicaciones", new DialogInterface.OnClickListener() {
