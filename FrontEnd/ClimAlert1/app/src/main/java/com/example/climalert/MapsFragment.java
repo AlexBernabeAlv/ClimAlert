@@ -116,10 +116,12 @@ public class MapsFragment extends Fragment {
         @Override
         public View getInfoWindow(Marker marker) {
             Log.d("CustomInfoWindowAdapter", "entra a getInfoWindow");
-            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+            /*if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+                Log.d("CustomInfoWindowAdapter", "entra al if");
                 // This means that getInfoContents will be called.
                 return null;
-            }
+            }*/
+            Log.d("CustomInfoWindowAdapter", "sale del if");
             render(marker, mWindow);
             Log.d("CustomInfoWindowAdapter", "sale de getInfoWindow");
             return mWindow;
@@ -140,9 +142,13 @@ public class MapsFragment extends Fragment {
         private void render(Marker marker, View view) {
             int badge;
             // Use the equals() method on a Marker to check for equals.  Do not use ==.
-            if (marker.equals(mUBI1)) {
+            if (marker.equals(UBI1)) {
                 badge = R.drawable.fire;
-            } else {
+            }
+            if (marker.equals(UBI2)) {
+                badge = R.drawable.fire;
+            }
+            else {
                 // Passing 0 to setImageResource will clear the image view.
                 badge = 0;
             }
@@ -161,7 +167,7 @@ public class MapsFragment extends Fragment {
 
             String snippet = marker.getSnippet();
             TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-            if (snippet != null && snippet.length() > 12) {
+            if (snippet != null ) {
                 SpannableString snippetText = new SpannableString(snippet);
                 snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, snippet.length(), 0);
                 snippetUi.setText(snippetText);
@@ -289,8 +295,6 @@ public class MapsFragment extends Fragment {
                             .position(ll1)
                             .title("UBI1")
                             .snippet("Esta es la ubicación 1"));
-                    mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-                    UBI1.showInfoWindow();
                 }
                 if(ll2.latitude != 0) {
                     UBI2 = mMap.addMarker(new MarkerOptions()
@@ -300,9 +304,8 @@ public class MapsFragment extends Fragment {
                             .position(ll2)
                             .title("UBI2")
                             .snippet("Esta es la ubicación 2"));
-                    mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-                    UBI2.showInfoWindow();
                 }
+                mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
                 buclear();
 
 
@@ -413,7 +416,9 @@ public class MapsFragment extends Fragment {
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                                    .position(latLng));
+                                    .position(latLng)
+                                    .title("UBI1")
+                                    .snippet("Esta es la ubicación 1"));
                             Log.d("creacion UBI1", "entra a setInfoWindowAdapter");
                             //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
                             Log.d("creacion UBI1", "sale de setInfoWindowAdapter");
@@ -443,7 +448,9 @@ public class MapsFragment extends Fragment {
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                            .position(latLng));
+                            .position(latLng)
+                            .title("UBI2")
+                            .snippet("Esta es la ubicación 2"));
                     }
                  });
 
