@@ -115,21 +115,25 @@ public class MapsFragment extends Fragment {
 
         @Override
         public View getInfoWindow(Marker marker) {
+            Log.d("CustomInfoWindowAdapter", "entra a getInfoWindow");
             if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
                 // This means that getInfoContents will be called.
                 return null;
             }
             render(marker, mWindow);
+            Log.d("CustomInfoWindowAdapter", "sale de getInfoWindow");
             return mWindow;
         }
 
         @Override
         public View getInfoContents(Marker marker) {
+            Log.d("CustomInfoWindowAdapter", "entra a getInfoContents");
             if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
                 // This means that the default info contents will be used.
                 return null;
             }
             render(marker, mContents);
+            Log.d("CustomInfoWindowAdapter", "sale de getInfoContents");
             return mContents;
         }
 
