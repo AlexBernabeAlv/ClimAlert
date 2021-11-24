@@ -142,16 +142,17 @@ public class MapsFragment extends Fragment {
         private void render(Marker marker, View view) {
             int badge;
             // Use the equals() method on a Marker to check for equals.  Do not use ==.
-            if (marker.equals(UBI1)) {
+            /*if (marker.equals(UBI1)) {
                 badge = R.drawable.fire;
             }
-            if (marker.equals(UBI2)) {
+            else if (marker.equals(UBI2)) {
                 badge = R.drawable.fire;
             }
             else {
                 // Passing 0 to setImageResource will clear the image view.
                 badge = 0;
-            }
+            }*/
+            badge = 0;
             ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
@@ -169,7 +170,7 @@ public class MapsFragment extends Fragment {
             TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
             if (snippet != null ) {
                 SpannableString snippetText = new SpannableString(snippet);
-                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, snippet.length(), 0);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
                 snippetUi.setText(snippetText);
             } else {
                 snippetUi.setText("");
