@@ -43,7 +43,6 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-
     String email_account;
     private BottomNavigationView bottomNavigationView;
 
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefe = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE);
 
         bottomNavigationView = findViewById(R.id.nav_view);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 

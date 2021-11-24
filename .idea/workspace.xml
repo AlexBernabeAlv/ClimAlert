@@ -10,13 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Settings_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Settings_Fragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +34,23 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ClimAlert" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ClimAlert" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ClimAlert" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -62,6 +78,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android-custom-viewC:/Users/origa/AppData/Local/Android/Sdk/sources/android-24/android/view/View.java_SELECTED" value="View" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/FrontEnd/ClimAlert1/build.gradle" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
@@ -153,5 +170,31 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

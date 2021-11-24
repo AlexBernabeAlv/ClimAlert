@@ -7,7 +7,15 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="por aqui logout botonaso" />
+        android:layout_height="match_parent" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sign_out_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp"
+        android:text="Log out"
+        android:backgroundTint="#FF2196F3"/>
 
 </RelativeLayout>

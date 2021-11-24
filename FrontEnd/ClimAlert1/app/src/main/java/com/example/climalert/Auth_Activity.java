@@ -23,23 +23,33 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Auth_Activity extends AppCompatActivity {
     String mail;
-    int RC_SIGN_IN = 0;
+    public static int RC_SIGN_IN = 0;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(signedIn()) {
+        GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.prefs_file))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(signedIn()) { //Comprovamos si el usuario ya había iniciado sesión
             Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
             startActivity(maini);
         }
         else {
+
             setContentView(R.layout.activity_auth);
             final SignInButton button = findViewById(R.id.sign_in_button);
             button.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +62,8 @@ public class Auth_Activity extends AppCompatActivity {
                     }
                 }
             });
-            GoogleSignInOptions googleConf = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.prefs_file))
-                    .requestEmail()
-                    .build();
-            mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
         }
+
     }
 
     private boolean signedIn() {
@@ -66,12 +72,24 @@ public class Auth_Activity extends AppCompatActivity {
         else return false;
     }
 
+    public void sign_out() {
+        mGoogleSignInClient.signOut();
+        FirebaseAuth.getInstance().signOut();
+        /*
+        Auth_Activity a = new Auth_Activity();
+        Intent intent = new Intent(a, MainActivity.class);
+        startActivity(intent);//seria un new activity auth
+
+         */
+        Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
+        startActivity(maini);
+    }
+
 
 
 
     @Override
     protected void onStart() {
-        //Comprovamos si el usuario ya había iniciado sesión
         super.onStart();
     }
 
@@ -91,7 +109,6 @@ public class Auth_Activity extends AppCompatActivity {
             try {
                 handleSignInResult(task);
             } catch (ApiException e) {
-
                 e.printStackTrace();
             }
             //setContentView(R.layout.activity_main);
@@ -101,7 +118,6 @@ public class Auth_Activity extends AppCompatActivity {
     private void handleSignInResult (Task<GoogleSignInAccount> completedTask) throws ApiException {
         GoogleSignInAccount account = completedTask.getResult(ApiException.class);
         mail = account.getEmail();
-
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://climalert.herokuapp.com/usuario/new";
         JSONObject mapa = new JSONObject();
@@ -142,13 +158,6 @@ public class Auth_Activity extends AppCompatActivity {
         };
         // Add the request to the RequestQueue.
         queue.add(request);
-
-
-        //account.
-        //Intent intent = new Intent(Auth_Activity.this,MainActivity.class);
-        //startActivity(intent);
-        //setContentView(R.layout.activity_main);
-        //Log.w("task", completedTask.toString());
 
     }
 
