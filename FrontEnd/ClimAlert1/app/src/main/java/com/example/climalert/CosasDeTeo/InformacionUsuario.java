@@ -84,7 +84,7 @@ public class InformacionUsuario {
         return usuario;
     }
     public void buclear(Activity a){
-        Log.d("ALGO1234", "buclear: ");
+        Log.d("bugloc", "buclear: ");
         getloc(a);
         coger_incidencias(a);
         refresh(1000, a);
@@ -133,8 +133,6 @@ public class InformacionUsuario {
                             e.printStackTrace();
                         }
                         InformacionUsuario.getInstance().SetLocalizaciones(latitud1, longitud1, latitud2, longitud2);
-
-                      //  Log.d("a", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener() {
@@ -149,7 +147,6 @@ public class InformacionUsuario {
     }
 
     public void coger_incidencias(Activity a){
-        Log.d("ALGO", "coger incidencias entro");
         RequestQueue queue = Volley.newRequestQueue(a);
         InformacionUsuario us = InformacionUsuario.getInstance();
         String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
@@ -164,7 +161,6 @@ public class InformacionUsuario {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("ALGO", mapa.toString());
 
         // Request a string response from the provided URL.
         myJsonArrayRequest request = new myJsonArrayRequest(Request.Method.POST, url, mapa,
@@ -180,7 +176,6 @@ public class InformacionUsuario {
 
                                 JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
                                 JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
-                                Log.d("ALGO3", "INCIDENCIAFENOMENO " + incidenciaFenomeno);
                                 String fecha =  incidenciaFenomeno.getString("fecha");
                                 Vector<String> indicaciones =  new Vector<String>();
                                 for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
@@ -205,7 +200,6 @@ public class InformacionUsuario {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ALGO", "ERROR VOLLEY " + error);
             }
         });
         // Add the request to the RequestQueue.
@@ -238,19 +232,20 @@ public class InformacionUsuario {
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
              Alert(a);
             MapsFragment.alertaSinGPSMostrada = true;
+            Log.d("bugloc", "entro en alert");
         }
         else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
             MapsFragment.alertaSinGPSMostrada = false;
+            Log.d("bugloc", "entro en alert lo del fase");
         }
         Criteria criteria = new Criteria();
-        Log.d("per","entro en permisoss1");
         String bestProvider = locationManager.getBestProvider(criteria, false);
         if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(a, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 99);
-            Log.d("per","entro en permisoss");
+            Log.d("bugloc", "aqui he pedido los permisos creo");
             return;
         }
         Location location = locationManager.getLastKnownLocation(bestProvider);
@@ -264,7 +259,6 @@ public class InformacionUsuario {
             public void onStatusChanged(String p, int status, Bundle extras) {
             }
         };
-        Log.d("per","casi entro en permisos");
         if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -272,8 +266,8 @@ public class InformacionUsuario {
                 .requestLocationUpdates(bestProvider, 0, 20.0f, loc_listener);
         location = locationManager.getLastKnownLocation(bestProvider);
         try {
+            Log.d("bugloc", "LA HE PILLADO PERFE");
             InformacionUsuario.getInstance().latitudactual = (float) location.getLatitude();
-            // Log.d("ALGO1234", "soy tonto" + location.getLatitude());
 
             InformacionUsuario.getInstance().longitudactual = (float) location.getLongitude();
         } catch (NullPointerException e) {

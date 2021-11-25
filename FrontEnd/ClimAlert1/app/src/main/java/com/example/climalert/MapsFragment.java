@@ -42,6 +42,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
@@ -58,15 +59,20 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.installations.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -147,7 +153,7 @@ public class MapsFragment extends Fragment {
     private void buclear(){
         Log.d("ALGO1234", "buclear: ");
         limpiar_incidencias();
-        if(InformacionUsuario.getInstance().latitudactual != -1){
+        if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0 ){
             Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
@@ -193,7 +199,10 @@ public class MapsFragment extends Fragment {
                 // Log.d( "ALGO","res2 : " + res[0].length);
                 // Log.d( "ALGO","res : " + res);
                 //   Log.d( "ALGO","res4 : " + res.length);
-                if(InformacionUsuario.getInstance().latitudactual != -1){
+
+
+                if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
+                    Log.d("bugloc", String.valueOf(InformacionUsuario.getInstance().latitudactual + InformacionUsuario.getInstance().longitudactual));
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
@@ -216,6 +225,7 @@ public class MapsFragment extends Fragment {
                 }
                 buclear();
 
+                if(ll1.latitude != 0 && ll2.latitude != 0) xd();
 
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
@@ -232,6 +242,100 @@ public class MapsFragment extends Fragment {
 
     ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
 
+
+    private void trazarRuta(JSONObject response){
+        JSONArray jRoutes = null;
+        JSONArray jLegs = null;
+        JSONArray jSteps = null;
+
+       try {
+
+           jRoutes = response.getJSONArray("routes");
+
+           Log.d("poly", "voy a trazar ruta4");
+           for (int i = 0; i < jRoutes.length(); i++) {
+               jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
+
+               for (int j = 0; j < jLegs.length(); j++) {
+                   jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
+
+                   for (int k = 0; k < jSteps.length(); k++) {
+                       String polyline = "";
+                       polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
+                       List<LatLng> list = decodePoly(polyline);
+                       mMap.addPolyline(new PolylineOptions().addAll(list).color(Color.BLUE).width(5));
+                   }
+               }
+           }
+       } catch (JSONException e) {
+           Log.d("poly", "voy a trazar error"+ e);
+           e.printStackTrace();
+       }
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+        return poly;
+    }
+
+    private void xd(){
+        String l1 = String.valueOf(InformacionUsuario.getInstance().latitud1);
+        String l2 = String.valueOf(InformacionUsuario.getInstance().longitud1);
+        String l3 = String.valueOf(InformacionUsuario.getInstance().latitud2);
+        String l4 = String.valueOf(InformacionUsuario.getInstance().longitud2);
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+l1+","+l2+"&destination="+l3+","+l4+"&key=AIzaSyCGOeM2aM5SkecHOc4s_Tkf_B_KV77kWEo";
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        Log.d("poly", l1);
+        Log.d("poly", l2);
+        Log.d("poly", l3);
+        Log.d("poly", l4);
+        JsonObjectRequest jsor = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("poly", "voy a trazar ruta");
+                            Log.d("poly", "onResponse: " + response);
+                            trazarRuta(response);
+                        }
+                    },
+                            new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("poly", "error xd");
+                            error.printStackTrace();
+                        }
+
+                    });
+        queue.add(jsor);
+    }
 
     public void print_incidencias(Notificacion[] res){
         Log.d( "ALGO", "res: " +  res);
