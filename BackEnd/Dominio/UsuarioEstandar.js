@@ -9,7 +9,7 @@ class UsuarioEstandar extends Usuario {
     }
 
     isAdmin() {
-        return false;
+        return true;
     }
 
 }

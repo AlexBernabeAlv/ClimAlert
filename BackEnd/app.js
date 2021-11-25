@@ -7,6 +7,7 @@ const UsuarioAdmin = require('./Dominio/UsuarioAdmin');
 const Localizacion = require('./Dominio/Localizacion');
 const GestorUsuarios = require('./Dominio/GestorUsuarios');
 const EnviadorNotificaciones = require('./Dominio/EnviadorNotificaciones')
+const GestorRefugios = require('./Dominio/GestorRefugios');
 
 
 const multer = require('multer');
@@ -29,8 +30,9 @@ const DataController = require('./BD/DataController');
 //Inicializar base datos
 
 app.post('/BD/reset', async (req, res) => {
-
-    var result = await DataController.resetBD().catch(error => { console.error(error) });
+    
+    await DataController.resetBD().catch(error => { console.error(error) });
+    var result = await ConsultExternalApis();
     res.status(200).send(result);
 })
 
@@ -46,6 +48,8 @@ app.get('/usuario/:email', async (req, res) => {
 
     var email = req.params.email;
     var result = await GestorUsuarios.getUsuario(email);
+
+    result.password = "AAAAAHHHH, querias mirar mi contraseña eh?";
 
     if (result) {
 
@@ -214,6 +218,85 @@ function ConsultExternalApis()
     GestorIncidencias.getIncidenciasFromAPIs();
 }
 
+//Refugios
+
+app.post('/refugio/new', async (req, res) => {
+
+    var Email = req.body.email;
+    var Nombre = req.body.nombre;
+    var Password = req.body.password;
+    var Latitud = req.body.latitud;
+    var Longitud = req.body.longitud;
+
+    var result = await GestorRefugios.createRefugio(Email, Password, Nombre, Latitud, Longitud);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No puedes crear este refugio");
+
+    }
+})
+
+app.get('/refugio', async (req, res) => {
+    
+    var latitud = req.query.latitud;
+    var longitud = req.query.longitud;
+
+    var result = await GestorRefugios.getRefugioByLoc(latitud, longitud);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Refugio no existe");
+
+    }
+})
+
+app.delete('/refugio/:nombre/delete', async (req, res) => {
+
+    var Email = req.body.email;
+    var Password = req.body.password;
+    var Nombre = req.params.nombre;
+
+    var result = await GestorRefugios.deleteRefugio(Email, Password, Nombre);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No puedes destruir este refugio");
+
+    }
+})
+
+app.put('/refugio/:nombre/update', async (req, res) => {
+
+    var email = req.params.email;
+    var psswd = req.body.password;
+    var Nombre = req.params.nombre;
+
+    var result = await GestorRefugios.updateRefugio(email, psswd, Nombre, radioefecto);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no Admin");
+
+    }
+})
+
 
 //app.all
 app.all('*', (req, res) => {
@@ -226,6 +309,8 @@ app.listen(process.env.PORT || 5000, () => {
     //setInterval(ConsultExternalApis, 43200000);
     //ConsultExternalApis();
 })
+
+
 
 //const externalEvents = require('./ExternalEvents/ExternalEvents')
 

@@ -1,6 +1,4 @@
 const { Pool } = require('pg');
-const UsuarioEstandar = require('../Dominio/UsuarioEstandar');
-const UsuarioAdmin = require('../Dominio/UsuarioAdmin');
 
 
 const connectionString =
@@ -335,6 +333,84 @@ class DataController{
                         });
                 }
 
+            });
+        });
+
+        return promise;
+    }
+
+    
+    //Refugios
+
+    createRefugio(refugio) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("INSERT INTO refugio(nombre, latitud, longitud) VALUES($1, $2, $3);", [refugio.nombre, refugio.localizacion.latitud, refugio.localizacion.longitud], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(refugio);
+                }
+            });
+        });
+
+
+        return promise;
+
+    }
+
+    updateRefugio(Refugio) {
+
+    }
+
+    deleteRefugio(Nombre) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("DELETE FROM refugio WHERE nombre = $1", [Nombre], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject("Refugio no existe");
+                    }
+                    else if (res.rowCount == 1) {
+                        resolve("Refugio borrado");
+                    }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getRefugioByLoc(Latitud, Longitud) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT nombre, latitud, longitud, (((latitud * 110.574 - $1 * 110.574) * (latitud * 110.574 - $1 * 110.574)) + (((longitud * 111.320 * cos(latitud - $1) - $2 * 111.320 * cos(latitud - $1)) * (longitud * 111.320 * cos(latitud - $1) - $2 * 111.320 * cos(latitud - $1))))) AS distancia FROM refugio WHERE ((((latitud * 110.574 - $1 * 110.574) * (latitud * 110.574 - $1 * 110.574)) + (((longitud * 111.320 * cos(latitud - $1) - $2 * 111.320 * cos(latitud - $1)) * (longitud * 111.320 * cos(latitud - $1) - $2 * 111.320 * cos(latitud - $1))))) <= 2500) ORDER BY distancia ASC", [Latitud, Longitud], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rows.length == 0) {
+
+                        reject("Refugio no existe");
+                    } else {
+                        console.log(res.rows);
+                        resolve(res.rows[0]);
+                    }
+                }
             });
         });
 

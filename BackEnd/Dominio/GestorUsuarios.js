@@ -70,7 +70,9 @@ class GestorUsuarios {
         var usu = new UsuarioEstandar(Email, Password);
         usu.setFiltro(Gravedad, RadioEfecto);
 
-        return await dataController.updateUsuario(usu, usu.password).catch(error => { console.error(error) });
+        var usuantiguo = await dataController.getUsuario(Email);
+
+        return await dataController.updateUsuario(usu, usuantiguo.password).catch(error => { console.error(error) });
     }
 
     async deleteUsuario(Email, Password) {
