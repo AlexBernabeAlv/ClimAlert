@@ -1,53 +1,37 @@
 package com.example.climalert;
 
-import static android.content.Context.LOCATION_SERVICE;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -60,21 +44,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.installations.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 public class MapsFragment extends Fragment {
@@ -206,6 +183,7 @@ public class MapsFragment extends Fragment {
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
+                    pintarRefugios(getActivity());
                 }
                 LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
                 LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
@@ -225,7 +203,6 @@ public class MapsFragment extends Fragment {
                 }
                 buclear();
 
-                if(ll1.latitude != 0 && ll2.latitude != 0) xd();
 
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
@@ -241,6 +218,50 @@ public class MapsFragment extends Fragment {
 
 
     ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
+
+
+
+    public void pintarRefugios(Activity a){
+
+        RequestQueue queue = Volley.newRequestQueue(a);
+        String url = "https://climalert.herokuapp.com/refugio?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String nombre;
+                        float latitud;
+                        float longitud;
+                        try {
+                            if(response != null)
+                            {
+                                nombre = response.getString("nombre");
+                                latitud = Float.parseFloat(response.getString("latitud"));
+                                longitud = Float.parseFloat(response.getString("longitud"));
+                                LatLng lr = new LatLng(latitud, longitud);
+                                mMap.addMarker(new MarkerOptions()
+                                        .anchor(0.0f, 1.0f)
+                                        .alpha(0.7f)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                                        .position(lr));
+                                trazarRutaEntreOrigenDestino(InformacionUsuario.getInstance().latitudactual,InformacionUsuario.getInstance().longitudactual, latitud, longitud);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+        };
+        queue.add(request);
+    }
 
 
     private void trazarRuta(JSONObject response){
@@ -306,11 +327,11 @@ public class MapsFragment extends Fragment {
         return poly;
     }
 
-    private void xd(){
-        String l1 = String.valueOf(InformacionUsuario.getInstance().latitud1);
-        String l2 = String.valueOf(InformacionUsuario.getInstance().longitud1);
-        String l3 = String.valueOf(InformacionUsuario.getInstance().latitud2);
-        String l4 = String.valueOf(InformacionUsuario.getInstance().longitud2);
+    private void trazarRutaEntreOrigenDestino(float latitud1, float longitud1, float latitud2, float longitud2){
+        String l1 = String.valueOf(latitud1);
+        String l2 = String.valueOf(longitud1);
+        String l3 = String.valueOf(latitud2);
+        String l4 = String.valueOf(longitud2);
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+l1+","+l2+"&destination="+l3+","+l4+"&key=AIzaSyCGOeM2aM5SkecHOc4s_Tkf_B_KV77kWEo";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         Log.d("poly", l1);
