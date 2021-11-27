@@ -232,11 +232,9 @@ public class InformacionUsuario {
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
              Alert(a);
             MapsFragment.alertaSinGPSMostrada = true;
-            Log.d("bugloc", "entro en alert");
         }
         else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
             MapsFragment.alertaSinGPSMostrada = false;
-            Log.d("bugloc", "entro en alert lo del fase");
         }
         Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, false);
@@ -245,7 +243,6 @@ public class InformacionUsuario {
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 99);
-            Log.d("bugloc", "aqui he pedido los permisos creo");
             return;
         }
         Location location = locationManager.getLastKnownLocation(bestProvider);
@@ -263,17 +260,19 @@ public class InformacionUsuario {
             return;
         }
         locationManager
-                .requestLocationUpdates(bestProvider, 0, 20.0f, loc_listener);
+                .requestLocationUpdates(bestProvider, 1000, 20.0f, loc_listener);
         location = locationManager.getLastKnownLocation(bestProvider);
         try {
-            Log.d("bugloc", "LA HE PILLADO PERFE");
-            InformacionUsuario.getInstance().latitudactual = (float) location.getLatitude();
 
+            InformacionUsuario.getInstance().latitudactual = (float) location.getLatitude();
             InformacionUsuario.getInstance().longitudactual = (float) location.getLongitude();
+            Log.d("adfg", "LA HE PILLADO PERFE");
+
         } catch (NullPointerException e) {
             InformacionUsuario.getInstance().longitudactual = -1.0f;
             InformacionUsuario.getInstance().latitudactual = -1.0f;
-            Log.d("ALGO1234", "NO PILLO LOC");
+            Log.d("adfg", "NO PILLO LOC");
+            Log.d("adfg", String.valueOf(e));
         }
     }
     private void Alert(Activity a) {

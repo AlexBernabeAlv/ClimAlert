@@ -18,10 +18,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -70,12 +74,6 @@ public class MapsFragment extends Fragment {
     private Boolean mLocationPermissionsGranted = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     static public boolean alertaSinGPSMostrada = false;
-
-
-    //CLASE PORQUE JSONARRAY REQUEST ORIGINAL TE PIDE DE ENTRADA UNA ARRAY Y QUEREMOS QUE SEA OBJECT
-
-
-
 
 
     /* //esta activada? tienes permisos? preguntar permisos?
@@ -128,9 +126,12 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
-        Log.d("ALGO1234", "buclear: ");
+        Log.d("adfg", String.valueOf(InformacionUsuario.getInstance().latitudactual)+3423432);
+        //PARPADEA
         limpiar_incidencias();
+
         if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0 ){
+            Log.d("adfg", String.valueOf(InformacionUsuario.getInstance().latitudactual));
             Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
@@ -183,7 +184,6 @@ public class MapsFragment extends Fragment {
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
-                    pintarRefugios(getActivity());
                 }
                 LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
                 LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
@@ -201,6 +201,7 @@ public class MapsFragment extends Fragment {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(ll2));
                 }
+                mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
                 buclear();
 
 
@@ -215,9 +216,81 @@ public class MapsFragment extends Fragment {
         return view;
     }
 
+//////////////////////////////CLASES////////////////CLASES////////////////////////////
+class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
+    // "title" and "snippet".
+    private final View mWindow;
 
+    private final View mContents;
 
-    ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
+    CustomInfoWindowAdapter() {
+        mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+        mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+    }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+            /*if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+                Log.d("CustomInfoWindowAdapter", "entra al if");
+                // This means that getInfoContents will be called.
+                return null;
+            }*/
+        render(marker, mWindow);
+        return mWindow;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+       /* if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
+            // This means that the default info contents will be used.
+            return null;
+        }*/
+        render(marker, mContents);
+        return mContents;
+    }
+
+    private void render(Marker marker, View view) {
+        int badge;
+        // Use the equals() method on a Marker to check for equals.  Do not use ==.
+            /*if (marker.equals(UBI1)) {
+                badge = R.drawable.fire;
+            }
+            else if (marker.equals(UBI2)) {
+                badge = R.drawable.fire;
+            }
+            else {
+                // Passing 0 to setImageResource will clear the image view.
+                badge = 0;
+            }*/
+        pintarRefugios(getActivity());
+        badge = 0;
+        ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+
+        String title = marker.getTitle();
+        TextView titleUi = ((TextView) view.findViewById(R.id.title));
+        if (title != null) {
+            // Spannable string allows us to edit the formatting of the text.
+            SpannableString titleText = new SpannableString(title);
+            titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+            titleUi.setText(titleText);
+        } else {
+            titleUi.setText("");
+        }
+
+        String snippet = marker.getSnippet();
+        TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+        if (snippet != null ) {
+            SpannableString snippetText = new SpannableString(snippet);
+            snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
+            snippetUi.setText(snippetText);
+        } else {
+            snippetUi.setText("");
+        }
+    }
+}
+
+///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
 
 
 
