@@ -10,13 +10,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Avalancha_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Gota_Fria_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Granizo_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Incendio_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Insolacion_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Inundacion_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Lluvia_Acida_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Nevada_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Terremoto_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Tormenta_Electrica_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Tornado_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Tsunami_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Volcan_Fragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_avalancha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_gota_fria.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_granizo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_incendio.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_insolacion.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_inundacion.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_lluvia_acida.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_nevada.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_terremoto.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_electrica.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tornado.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tsunami.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_volcan.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Info_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Info_Fragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_informacion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_informacion.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +92,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="21EvA74o2GO9tbbbSXZKFJopwhL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -79,7 +111,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-viewC:/Users/origa/AppData/Local/Android/Sdk/sources/android-24/android/view/View.java_SELECTED" value="View" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/FrontEnd/ClimAlert1/build.gradle" />
+    <property name="last_opened_file_path" value="$USER_HOME$/.gradle/caches/transforms-3/8a7a06036e0c4f4e613a8bbc02ac21f5/transformed/material-1.4.0/jars/classes.jar" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -174,25 +206,35 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+        <line-breakpoint suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java</url>
           <line>75</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+        <line-breakpoint suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java</url>
           <line>76</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="25" />
+        <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Avalancha_Fragment.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Settings_Fragment.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java</url>
+          <line>164</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="26" />
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Info_Fragment.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

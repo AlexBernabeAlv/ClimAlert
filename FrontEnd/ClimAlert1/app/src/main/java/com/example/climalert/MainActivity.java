@@ -1,24 +1,13 @@
 package com.example.climalert;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,9 +22,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.databinding.ActivityMainBinding;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.climalert.ui.catastrofes.Avalancha_Fragment;
+import com.example.climalert.ui.catastrofes.Gota_Fria_Fragment;
+import com.example.climalert.ui.catastrofes.Granizo_Fragment;
+import com.example.climalert.ui.catastrofes.Incendio_Fragment;
+import com.example.climalert.ui.catastrofes.Insolacion_Fragment;
+import com.example.climalert.ui.catastrofes.Inundacion_Fragment;
+import com.example.climalert.ui.catastrofes.Lluvia_Acida_Fragment;
+import com.example.climalert.ui.catastrofes.Nevada_Fragment;
+import com.example.climalert.ui.catastrofes.Terremoto_Fragment;
+import com.example.climalert.ui.catastrofes.Tornado_Fragment;
+import com.example.climalert.ui.catastrofes.Tsunami_Fragment;
+import com.example.climalert.ui.catastrofes.Volcan_Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -90,6 +88,120 @@ public class MainActivity extends AppCompatActivity {
                 .remove(perfil)
                 .replace(R.id.contenedor, perfil)
                 .commit();
+    }
+
+    public void catastrofe_func(Fragment catastrofe) {
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(catastrofe)
+                .replace(R.id.contenedor, catastrofe)
+                .commit();
+        /*Fragment catastrofe;
+        switch (id) {
+            case R.id.button_insolacion:
+
+                break;
+
+            case R.id.button_granizo:
+                catastrofe = new Granizo_Fragment();
+
+                break;
+            case R.id.button_nevada:
+                catastrofe = new Nevada_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_tornado:
+                catastrofe = new Tornado_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_inundacion:
+                catastrofe = new Inundacion_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_incendio:
+                catastrofe = new Incendio_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_terremoto:
+                catastrofe = new Terremoto_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_tsunami:
+                catastrofe = new Tsunami_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_avalancha:
+                catastrofe = new Avalancha_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_lluvia_acida:
+                catastrofe = new Lluvia_Acida_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_volcan:
+                catastrofe = new Volcan_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+            case R.id.button_gota_fria:
+                catastrofe = new Gota_Fria_Fragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(catastrofe)
+                        .replace(R.id.contenedor, catastrofe)
+                        .commit();
+                break;
+
+
+
+        }
+
+         */
     }
 
     private void getUsuario(String email){
@@ -196,8 +308,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
             }
-
-
             return true;
         }
     };
