@@ -75,6 +75,7 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_informacion, container, false);
+
         Button b_insolacion = (Button) view.findViewById(R.id.button_insolacion);
         b_insolacion.setOnClickListener(this);
 
@@ -125,46 +126,57 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Insolacion_Fragment());
                 break;
+
             case R.id.button_granizo:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Granizo_Fragment());
                 break;
+
             case R.id.button_tornado:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Tornado_Fragment());
                 break;
+
             case R.id.button_inundacion:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Inundacion_Fragment());
                 break;
+
             case R.id.button_incendio:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Incendio_Fragment());
                 break;
+
             case R.id.button_tsunami:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Tsunami_Fragment());
                 break;
+
             case R.id.button_terremoto:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Terremoto_Fragment());
                 break;
+
             case R.id.button_avalancha:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Avalancha_Fragment());
                 break;
+
             case R.id.button_lluvia_acida:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Lluvia_Acida_Fragment());
                 break;
+
             case R.id.button_volcan:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Volcan_Fragment());
                 break;
+
             case R.id.button_gota_fria:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Gota_Fria_Fragment());
                 break;
+
             case R.id.button_tormenta_electrica:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Tormenta_Electrica_Fragment());
