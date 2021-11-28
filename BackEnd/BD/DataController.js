@@ -52,10 +52,15 @@ class DataController{
                 if (err) {
 
                     reject(err);
-                } else {
+                }
+            });
 
-                    this.createIncidencia(41.3879, 2.16992, "2021/11/19", "23:59", "Incendio", true);
-                    this.createIncidencia(45, 54, "2021/11/21", "19:27", "Incendio", false);
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('ecomute', 'ecomute1234', false, '0', '50');", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
 
                     resolve("Reset correcto");
                 }
@@ -288,7 +293,7 @@ class DataController{
 
             //calcular TEOREMA DE PITAGORAS
             var sqrRadioEfecto = RadioEfecto * RadioEfecto;
-            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad = $4", [sqrRadioEfecto, Latitud, Longitud, Gravedad], (err, res) => {
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad >= $4", [sqrRadioEfecto, Latitud, Longitud, Gravedad], (err, res) => {
                 
                 if (err) {
 
@@ -310,6 +315,35 @@ class DataController{
 
         return promise;
     }
+    /*
+    getIncidenciasByFenomeno(NombreFenomeno, Latitud, Longitud, RadioEfecto) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            //calcular TEOREMA DE PITAGORAS
+            var sqrRadioEfecto = RadioEfecto * RadioEfecto;
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1", [sqrRadioEfecto, Latitud, Longitud, NombreFenomeno], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rows.length == 0) {
+
+                        reject(false);
+                    } else {
+
+                        resolve(res);
+                    }
+
+                }
+
+            });
+        });
+
+        return promise;
+    }*/
 
     deleteIncidenciasFromAPIs() {
 

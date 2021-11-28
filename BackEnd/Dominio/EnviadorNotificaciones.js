@@ -7,6 +7,7 @@ const GestorIncidencias = require('./GestorIncidencias');
 class EnviadorNotificaciones {
 
     constructor() {
+
     }
 
     async getNotificaciones(Email, Password, Latitud, Longitud) {
