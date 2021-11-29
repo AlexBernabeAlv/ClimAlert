@@ -7,6 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,9 @@ public class LlamaditaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Spinner mSpinner;
+    EditText descripcion;
+    Button aceptar;
 
     public LlamaditaFragment() {
         // Required empty public constructor
@@ -49,16 +58,46 @@ public class LlamaditaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_llamadita, container, false);
+        View view = inflater.inflate(R.layout.formulario, container, false);
+
+        mSpinner = (Spinner) view.findViewById(R.id.mSpinner);
+        ArrayList<String> incidencias = new ArrayList<String>();
+        incidencias.add("Insolación");
+        incidencias.add("Granizo");
+        incidencias.add("Nevada");
+        incidencias.add("Tornado");
+        incidencias.add("Inundación");
+        incidencias.add("Incendio");
+        incidencias.add("Terremoto");
+        incidencias.add("Tsunami");
+        incidencias.add("Avalancha");
+        incidencias.add("Lluvia Ácida");
+        incidencias.add("Volcan");
+        incidencias.add("Gota Fría");
+        incidencias.add("Tormenta Eléctrica");
+
+
+        ArrayAdapter adp;
+        adp = new ArrayAdapter(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item,
+                incidencias);
+        mSpinner.setAdapter(adp);
+        descripcion = (EditText) view.findViewById(R.id.editDescripcion);
+        aceptar = (Button) view.findViewById(R.id.btnAceptar);
+
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return view;
     }
 }
