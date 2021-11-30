@@ -21,7 +21,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button perfil;
+    //Button perfil;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,18 +64,28 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_config, container, false);
-        perfil = (Button) view.findViewById(R.id.perfil_usuario);
+        Button perfil = (Button) view.findViewById(R.id.perfil_usuario);
         perfil.setOnClickListener(this);
+
+        Button idioma = (Button) view.findViewById(R.id.idioma);
+        idioma.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
+        MainActivity main;
         switch (v.getId()) {
             case R.id.perfil_usuario:
                 //Log.d("xd", "hahfasghfgasdfa");
-                MainActivity main = (MainActivity) getActivity();
+                main = (MainActivity) getActivity();
                 main.perfil_boton();
+                break;
+
+            case R.id.idioma:
+                //Log.d("xd", "hahfasghfgasdfa");
+                main = (MainActivity) getActivity();
+                main.idioma_boton();
                 break;
 
         }

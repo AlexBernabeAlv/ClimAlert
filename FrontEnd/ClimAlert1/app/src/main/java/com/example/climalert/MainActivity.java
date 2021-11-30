@@ -90,6 +90,19 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void cambio_idioma() {
+
+    }
+
+    public void idioma_boton() {
+        Fragment idioma = new IdiomaFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(idioma)
+                .replace(R.id.contenedor, idioma)
+                .commit();
+    }
+
     public void catastrofe_func(Fragment catastrofe) {
 
         getSupportFragmentManager()

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Settings_Fragment">
+    tools:context=".IdiomaFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -17,29 +17,29 @@
         android:layout_marginTop="50dp">
 
         <Button
-            android:id="@+id/perfil_usuario"
+            android:id="@+id/catala_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Perfil"
+            android:text="Català"
             android:backgroundTint="#FF9800"/>
 
         <Button
-            android:id="@+id/idioma"
+            android:id="@+id/castellano_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@id/perfil_usuario"
-            android:text="Idioma"
+            android:layout_below="@id/catala_button"
+            android:text="Castellano"
             android:backgroundTint="#FF9800"/>
 
         <Button
-            android:id="@+id/localizaciones"
+            android:id="@+id/english_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@id/idioma"
-            android:text="Localizaciones"
+            android:layout_below="@id/castellano_button"
+            android:text="English"
             android:backgroundTint="#FF9800"/>
 
     </RelativeLayout>
