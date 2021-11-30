@@ -27,20 +27,21 @@ class DataController{
 
             //Crear FenomenosMeteo
 
-            var fenomenosMeteos = ["Incendio", "Terremotos", "Tornados", "Tsunami", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria"];
+            var fenomenosMeteos = ["Incendio", "Terremoto", "Tornado", "Inundacion", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria", "Insolacion"];
             var descripcionesFenomenosMeteo = [
 
                 "Cosa que quema",
                 "Cosa que tiembla",
                 "Cosa que airea",
-                "Cosa que moja",
+                "Cosa que llena de agua",
                 "Cosa que tira cosas encima de cosas",
                 "Cosa que moja, pero poco y mal",
                 "Cosa que explota",
-                "Cosa que hace canicas los hue.."
+                "Cosa que hace canicas los hue..",
+                "Cosa que da calor"
             ];
 
-            pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7]], (err, res) => {
+            pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16), ($17, $18);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7], fenomenosMeteos[8], descripcionesFenomenosMeteo[8]], (err, res) => {
 
                 if (err) {
 
@@ -48,13 +49,15 @@ class DataController{
                 }  
             });
 
-
             pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', false, '0', '3');", (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
+
+                    this.createIncidencia(41.3879, 2.16992, "2021/11/19", "23:59", "Incendio", true);
+                    this.createIncidencia(45, 54, "2021/11/21", "19:27", "Incendio", false);
 
                     resolve("Reset correcto");
                 }
@@ -155,26 +158,6 @@ class DataController{
     }
 
 
-    createLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
-
-
-        var promise = new Promise((resolve, reject) => {
-
-            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
-
-                if (err) {
-
-                    reject(err);
-                } else {
-
-                    resolve("Localizaciones Creadas");
-                }
-            });
-        });
-
-        return promise;
-    }
-
     updateLocalizacionesUsuario(email, lat1, lon1, lat2, lon2) {
 
         var promise = new Promise((resolve, reject) => {
@@ -186,29 +169,40 @@ class DataController{
                     reject(err);
                 } else {
 
-                    if (res.rowCount == 0) {
+                    if (lat1 && lon1) {
 
-                        reject("Usuario no existe");
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
+
+                            if (err) {
+
+                                reject(err);
+                            } 
+
+                            
+                        });
+
                     }
-                    
+
+                    if (lat2 && lon2) {
+
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
+
+                            if (err) {
+
+                                reject(err);
+                            }
+                        });
+
+                    }
+
+
                 }
             });
 
 
-            pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3), ($1, $4, $5);", [email, lat1, lon1, lat2, lon2], (err, res) => {
-
-                if (err) {
-
-                    reject(err);
-                } else {
-
-                    resolve("Localizaciones Modificadas");
-                }
-            });
         });
 
         return promise;
-
     }
 
 
@@ -240,11 +234,11 @@ class DataController{
         return promise;
     }
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno) {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Api) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen) VALUES($1, $2, $3, $4) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno], (err, res) => {
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno, Api], (err, res) => {
 
                 if (err) {
 
@@ -256,7 +250,7 @@ class DataController{
 
                     if (res.rowCount == 1) {
 
-                        pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud) VALUES($1, $2, $3, $4, $5)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud], (err, res) => {
+                        pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud, api) VALUES($1, $2, $3, $4, $5, $6)", [res.rows[0].incfenid, 1, 0, Latitud, Longitud, Api], (err, res) => {
 
                             if (err) {
 
@@ -292,9 +286,7 @@ class DataController{
             //calcular TEOREMA DE PITAGORAS
             var sqrRadioEfecto = RadioEfecto * RadioEfecto;
             pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad = $4", [sqrRadioEfecto, Latitud, Longitud, Gravedad], (err, res) => {
-                console.log("Radio*Radio: " + sqrRadioEfecto + " Latitud: " + Latitud + " Longitud: " + Longitud + " Gravedad: " + Gravedad);
-                console.log("incidencias en BD:");
-                console.log(res.rows);
+                
                 if (err) {
 
                     reject(err);
@@ -308,6 +300,34 @@ class DataController{
                         resolve(res);
                     }
 
+                }
+
+            });
+        });
+
+        return promise;
+    }
+
+    deleteIncidenciasFromAPIs() {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("DELETE FROM incidencia WHERE api = true;", (err, res) => {
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    pool.query("DELETE FROM incidenciafenomeno WHERE api = true;",
+                        (err, res) => {
+                            if (err) {
+
+                                reject(err);
+                            } else {
+
+                                resolve(true);
+                            }
+                        });
                 }
 
             });

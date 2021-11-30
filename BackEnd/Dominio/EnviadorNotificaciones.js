@@ -13,6 +13,7 @@ class EnviadorNotificaciones {
 
         var usuario = await GestorUsuarios.getUsuario(Email);
         console.log(usuario);
+        console.log(Password);
         var notificaciones = [];
         
         if (usuario && usuario.password == Password) {

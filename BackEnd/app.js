@@ -127,29 +127,6 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
     var lat2 = req.body.latitud2;
     var lon2 = req.body.longitud2;
 
-
-    var result = await GestorUsuarios.createLocalizacionUsuario(email, psswd, lat1, lon1, lat2, lon2);
-
-    if (result) {
-
-        res.status(200).send(result);
-
-    } else {
-
-        res.status(404).send("Usuario no existe");
-
-    }
-})
-
-app.put('/usuario/:email/localizaciones/update', async (req, res) => {
-
-    var email = req.params.email;
-    var psswd = req.body.password;
-    var lat1 = req.body.latitud1;
-    var lon1 = req.body.longitud1;
-    var lat2 = req.body.latitud2;
-    var lon2 = req.body.longitud2;
-
     var result = await GestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
 
     if (result) {
@@ -163,7 +140,22 @@ app.put('/usuario/:email/localizaciones/update', async (req, res) => {
     }
 })
 
+app.get('/usuario/:email/filtro', async (req, res) => {
 
+    var email = req.params.email;
+    var result = await GestorUsuarios.getFiltro(email);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("Usuario no existe");
+
+    }
+
+})
 
 
 //llamadas api notificaciones
@@ -176,7 +168,7 @@ app.post('/incidencia/new', async (req, res) => {
     var fecha = req.body.fecha;
     var hora = req.body.hora;
 
-    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, res);
+    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false);
 
     if (result) {
 
@@ -189,12 +181,17 @@ app.post('/incidencia/new', async (req, res) => {
     }
 })
 
-app.get('/usuario/:email/notificaciones', async (req, res) => {
+app.post('/usuario/:email/notificaciones', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
     var lat = req.body.latitud;
     var lon = req.body.longitud;
+
+    console.log(email);
+    console.log(pssword);
+    console.log(lat);
+    console.log(lon);
 
     var result = await EnviadorNotificaciones.getNotificaciones(email, pssword, lat, lon);
 
@@ -211,6 +208,12 @@ app.get('/usuario/:email/notificaciones', async (req, res) => {
     }
 })
 
+function ConsultExternalApis()
+{
+
+    GestorIncidencias.getIncidenciasFromAPIs();
+}
+
 
 //app.all
 app.all('*', (req, res) => {
@@ -219,9 +222,14 @@ app.all('*', (req, res) => {
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('server is ready on port 5000.')
+
+    //setInterval(ConsultExternalApis, 43200000);
+    //ConsultExternalApis();
 })
 
 //const externalEvents = require('./ExternalEvents/ExternalEvents')
+
+//externalEvents.checkEventos();
 
 //app.post
 //app.puto

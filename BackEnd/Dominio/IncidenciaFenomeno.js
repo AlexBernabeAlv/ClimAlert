@@ -15,7 +15,7 @@ class IncidenciaFenomeno{
         this.hora = Hora;
         this.incidencia = new Incidencia(Radio, Gravedad, Latitud, Longitud);
         this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno, Descripcion, null, null);
-        this.API = false;
+        
     }
 
     setValido(){

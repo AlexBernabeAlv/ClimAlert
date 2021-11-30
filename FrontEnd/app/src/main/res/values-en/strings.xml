@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ClimAlert</string>
+    <string name="title_home">Home</string>
+    <string name="title_call">Call</string>
+    <string name="title_info">Tips</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button">Button</string>
+    <string name="google">GOOGLE</string>
+    <string name="prefs_file">PREFS_FILE</string>
+    <string name="Token_Id">AIzaSyBp9uSKVgoEIIfva6pWU6M03A6b_E4Wlgk</string>
+
+</resources>

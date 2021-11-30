@@ -1,5 +1,20 @@
-const eventTimers = require('./EventTimers');
 const eventQueries = require('./EventQueries');
+const externalApis = require('./ExternalApis');
 
-eventQueries.checkRainEvents();
-setInterval(eventQueries.checkRainEvents, eventTimers.RainEventTimer);
+const apis = [
+	externalApis.WeatherApiComCurrent,
+	externalApis.FirmsViirsSnppNrt,
+	externalApis.SeismicPortalEu
+]
+
+async function checkEventos() {
+	let incidencias = [];
+	for (const api of apis) {
+		incidencias = await eventQueries.checkEventos(api, incidencias);
+	}
+	return incidencias;
+}
+
+module.exports = {
+	checkEventos
+}
