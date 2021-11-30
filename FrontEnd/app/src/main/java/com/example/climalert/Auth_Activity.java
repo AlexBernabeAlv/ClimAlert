@@ -28,6 +28,10 @@ public class Auth_Activity extends AppCompatActivity {
 
     int RC_SIGN_IN = 0;
     GoogleSignInClient mGoogleSignInClient;
+
+    public GoogleSignInClient getmGoogleSignInClient () {
+        return mGoogleSignInClient;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

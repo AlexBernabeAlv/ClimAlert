@@ -1,11 +1,19 @@
 package com.example.climalert;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +30,7 @@ public class Settings_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Auth_Activity auth_activity = new Auth_Activity();
 
     public Settings_Fragment() {
         // Required empty public constructor
@@ -58,6 +67,32 @@ public class Settings_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_config, container, false);
+        View view = inflater.inflate(R.layout.fragment_config, container, false);
+        Button signOut = view.findViewById(R.id.SignOut);
+
+        signOut.setOnClickListener((View.OnClickListener) this);
+        return view;
+
+
+    }
+
+
+    public void onClick(View v) {
+        //do what you want to do when button is clicked
+        switch (v.getId()) {
+            case R.id.SignOut:
+                auth_activity.getmGoogleSignInClient().signOut()
+                        .addOnCompleteListener((Executor) this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+
+                                Intent intent = new Intent(getContext(), Auth_Activity.class);
+                                startActivity(intent);
+                            }
+
+
+                        });
+        }
     }
 }
