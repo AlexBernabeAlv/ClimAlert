@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/.idea/*
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -16,6 +17,8 @@ local.properties
 /FrontEnd/*.iml
 /FrontEnd/.gradle
 /FrontEnd/local.properties
+FrontEnd/.idea/*
+/FrontEnd/.idea/*
 /FrontEnd/.idea/caches
 /FrontEnd/.idea/libraries
 /FrontEnd/.idea/modules.xml

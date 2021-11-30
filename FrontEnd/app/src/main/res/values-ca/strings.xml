@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">ClimAlert</string>
-    <string name="title_home">Inicio</string>
-    <string name="title_call">Llamar</string>
-    <string name="title_info">Consejos</string>
-    <string name="title_settings">Ajustes</string>
-    <string name="title_dashboard">Panel de control</string>
-    <string name="title_notifications">Notificaciones</string>
+    <string name="title_home">Inici</string>
+    <string name="title_call">Trucar</string>
+    <string name="title_info">Consells</string>
+    <string name="title_settings">Configuració</string>
+    <string name="title_dashboard">Panell de control</string>
+    <string name="title_notifications">Notificacions</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
