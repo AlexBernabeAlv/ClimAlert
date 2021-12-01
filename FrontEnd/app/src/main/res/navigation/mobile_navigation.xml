@@ -29,5 +29,11 @@
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.example.climalert.ui.settings.SettingsFragment"
+        android:label="chat"
+        tools:layout="@layout/activity_chat" />
+
 
 </navigation>

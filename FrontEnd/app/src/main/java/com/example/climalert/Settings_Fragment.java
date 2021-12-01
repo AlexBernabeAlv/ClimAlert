@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -30,6 +31,7 @@ public class Settings_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View view;
     private Auth_Activity auth_activity = new Auth_Activity();
 
     public Settings_Fragment() {
@@ -61,16 +63,23 @@ public class Settings_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_config, container, false);
-        Button signOut = view.findViewById(R.id.SignOut);
 
-        signOut.setOnClickListener((View.OnClickListener) this);
+        view = inflater.inflate(R.layout.fragment_config, container, false);
+        Button signOut = view.findViewById(R.id.SignOut);
+        signOut.setOnClickListener(this::onClick);
+
+
+
+
+
         return view;
 
 
@@ -81,18 +90,23 @@ public class Settings_Fragment extends Fragment {
         //do what you want to do when button is clicked
         switch (v.getId()) {
             case R.id.SignOut:
-                auth_activity.getmGoogleSignInClient().signOut()
-                        .addOnCompleteListener((Executor) this, new OnCompleteListener<Void>() {
+                new Auth_Activity().getmGoogleSignInClient().signOut();
+                Intent intent = new Intent(getActivity(), Auth_Activity.class);
+
+                startActivity(intent);
+
+
+
+                        /*.addOnCompleteListener((Executor) this, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
 
-                                Intent intent = new Intent(getContext(), Auth_Activity.class);
-                                startActivity(intent);
+
                             }
 
 
-                        });
+                        });*/
         }
     }
 }

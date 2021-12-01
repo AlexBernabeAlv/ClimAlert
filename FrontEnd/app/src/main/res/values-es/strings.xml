@@ -13,5 +13,6 @@
     <string name="google">GOOGLE</string>
     <string name="prefs_file">PREFS_FILE</string>
     <string name="Token_Id">AIzaSyBp9uSKVgoEIIfva6pWU6M03A6b_E4Wlgk</string>
+    <string name="title_chat">Chat</string>
 
 </resources>
