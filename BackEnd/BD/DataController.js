@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 
 
 const connectionString =
-    'postgres://qjsfwqmfowyyqi:880ddc879215c58013d8a54fb6d804418052f61f05045d2ec6085d77c6f5a6b4@ec2-52-211-158-144.eu-west-1.compute.amazonaws.com:5432/d2gb6gkivm6r90';
+    'postgres://lmnzkvausdfuuu:4b2fade74f887b3ed91ba4efd5ac1238dd9b47909880021b58c80ddb6e2219fa@ec2-54-195-246-55.eu-west-1.compute.amazonaws.com:5432/d3kik8oljojk5u';
 
 const pool = new Pool({
     connectionString,
