@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".Info_Fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/botones_catastrofe">
+
+        <Button
+            android:id="@+id/button_insolacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Insolación"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_granizo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_insolacion"
+            android:text="Granizo"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_nevada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_granizo"
+            android:text="Nevada"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_tornado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_nevada"
+            android:text="Tornado"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_inundacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_tornado"
+            android:text="Inundación"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_incendio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_inundacion"
+            android:text="Incendio"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_terremoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_incendio"
+            android:text="Terremoto"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_tsunami"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_terremoto"
+            android:text="Tsunami"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_avalancha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_tsunami"
+            android:text="Avalancha"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_lluvia_acida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_avalancha"
+            android:text="Lluvia Ácida"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_volcan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_lluvia_acida"
+            android:text="Erupción Volcánica"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_gota_fria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_volcan"
+            android:text="Gota Fría"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/button_tormenta_electrica"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_gota_fria"
+            android:text="Tormenta Eléctrica"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/butttonuseles2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/button_tormenta_electrica"
+            android:text="ah"
+            android:backgroundTint="#FF9800"/>
+
+    </LinearLayout>
+
+</ScrollView>
