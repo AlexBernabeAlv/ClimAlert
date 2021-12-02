@@ -9,7 +9,7 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TituloForm"
+        android:text="Aviso de Incidencia"
         android:textSize="25dp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
