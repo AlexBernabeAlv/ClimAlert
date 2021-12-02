@@ -161,4 +161,7 @@ public class Auth_Activity extends AppCompatActivity {
 
     }
 
+    public GoogleSignInClient getmGoogleSignInClient() {
+        return mGoogleSignInClient;
+    }
 }
