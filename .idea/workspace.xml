@@ -9,16 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/formulario.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/LlamaditaFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/LlamaditaFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/PerfilFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Settings_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Settings_Fragment.java" afterDir="false" />
-    </list>
+    <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
