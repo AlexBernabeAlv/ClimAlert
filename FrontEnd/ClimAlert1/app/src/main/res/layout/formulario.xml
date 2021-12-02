@@ -23,7 +23,7 @@
         android:id="@+id/mSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="45dp"
         />
@@ -38,7 +38,14 @@
         android:id="@+id/btnAceptar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Enviar"/>
+    <Button
+        android:id="@+id/btnSOS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="SOS"/>
     </LinearLayout>
 
 
