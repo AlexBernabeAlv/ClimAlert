@@ -24,6 +24,8 @@ async function checkEventos(api, incidencias) {
 					const radio = 1;
 					//Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
 					const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
+					incidencia.setValido();
+					incidencia.setAPI();
 					//let name = api.name;
 					incidencias.push(incidencia);
 				}
