@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="ExtraText"
-    tools:context=".ui.catastrofes.Nevada_Fragment">
+    tools:context=".ui.catastrofes.Erupcion_Volcanica_Fragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="soy la descripcion de una nevada"/>
+        android:text="@string/text_erupcion_volcanica_desc"/>
 
 </LinearLayout>

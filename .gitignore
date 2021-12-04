@@ -18,6 +18,7 @@ local.properties
 /FrontEnd/.gradle
 /FrontEnd/local.properties
 FrontEnd/.idea/*
+*/.idea/*
 /FrontEnd/.idea/*
 /FrontEnd/.idea/caches
 /FrontEnd/.idea/libraries

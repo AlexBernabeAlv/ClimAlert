@@ -14,11 +14,11 @@
         android:id="@+id/botones_catastrofe">
 
         <Button
-            android:id="@+id/button_insolacion"
+            android:id="@+id/button_calor_extremo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Insolación"
+            android:text="@string/text_calor_extremo"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -26,17 +26,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@id/button_insolacion"
-            android:text="Granizo"
+            android:layout_below="@id/button_calor_extremo"
+            android:text="@string/text_granizo"
             android:backgroundTint="#FF9800"/>
 
         <Button
-            android:id="@+id/button_nevada"
+            android:id="@+id/button_tormenta_invernal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_granizo"
-            android:text="Nevada"
+            android:text="@string/text_tormenta_invernal"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -44,8 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@id/button_nevada"
-            android:text="Tornado"
+            android:layout_below="@id/button_tormenta_invernal"
+            android:text="@string/text_tornado"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_tornado"
-            android:text="Inundación"
+            android:text="@string/text_inundacion"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_inundacion"
-            android:text="Incendio"
+            android:text="@string/text_incendio"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_incendio"
-            android:text="Terremoto"
+            android:text="@string/text_terremoto"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_terremoto"
-            android:text="Tsunami"
+            android:text="@string/text_tsunami"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_tsunami"
-            android:text="Avalancha"
+            android:text="@string/text_avalancha"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -99,16 +99,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_avalancha"
-            android:text="Lluvia Ácida"
+            android:text="@string/text_lluvia_acida"
             android:backgroundTint="#FF9800"/>
 
         <Button
-            android:id="@+id/button_volcan"
+            android:id="@+id/button_erupcion_volcanica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_lluvia_acida"
-            android:text="Erupción Volcánica"
+            android:text="@string/text_erupcion_volcanica"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -116,8 +116,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@id/button_volcan"
-            android:text="Gota Fría"
+            android:layout_below="@id/button_erupcion_volcanica"
+            android:text="@string/text_gota_fria"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -126,16 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/button_gota_fria"
-            android:text="Tormenta Eléctrica"
-            android:backgroundTint="#FF9800"/>
-
-        <Button
-            android:id="@+id/butttonuseles2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_tormenta_electrica"
-            android:text="ah"
+            android:text="@string/text_tormenta_electrica"
             android:backgroundTint="#FF9800"/>
 
     </LinearLayout>
