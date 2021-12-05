@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -153,10 +156,8 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
-        Log.d("ALGO1234", "buclear: ");
         limpiar_incidencias();
         if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
-            Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }
@@ -191,7 +192,6 @@ public class MapsFragment extends Fragment {
 
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
-                Log.d( "ALGO", "onMapReady: ha entrado");
                 mMap = googleMap;
                 //Log.d( "ALGO", "voy a coger incidencias");
               //  coger_incidencias();
@@ -227,6 +227,14 @@ public class MapsFragment extends Fragment {
                 }
                 buclear();
                 mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+
+                NotificationManager notif=(NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notify=new Notification.Builder
+                        (getContext()).setContentTitle("titulo").setContentText("llueve").
+                        setSmallIcon(R.drawable.logo_climalert).build();
+
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                notif.notify(0, notify);
 
 
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -320,6 +328,8 @@ public class MapsFragment extends Fragment {
     public void pintarRefugios(Activity a){
 
         RequestQueue queue = Volley.newRequestQueue(a);
+        Log.d("refug", String.valueOf(InformacionUsuario.getInstance().latitudactual));
+
         String url = "https://climalert.herokuapp.com/refugio?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
         // Request a string response from the provided URL.
         Log.d("refug", "refugios1");
@@ -460,11 +470,9 @@ public class MapsFragment extends Fragment {
 
 
     public void print_incidencias(Notificacion[] res){
-        Log.d( "ALGO", "res: " +  res);
         if(res != null) {
             Log.d( "ALGO", "res > 0");
             for (int i = 0; i < res.length; ++i) {
-                Log.d("ALGO", "accedo a res en el bucle");
                 LatLng ll = new LatLng((res[i].latitud), (res[i].longitud));
                 generarMarcadores(ll, (res[i].descripcion), res[i].nombre, (res[i].radio));
             }
@@ -472,12 +480,14 @@ public class MapsFragment extends Fragment {
     }
 
     public void dar_localizacion() {
+        Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
         JSONObject mapa = new JSONObject();
         String a="";
         String b="";
         try {
+            Log.d("secun", InformacionUsuario.getInstance().password);
             mapa.put("password", InformacionUsuario.getInstance().password);
             if (InformacionUsuario.getInstance().latitud1 != 0) {
                 mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
@@ -499,14 +509,15 @@ public class MapsFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         //JSONObject usuario;
-                        Log.d("a", String.valueOf(response));
-                        //Log.d("ALGO", "he acabado el bucle");
+                        //Log.d("a", String.valueOf(response));
+                        Log.d("secun", "se han dado guay");
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
+                        Log.d("secun", "dar loc fallar " + error);
                     }
 
                 }) {
@@ -542,6 +553,7 @@ public class MapsFragment extends Fragment {
                             if(UBI1 != null) UBI1.remove();
                             InformacionUsuario.getInstance().latitud1 = (float) latLng.latitude;
                             InformacionUsuario.getInstance().longitud1 = (float) latLng.longitude;
+                            Log.d("secun", "ubi 1 asignar ");
                             dar_localizacion();
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
@@ -625,8 +637,6 @@ public class MapsFragment extends Fragment {
     }
 
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio) {
-        Log.d("ALGO","3");
-        Log.d("ALGO5", mMap.toString());
         Marker m  = mMap.addMarker(new MarkerOptions()
                 .snippet(info)
                 .position(latLng)

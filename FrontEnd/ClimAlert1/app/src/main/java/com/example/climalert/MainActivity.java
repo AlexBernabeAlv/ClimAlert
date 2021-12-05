@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
                         int radio = 0;
 
                         try {
-                            password = response.getString("password");
                             JSONObject filtro = response.getJSONObject("filtro");
                             if(filtro != null)
                             {
@@ -151,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        InformacionUsuario.getInstance().SetInformacion(email, password, latitud1, longitud1, latitud2, longitud2, radio, gravedad);
+                        InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad);
 
                         Log.d("a", String.valueOf(response));
                     }
