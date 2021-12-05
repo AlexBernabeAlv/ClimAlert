@@ -147,7 +147,7 @@ public class MapsFragment extends Fragment {
     private void buclear(){
         Log.d("ALGO1234", "buclear: ");
         limpiar_incidencias();
-        if(InformacionUsuario.getInstance().latitudactual != -1){
+        if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
             Log.d("ALGO1234", "buclear: tengo loc" + InformacionUsuario.getInstance().latitudactual);
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
@@ -193,7 +193,7 @@ public class MapsFragment extends Fragment {
                 // Log.d( "ALGO","res2 : " + res[0].length);
                 // Log.d( "ALGO","res : " + res);
                 //   Log.d( "ALGO","res4 : " + res.length);
-                if(InformacionUsuario.getInstance().latitudactual != -1){
+                if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
