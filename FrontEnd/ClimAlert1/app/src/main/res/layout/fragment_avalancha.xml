@@ -11,4 +11,28 @@
         android:layout_height="match_parent"
         android:text="string/text_avalancha_desc"/>
 
+    <TextView
+        android:id="@+id/title_prevencion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/title_prevencion"/>
+
+    <TextView
+        android:id="@+id/lista_prevencion_avalancha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lista_prevencion_avalancha" />
+
+    <TextView
+        android:id="@+id/title_que_hacer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/title_que_hacer"/>
+
+    <TextView
+        android:id="@+id/lista_que_hacer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lista_prevencion_avalancha" />
+
 </LinearLayout>

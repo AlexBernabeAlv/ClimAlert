@@ -21,19 +21,65 @@
     <string name="text_gota_fria">Gota freda</string>
     <string name="text_tormenta_electrica">Tempesta elèctrica</string>
 
-    <string name="text_calor_extremo_desc">Calor extrema</string>
-    <string name="text_granizo_desc">Calamarsa</string>
-    <string name="text_tormenta_invernal_desc">Tempesta hivernal</string>
-    <string name="text_tornado_desc">Tornado</string>
-    <string name="text_inundacion_desc">Inundació</string>
+    <string name="title_prevencion">Prevención</string>
+    <string name="title_que_hacer">Qué hacer (o consejos)</string>
+    <string name="title_senales_insolacion">Señales de insolación</string>
+    <string name="title_congelacion">Congelación</string>
+    <string name="title_hipotermia">Hipotermia</string>
+
+    <string name="text_calor_extremo_desc">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.</string>
+    <string name="text_granizo_desc">La calamarsa és un tipus de precipitació sòlida que es compon de boles o grumolls irregulars de gel, cadascun dels quals es refereix com una pedra de calamarsa. Està format, principalment de gel d\'aigua i la seva grandària pot variar entre els 5 i 50 mil·límetres (0,19 i 1,968 polzades) de diàmetre, i fins i tot superar aquesta mesura.</string>
+    <string name="text_tormenta_invernal_desc">Una tempesta hivernal és la precipitació de neu sobre la superfície terrestre que inclou a més vents intensos.</string>
+    <string name="text_tornado_desc">Els tornados són columnes d\'aire que giren violentament i que s\'estenen des d\'una tempesta elèctrica fins al sòl. Els tornados poden destruir edificis, voltejar actuacions i crear mortals enderrocs impulsats pels vents.</string>
+    <string name="text_inundacion_desc">Les inundacions són desbordaments d\'aigua temporals cap a terrenys que normalment estan secs. Poden produir-se arran de pluja, neu, tempestes costaneres, marors ciclòniques, desbordaments de rescloses i altres sistemes d\'aigua. Poden causar apagades, interrompre el transport, danyar edificis i crear lliscaments de terra.</string>
     <string name="text_incendio_desc">Incendi</string>
-    <string name="text_terremoto_desc">Terratrèmol</string>
-    <string name="text_tsunami_desc">Tsunami</string>
-    <string name="text_avalancha_desc">Allau</string>
-    <string name="text_lluvia_acida_desc">Pluja àcida</string>
-    <string name="text_erupcion_volcanica_desc">Erupció volcànica</string>
-    <string name="text_gota_fria_desc">Gota freda</string>
-    <string name="text_tormenta_electrica_desc">Tempesta elèctrica</string>
+    <string name="text_terremoto_desc">Un terratrèmol és un tremolor sobtat i ràpid del sòl ocasionat pel desplaçament de roques subterrànies molt per sota de la superfície de la terra. Els terratrèmols poden causar incendis, tsunamis, lliscaments de terra o allaus.</string>
+    <string name="text_tsunami_desc">Els tsunamis, també coneguts com a ones sísmiques, són una sèrie d\'ones enormes creades per una alteració submarina, com a terratrèmols, despreniments de terra, erupcions volcàniques o meteorits.</string>
+    <string name="text_avalancha_desc">Una allau és una quantitat enorme de neu que es llisca ràpidament muntanya a baix, usualment en inclinacions de 30 fins a 45 graus. Quan una allau es deté, la neu se solidifica com el formigó i les persones queden atrapades. Les persones atrapades en allaus poden morir de sufocació, trauma o hipotèrmia.</string>
+    <string name="text_lluvia_acida_desc">La pluja àcida és una de les conseqüències de la contaminació atmosfèrica. És la precipitació que conté tant aigua com residus tòxics, principalment àcids, procedents de les emissions tant industrials com d\'altres tipus de maquinària, com els vehicles. Aquesta acidificació del sòl i de les aigües superficials té efectes devastadors sobre els ecosistemes i suposa un greu perill per als éssers vius.</string>
+    <string name="text_erupcion_volcanica_desc">Un volcà és una obertura en l\'escorça terrestre que permet la fuita de roca fosa, gasos i enderrocs fins a la superfície. Una erupció volcànica pot implicar lava i enderrocs que poden desplaçar-se a una velocitat de fins a 100 mph, destruint tot al seu pas. La cendra volcànica pot desplaçar-se per centenars de milles i provocar greus problemes de salut.</string>
+    <string name="text_gota_fria_desc">...</string>
+    <string name="text_tormenta_electrica_desc">Els llamps són una de les principals causes de lesions i morts per riscos meteorològics. Encara que la majoria de les víctimes dels raigs sobreviuen, les persones aconseguides per un raig solen manifestar una sèrie de símptomes debilitants a llarg termini. Les tempestes elèctriques són tempestes perilloses que inclouen llamps i poden crear o causar vents potents de més de 50 mph (80 km/h),calamarsa, Inundacions sobtades i/o tornados.</string>
+
+    <string name="lista_prevencion_extremo">Calor extremo</string>
+    <string name="lista_prevencion_granizo">Granizo</string>
+    <string name="lista_prevencion_tormenta_invernal">Tormenta invernal</string>
+    <string name="lista_prevencion_tornado">Tornado</string>
+    <string name="lista_prevencion_inundacion">Inundación</string>
+    <string name="lista_prevencion_incendio">Incendio</string>
+    <string name="lista_prevencion_terremoto">Terremoto</string>
+    <string name="lista_prevencion_tsunami">Tsunami</string>
+    <string name="lista_prevencion_avalancha">
+        <li>Obtener equipo adecuado para protegerse de lesiones en la cabeza y crear espacios de aire.</li>\n
+        <li>Aprender primeros auxilios para poder brindar tratamiento a los demás.</li>\n
+        <li>Usar casco para minimizar lesiones en la cabeza.</li>\n
+        <li>Usar una bolsa de aire para avalanchas.</li>\n
+        <li>Llevar sonda colapsable de avalanchas y una pala pequeña para ayudar a rescatar a otras personas.</li>\n
+    </string>
+    <string name="lista_prevencion_lluvia_acida">Lluvia ácida</string>
+    <string name="lista_prevencion_erupcion_volcanica">Erupción volcánica</string>
+    <string name="lista_prevencion_gota_fria">Gota fría</string>
+    <string name="lista_prevencion_tormenta_electrica">Tormenta eléctrica</string>
+
+    <string name="lista_que_hacer_extremo">Calor extremo</string>
+    <string name="lista_que_hacer_granizo">Granizo</string>
+    <string name="lista_que_hacer_tormenta_invernal">Tormenta invernal</string>
+    <string name="lista_que_hacer_tornado">Tornado</string>
+    <string name="lista_que_hacer_inundacion">Inundación</string>
+    <string name="lista_que_hacer_incendio">Incendio</string>
+    <string name="lista_que_hacer_terremoto">Terremoto</string>
+    <string name="lista_que_hacer_tsunami">Tsunami</string>
+    <string name="lista_que_hacer_avalancha">
+        <li>Obtener equipo adecuado para protegerse de lesiones en la cabeza y crear espacios de aire.</li>\n
+        <li>Aprender primeros auxilios para poder brindar tratamiento a los demás.</li>\n
+        <li>Usar casco para minimizar lesiones en la cabeza.</li>\n
+        <li>Usar una bolsa de aire para avalanchas.</li>\n
+        <li>Llevar sonda colapsable de avalanchas y una pala pequeña para ayudar a rescatar a otras personas.</li>\n
+    </string>
+    <string name="lista_que_hacer_lluvia_acida">Lluvia ácida</string>
+    <string name="lista_que_hacer_erupcion_volcanica">Erupción volcánica</string>
+    <string name="lista_que_hacer_gota_fria">Gota fría</string>
+    <string name="lista_que_hacer_tormenta_electrica">Tormenta eléctrica</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

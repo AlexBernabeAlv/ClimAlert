@@ -21,6 +21,12 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="title_prevencion">Prevención</string>
+    <string name="title_que_hacer">Qué hacer (o consejos)</string>
+    <string name="title_senales_insolacion">Señales de insolación</string>
+    <string name="title_congelacion">Congelación</string>
+    <string name="title_hipotermia">Hipotermia</string>
+
     <string name="text_calor_extremo_desc">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.</string>
     <string name="text_granizo_desc">El granizo es un tipo de precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo. Está formado, principalmente de hielo de agua y su tamaño puede variar entre los 5 y 50 milímetros (0,19 y 1,968 pulgadas) de diámetro, e incluso superar esa medida.</string>
     <string name="text_tormenta_invernal_desc">Una tormenta invernal es la precipitación de nieve sobre la superficie terrestre que incluye además vientos intensos.</string>
@@ -34,6 +40,44 @@
     <string name="text_erupcion_volcanica_desc">Un volcán es una abertura en la corteza terrestre que permite el escape de roca derretida, gases y escombros hasta la superficie. Una erupción volcánica puede implicar lava y escombros que pueden desplazarse a una velocidad de hasta 100 mph, destruyendo todo a su paso. La ceniza volcánica puede desplazarse por cientos de millas y provocar graves problemas de salud.</string>
     <string name="text_gota_fria_desc">Según la Agencia Estatal de Meteorología, una gota fría o DANA (Depresión Aislada en Niveles Altos) es una gran masa de aire a baja temperatura que se ha separado de un chorro polar. Esta, al encontrarse en zonas de clima más cálido, interactúa con el aire de mayor temperatura de la zona y origina tormentas de todo tipo e inestabilidad meteorológica, pudiendo causar, entre otras cosas, vientos de hasta 100 km/h. Es más habitual que se den en zonas de costa junto a aguas cálidas, ya que el aire cargado de humedad que asciende de estos mares cálidos propicia la formación de estas gotas frías cuando se encuentra con los chorros polares.</string>
     <string name="text_tormenta_electrica_desc">Los rayos son una de las principales causas de lesiones y muertes por riesgos meteorológicos. Aunque la mayoría de las víctimas de los rayos sobreviven, las personas alcanzadas por un rayo suelen manifestar una serie de síntomas debilitantes a largo plazo. Las tormentas eléctricas son tormentas peligrosas que incluyen rayos y pueden crear o causar vientos potentes de más de 50 mph (80 km/h),granizo, Inundaciones repentinas y/o tornados.</string>
+
+    <string name="lista_prevencion_extremo">Calor extremo</string>
+    <string name="lista_prevencion_granizo">Granizo</string>
+    <string name="lista_prevencion_tormenta_invernal">Tormenta invernal</string>
+    <string name="lista_prevencion_tornado">Tornado</string>
+    <string name="lista_prevencion_inundacion">Inundación</string>
+    <string name="lista_prevencion_incendio">Incendio</string>
+    <string name="lista_prevencion_terremoto">Terremoto</string>
+    <string name="lista_prevencion_tsunami">Tsunami</string>
+    <string name="lista_prevencion_avalancha">
+        <li>Obtener equipo adecuado para protegerse de lesiones en la cabeza y crear espacios de aire.</li>\n
+        <li>Aprender primeros auxilios para poder brindar tratamiento a los demás.</li>\n
+        <li>Usar casco para minimizar lesiones en la cabeza.</li>\n
+        <li>Usar una bolsa de aire para avalanchas.</li>\n
+        <li>Llevar sonda colapsable de avalanchas y una pala pequeña para ayudar a rescatar a otras personas.</li>\n
+    </string>
+    <string name="lista_prevencion_lluvia_acida">Lluvia ácida</string>
+    <string name="lista_prevencion_erupcion_volcanica">Erupción volcánica</string>
+    <string name="lista_prevencion_gota_fria">Gota fría</string>
+    <string name="lista_prevencion_tormenta_electrica">Tormenta eléctrica</string>
+
+    <string name="lista_que_hacer_extremo">Calor extremo</string>
+    <string name="lista_que_hacer_granizo">Granizo</string>
+    <string name="lista_que_hacer_tormenta_invernal">Tormenta invernal</string>
+    <string name="lista_que_hacer_tornado">Tornado</string>
+    <string name="lista_que_hacer_inundacion">Inundación</string>
+    <string name="lista_que_hacer_incendio">Incendio</string>
+    <string name="lista_que_hacer_terremoto">Terremoto</string>
+    <string name="lista_que_hacer_tsunami">Tsunami</string>
+    <string name="lista_que_hacer_avalancha">
+        <li>En caso de verse sorprendido por una avalancha, intentar escapar hacia un lateral manteniéndose sobre los esquís si es posible.</li>
+        <li>En caso de que la avalancha te atrape, tratar de proteger boca y nariz formando un hueco que te permita respirar y evitar el riesgo de asfixia.</li>
+        <li>En caso de verse envuelto en la avalancha, tratar de nadar hacia la superficie.</li>
+    </string>
+    <string name="lista_que_hacer_lluvia_acida">Lluvia ácida</string>
+    <string name="lista_que_hacer_erupcion_volcanica">Erupción volcánica</string>
+    <string name="lista_que_hacer_gota_fria">Gota fría</string>
+    <string name="lista_que_hacer_tormenta_electrica">Tormenta eléctrica</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
