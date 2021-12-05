@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,10 +27,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -58,6 +63,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -66,7 +72,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -200,7 +208,9 @@ public class MapsFragment extends Fragment {
                 }
                 LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
                 LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
+                Log.d("secun", String.valueOf(ll1));
                 if(ll1.latitude != 0){
+                    Log.d("secun", "entro1");
                     UBI1 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
@@ -208,6 +218,7 @@ public class MapsFragment extends Fragment {
                             .position(ll1));
                 }
                 if(ll2.latitude != 0) {
+                    Log.d("secun", "entro2");
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
@@ -215,6 +226,7 @@ public class MapsFragment extends Fragment {
                             .position(ll2));
                 }
                 buclear();
+                mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
 
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -228,9 +240,223 @@ public class MapsFragment extends Fragment {
         return view;
     }
 
+    /////////////////////////////CLASES////////////////CLASES////////////////////////////
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+        // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
+        // "title" and "snippet".
+        private final View mWindow;
+
+        private final View mContents;
+
+        CustomInfoWindowAdapter() {
+            mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            /*if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+                Log.d("CustomInfoWindowAdapter", "entra al if");
+                // This means that getInfoContents will be called.
+                return null;
+            }*/
+            render(marker, mWindow);
+            return mWindow;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+       /* if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
+            // This means that the default info contents will be used.
+            return null;
+        }*/
+            render(marker, mContents);
+            return mContents;
+        }
+
+        private void render(Marker marker, View view) {
+            int badge;
+            // Use the equals() method on a Marker to check for equals.  Do not use ==.
+            /*if (marker.equals(UBI1)) {
+                badge = R.drawable.fire;
+            }
+            else if (marker.equals(UBI2)) {
+                badge = R.drawable.fire;
+            }
+            else {
+                // Passing 0 to setImageResource will clear the image view.
+                badge = 0;
+            }*/
+            pintarRefugios(getActivity());
+            badge = 0;
+            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+
+            String title = marker.getTitle();
+            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+            if (title != null) {
+                // Spannable string allows us to edit the formatting of the text.
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+                titleUi.setText(titleText);
+            } else {
+                titleUi.setText("");
+            }
+
+            String snippet = marker.getSnippet();
+            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            if (snippet != null ) {
+                SpannableString snippetText = new SpannableString(snippet);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
+                snippetUi.setText(snippetText);
+            } else {
+                snippetUi.setText("");
+            }
+        }
+    }
 
 
     ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
+
+    public void pintarRefugios(Activity a){
+
+        RequestQueue queue = Volley.newRequestQueue(a);
+        String url = "https://climalert.herokuapp.com/refugio?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
+        // Request a string response from the provided URL.
+        Log.d("refug", "refugios1");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("refug", "refugios2");
+                        String nombre;
+                        float latitud;
+                        float longitud;
+                        try {
+                            if(response != null)
+                            {
+                                nombre = response.getString("nombre");
+                                latitud = Float.parseFloat(response.getString("latitud"));
+                                longitud = Float.parseFloat(response.getString("longitud"));
+                                LatLng lr = new LatLng(latitud, longitud);
+                                mMap.addMarker(new MarkerOptions()
+                                        .anchor(0.0f, 1.0f)
+                                        .alpha(0.7f)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                                        .position(lr));
+                                trazarRutaEntreOrigenDestino(InformacionUsuario.getInstance().latitudactual,InformacionUsuario.getInstance().longitudactual, latitud, longitud);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d("refug", "refugios3");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.d("refug", "refugios4");
+                    }
+                }) {
+        };
+        queue.add(request);
+    }
+
+
+    private void trazarRuta(JSONObject response){
+        JSONArray jRoutes = null;
+        JSONArray jLegs = null;
+        JSONArray jSteps = null;
+
+        try {
+
+            jRoutes = response.getJSONArray("routes");
+
+            Log.d("poly", "voy a trazar ruta4");
+            for (int i = 0; i < jRoutes.length(); i++) {
+                jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
+
+                for (int j = 0; j < jLegs.length(); j++) {
+                    jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
+
+                    for (int k = 0; k < jSteps.length(); k++) {
+                        String polyline = "";
+                        polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
+                        List<LatLng> list = decodePoly(polyline);
+                        mMap.addPolyline(new PolylineOptions().addAll(list).color(Color.BLUE).width(5));
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Log.d("poly", "voy a trazar error"+ e);
+            e.printStackTrace();
+        }
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+        return poly;
+    }
+
+    private void trazarRutaEntreOrigenDestino(float latitud1, float longitud1, float latitud2, float longitud2){
+        String l1 = String.valueOf(latitud1);
+        String l2 = String.valueOf(longitud1);
+        String l3 = String.valueOf(latitud2);
+        String l4 = String.valueOf(longitud2);
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+l1+","+l2+"&destination="+l3+","+l4+"&key=AIzaSyCGOeM2aM5SkecHOc4s_Tkf_B_KV77kWEo";
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        Log.d("poly", l1);
+        Log.d("poly", l2);
+        Log.d("poly", l3);
+        Log.d("poly", l4);
+        JsonObjectRequest jsor = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("poly", "voy a trazar ruta");
+                        Log.d("poly", "onResponse: " + response);
+                        trazarRuta(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("poly", "error xd");
+                        error.printStackTrace();
+                    }
+
+                });
+        queue.add(jsor);
+    }
 
 
     public void print_incidencias(Notificacion[] res){
@@ -254,16 +480,13 @@ public class MapsFragment extends Fragment {
         try {
             mapa.put("password", InformacionUsuario.getInstance().password);
             if (InformacionUsuario.getInstance().latitud1 != 0) {
-                a = "soy feo";
                 mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
                 mapa.put("longitud1", InformacionUsuario.getInstance().longitud1);
             }
             if (InformacionUsuario.getInstance().latitud2 != 0) {
-                b = "soy MUY feo";
                 mapa.put("latitud2", InformacionUsuario.getInstance().latitud2);
                 mapa.put("longitud2", InformacionUsuario.getInstance().longitud2);
             }
-            Log.d("XDDDD", a+b);
             a="";
             b="";
         } catch (JSONException e) {

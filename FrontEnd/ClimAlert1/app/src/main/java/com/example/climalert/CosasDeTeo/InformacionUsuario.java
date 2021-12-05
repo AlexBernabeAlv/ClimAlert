@@ -103,6 +103,7 @@ public class InformacionUsuario {
 
     public void getLocalizacionesSecundarias(Activity a){
 
+        Log.d("secun", "getlocsecun");
         RequestQueue queue = Volley.newRequestQueue(a);
         String url = "https://climalert.herokuapp.com/usuario/" +InformacionUsuario.getInstance().email+ "/filtro";
         // Request a string response from the provided URL.
@@ -110,6 +111,8 @@ public class InformacionUsuario {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("secun", "getlocsecun onresponse");
+
                         float latitud1 = 0;
                         float longitud1 = 0;
                         float latitud2 = 0;
@@ -131,6 +134,8 @@ public class InformacionUsuario {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d("secun", "getlocsecun onexception" + e);
+
                         }
                         InformacionUsuario.getInstance().SetLocalizaciones(latitud1, longitud1, latitud2, longitud2);
 
