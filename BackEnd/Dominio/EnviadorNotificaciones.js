@@ -7,6 +7,7 @@ const GestorIncidencias = require('./GestorIncidencias');
 class EnviadorNotificaciones {
 
     constructor() {
+
     }
 
     async getNotificaciones(Email, Password, Latitud, Longitud) {
@@ -18,16 +19,16 @@ class EnviadorNotificaciones {
         
         if (usuario && usuario.password == Password) {
             console.log("buscando incidencias");
-            var incidencias0 = await GestorIncidencias.getIncidencias(Latitud, Longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto);
+            var incidencias0 = await GestorIncidencias.getIncidencias(Latitud, Longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto, true);
 
             if (usuario.filtro.localizacion1 && usuario.filtro.localizacion1.latitud && usuario.filtro.localizacion1.longitud) {
 
-                var incidencias1 = await GestorIncidencias.getIncidencias(usuario.filtro.localizacion1.latitud, usuario.filtro.localizacion1.longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto);
+                var incidencias1 = await GestorIncidencias.getIncidencias(usuario.filtro.localizacion1.latitud, usuario.filtro.localizacion1.longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto, true);
             }
 
             if (usuario.filtro.localizacion2 && usuario.filtro.localizacion2.latitud && usuario.filtro.localizacion2.longitud) {
 
-                var incidencias2 = await GestorIncidencias.getIncidencias(usuario.filtro.localizacion2.latitud, usuario.filtro.localizacion2.longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto);
+                var incidencias2 = await GestorIncidencias.getIncidencias(usuario.filtro.localizacion2.latitud, usuario.filtro.localizacion2.longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto, true);
             }
 
 

@@ -47,17 +47,57 @@ class DataController{
                 }  
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', false, '0', '3');", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', true, '0', '3');", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                }
+            });
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('ecomute', 'ecomute1234', false, '0', '50');", (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
 
-                    this.createIncidencia(41.3879, 2.16992, "2021/11/19", "23:59", "Incendio", true);
-                    this.createIncidencia(45, 54, "2021/11/21", "19:27", "Incendio", false);
+                    pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [false, "2021/12/25", "00:00", "Incendio", false], (err, res) => {
 
-                    resolve("Reset correcto");
+                        if (err) {
+
+                            reject(err);
+
+                        } else {
+
+
+
+                            if (res.rowCount == 1) {
+
+                                pool.query("INSERT INTO incidencia(id, radioefecto, gravedad, latitud, longitud, api) VALUES($1, $2, $3, $4, $5, $6)", [res.rows[0].incfenid, 1, 0, 41.3879, 2.16992, false], (err, res) => {
+
+                                    if (err) {
+
+                                        reject(err);
+
+                                    } else {
+
+                                        if (res.rowCount == 1) {
+
+                                            resolve("Reset correcto");
+                                        }
+
+                                    }
+
+                                });
+
+                            }
+
+                        }
+
+
+                    });
+
                 }
             });
             
@@ -237,11 +277,11 @@ class DataController{
         return promise;
     }
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Api) {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [false, Fecha, Hora, NombreFenomeno, Api], (err, res) => {
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [Valido, Fecha, Hora, NombreFenomeno, Api], (err, res) => {
 
                 if (err) {
 
@@ -282,13 +322,13 @@ class DataController{
         return promise;
     }
 
-    getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto) {
+    getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto, Valido) {
 
         var promise = new Promise((resolve, reject) => {
 
             //calcular TEOREMA DE PITAGORAS
             var sqrRadioEfecto = RadioEfecto * RadioEfecto;
-            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad = $4", [sqrRadioEfecto, Latitud, Longitud, Gravedad], (err, res) => {
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1 AND i.gravedad >= $4 AND valido = $5", [sqrRadioEfecto, Latitud, Longitud, Gravedad, Valido], (err, res) => {
                 
                 if (err) {
 
@@ -306,6 +346,64 @@ class DataController{
                 }
 
             });
+        });
+
+        return promise;
+    }
+    /*
+    getIncidenciasByFenomeno(NombreFenomeno, Latitud, Longitud, RadioEfecto) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            //calcular TEOREMA DE PITAGORAS
+            var sqrRadioEfecto = RadioEfecto * RadioEfecto;
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1", [sqrRadioEfecto, Latitud, Longitud, NombreFenomeno], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rows.length == 0) {
+
+                        reject(false);
+                    } else {
+
+                        resolve(res);
+                    }
+
+                }
+
+            });
+        });
+
+        return promise;
+    }*/
+
+    updateIncidencia(Id, Gravedad) { 
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("UPDATE incidenciafenomeno SET valido = $2 WHERE incfenid = $1;", [Id, true], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    pool.query("UPDATE incidencia SET gravedad = $2 WHERE id = $1;", [Id, Gravedad], (err, res) => {
+
+                        if (err) {
+
+                            reject(err);
+                        } else {
+
+                            resolve(true);
+                        }
+                    });
+                }
+            });
+
         });
 
         return promise;

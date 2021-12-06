@@ -49,7 +49,7 @@ app.get('/usuario/:email', async (req, res) => {
     var email = req.params.email;
     var result = await GestorUsuarios.getUsuario(email);
 
-    result.password = "AAAAAHHHH, querias mirar mi contraseña eh?";
+    result.password = "AAAAAHHHHH, querias mirar mi contraseña eh?";
 
     if (result) {
 
@@ -147,7 +147,8 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
 app.get('/usuario/:email/filtro', async (req, res) => {
 
     var email = req.params.email;
-    var result = await GestorUsuarios.getFiltro(email);
+    var password = req.body.password;
+    var result = await GestorUsuarios.getFiltro(email, password);
 
     if (result) {
 
@@ -172,7 +173,7 @@ app.post('/incidencia/new', async (req, res) => {
     var fecha = req.body.fecha;
     var hora = req.body.hora;
 
-    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false);
+    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false);
 
     if (result) {
 
@@ -185,17 +186,54 @@ app.post('/incidencia/new', async (req, res) => {
     }
 })
 
-app.post('/usuario/:email/notificaciones', async (req, res) => {
+app.put('/incidencia/update', async (req, res) => {
+
+    var id = req.query.id;
+    var email = req.body.email;
+    var password = req.body.password;
+    var gravedad = req.body.gravedad;
+
+    var result = await GestorIncidencias.updateIncidencia(email, password, id, gravedad);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send(result);
+
+    }
+})
+
+app.post('/usuario/:email/incidenciasNoValidas', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
     var lat = req.body.latitud;
     var lon = req.body.longitud;
 
-    console.log(email);
-    console.log(pssword);
-    console.log(lat);
-    console.log(lon);
+    var result = await GestorIncidencias.getIncidenciasNoValidas(email, pssword, lat, lon);
+
+    if (result) {
+
+        console.log("return result");
+        res.status(200).send(result);
+
+    } else {
+
+        console.log("return error");
+        res.status(404).send(result);
+
+    }
+})
+
+app.post('/usuario/:email/notificaciones', async (req, res) => {
+
+    var email = req.params.email;
+    var pssword = req.body.password;
+    var lat = req.body.latitud;
+    var lon = req.body.longitud;
 
     var result = await EnviadorNotificaciones.getNotificaciones(email, pssword, lat, lon);
 

@@ -2,6 +2,8 @@
 const IncidenciaFenomeno = require('./IncidenciaFenomeno')
 const dataController = require('../BD/DataController');
 const AdapterAPIs = require('../ExternalEvents/ExternalEvents');
+const GestorUsuarios = require('./GestorUsuarios')
+
 
 //SINGLETON NO LLAMAR CONSTRUCTOR
 class GestorIncidencias {
@@ -16,15 +18,16 @@ class GestorIncidencias {
     }
     */
 
-    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Api) {
+    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api) {
 
         var nombre = await dataController.getFenomeno(NombreFenomeno).catch(error => { console.error(error) });
 
 
         if (nombre == NombreFenomeno) {
-            
-            var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, Api).catch(error => { console.error(error) });
-           
+
+            var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, Valido, Api)
+                .catch(error => { console.error(error) });
+
         } else {
             result = "Fenomeno no existe";
         }
@@ -32,17 +35,28 @@ class GestorIncidencias {
         return result;
     }
 
-    async getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto) {
+    async getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto, Valido) {
 
         var incidenciasfenomeno = [];
 
-        var incid = await dataController.getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto).catch(error => { console.error(error) });
-        
+        var incid = await dataController.getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto, Valido)
+            .catch(error => { console.error(error) });
+
         if (incid) {
-            for ( var i = 0; i < incid.rows.length; i++) {
+            for (var i = 0; i < incid.rows.length; i++) {
                 //Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
-                var inc = new IncidenciaFenomeno(incid.rows[i].fecha, incid.rows[i].hora, incid.rows[i].nombrefen, incid.rows[i].descripcion, incid.rows[i].radioefecto, incid.rows[i].gravedad, incid.rows[i].latitud, incid.rows[i].longitud);
+                var inc = new IncidenciaFenomeno(incid.rows[i].fecha,
+                    incid.rows[i].hora,
+                    incid.rows[i].nombrefen,
+                    incid.rows[i].descripcion,
+                    incid.rows[i].radioefecto,
+                    incid.rows[i].gravedad,
+                    incid.rows[i].latitud,
+                    incid.rows[i].longitud);
                 incidenciasfenomeno.push(inc);
+                if (incid.rows[i].valido) {
+                    inc.setValido();
+                }
             }
         }
         return incidenciasfenomeno;
@@ -61,12 +75,39 @@ class GestorIncidencias {
             var Fecha = incidenciasFenomeno[i].fecha;
             var Hora = incidenciasFenomeno[i].hora;
             var NombreFenomeno = incidenciasFenomeno[i].fenomenoMeteo.nombre;
+            var valido = incidenciasFenomeno[i].valido;
+            var api = incidenciasFenomeno[i].API;
 
+            await this.createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, valido, api)
+                .catch(error => { console.error(error) });
+        }
+    }
 
-            await this.createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, true).catch(error => { console.error(error) });
+    async getIncidenciasNoValidas(Email, Password, Latitud, Longitud) {
+
+        var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (usuario.isAdmin && usuario.password == Password) {
+
+            return await this.getIncidencias(Latitud, Longitud, 0, usuario.filtro.radioEfecto, false).catch(error => { console.error(error) });
         }
 
+        return false;
     }
+
+    async updateIncidencia(Email, Password, Id, Gravedad) {
+
+        var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (usuario.isAdmin && usuario.password == Password) {
+
+            return await dataController.updateIncidencia(Id, Gravedad).catch(error => { console.error(error) });
+        }
+
+        return false;
+
+    }
+
 }
 
 module.exports = new GestorIncidencias;
