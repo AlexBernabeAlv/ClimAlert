@@ -27,7 +27,18 @@
     <string name="title_congelacion">Congelación</string>
     <string name="title_hipotermia">Hipotermia</string>
 
-    <string name="text_calor_extremo_desc">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.</string>
+    <string name="text_calor_extremo_desc">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
+        Prevención\n
+        <li>Obtener equipo adecuado para protegerse de lesiones en la cabeza y crear espacios de aire.</li>\n
+        <li>Aprender primeros auxilios para poder brindar tratamiento a los demás.</li>\n
+        <li>Usar casco para minimizar lesiones en la cabeza.</li>\n
+        <li>Usar una bolsa de aire para avalanchas.</li>\n
+        <li>Llevar sonda colapsable de avalanchas y una pala pequeña para ayudar a rescatar a otras personas.</li>\n
+        Qué hacer\n
+        <li>En caso de verse sorprendido por una avalancha, intentar escapar hacia un lateral manteniéndose sobre los esquís si es posible.</li>
+        <li>En caso de que la avalancha te atrape, tratar de proteger boca y nariz formando un hueco que te permita respirar y evitar el riesgo de asfixia.</li>
+        <li>En caso de verse envuelto en la avalancha, tratar de nadar hacia la superficie.</li>
+    </string>
     <string name="text_granizo_desc">El granizo es un tipo de precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo. Está formado, principalmente de hielo de agua y su tamaño puede variar entre los 5 y 50 milímetros (0,19 y 1,968 pulgadas) de diámetro, e incluso superar esa medida.</string>
     <string name="text_tormenta_invernal_desc">Una tormenta invernal es la precipitación de nieve sobre la superficie terrestre que incluye además vientos intensos.</string>
     <string name="text_tornado_desc">Los tornados son columnas de aire que giran violentamente y que se extienden desde una tormenta eléctrica hasta el suelo. Los tornados pueden destruir edificios, voltear autos y crear mortales escombros impulsados por los vientos.</string>
