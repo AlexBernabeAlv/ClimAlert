@@ -80,11 +80,11 @@ class GestorUsuarios {
         return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
     }
 
-    async getFiltro(Email) {
+    async getFiltro(Email, Password) {
 
         var res = await dataController.getUsuario(Email).catch(error => { console.error(error) });
 
-        if (res.rows.length > 0) {
+        if (res.rows.lenght > 0 && res.rows[0].password == Password) {
 
             var filtro = new Filtro();
 

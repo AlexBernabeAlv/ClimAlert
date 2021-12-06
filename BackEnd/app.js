@@ -49,7 +49,7 @@ app.get('/usuario/:email', async (req, res) => {
     var email = req.params.email;
     var result = await GestorUsuarios.getUsuario(email);
 
-    result.password = "AAAAAHHHH, querias mirar mi contraseña eh?";
+    result.password = "AAAAAHHHHH, querias mirar mi contraseña eh?";
 
     if (result) {
 
@@ -147,7 +147,8 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
 app.get('/usuario/:email/filtro', async (req, res) => {
 
     var email = req.params.email;
-    var result = await GestorUsuarios.getFiltro(email);
+    var password = req.body.password;
+    var result = await GestorUsuarios.getFiltro(email, password);
 
     if (result) {
 
