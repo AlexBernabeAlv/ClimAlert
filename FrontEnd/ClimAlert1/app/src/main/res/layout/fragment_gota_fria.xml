@@ -9,6 +9,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/text_gota_fria_desc"/>
+        android:text="@string/descripcion_gota_fria"/>
 
 </LinearLayout>
