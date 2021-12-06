@@ -144,7 +144,7 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
     }
 })
 
-app.get('/usuario/:email/filtro', async (req, res) => {
+app.post('/usuario/:email/filtro', async (req, res) => {
 
     var email = req.params.email;
     var password = req.body.password;
