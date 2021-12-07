@@ -13,6 +13,7 @@
     "pg": "^8.7.1"
   },
   "devDependencies": {
+    "ci": "^2.1.1",
     "nodemon": "^2.0.14"
   },
   "scripts": {
