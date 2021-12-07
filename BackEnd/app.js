@@ -8,6 +8,7 @@ const Localizacion = require('./Dominio/Localizacion');
 const GestorUsuarios = require('./Dominio/GestorUsuarios');
 const EnviadorNotificaciones = require('./Dominio/EnviadorNotificaciones')
 const GestorRefugios = require('./Dominio/GestorRefugios');
+const GestorComentarios = require('./Dominio/GestorComentarios');
 
 
 const multer = require('multer');
@@ -334,6 +335,30 @@ app.put('/refugio/:nombre/update', async (req, res) => {
 
     }
 })
+
+//Comentarios
+
+app.post('/comentario/new', async (req, res) => {
+
+    var Email = req.body.email;
+    var Password = req.body.password;
+    var Incfenid = req.body.incfenid;
+    var ComentResponseId = req.body.comentresponseid;
+    var Contenido = req.body.contenido;
+
+    var result = await GestorComentarios.createComentario(Email, Password, Incfenid, ComentResponseId, Contenido);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No puedes crear este comentario");
+
+    }
+})
+
 
 
 //app.all
