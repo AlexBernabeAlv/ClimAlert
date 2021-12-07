@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClimAlert">
         <activity
-            android:name=".Auth_Activity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Auth_Activity"
             android:exported="true">
         </activity>
         <!--

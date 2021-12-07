@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     String email_account;
     String currentLanguage = "x", currentLang;
-    //String currentLanguage = "x";
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         email_account = InformacionUsuario.getInstance().email;
         getUsuario(email_account);
         currentLanguage = getIntent().getStringExtra(currentLang);
-        //currentLanguage = getIntent().getStringExtra("currentLang");
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
         Fragment fragment = new MapsFragment();
         getSupportFragmentManager()
@@ -97,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
             Intent refresh = new Intent(this, MainActivity.class);
-            //refresh.putExtra(currentLang, localeName);
             refresh.putExtra("currentLang", localeName);
             startActivity(refresh);
         }

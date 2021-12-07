@@ -164,22 +164,26 @@
         <li>Encourage the use of electric cars and other non-polluting vehicles, such as bicycles.</li>\n
     </string>
 
-    <string name="descripcion_erupcion_volcanica">A volcano is an opening in the earth\'s crust that allows molten rock, gases and debris to escape to the surface. A volcanic eruption can involve lava and debris that can move at speeds of up to 100 mph, destroying everything in its path. Volcanic ash can travel for hundreds of miles and cause serious health problems.\n
-<!--        <b>\nPrevention\n</b>-->
-<!--        <li>Know the risk of a volcanic eruption in your area.</li>\n-->
-<!--        <li>Learn about community warning systems.</li>\n-->
-<!--        <li>Get necessary supplies ahead of time in case you have to evacuate immediately or in case of utility outages. Be aware of each person's specific needs, including medications. Don't forget the needs of pets.</li>\n-->
-<!--        <li>Consult with your physician if you have pre-existing respiratory difficulties.</li>\n-->
-<!--        <li>Practice a communication and evacuation plan with all members of your family.</li>\n-->
-<!--        <li>Have a shelter plan if ash is the greatest risk.</li>\n-->
-<!--        <li>Find out about your homeowner's insurance policy coverage for volcanic eruptions.</li>\n-->
-<!--        <b>\nWhat to do\n</b>-->
-<!--        <li>Be alert to warnings.</li>\n-->
-<!--        <li>Follow evacuation orders from local authorities. Evacuate early.</li>\n-->
-<!--        <li>Avoid areas downwind, and valleys downstream, from the volcano. Debris and ash will be carried by the wind and fall by gravity.</li>\n-->
-<!--        <li>If you have sufficient supplies, temporarily protect yourself from volcanic ash where you are. Cover air vents and seal doors and windows.</li>\n-->
-<!--        <li>If you are outdoors, protect yourself from falling ash that can irritate skin and damage respiratory tract, eyes and open wounds. Wear a certified, well-fitting respirator, such as an N95.</li>\n-->
-<!--        <li>Avoid driving while heavy ash is falling. If you must drive, then turn off your vehicle lights.</li>\n-->
+    <string name="descripcion_erupcion_volcanica">A volcano is an opening in the earth\'s crust
+        that allows molten rock, gases and debris to escape to the surface.
+        A volcanic eruption can involve lava and debris that can move at speeds
+        of up to 100 mph, destroying everything in its path. Volcanic ash can
+        travel for hundreds of miles and cause serious health problems.\n
+        <b>\nPrevention\n</b>
+        <li>Know the risk of a volcanic eruption in your area.</li>\n
+        <li>Learn about community warning systems.</li>\n
+        <li>Get necessary supplies ahead of time in case you have to evacuate immediately or in case of utility outages. Be aware of each person\'s specific needs, including medications. Don\'t forget the needs of pets.</li>\n
+        <li>Consult with your physician if you have pre-existing respiratory difficulties.</li>\n
+        <li>Practice a communication and evacuation plan with all members of your family.</li>\n
+        <li>Have a shelter plan if ash is the greatest risk.</li>\n
+        <li>Find out about your homeowner\'s insurance policy coverage for volcanic eruptions.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Be alert to warnings.</li>\n
+        <li>Follow evacuation orders from local authorities. Evacuate early.</li>\n
+        <li>Avoid areas downwind, and valleys downstream, from the volcano. Debris and ash will be carried by the wind and fall by gravity.</li>\n
+        <li>If you have sufficient supplies, temporarily protect yourself from volcanic ash where you are. Cover air vents and seal doors and windows.</li>\n
+        <li>If you are outdoors, protect yourself from falling ash that can irritate skin and damage respiratory tract, eyes and open wounds. Wear a certified, well-fitting respirator, such as an N95.</li>\n
+        <li>Avoid driving while heavy ash is falling. If you must drive, then turn off your vehicle lights.</li>\n
     </string>
 
     <string name="descripcion_gota_fria">According to the State Meteorological Agency, a cold drop or DANA (Isolated High Level Depression) is a large mass of low temperature air that has separated from a polar jet. This, being in areas of warmer weather, interacts with the air of higher temperature in the area and causes storms of all kinds and meteorological instability, and can cause, among other things, winds of up to 100 km / h. It is more common in coastal areas near warm waters, since the moisture-laden air rising from these warm seas favors the formation of these cold drops when it meets the polar jets.\n

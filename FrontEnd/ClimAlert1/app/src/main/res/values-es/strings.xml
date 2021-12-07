@@ -12,7 +12,7 @@
     <string name="text_tormenta_invernal">Tormenta invernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundación</string>
-    <string name="text_incendio">Incendio</string>
+    <string name="text_incendio">Incendio Forestal</string>
     <string name="text_terremoto">Terremoto</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Avalancha</string>
@@ -143,8 +143,8 @@
         <li>Usar una bolsa de aire para avalanchas.</li>\n
         <li>Llevar sonda colapsable de avalanchas y una pala pequeña para ayudar a rescatar a otras personas.</li>\n
         <b>\nQué hacer\n</b>
-        <li>En caso de verse sorprendido por una avalancha, intentar escapar hacia un lateral manteniéndose sobre los esquís si es posible.</li>
-        <li>En caso de que la avalancha te atrape, tratar de proteger boca y nariz formando un hueco que te permita respirar y evitar el riesgo de asfixia.</li>
+        <li>En caso de verse sorprendido por una avalancha, intentar escapar hacia un lateral manteniéndose sobre los esquís si es posible.</li>\n
+        <li>En caso de que la avalancha te atrape, tratar de proteger boca y nariz formando un hueco que te permita respirar y evitar el riesgo de asfixia.</li>\n
         <li>En caso de verse envuelto en la avalancha, tratar de nadar hacia la superficie.</li>
     </string>
 

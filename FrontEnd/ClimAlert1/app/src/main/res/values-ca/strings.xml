@@ -12,7 +12,7 @@
     <string name="text_tormenta_invernal">Tempesta hivernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundació</string>
-    <string name="text_incendio">Incendi</string>
+    <string name="text_incendio">Incendi Forestal</string>
     <string name="text_terremoto">Terratrèmol</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Allau</string>
@@ -99,7 +99,16 @@
         <li>En cas de quedar-se atrapat en un edifici, dirigir-se al nivell més alt. Pujar-se al sostre i fer senyals per a demanar ajuda.</li>\n
     </string>
 
-    <string name="descripcion_incendio">Incendi
+    <string name="descripcion_incendio">Un incendi forestal és un foc que s\'extén sense control en terreny forestal o silvestre, afectant a combustibles vegetals, flora i fauna. Es distingeix d\'altres tipus d\'incendis per la seva àmplia extensió, la velocitat amb la qual es pot extendre des del lloc d\'origen, el seu potencial per a cambiar de direcció inesperadament, i la seva capacitat per a superar obstacles com carreteres, rius i tallafocs.\n
+\n<b>Consells</b>\n
+<li>Allunyeu-vos del foc en direcció oposada al fum.</li>\n
+<li>Respireu pel nas tapant-vos amb un drap moll.</li>\n
+<li>No busqueu refugi en coves, casetes agrícoles, parts altes del terreny o en el sentit del vent.</li>\n
+<li>Recordeu que el foc puja per les vessants.</li>\n
+<li>No utilitzeu vehicles si esteu envoltats pel foc.</li>\n
+<li>En cas que el foc us acorrali, intenteu fugir pels flancs, buscant una zona desproveïda de vegetació.</li>\n
+<li>Si no hi ha cap altra sortida, mulleu-vos la roba, protegiu-vos la cara i creueu per on el front sigui estret o de poca intensitat.</li>\n
+<li>En cas que se us cremi la roba, no correu. Poseu-vos a rodar pel terra o tapeu-vos amb una manta.</li>\n
     </string>
 
     <string name="descripcion_terremoto">Un terratrèmol és un tremolor sobtat i ràpid del sòl ocasionat pel desplaçament de roques subterrànies molt per sota de la superfície de la terra. Els terratrèmols poden causar incendis, tsunamis, lliscaments de terra o allaus.\n
