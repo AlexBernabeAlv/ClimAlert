@@ -22,10 +22,13 @@ it('Main page content', function(done) {
 */
 
 const assert = require('assert').strict;
-const externalApis = require('../ExternalEvents/ExternalApis');
 const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
+const externalApis = require('../ExternalEvents/ExternalApis');
+const apiWacc = externalApis.WeatherApiComCurrent;
+const apiFirms = externalApis.FirmsViirsSnppNrt;
+const apiSpeu = externalApis.SeismicPortalEu;
 
-const WaccCalorInundacion = {
+const EventoWaccCalorInundacion = {
 	location: {
 		name: "Figueras",
 		region: "Catalonia",
@@ -39,7 +42,7 @@ const WaccCalorInundacion = {
 	current: {
 		last_updated_epoch: 1638360900,
 		last_updated: "2021-12-01 13:15",
-		temp_c: 16.0,
+		temp_c: 17.0,
 		temp_f: 60.8,
 		is_day: 1,
 		condition: {
@@ -53,7 +56,7 @@ const WaccCalorInundacion = {
 		wind_dir: "S",
 		pressure_mb: 1012.0,
 		pressure_in: 29.88,
-		precip_mm: 0.0,
+		precip_mm: 0.5,
 		precip_in: 0.0,
 		humidity: 45,
 		cloud: 25,
@@ -71,49 +74,89 @@ describe('test: fenómenos de APIs', function() {
 	let fenomenosWacc = ['CalorExtremo', 'Inundacion'];
 	let fenomenosFirms = ['Incendio'];
 	let fenomenosSpeu = ['Terremoto'];
-	it("deberia retornar el número indicado de fenómenos", function() {
-		assert.strictEqual
+	it('deberia retornar el número indicado de fenómenos de Wacc', function() {
+		assert.strictEqual(fenomenosWacc.length, apiWacc.fenomenos.length);
 	});
-	it("deberia retornar fenómenos ordenados alfabéticamente", function() {
-		fenomenos.sort((a, b) => a.name.normalize().localeCompare(b.name.normalize()));
-		for(const fenomeno in fenomenos) {
-			
-		}
+	it('deberia retornar el número indicado de fenómenos de Firms', function() {
+		assert.strictEqual(fenomenosFirms.length, apiFirms.fenomenos.length);
+	});
+	it('deberia retornar el número indicado de fenómenos de Speu', function() {
+		assert.strictEqual(fenomenosSpeu.length, apiSpeu.fenomenos.length);
+	});
+	it('deberia retornar fenómenos de Wacc ordenados alfabéticamente', function() {
+		fenomenosWacc.sort((a, b) => a.normalize().localeCompare(b.normalize()));
+		assert.deepEqual(fenomenosWacc, apiWacc.fenomenos);
+	});
+	it('deberia retornar fenómenos de Firms ordenados alfabéticamente', function() {
+		fenomenosWacc.sort((a, b) => a.normalize().localeCompare(b.normalize()));
+		assert.deepEqual(fenomenosFirms, apiFirms.fenomenos);
+	});
+	it('deberia retornar fenómenos de Speu ordenados alfabéticamente', function() {
+		fenomenosWacc.sort((a, b) => a.normalize().localeCompare(b.normalize()));
+		assert.deepEqual(fenomenosSpeu, apiSpeu.fenomenos);
 	});
 });
 
 describe("test: WeatherApiComCurrent", function() {
-	const api = externalApis.WeatherApiComCurrent;
-	const evento = WaccCalorInundacion;
 	it("deberia crear 1 incidencia de calor extremo y 1 incidencia de inundacion", function() {
+		const evento = EventoWaccCalorInundacion;
 		let incidencias = [];
-		const fecha = api.getFecha(evento);
-		const hora = api.getHora(evento);
-		for (let fenomeno of api.fenomenos) {
-			const gravedad = api.getGravedad(WaccCalorInundacion);
-			const latitud = api.getLatitud(evento);
-			const longitud = api.getLongitud(evento);
+		const fecha = apiWacc.getFecha(evento);
+		const hora = apiWacc.getHora(evento);
+		for (let fenomeno of apiWacc.fenomenos) {
+			const gravedad = apiWacc.getGravedad(evento, fenomeno);
 			if (gravedad != 'inocuo') {
+				const latitud = apiWacc.getLatitud(evento);
+				const longitud = apiWacc.getLongitud(evento);
 				const grave = (gravedad == 'critico');
 				const radio = 1;
 				const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
-				//let name = api.name;
+				//let name = apiWacc.name;
 				incidencias.push(incidencia);
 			}
 		}
 		assert.strictEqual(2, incidencias.length);
+		assert.strictEqual('CalorExtremo', incidencias[0].fenomenoMeteo.nombre);
+		assert.strictEqual('Inundacion', incidencias[1].fenomenoMeteo.nombre);
 	});
-/*
-	it("should return gravedad", function() {
-		const gravedad = ;
-		assert.strictEqual('inocuo', externalApis.WeatherApiComCurrent.getGravedad(eventoInundacion2, 'Inundacion');
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				precip_mm: 0.00
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Inundacion');
+		assert.strictEqual('inocuo', gravedad);
 	});
-	it("should return gravedad", function() {
-		const gravedad = ;
-		assert.strictEqual('inocuo', externalApis.WeatherApiComCurrent.getGravedad(eventoInundacion3, 'Inundacion');
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				precip_mm: 0.03
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Inundacion');
+		assert.strictEqual('inocuo', gravedad);
 	});
-	it("should return gravedad", function() {
-		const gravedad = ;
-		assert.strictEqual('inocuo', externalApis.WeatherApiComCurrent.getGravedad(eventoInundacion4, 'Inundacion');
-	});*/
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			current: {
+				precip_mm: 0.04
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Inundacion');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			current: {
+				precip_mm: 0.05
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Inundacion');
+		assert.strictEqual('critico', gravedad);
+	});
 });
