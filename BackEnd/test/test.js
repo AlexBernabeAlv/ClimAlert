@@ -67,6 +67,21 @@ const WaccCalorInundacion = {
 	}
 }
 
+describe('test: fenómenos de APIs', function() {
+	let fenomenosWacc = ['CalorExtremo', 'Inundacion'];
+	let fenomenosFirms = ['Incendio'];
+	let fenomenosSpeu = ['Terremoto'];
+	it("deberia retornar el número indicado de fenómenos", function() {
+		assert.strictEqual
+	});
+	it("deberia retornar fenómenos ordenados alfabéticamente", function() {
+		fenomenos.sort((a, b) => a.name.normalize().localeCompare(b.name.normalize()));
+		for(const fenomeno in fenomenos) {
+			
+		}
+	});
+});
+
 describe("test: WeatherApiComCurrent", function() {
 	const api = externalApis.WeatherApiComCurrent;
 	const evento = WaccCalorInundacion;
@@ -87,7 +102,8 @@ describe("test: WeatherApiComCurrent", function() {
 			}
 		}
 		assert.strictEqual(2, incidencias.length);
-	});/*
+	});
+/*
 	it("should return gravedad", function() {
 		const gravedad = ;
 		assert.strictEqual('inocuo', externalApis.WeatherApiComCurrent.getGravedad(eventoInundacion2, 'Inundacion');
