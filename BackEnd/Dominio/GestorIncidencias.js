@@ -45,7 +45,8 @@ class GestorIncidencias {
         if (incid) {
             for (var i = 0; i < incid.rows.length; i++) {
                 //Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
-                var inc = new IncidenciaFenomeno(incid.rows[i].fecha,
+                var inc = new IncidenciaFenomeno(incid.rows[i].incfenid,
+                    incid.rows[i].fecha,
                     incid.rows[i].hora,
                     incid.rows[i].nombrefen,
                     incid.rows[i].descripcion,

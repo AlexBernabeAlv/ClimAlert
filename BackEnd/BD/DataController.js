@@ -350,35 +350,6 @@ class DataController{
 
         return promise;
     }
-    /*
-    getIncidenciasByFenomeno(NombreFenomeno, Latitud, Longitud, RadioEfecto) {
-
-        var promise = new Promise((resolve, reject) => {
-
-            //calcular TEOREMA DE PITAGORAS
-            var sqrRadioEfecto = RadioEfecto * RadioEfecto;
-            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE (((i.latitud * 110.574 - $2 * 110.574) * (i.latitud * 110.574 - $2 * 110.574)) + (((i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2)) * (i.longitud * 111.320 * cos(i.latitud - $2) - $3 * 111.320 * cos(i.latitud - $2))))) <= $1", [sqrRadioEfecto, Latitud, Longitud, NombreFenomeno], (err, res) => {
-
-                if (err) {
-
-                    reject(err);
-                } else {
-
-                    if (res.rows.length == 0) {
-
-                        reject(false);
-                    } else {
-
-                        resolve(res);
-                    }
-
-                }
-
-            });
-        });
-
-        return promise;
-    }*/
 
     updateIncidencia(Id, Gravedad) { 
 
@@ -515,6 +486,103 @@ class DataController{
         return promise;
     }
 
+    //Aqui Comentarios
+
+    createComentario(Comentario) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("INSERT INTO comentario(emailusr, incfenid, contenido, comentresponseid) VALUES($1, $2, $3, $4) RETURNING id;", [Comentario.email, Comentario.incfenid, Comentario.contenido, Comentario.idresponsecomment], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(id);
+                }
+            });
+        });
+
+
+        return promise;
+    }
+
+    getComentariosByIncFenId(Incfenid) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE incfenid = $1", [Incfenid], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getComentariosByUsuario(Email) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE emailusr = $1", [Email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getComentariosByComentario(CommentId) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE comentresponseid = $1", [CommentId], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    updateComentario(CommentId, Contenido) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("UPDATE comentario SET emailusr = $2, contenido = $2 WHERE id = $1;", [CommentId, Contenido], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
+
+        return promise;
+    }
 }
 
 
