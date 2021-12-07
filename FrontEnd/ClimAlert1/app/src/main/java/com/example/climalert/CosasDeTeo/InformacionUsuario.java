@@ -58,9 +58,7 @@ public class InformacionUsuario {
 
     static private InformacionUsuario usuario;
 
-    public void SetInformacion(String e, String p, float la1, float lo1, float la2, float lo2, int re, int g){
-         email = e;
-         password = p;
+    public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g){
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
@@ -84,7 +82,6 @@ public class InformacionUsuario {
         return usuario;
     }
     public void buclear(Activity a){
-        Log.d("ALGO1234", "buclear: ");
         getloc(a);
         coger_incidencias(a);
         refresh(1000, a);
@@ -103,6 +100,7 @@ public class InformacionUsuario {
 
     public void getLocalizacionesSecundarias(Activity a){
 
+        Log.d("secun", "getlocsecun");
         RequestQueue queue = Volley.newRequestQueue(a);
         String url = "https://climalert.herokuapp.com/usuario/" +InformacionUsuario.getInstance().email+ "/filtro";
         // Request a string response from the provided URL.
@@ -110,6 +108,8 @@ public class InformacionUsuario {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("secun", "getlocsecun onresponse");
+
                         float latitud1 = 0;
                         float longitud1 = 0;
                         float latitud2 = 0;
@@ -131,6 +131,8 @@ public class InformacionUsuario {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d("secun", "getlocsecun onexception" + e);
+
                         }
                         InformacionUsuario.getInstance().SetLocalizaciones(latitud1, longitud1, latitud2, longitud2);
 
@@ -141,6 +143,7 @@ public class InformacionUsuario {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
+                        Log.d("secun", "getlocsecun error" + error);
                     }
 
                 }) {
@@ -164,8 +167,6 @@ public class InformacionUsuario {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("ALGO", mapa.toString());
-
         // Request a string response from the provided URL.
         myJsonArrayRequest request = new myJsonArrayRequest(Request.Method.POST, url, mapa,
                 new Response.Listener<JSONArray>() {
@@ -180,7 +181,6 @@ public class InformacionUsuario {
 
                                 JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
                                 JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
-                                Log.d("ALGO3", "INCIDENCIAFENOMENO " + incidenciaFenomeno);
                                 String fecha =  incidenciaFenomeno.getString("fecha");
                                 Vector<String> indicaciones =  new Vector<String>();
                                 for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
@@ -205,7 +205,6 @@ public class InformacionUsuario {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ALGO", "ERROR VOLLEY " + error);
             }
         });
         // Add the request to the RequestQueue.
@@ -273,13 +272,11 @@ public class InformacionUsuario {
         location = locationManager.getLastKnownLocation(bestProvider);
         try {
             InformacionUsuario.getInstance().latitudactual = (float) location.getLatitude();
-            // Log.d("ALGO1234", "soy tonto" + location.getLatitude());
 
             InformacionUsuario.getInstance().longitudactual = (float) location.getLongitude();
         } catch (NullPointerException e) {
             InformacionUsuario.getInstance().longitudactual = -1.0f;
             InformacionUsuario.getInstance().latitudactual = -1.0f;
-            Log.d("ALGO1234", "NO PILLO LOC");
         }
     }
     private void Alert(Activity a) {
