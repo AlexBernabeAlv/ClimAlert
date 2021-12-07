@@ -9,13 +9,35 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="" />
+    <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_avalancha.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_avalancha.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_calor_extremo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_calor_extremo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_erupcion_volcanica.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_erupcion_volcanica.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_gota_fria.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_gota_fria.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_granizo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_granizo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_incendio.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_incendio.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_inundacion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_inundacion.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_llamadita.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_llamadita.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_lluvia_acida.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_lluvia_acida.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_terremoto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_terremoto.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_electrica.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_electrica.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_invernal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_invernal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tornado.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tornado.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tsunami.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tsunami.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values-ca/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values-ca/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values-en/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values-en/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values-es/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values-es/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\origa\.android\avd\Nexus_6_API_24.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\origa\.android\avd\Pixel_3a_API_30.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/FrontEnd/ClimAlert1">
       <ProjectState />

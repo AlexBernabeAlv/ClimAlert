@@ -9,6 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/descripcion_inundacion"/>
+        android:text="@string/descripcion_inundacion"
+        android:elegantTextHeight="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
 </LinearLayout>

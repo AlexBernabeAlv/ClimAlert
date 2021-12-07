@@ -22,18 +22,18 @@
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
     <string name="descripcion_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
-        Prevención\n
+        <b>\nPrevención\n</b>
         <li>Identificar lugares en su comunidad a los que pueda ir a refrescarse, como bibliotecas o centros comerciales.</li>\n
         <li>Cubra las ventanas con cortinas o persianas.</li>\n
         <li>Aísle térmicamente las puertas y ventanas.</li>\n
-        Qué hacer\n
+        <b>\nQué hacer\n</b>
         <li>No dejar a personas o mascotas en un automóvil cerrado.</li>
         <li>Tomar duchas o baños fríos.</li>
         <li>Usar ropa suelta, liviana y de colores claros.</li>
         <li>Beber mucho líquido.</li>
         <li>Evitar realizar actividades de alta energía o trabajo al aire libre durante el mediodía.</li>
         <li>Si se está afuera, buscar sombra y usar sombrero lo suficientemente ancho como para proteger el rostro.</li>
-        Señales de insolación\n
+        <b>\nSeñales de insolación\n</b>
         <li>Temperatura corporal extremadamente alta.</li>
         <li>Piel enrojecida, caliente y seca sin sudor.</li>
         <li>Pulso fuerte y rápido.</li>
