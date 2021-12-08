@@ -1,7 +1,9 @@
 
 package com.example.climalert;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,8 +48,11 @@ public class Auth_Activity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
         firebaseAuth = FirebaseAuth.getInstance();
         if(signedIn()) { //Comprovamos si el usuario ya había iniciado sesión
-            Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
-            startActivity(maini);
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            String localeName = prefs.getString(getString(R.string.saved_locale), "es");
+            Intent main = new Intent(Auth_Activity.this, MainActivity.class);
+            main.putExtra("currentLang", localeName);
+            startActivity(main);
         }
         else {
 

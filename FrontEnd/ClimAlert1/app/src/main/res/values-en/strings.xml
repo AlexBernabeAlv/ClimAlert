@@ -221,5 +221,7 @@
     <string name="google">GOOGLE</string>
     <string name="prefs_file">863788857384-1fuvh34n2o9j8t92b0ips2u3ra57scgu.apps.googleusercontent.com</string>
     <string name="Token_Id">AIzaSyBp9uSKVgoEIIfva6pWU6M03A6b_E4Wlgk</string>
+    <string name="saved_locale">saved_locale</string>
+
 
 </resources>

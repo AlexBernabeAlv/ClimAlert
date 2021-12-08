@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         email_account = InformacionUsuario.getInstance().email;
         getUsuario(email_account);
         currentLanguage = getIntent().getStringExtra(currentLang);
+        cambio_idioma(currentLanguage);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
         Fragment fragment = new MapsFragment();
         getSupportFragmentManager()
@@ -88,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
    public void cambio_idioma(String localeName) {
        if (!localeName.equals(currentLanguage)) {
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(getString(R.string.saved_locale), localeName);
+            editor.apply();
             Locale myLocale = new Locale(localeName);
             Resources res = getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
