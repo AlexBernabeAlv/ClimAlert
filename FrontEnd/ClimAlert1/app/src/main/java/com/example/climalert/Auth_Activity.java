@@ -143,6 +143,9 @@ public class Auth_Activity extends AppCompatActivity {
                         InformacionUsuario.getInstance().email = mail;
                         InformacionUsuario.getInstance().password = password;
                         Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
+
+                        //cambio de idioma
+
                         startActivity(maini);
                     }
                 },

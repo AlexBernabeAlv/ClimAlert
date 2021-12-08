@@ -2,3 +2,4 @@ FrontEnd/ClimAlert1/.gradle/*
 FrontEnd/ClimAlert1/.idea/*
 FrontEnd/ClimAlert1/app/build/*
 FrontEnd/ClimAlert1/local.properties
+.idea/workspace.xml

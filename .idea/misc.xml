@@ -7,7 +7,9 @@
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/formulario.xml" value="0.1796875" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_avalancha.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_calor_extremo.xml" value="0.1796875" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" value="0.1" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_erupcion_volcanica.xml" value="0.1796875" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_gota_fria.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_granizo.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_home.xml" value="0.1796875" />
@@ -20,11 +22,12 @@
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_llamadita.xml" value="0.1796875" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_lluvia_acida.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_nevada.xml" value="0.10208333333333333" />
-        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_terremoto.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_terrremoto.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_electrica.xml" value="0.10208333333333333" />
+        <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_invernal.xml" value="0.1" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tornado.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tsunami.xml" value="0.10208333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlertFinal/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_volcan.xml" value="0.10208333333333333" />

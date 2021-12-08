@@ -1,0 +1,226 @@
+<resources>
+    <string name="app_name">ClimAlert</string>
+    <string name="title_home">Inici</string>
+    <string name="title_call">S.O.S.</string>
+    <string name="title_info">Consells</string>
+    <string name="title_settings">Configuració</string>
+    <string name="title_dashboard">Panell de control</string>
+    <string name="title_notifications">Notificacions</string>
+
+    <string name="text_calor_extremo">Calor extrema</string>
+    <string name="text_granizo">Calamarsa</string>
+    <string name="text_tormenta_invernal">Tempesta hivernal</string>
+    <string name="text_tornado">Tornado</string>
+    <string name="text_inundacion">Inundació</string>
+    <string name="text_incendio">Incendi Forestal</string>
+    <string name="text_terremoto">Terratrèmol</string>
+    <string name="text_tsunami">Tsunami</string>
+    <string name="text_avalancha">Allau</string>
+    <string name="text_lluvia_acida">Pluja àcida</string>
+    <string name="text_erupcion_volcanica">Erupció volcànica</string>
+    <string name="text_gota_fria">Gota freda</string>
+    <string name="text_tormenta_electrica">Tempesta elèctrica</string>
+
+    <string name= "boton_idioma"> Idioma </string>
+    <string name= "boton_perfil"> Perfil </string>
+    <string name= "boton_logout"> Tancar Sessió </string>
+
+    <string name="descripcion_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n
+        <b>\nPrevenció\n</b>
+        <li>Identificar llocs en la seva comunitat als quals pugui anar a refrescar-se, com a biblioteques o centres comercials.</li>\n
+        <li>Cobreixi les finestres amb cortines o persianes.</li>\n
+        <li>Aïlli tèrmicament les portes i finestres.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>No deixar a persones o mascotes en un automòbil tancat.</li>\n
+        <li>Prendre dutxes o banys freds.</li>\n
+        <li>Usar roba còmoda, lleugera i de colors clars.</li>\n
+        <li>Beure molt de líquid.</li>\n
+        <li>Evitar realitzar activitats d\'alta energia o treball a l\'aire lliure durant el migdia.</li>\n
+        <li>Si s\'està fora, buscar ombra i usar barret prou ample com per a protegir el rostre.</li>\n
+        <b>\nSenyals d\'insolació\n</b>
+        <li>Temperatura corporal extremadament alta.</li>\n
+        <li>Pell enrogida, calenta i seca sense suor.</li>\n
+        <li>Pols fort i ràpid.</li>\n
+        <li>Marejos, confusió o pèrdues del coneixement.</li>\n
+    </string>
+
+    <string name="descripcion_granizo">La calamarsa és un tipus de precipitació sòlida que es compon de boles o grumolls irregulars de gel, cadascun dels quals es refereix com una pedra de calamarsa. Està format, principalment de gel d\'aigua i la seva grandària pot variar entre els 5 i 50 mil·límetres (0,19 i 1,968 polzades) de diàmetre, i fins i tot superar aquesta mesura.\n
+        <b>\nPrevenció\n</b>
+        <li>En cas de tenir mascotes, ficar-les endins de casa.</li>\n
+        <li>Protegir els vehicles.</li>\n
+        <li>Protegir els articles en l\'exterior.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Dirigir-se endins de casa.</li>\n
+        <li>Assegurar finestres.</li>\n
+        <li>Localitzar una zona segura.</li>\n
+    </string>
+
+    <string name="descripcion_tormenta_invernal">Una tempesta hivernal és la precipitació de neu sobre la superfície terrestre que inclou a més vents intensos.\n
+        <b>\nPrevenció\n</b>
+        <li>Preparar la casa per a protegir-la del fred amb aïllament, segellador i cinta aïllant.</li>\n
+        <li>Reunir subministraments en cas de necessitar quedar-se a casa durant diversos dies sense energia elèctrica.</li>\n
+        <li>Tingui bateries addicionals per a radis i llanternes.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Evitar sortir a la carretera.</li>\n
+        <li>En cas d\'estar atrapat en el seu automòbil, romandre endins.</li>\n
+        <li>Limitar el temps a l\'aire lliure. En cas de sortir, usar diverses capes de roba càlida i estar atent als signes de congelació i hipotèrmia.</li>\n
+        <b>\nCongelació\n</b>
+        <li>La congelació causa pèrdua de sensibilitat i color al voltant de la cara, els dits de les mans i dels peus.</li>\n
+        <li>Senyals: entumiment, pell blanca o grisenca-groguenca, pell ferma o cerosa.</li>\n
+        <li>Mesures: Vagi a una habitació càlida. Submergeixi el seu cos en aigua tèbia. Usi la calor corporal per a escalfar-se. No es *masajee ni usi un coixinet tèrmic.</li>\n
+        <b>\nHipotèrmia\n</b>
+        <li>La hipotèrmia és una temperatura corporal inusualment baixa. Una temperatura menor de 35 °C es considera una emergència.</li>\n
+        <li>Senyals: esgarrifances, esgotament, confusió, malaptesa en el moviment de les mans, pèrdua de memòria, dificultat per a parlar o somnolència.</li>\n
+        <li>Mesures: Vagi a una habitació càlida. Calent el centre del seu cos primer, és a dir: pit, coll, cap i engonal. Mantingui\'s sec i embolicat en mantes càlides, incloent el cap i el coll.</li>\n
+    </string>
+
+    <string name="descripcion_tornado">Els tornados són columnes d\'aire que giren violentament i que s\'estenen des d\'una tempesta elèctrica fins al sòl. Els tornados poden destruir edificis, voltejar actuacions i crear mortals enderrocs impulsats pels vents.\n
+        <b>\nPrevenció\n</b>
+        <li>Conèixer els indicis d\'un tornado: un núvol giratori en forma d\'embut; un núvol d\'enderrocs que s\'aproxima; o un rugit fort, similar a un tren de càrrega.</li>\n
+        <li>Identificar un refugi segur.</li>\n
+        <li>Preparar-se per a refugiar-se en el lloc, reunint subministraments d\'emergència, articles de neteja, aliments no peribles, aigua, subministraments mèdics i medicaments.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Anar immediatament a un lloc segur que s\'hagi identificat.</li>\n
+        <li>Mantenir-se informat en sistemes d\'alerta per a rebre informació actualitzada i instruccions sobre l\'emergència.</li>\n
+        <li>Protegir-se cobrint el cap o colls amb els braços i posant materials com a mobles i mantes a la seva al voltant o damunt.</li>\n
+        <li>No tractar d\'escapar d\'un tornado en un vehicle si s\'està en un automòbil.</li>\n
+    </string>
+
+    <string name="descripcion_inundacion">Les inundacions són desbordaments d\'aigua temporals cap a terrenys que normalment estan secs. Poden produir-se arran de pluja, neu, tempestes costaneres, marors ciclòniques, desbordaments de rescloses i altres sistemes d\'aigua. Poden causar apagades, interrompre el transport, danyar edificis i crear lliscaments de terra.\n
+        <b>\nPrevenció\n</b>
+        <li>Estar preparat per a tallar l\'electricitat quan hi hagi aigua estancada o cables de la línia elèctrica caiguts.</li>\n
+        <li>Assegurar-se de tenir un extintor.</li>\n
+        <li>Reunir els subministraments d\'emergència que hagi emmagatzemat a la seva casa i mantingui sintonitzada l\'estació local de ràdio o televisió per a rebre la informació més actualitzada.</li>\n
+        <li>Tenir a mà registres de vacunació.</li>\n
+        <li>Portar endins de la casa les pertinences que tingui a l\'aire lliure.</li>\n
+        <li>Preparar un subministrament d\'aigua d\'emergència. Emmagatzemar almenys 3,5 L d\'aigua per dia per a cada persona i cada mascota. Tenir una reserva per a almenys 3 dies.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Recordar que només 15 cm d\'aigua en moviments poden derrocar a una persona i que 30 cm pot arrossegar un vehicle.</li>\n
+        <li>Buscar refugi segur immediatament.</li>\n
+        <li>No caminar o neda a través d\'aigües d\'inundació.</li>\n
+        <li>No creuar ponts sobre aigües en moviment ràpid. Les aigües en moviment ràpid poden derrocar ponts sense avisar.</li>\n
+        <li>En cas de quedar-se atrapat en el vehicle, quedar-se endins. Si l\'aigua comença a pujar a l\'interior del vehicle, pujar-se al sostre.</li>\n
+        <li>En cas de quedar-se atrapat en un edifici, dirigir-se al nivell més alt. Pujar-se al sostre i fer senyals per a demanar ajuda.</li>\n
+    </string>
+
+    <string name="descripcion_incendio">Un incendi forestal és un foc que s\'extén sense control en terreny forestal o silvestre, afectant a combustibles vegetals, flora i fauna. Es distingeix d\'altres tipus d\'incendis per la seva àmplia extensió, la velocitat amb la qual es pot extendre des del lloc d\'origen, el seu potencial per a cambiar de direcció inesperadament, i la seva capacitat per a superar obstacles com carreteres, rius i tallafocs.\n
+\n<b>Consells</b>\n
+<li>Allunyeu-vos del foc en direcció oposada al fum.</li>\n
+<li>Respireu pel nas tapant-vos amb un drap moll.</li>\n
+<li>No busqueu refugi en coves, casetes agrícoles, parts altes del terreny o en el sentit del vent.</li>\n
+<li>Recordeu que el foc puja per les vessants.</li>\n
+<li>No utilitzeu vehicles si esteu envoltats pel foc.</li>\n
+<li>En cas que el foc us acorrali, intenteu fugir pels flancs, buscant una zona desproveïda de vegetació.</li>\n
+<li>Si no hi ha cap altra sortida, mulleu-vos la roba, protegiu-vos la cara i creueu per on el front sigui estret o de poca intensitat.</li>\n
+<li>En cas que se us cremi la roba, no correu. Poseu-vos a rodar pel terra o tapeu-vos amb una manta.</li>\n
+    </string>
+
+    <string name="descripcion_terremoto">Un terratrèmol és un tremolor sobtat i ràpid del sòl ocasionat pel desplaçament de roques subterrànies molt per sota de la superfície de la terra. Els terratrèmols poden causar incendis, tsunamis, lliscaments de terra o allaus.\n
+        <b>\nPrevenció\n</b>
+        <li>Elaborar un pla d\'emergència.</li>\n
+        <li>Tenir un kit de subministrament amb suficients aliments i aigua per a durar diversos dies, una llanterna, un extintor d\'incendis, i un xiulet.</li>\n
+        <li>Subjectar de manera ferma els articles pesats de la llar, com a prestatgeries, refrigeradors, televisors, etc.</li>\n
+        <li>Guardar els objectes pesats i fràgils en els prestatges baixos.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>En el cas d\'estar en un automòbil, s\'ha de sortir de la carretera i estacionar en un lloc apartat d\'estructures pesades, i accionar el fre de mà.</li>\n
+        <li>En el cas d\'estar en el llit, posar-se boca avall i cobrir-se el cap i el coll amb un coixí.</li>\n
+        <li>En el cas de trobar-se fora, romandre fora i allunyat d\'edificis.</li>\n
+        <li>En el cas de trobar-se dins, ajupir-se, cobrir-se amb el braç el cap i el clatell, posar-se sota alguna taula, i agarrar-se a una pota de la taula.</li>\n
+    </string>
+
+    <string name="descripcion_tsunami">Els tsunamis, també coneguts com a ones sísmiques, són una sèrie d\'ones enormes creades per una alteració submarina, com a terratrèmols, despreniments de terra, erupcions volcàniques o meteorits.\n
+        <b>\nPrevenció\n</b>
+        <li>Dirigir-se terra endins fins a una àrea el més elevada possible.</li>\n
+        <li>Retirar-se a tant punt vegi un senyal natural d\'un tsunami o si rep un advertiment oficial de tsunami.</li>\n
+        <li>En cas de trobar-se en un vaixell, sortir de la mar immediatament.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Evacuï immediatament terra endins a la major altura possible si les autoritats demanen que es faci.</li>\n
+        <li>En el cas de trobar-se en l\'aigua, agarrar-se a alguna cosa que flotació, com per exemple, una bassa, un tronc d\'arbre o una porta.</li>\n
+        <li>En el cas de trobar-se en un vaixell, navegar en el sentit contrari a les ones i després sortir de la mar.</li>\n
+    </string>
+
+    <string name="descripcion_avalancha">Una allau és una quantitat enorme de neu que es llisca ràpidament muntanya a baix, usualment en inclinacions de 30 fins a 45 graus. Quan una allau es deté, la neu se solidifica com el formigó i les persones queden atrapades. Les persones atrapades en allaus poden morir de sufocació, trauma o hipotèrmia.\n
+        <b>\nPrevenció\n</b>
+        <li>Obtenir equip adequat per a protegir-se de lesions al cap i crear espais d\'aire.</li>\n
+        <li>Aprendre primers auxilis per a poder brindar tractament als altres.</li>\n
+        <li>Usar casc per a minimitzar lesions al cap.</li>\n
+        <li>Usar una bossa d\'aire per a allaus.</li>\n
+        <li>Portar sonda colapsable d\'allaus i una pala petita per a ajudar a rescatar a altres persones.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>En cas de veure\'s sorprès per una allau, intentar escapar cap a un lateral mantenint-se sobre els esquís si és possible.</li>\n
+        <li>En cas que l\'allau t\'atrapi, tractar de protegir boca i nas formant un buit que et permeti respirar i evitar el risc d\'asfíxia.</li>\n
+        <li>En cas de veure\'s embolicat en l\'allau, tractar de nedar cap a la superfície.</li>\n
+    </string>
+
+    <string name="descripcion_lluvia_acida">La pluja àcida és una de les conseqüències de la contaminació atmosfèrica. És la precipitació que conté tant aigua com residus tòxics, principalment àcids, procedents de les emissions tant industrials com d\'altres tipus de maquinària, com els vehicles. Aquesta acidificació del sòl i de les aigües superficials té efectes devastadors sobre els ecosistemes i suposa un greu perill per als éssers vius.\n
+        <b>\nPrevenció\n</b>
+        <li>Filtrar i desintoxicar l\'aigua utilitzada per les fàbriques abans de retornar-la als rius.</li>\n
+        <li>Reduir l\'emissió de gasos contaminants per part de la indústria.</li>\n
+        <li>Afavorir la producció i l\'ús d\'energies netes, en detriment dels combustibles fòssils.</li>\n
+        <li>Disminuir el consum energètic a les fàbriques i empreses.</li>\n
+        <li>Plantar arbres perquè absorbeixin l\'aire contaminat.</li>\n
+        <li>Conscienciar sobre la importància de reduir el consum d\'energia en les llars.</li>\n
+        <li>Fomentar l\'ús del cotxe elèctric i d\'altres vehicles no contaminants, com la bicicleta.</li>\n
+    </string>
+
+    <string name="descripcion_erupcion_volcanica">Un volcà és una obertura en l\'escorça terrestre que permet la fuita de roca fosa, gasos i enderrocs fins a la superfície. Una erupció volcànica pot implicar lava i enderrocs que poden desplaçar-se a una velocitat de fins a 100 mph, destruint tot al seu pas. La cendra volcànica pot desplaçar-se per centenars de milles i provocar greus problemes de salut.\n
+        <b>\nPrevenció\n</b>
+        <li>Conegui el risc d\'una erupció volcànica en la seva àrea.</li>\n
+        <li>Informi\'s sobre els sistemes d\'alerta de la comunitat.</li>\n
+        <li>Aconsegueixi els subministraments necessaris amb anticipació en cas que hagi d\'evacuar immediatament o per si es produeixen corts en els serveis públics. Tingui present les necessitats específiques de cada persona, inclosos els medicaments. No s\'oblidi de les necessitats de les mascotes.</li>\n
+        <li>Consulti amb el seu metge si té dificultats respiratòries preexistents.</li>\n
+        <li>Practiqui un pla de comunicació i evacuació amb tots els membres de la seva família.</li>\n
+        <li>Tingui un pla de refugi si el major risc és la cendra.</li>\n
+        <li>Esbrini sobre la cobertura de la seva pòlissa d\'assegurança de propietari d\'habitatge en casos d\'erupcions volcàniques.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Estigui atent a les alertes.</li>\n
+        <li>Segueixi les ordres d\'evacuació de les autoritats locals. Desallotgi anticipadament.</li>\n
+        <li>Eviti les àrees en la direcció del vent, i les valls corrent a baix, del volcà. Els enderrocs i les cendres seran arrossegats pel vent i cauran per gravetat.</li>\n
+        <li>Si té suficients subministraments, protegeixi\'s temporalment de les cendres volcàniques en el mateix lloc on es troba. Cobreixi les boques de ventilació i segelli les portes i finestres.</li>\n
+        <li>Si es troba a l\'aire lliure, protegeixi\'s de la caiguda de cendra que pot irritar la pell i danyar les vies respiratòries, els ulls i les ferides obertes. Usi una màscara certificada, ben ajustada, com una N95.</li>\n
+        <li>Eviti manejar mentre cau cendra de manera intensa. Si ha de manejar, llavors apagui les llums del seu vehicle.</li>\n
+    </string>
+
+    <string name="descripcion_gota_fria">
+        Segons l\'Agència Estatal de Meteorologia, una gota freda o DANA
+        (Depressió Aïllada en Nivells Alts) és una gran massa d\'aire a
+        baixa temperatura que s\'ha separat d\'un corrent polar.
+        Aquesta, en trobar-se en zones de clima més càlid, interactua
+        amb l\'aire de major temperatura de la zona i origina tempestes de
+        tota mena i inestabilitat meteorològica, podent causar, entre altres
+        coses, vents de fins a 100 km/h.
+        És més habitual que es donin en zones de costa al
+        costat d\'aigües càlides, ja que l\'aire carregat d\'humitat
+        que ascendeix d\'aquestes mars càlides propícia la formació
+        d\'aquestes gotes fredes quan es troba amb els dolls polars.\n
+        <b>\nPrevenció\n</b>
+        <li>Evita deixar les teves pertinences en el porxo, ja que poden ser arrossegats per les fortes pluges, vent o inundacions i provocar accidents.</li>\n
+        <li>No deixis els teus tests o qualsevol altre objecte que pugui caure al carrer des de la finestra i provocar un accident. Assegura bé les finestres per a no sofrir danys a l\'interior.</li>\n
+        <li>Allunya\'t de llocs on estiguis sol o hi hagi arbres a prop. És recomanable tornar a casa o buscar un refugi si estàs lluny.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Informa\'t dels comunicats meteorològics.</li>\n
+        <li>En cas de riuada, localitza els punts més alts i/o estableix-te en un lloc que no sigui susceptible d\'inundacions.</li>\n
+        <li>Allunya\'t de llocs amb barrancs, torrents i dels seus ponts.</li>\n
+        <li>No creus per trams inundats, la força del corrent et pot arrossegar. En el cas que et trobis en un amb el teu cotxe, el més important és abandonar l\'automòbil i buscar un terreny més elevat.</li>\n
+    </string>
+
+    <string name="descripcion_tormenta_electrica">Els llamps són una de les principals causes de lesions i morts per riscos meteorològics. Encara que la majoria de les víctimes dels raigs sobreviuen, les persones aconseguides per un raig solen manifestar una sèrie de símptomes debilitants a llarg termini. Les tempestes elèctriques són tempestes perilloses que inclouen llamps i poden crear o causar vents potents de més de 50 mph (80 km/h),calamarsa, Inundacions sobtades i/o tornados.\n
+        <b>\nPrevenció\n</b>
+        <li>Conegui el risc de tempestes elèctriques en la seva zona.</li>\n
+        <li>Reforci la seva casa: tali els arbres que podrien caure sobre ella, valori la possibilitat de comprar protectors contra sobretensions o un parallamps.</li>\n
+        <li>Faci un pla d\'emergència i identifiqui els edificis resistents pròxims on viu, treballa o estudia.</li>\n
+        <b>\nQuè fer\n</b>
+        <li>Pari esment a les alertes i advertiments.</li>\n
+        <li>Eviti utilitzar dispositius electrònics connectats a un toma de corrent.</li>\n
+        <li>Eviti l\'aigua de l\'aixeta.</li>\n
+        <li>No condueixi en carrers i carreteres inundades. Només basten sis polzades d\'aigües ràpides per a derrocar a una persona, i un peu d\'aigua en moviment pot arribar a arrossegar un vehicle.</li>\n
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button">Button</string>
+    <string name="google">GOOGLE</string>
+    <string name="prefs_file">863788857384-1fuvh34n2o9j8t92b0ips2u3ra57scgu.apps.googleusercontent.com</string>
+    <string name="Token_Id">AIzaSyBp9uSKVgoEIIfva6pWU6M03A6b_E4Wlgk</string>
+
+</resources>

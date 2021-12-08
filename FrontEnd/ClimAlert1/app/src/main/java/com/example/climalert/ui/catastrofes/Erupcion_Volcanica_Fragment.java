@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.climalert.R;
 
-public class Insolacion_Fragment extends Fragment {
+public class Erupcion_Volcanica_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class Insolacion_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_insolacion, container, false);
+        View view = inflater.inflate(R.layout.fragment_erupcion_volcanica, container, false);
         return view;
     }
 }
