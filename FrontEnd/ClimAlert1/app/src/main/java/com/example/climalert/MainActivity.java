@@ -36,7 +36,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     String email_account;
-    String currentLanguage = "x", currentLang;
+    String currentLocale;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -44,8 +44,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         email_account = InformacionUsuario.getInstance().email;
         getUsuario(email_account);
-        currentLanguage = getIntent().getStringExtra(currentLang);
-        cambio_idioma(currentLanguage);
+        currentLocale = Locale.getDefault().getLanguage();
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("currentLocale")) {
+            currentLocale = getIntent().getStringExtra("currentLocale");
+        }
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        String newLocale = prefs.getString("saved_locale", currentLocale);
+        cambio_idioma(newLocale);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
         Fragment fragment = new MapsFragment();
         getSupportFragmentManager()
@@ -87,20 +92,21 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-   public void cambio_idioma(String localeName) {
-       if (!localeName.equals(currentLanguage)) {
+   public void cambio_idioma(String newLocale) {
+       if (!newLocale.equals(currentLocale)) {
+            currentLocale = newLocale;
             SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putString(getString(R.string.saved_locale), localeName);
+            editor.putString("saved_locale", newLocale);
             editor.apply();
-            Locale myLocale = new Locale(localeName);
+            Locale myLocale = new Locale(newLocale);
             Resources res = getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
             Configuration conf = res.getConfiguration();
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
             Intent refresh = new Intent(this, MainActivity.class);
-            refresh.putExtra("currentLang", localeName);
+            refresh.putExtra("currentLocale", newLocale);
             startActivity(refresh);
         }
     }
