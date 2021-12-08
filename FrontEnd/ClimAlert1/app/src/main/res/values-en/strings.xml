@@ -21,6 +21,10 @@
     <string name="text_gota_fria">Cold drop</string>
     <string name="text_tormenta_electrica">Thunder storm</string>
 
+    <string name= "boton_idioma"> Language </string>
+    <string name= "boton_perfil"> Profile </string>
+    <string name= "boton_logout"> Log Out </string>
+
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or
         much more humid conditions than average. This extreme heat can cause heat stroke,
         which is a condition characterized by nausea, vomiting, headache, heat of the skin,

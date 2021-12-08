@@ -16,7 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
-        android:text="Log out"
+        android:text="@string/boton_logout"
         android:backgroundTint="#FF2196F3"/>
     <TextView
         android:layout_width="wrap_content"

@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+tools:ignore="ExtraText"
+tools:context=".ui.catastrofes.Erupcion_Volcanica_Fragment">
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="ExtraText"
-    tools:context=".ui.catastrofes.Erupcion_Volcanica_Fragment">
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:id="@+id/scroll_volcan">
 
     <TextView
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/descripcion_erupcion_volcanica"
         android:elegantTextHeight="true"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
 </LinearLayout>
+
+</ScrollView>

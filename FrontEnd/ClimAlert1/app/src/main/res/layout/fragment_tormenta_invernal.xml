@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:padding="10dp"
         android:id="@+id/scroll_tormenta_invernal">
 
@@ -20,6 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/descripcion_tormenta_invernal"
             android:elegantTextHeight="true"
+            android:layout_marginBottom="30dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
