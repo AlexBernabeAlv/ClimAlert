@@ -36,5 +36,12 @@
         android:valueFrom="0.0"
         android:valueTo="5.0" />
 
+    <Switch
+        android:id="@+id/idSwitchFiltro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filtro de gravedad   "
+        android:layout_centerInParent="true"/>
+
 
 </RelativeLayout>

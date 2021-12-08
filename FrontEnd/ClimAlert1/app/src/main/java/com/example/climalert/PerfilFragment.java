@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     View view;
     Auth_Activity auth_activity;
     Slider s;
+    Switch switchF;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         logout.setOnClickListener(this);
         s = (Slider) view.findViewById(R.id.slider_radio);
         s.addOnChangeListener(this);
+        switchF = (Switch) view.findViewById(R.id.idSwitchFiltro);
         return view;
     }
 
@@ -49,6 +52,14 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
             auth_activity.getmGoogleSignInClient().signOut(); //aqui falla
             Intent intent = new Intent(getActivity(), Auth_Activity.class);
             startActivity(intent);
+        }
+        else if (v.getId() == R.id.idSwitchFiltro) {
+            if (switchF.isChecked()) {
+                //activa filtro
+            }
+            else {
+                //desactiva filtro
+            }
         }
     }
 
