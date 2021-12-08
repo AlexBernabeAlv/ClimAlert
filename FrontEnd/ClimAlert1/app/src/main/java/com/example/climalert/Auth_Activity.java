@@ -3,7 +3,6 @@ package com.example.climalert;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -45,9 +44,9 @@ public class Auth_Activity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(signedIn()) { //Comprovamos si el usuario ya había iniciado sesión
-            Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
-            startActivity(maini);
+        if(signedIn()) { //Comprobamos si el usuario ya había iniciado sesión
+            Intent main = new Intent(Auth_Activity.this, MainActivity.class);
+            startActivity(main);
         }
         else {
 
@@ -142,11 +141,8 @@ public class Auth_Activity extends AppCompatActivity {
                         //JSONObject usuario;
                         InformacionUsuario.getInstance().email = mail;
                         InformacionUsuario.getInstance().password = password;
-                        Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
-
-                        //cambio de idioma
-
-                        startActivity(maini);
+                        Intent main = new Intent(Auth_Activity.this, MainActivity.class);
+                        startActivity(main);
                     }
                 },
                 new Response.ErrorListener() {
