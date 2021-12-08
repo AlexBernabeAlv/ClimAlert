@@ -319,7 +319,7 @@ app.delete('/refugio/:nombre/delete', async (req, res) => {
 
 app.put('/refugio/:nombre/update', async (req, res) => {
 
-    var email = req.params.email;
+    var email = req.body.email;
     var psswd = req.body.password;
     var Nombre = req.params.nombre;
 
@@ -355,6 +355,99 @@ app.post('/comentario/new', async (req, res) => {
     } else {
 
         res.status(404).send("No puedes crear este comentario");
+
+    }
+})
+
+app.get('/comentario', async (req, res) => {
+
+    var email = req.query.email;
+
+    var result = await GestorComentarios.getComentariosUsuario(email);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No se ha encontrado comentarios");
+
+    }
+})
+
+
+app.get('/comentario/:commentid/respuestas', async (req, res) => {
+
+    var commentid = req.params.commentid;
+
+    var result = await GestorComentarios.getComentariosComentario(commentid);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No se ha encontrado comentarios");
+
+    }
+})
+
+
+
+app.get('/incidenciafenomeno/:incfenid/comentarios', async (req, res) => {
+
+    var incfenid = req.params.incfenid;
+
+    var result = await GestorComentarios.getComentariosIncidenciaFenomeno(incfenid);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No se ha encontrado comentarios");
+
+    }
+})
+
+app.put('/comentario/:commentid/delete', async (req, res) => {
+
+    var commentid = req.params.commentid;
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var result = await GestorComentarios.deleteComentario(commentid, email, password);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No puedes borrar este comentario");
+
+    }
+})
+
+app.put('/comentario/:commentid/update', async (req, res) => {
+
+    var commentid = req.params.commentid;
+    var contenido = req.body.contenido;
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var result = await GestorComentarios.editComentario(commentid, contenido, email, password);
+
+    if (result) {
+
+        res.status(200).send(result);
+
+    } else {
+
+        res.status(404).send("No puedes editar este comentario");
 
     }
 })

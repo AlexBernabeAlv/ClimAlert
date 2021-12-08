@@ -25,7 +25,7 @@ class DataController{
 
             //Crear FenomenosMeteo
 
-            var fenomenosMeteos = ["Incendio", "Terremoto", "Tornado", "Inundacion", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria", "Insolacion"];
+            var fenomenosMeteos = ["Incendio", "Terremoto", "Tornado", "Inundacion", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria", "Calor Extremo", "Granizo", "Tormenta electrica", "Tormenta invernal", "Tsunami"];
             var descripcionesFenomenosMeteo = [
 
                 "Cosa que quema",
@@ -36,10 +36,14 @@ class DataController{
                 "Cosa que moja, pero poco y mal",
                 "Cosa que explota",
                 "Cosa que hace canicas los hue..",
-                "Cosa que da calor"
+                "Cosa que da calor",
+                "Cosa que llueve hielo",
+                "Impactrueno",
+                "Impactrueno pero muy frio",
+                "Ola muy grande"
             ];
 
-            pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16), ($17, $18);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7], fenomenosMeteos[8], descripcionesFenomenosMeteo[8]], (err, res) => {
+            pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16), ($17, $18), ($19, $20), ($21, $22), ($23, $24), ($25, $26);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7], fenomenosMeteos[8], descripcionesFenomenosMeteo[8], fenomenosMeteos[9], descripcionesFenomenosMeteo[9], fenomenosMeteos[10], descripcionesFenomenosMeteo[10], fenomenosMeteos[11], descripcionesFenomenosMeteo[11], fenomenosMeteos[12], descripcionesFenomenosMeteo[12]], (err, res) => {
 
                 if (err) {
 
@@ -498,12 +502,31 @@ class DataController{
 
                     reject(err);
                 } else {
-
-                    resolve(id);
+                    console.log(res.rows[0].id);
+                    resolve(res.rows[0].id);
                 }
             });
         });
 
+
+        return promise;
+    }
+
+    getComentario(Id) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE id = $1", [Id], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
 
         return promise;
     }
@@ -557,26 +580,26 @@ class DataController{
                     reject(err);
                 } else {
 
-                    resolve(res);
+                    resolve(res.rowCount);
                 }
             });
         });
-
+        
         return promise;
     }
 
-    updateComentario(CommentId, Contenido) {
+    updateComentario(CommentId, Contenido, Email) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("UPDATE comentario SET emailusr = $2, contenido = $2 WHERE id = $1;", [CommentId, Contenido], (err, res) => {
+            pool.query("UPDATE comentario SET contenido = $2 WHERE id = $1 AND emailusr = $3 AND contenido != '[deleted]';", [CommentId, Contenido, Email], (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
 
-                    resolve(res);
+                    resolve(res.rowCount);
                 }
             });
         });

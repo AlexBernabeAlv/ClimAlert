@@ -12,29 +12,53 @@ class GestorComentarios {
 
 
     async createComentario(Email, Password, Incfenid, ComentResponseId, Contenido) {
-        var usu = GestorUsuarios.getUsuario(Email);
+
+        var usu = await GestorUsuarios.getUsuario(Email);
 
         if (usu && usu.password == Password) {
 
-            //Id, Email, Incfenid, IdComment, Contenido
-            var com = new Comentario(0, Email, Incfenid, ComentResponseId, Contenido);
+            var c;
 
-            var coment = await dataController.createComentario(com).catch(error => { console.error(error) });
+            if (ComentResponseId) {
 
-            var result = new Comentario(coment.rows[0].id, Email, Incfenid, ComentResponseId, Contenido);
+                c = await this.getComentario(ComentResponseId);
+            }
 
-            return result;
+            if (!ComentResponseId || c) {
+
+                console.log("He entrado");
+                var com = new Comentario(0, Email, Incfenid, ComentResponseId, Contenido);
+                console.log(com);
+                var id = await dataController.createComentario(com).catch(error => { console.error(error) });
+                console.log(id);
+                if (id == null) return false;
+                var result = new Comentario(id, Email, Incfenid, ComentResponseId, Contenido);
+                console.log(result);
+                return result;
+            }
+
+            
         }
-
+        console.log("No he entrado");
         return false;
     }
-    /*
+
+    async getComentario(Id) {
+
+        var comentario = await dataController.getComentario(Id).catch(error => { console.error(error) });
+        console.log(comentario.rows.length);
+        if (comentario.rows.length > 0) {
+
+            return new Comentario(comentario.rows[0].id, comentario.rows[0].emailusr, comentario.rows[0].incfenid, comentario.rows[0].comentresponseid, comentario.rows[0].contenido);
+        }
+        return false;
+    }
 
     async getComentariosIncidenciaFenomeno(Incfenid) {
 
         var comentarios = await dataController.getComentariosByIncFenId(Incfenid).catch(error => { console.error(error) });
 
-        var result[];
+        var result = [];
 
         for (var i = 0; i < comentarios.rows.length; i++) {
 
@@ -45,10 +69,10 @@ class GestorComentarios {
     }
 
     async getComentariosUsuario(Email) {
-
+        
         var comentarios = await dataController.getComentariosByUsuario(Email).catch(error => { console.error(error) });
 
-        var result[];
+        var result = [];
 
         for (var i = 0; i < comentarios.rows.length; i++) {
 
@@ -62,7 +86,7 @@ class GestorComentarios {
 
         var comentarios = await dataController.getComentariosByComentario(CommentId).catch(error => { console.error(error) });
 
-        var result[];
+        var result = [];
 
         for (var i = 0; i < comentarios.rows.length; i++) {
 
@@ -72,16 +96,40 @@ class GestorComentarios {
         return result;
     }
 
-    async deleteComentario(CommentId) {
+    async deleteComentario(CommentId, Email, Password) {
 
-        return await dataController.updateComentario(CommentId, "[deleted]").catch(error => { console.error(error) });
+        var usu = await GestorUsuarios.getUsuario(Email);
+
+        if (usu && usu.password == Password) {
+
+            var numedeleted = await dataController.updateComentario(CommentId, "[deleted]", usu.email).catch(error => { console.error(error) });
+
+            if (numedeleted == 0) {
+                return "Ningun comentario borrado";
+            }
+            return "Comentario borrado";
+        }
+
+        return "Usuario incorrecto";
     }
 
-    async editComentario(CommentId, Contenido) {
+    async editComentario(CommentId, Contenido, Email, Password) {
 
-        return await dataController.updateComentario(CommentId, Contenido).catch(error => { console.error(error) });
+        var usu = await GestorUsuarios.getUsuario(Email);
+
+        if (usu && usu.password == Password) {
+
+            var numedited = await dataController.updateComentario(CommentId, Contenido, usu.email).catch(error => { console.error(error) });
+
+            if (numedited == 0) {
+                return "Ningun comentario editado";
+            }
+            return "Comentario editado";
+        }
+
+        return "Usuario incorrecto";
     }
-    */
+    
 }
 
 module.exports = new GestorComentarios;
