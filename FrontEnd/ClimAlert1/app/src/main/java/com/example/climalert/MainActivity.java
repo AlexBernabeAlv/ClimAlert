@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.contenedor, fragment)
                 .commit();
 
-        InformacionUsuario.getInstance().buclear(this);
+        //InformacionUsuario.getInstance().buclear(this);
         InformacionUsuario.getInstance().getLocalizacionesSecundarias(this);
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());

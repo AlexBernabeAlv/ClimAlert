@@ -53,7 +53,9 @@ public class InformacionUsuario {
     public float longitud2;
     public int radioEfecto;
     public int gravedad;
-    public Notificacion[] res;
+    public Vector<Notificacion> actual = new Vector<Notificacion>();
+    public Vector<Notificacion> aPintar = new Vector<Notificacion>();
+    public Vector<Notificacion> aBorrar = new Vector<Notificacion>();
     AlertDialog alert = null;
 
     static private InformacionUsuario usuario;
@@ -81,6 +83,7 @@ public class InformacionUsuario {
         }
         return usuario;
     }
+    /*
     public void buclear(Activity a){
         getloc(a);
         coger_incidencias(a);
@@ -96,15 +99,21 @@ public class InformacionUsuario {
             }
         };
         handler.postDelayed(runnable, milliseconds);
-    }
+    }*/
 
     public void getLocalizacionesSecundarias(Activity a){
 
         Log.d("secun", "getlocsecun");
         RequestQueue queue = Volley.newRequestQueue(a);
         String url = "https://climalert.herokuapp.com/usuario/" +InformacionUsuario.getInstance().email+ "/filtro";
+        JSONObject mapa = new JSONObject();
+        try {
+            mapa.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // Request a string response from the provided URL.
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mapa,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -152,7 +161,6 @@ public class InformacionUsuario {
     }
 
     public void coger_incidencias(Activity a){
-        Log.d("ALGO", "coger incidencias entro");
         RequestQueue queue = Volley.newRequestQueue(a);
         InformacionUsuario us = InformacionUsuario.getInstance();
         String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
@@ -174,7 +182,6 @@ public class InformacionUsuario {
                     @Override
                     public void onResponse(JSONArray response) {
                         JSONObject Notificacion;
-                        res = new Notificacion[response.length()];
                         try {
                             for (int i = 0; i < response.length(); ++i) {
                                 Notificacion = response.getJSONObject(i);
@@ -187,6 +194,7 @@ public class InformacionUsuario {
                                     indicaciones.add(IndicacionIncidencia.getString(j));
                                 }
                                 JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");
+                                Integer id = Integer.parseInt(incidenciaFenomeno.getString("id"));
                                 Integer radio = Integer.parseInt(incidencia.getString("radio"));
                                 JSONObject localizacion = incidencia.getJSONObject("localizacion");
                                 Float latitud = Float.parseFloat(localizacion.getString("latitud"));
@@ -194,10 +202,51 @@ public class InformacionUsuario {
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
-                                res[i] = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion);
-
+                                Notificacion n = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion, id);
+                                aPintar.add(n);
                             }
-                           // print_incidencias();
+                            Log.d("asd", "onResponse: ");
+                            for(int i = 0; i < actual.size(); ++i)
+                            {
+                                boolean existe =  false;
+                                for(int j = 0; j < aPintar.size() && !existe; ++j)
+                                {
+                                    if(actual.get(i).identificador == aPintar.get(j).identificador) {
+                                        existe = true;
+                                    }
+                                }
+                                if(!existe) {
+                                    aBorrar.add(actual.get(i));
+                                    actual.remove(i);
+                                }
+                            }
+                            for(int i = 0; i < aPintar.size(); ++i)
+                            {
+                                for(int j = 0; j < actual.size(); ++j)
+                                {
+                                    if(aPintar.get(i).identificador == actual.get(j).identificador) {
+                                        aPintar.remove(i);
+                                    }
+                                }
+                            }
+                            actual.addAll(aPintar);
+                            Log.d("asd", "onResponse: ");
+                            /*
+                            for(todas){
+                                if(! esta en pintar)
+                                {
+                                    la meto en borrar
+                                    la borro de todas
+                                }
+                            }
+                            for(pintar){
+                                if(esta en todas)
+                                {
+                                    la borro de pintar
+                                }
+                            }
+                            a todas le meto pintar, concat
+                            */
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -230,7 +279,7 @@ public class InformacionUsuario {
         }
     }
 
-    private void getloc(Activity a) {
+    public void getloc(Activity a) {
         // Get the location manager
         //he puesto el getactivity por la cara la verdad
         LocationManager locationManager = (LocationManager) a.getSystemService(LOCATION_SERVICE);

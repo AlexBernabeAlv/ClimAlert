@@ -1,35 +1,26 @@
 package com.example.climalert;
 
-import static android.content.Context.LOCATION_SERVICE;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -38,23 +29,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -67,19 +51,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 public class MapsFragment extends Fragment {
@@ -89,8 +71,8 @@ public class MapsFragment extends Fragment {
     Timer timer;
     Marker UBI1;
     Marker UBI2;
-    Vector<Marker> marcadoresIncidencias =  new Vector<Marker>();
-    Vector<Circle> CirculosMarcadoresIncidencias =  new Vector<Circle>();
+    HashMap<Marker, Integer> IncidenciasActuales =  new HashMap<Marker, Integer>();
+    HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();;
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -156,13 +138,17 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
+        InformacionUsuario.getInstance().getloc(getActivity());
+        InformacionUsuario.getInstance().coger_incidencias(getActivity());
         limpiar_incidencias();
+        print_incidencias();
+
         if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }
-        print_incidencias(InformacionUsuario.getInstance().res);
-        refresh(3000);
+
+        refresh(1000);
     }
 
     private void refresh(int milliseconds){
@@ -193,6 +179,7 @@ public class MapsFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
+                mMap.clear();
                 //Log.d( "ALGO", "voy a coger incidencias");
               //  coger_incidencias();
                // getloc();
@@ -468,17 +455,6 @@ public class MapsFragment extends Fragment {
         queue.add(jsor);
     }
 
-
-    public void print_incidencias(Notificacion[] res){
-        if(res != null) {
-            Log.d( "ALGO", "res > 0");
-            for (int i = 0; i < res.length; ++i) {
-                LatLng ll = new LatLng((res[i].latitud), (res[i].longitud));
-                generarMarcadores(ll, (res[i].descripcion), res[i].nombre, (res[i].radio));
-            }
-        }
-    }
-
     public void dar_localizacion() {
         Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -608,7 +584,7 @@ public class MapsFragment extends Fragment {
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    private void drawCircle(LatLng point, int rad) {
+    private void drawCircle(LatLng point, int rad, int id) {
         // Instantiating CircleOptions to draw a circle around the marker
         CircleOptions circleOptions = new CircleOptions();
         // Specifying the center of the circle
@@ -623,28 +599,63 @@ public class MapsFragment extends Fragment {
         circleOptions.strokeWidth(2);
         // Adding the circle to the GoogleMap
         Circle C = mMap.addCircle(circleOptions);
-        CirculosMarcadoresIncidencias.add(C);
+        CirculosIncidencias.put(id, C);
     }
 
     private void limpiar_incidencias(){
-        for(int i = 0; i < marcadoresIncidencias.size(); ++i){
-            marcadoresIncidencias.get(i).remove();
-            CirculosMarcadoresIncidencias.get(i).remove();
-
+        for(int i = 0; i < InformacionUsuario.getInstance().aBorrar.size(); ++i){
+            int id = InformacionUsuario.getInstance().aBorrar.get(i).identificador;
+            CirculosIncidencias.get(id).remove();
+            CirculosIncidencias.remove(id);
+            Iterator entries = IncidenciasActuales.entrySet().iterator();
+            boolean exit = true;
+            while (entries.hasNext() && exit) {
+                Map.Entry entry = (Map.Entry) entries.next();
+                Integer value = (Integer) entry.getValue();
+                Marker key = (Marker) entry.getKey();
+                if(value == id) {
+                    key.remove();
+                    IncidenciasActuales.remove(key);
+                    exit = false;
+                }
+            }
         }
+        InformacionUsuario.getInstance().aBorrar.clear();
+    }
+    /*
+    private void limpiar_incidencias(Vector<Marker> aux){
+        for(int i = 0; i < aux.size(); ++i){
+            if(!marcadoresIncidencias.contains(marcadoresIncidencias.get(i)))
+            {
+                marcadoresIncidencias.get(i).remove();
+                CirculosMarcadoresIncidencias.get(i).remove();
+            }
+        }
+
         marcadoresIncidencias.removeAllElements();
         CirculosMarcadoresIncidencias.removeAllElements();
-    }
+    }*/
 
-    public void generarMarcadores(LatLng latLng, String info, String tip, int radio) {
+    public void print_incidencias(){
+        Vector<Notificacion> print = InformacionUsuario.getInstance().aPintar;
+        if(InformacionUsuario.getInstance().aPintar != null) {
+            Log.d( "ALGO", "res > 0");
+            for (int i = 0; i < print.size(); ++i) {
+                LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
+                generarMarcadores(ll, (print.get(i).descripcion), print.get(i).nombre, (print.get(i).radio),(print.get(i).identificador));
+            }
+            InformacionUsuario.getInstance().aPintar.clear();
+        }
+    }
+    public void generarMarcadores(LatLng latLng, String info, String tip, int radio, int id) {
         Marker m  = mMap.addMarker(new MarkerOptions()
                 .snippet(info)
                 .position(latLng)
                 .alpha(0.9f)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                 .title(tip));
-        drawCircle(latLng, radio * 2000);
-        marcadoresIncidencias.add(m);
+        drawCircle(latLng, radio * 2000, id);
+        IncidenciasActuales.put(m, id);
     }
 }
 
