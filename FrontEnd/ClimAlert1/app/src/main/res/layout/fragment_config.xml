@@ -33,15 +33,6 @@
             android:text="Idioma"
             android:backgroundTint="#FF9800"/>
 
-        <Button
-            android:id="@+id/localizaciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/idioma"
-            android:text="Localizaciones"
-            android:backgroundTint="#FF9800"/>
-
     </RelativeLayout>
 
 </FrameLayout>
