@@ -237,7 +237,7 @@ class DataController{
                                 reject(err);
                             } else {
 
-                                resolve("Cambios en ubicaciones aplicados");
+                                resolve({ result: "Cambios en ubicaciones aplicados" });
                             }
                         });
 

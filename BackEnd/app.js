@@ -111,7 +111,7 @@ app.delete('/usuario/:email/delete', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
@@ -136,7 +136,7 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
@@ -178,7 +178,7 @@ app.post('/incidencia/new', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
@@ -198,7 +198,7 @@ app.put('/incidencia/update', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
@@ -246,7 +246,7 @@ app.post('/usuario/:email/notificaciones', async (req, res) => {
     } else {
 
         console.log("return error");
-        res.status(404).send(result);
+        res.status(404).send({ result: result });
 
     }
 })
@@ -275,7 +275,7 @@ app.post('/refugio/new', async (req, res) => {
 
     } else {
 
-        res.status(404).send("No puedes crear este refugio");
+        res.status(404).send({ result: "No puedes crear este refugio" });
 
     }
 })
@@ -293,7 +293,7 @@ app.get('/refugio', async (req, res) => {
 
     } else {
 
-        res.status(404).send("Refugio no existe");
+        res.status(404).send({ result: "Refugio no existe" });
 
     }
 })
@@ -308,11 +308,11 @@ app.delete('/refugio/:nombre/delete', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
-        res.status(404).send("No puedes destruir este refugio");
+        res.status(404).send({ result: "No puedes destruir este refugio" });
 
     }
 })
@@ -331,7 +331,7 @@ app.put('/refugio/:nombre/update', async (req, res) => {
 
     } else {
 
-        res.status(404).send("Usuario no Admin");
+        res.status(404).send({ result: "Usuario no Admin" });
 
     }
 })
@@ -354,7 +354,7 @@ app.post('/comentario/new', async (req, res) => {
 
     } else {
 
-        res.status(404).send("No puedes crear este comentario");
+        res.status(404).send({ result: "No puedes crear este comentario" });
 
     }
 })
@@ -371,7 +371,7 @@ app.get('/comentario', async (req, res) => {
 
     } else {
 
-        res.status(404).send("No se ha encontrado comentarios");
+        res.status(404).send({ result: "No se ha encontrado comentarios" });
 
     }
 })
@@ -389,7 +389,7 @@ app.get('/comentario/:commentid/respuestas', async (req, res) => {
 
     } else {
 
-        res.status(404).send("No se ha encontrado comentarios");
+        res.status(404).send({ result: "No se ha encontrado comentarios" });
 
     }
 })
@@ -408,7 +408,7 @@ app.get('/incidenciafenomeno/:incfenid/comentarios', async (req, res) => {
 
     } else {
 
-        res.status(404).send("No se ha encontrado comentarios");
+        res.status(404).send({ result: "No se ha encontrado comentarios" });
 
     }
 })
@@ -423,11 +423,11 @@ app.put('/comentario/:commentid/delete', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
-        res.status(404).send("No puedes borrar este comentario");
+        res.status(404).send({ result: "No puedes borrar este comentario" });
 
     }
 })
@@ -443,11 +443,11 @@ app.put('/comentario/:commentid/update', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).send({ result: result });
 
     } else {
 
-        res.status(404).send("No puedes editar este comentario");
+        res.status(404).send({ result: "No puedes editar este comentario" });
 
     }
 })
