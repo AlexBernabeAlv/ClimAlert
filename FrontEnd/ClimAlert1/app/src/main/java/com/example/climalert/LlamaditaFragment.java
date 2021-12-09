@@ -140,7 +140,7 @@ public class LlamaditaFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
-                //dar_incidencia();
+                dar_incidencia();
             }
         });
         return view;

@@ -3,13 +3,17 @@ package com.example.climalert;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -80,7 +85,10 @@ public class MapsFragment extends Fragment {
     private Boolean mLocationPermissionsGranted = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     static public boolean alertaSinGPSMostrada = false;
-
+    NotificationCompat.Builder mBuilder;
+    JSONObject mapa;
+    boolean borrados = true;
+    boolean pintados = true;
 
     //CLASE PORQUE JSONARRAY REQUEST ORIGINAL TE PIDE DE ENTRADA UNA ARRAY Y QUEREMOS QUE SEA OBJECT
 
@@ -138,15 +146,32 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
+        Log.d("background222", "buclear: maps ");
+        Log.d("boniato", String.valueOf(InformacionUsuario.getInstance().latitudactual));
         InformacionUsuario.getInstance().getloc(getActivity());
-        InformacionUsuario.getInstance().coger_incidencias(getActivity());
-        limpiar_incidencias();
-        print_incidencias();
+        if(borrados && pintados) {
+            borrados = false;
+            pintados = false;
+            InformacionUsuario.getInstance().coger_incidencias(getActivity());
+            limpiar_incidencias();
+            print_incidencias();
+        }
 
+        //tratar notificaciones
+        if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
+            createNotificationChannel();
+            createNotification();
+            InformacionUsuario.getInstance().actualtam = InformacionUsuario.getInstance().actual.size();
+        }
+        else if(InformacionUsuario.getInstance().actualtam > InformacionUsuario.getInstance().actual.size()){
+            InformacionUsuario.getInstance().actualtam = InformacionUsuario.getInstance().actual.size();
+        }
+        //mover el marker de donde estas
+        /*
         if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
             LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
-        }
+        }*/
 
         refresh(1000);
     }
@@ -188,11 +213,13 @@ public class MapsFragment extends Fragment {
                 // Log.d( "ALGO","res2 : " + res[0].length);
                 // Log.d( "ALGO","res : " + res);
                 //   Log.d( "ALGO","res4 : " + res.length);
+                InformacionUsuario.getInstance().getloc(getActivity());
                 if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
+
                 LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
                 LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
                 Log.d("secun", String.valueOf(ll1));
@@ -311,6 +338,34 @@ public class MapsFragment extends Fragment {
 
 
     ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
+
+
+    private void createNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "hola");
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);
+        builder.setContentIntent(pendingIntent);
+        builder.setSmallIcon(R.drawable.logo_climalert);
+        builder.setContentTitle("Aviso de incendio cerca");
+        builder.setContentText("Consejos de Incendio");
+        builder.setColor(Color.RED);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.MAGENTA, 1000, 1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+        notificationManagerCompat.notify(22, builder.build());
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notificacion";
+            NotificationChannel notificationChannel = new NotificationChannel("hola", name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
 
     public void pintarRefugios(Activity a){
 
@@ -459,11 +514,10 @@ public class MapsFragment extends Fragment {
         Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
-        JSONObject mapa = new JSONObject();
-        String a="";
-        String b="";
+       // JSONObject mapa = new JSONObject();
+        mapa = new JSONObject();
         try {
-            Log.d("secun", InformacionUsuario.getInstance().password);
+           // Log.d("secun", InformacionUsuario.getInstance().password);
             mapa.put("password", InformacionUsuario.getInstance().password);
             if (InformacionUsuario.getInstance().latitud1 != 0) {
                 mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
@@ -473,8 +527,8 @@ public class MapsFragment extends Fragment {
                 mapa.put("latitud2", InformacionUsuario.getInstance().latitud2);
                 mapa.put("longitud2", InformacionUsuario.getInstance().longitud2);
             }
-            a="";
-            b="";
+
+        Log.d("sekkk", "latitud1:" + String.valueOf(InformacionUsuario.getInstance().latitud1) + "latitud2:" + String.valueOf(InformacionUsuario.getInstance().latitud2));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -484,16 +538,17 @@ public class MapsFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("sekkkk", "he entrado onresponse" + "latitud1:" + String.valueOf(InformacionUsuario.getInstance().latitud1) + "latitud2:" + String.valueOf(InformacionUsuario.getInstance().latitud2));
                         //JSONObject usuario;
                         //Log.d("a", String.valueOf(response));
-                        Log.d("secun", "se han dado guay");
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
+                        Log.d("sekkkk", "asdasd"+ String.valueOf(error));
                     }
 
                 }) {
@@ -603,10 +658,14 @@ public class MapsFragment extends Fragment {
     }
 
     private void limpiar_incidencias(){
+       // Vector<Notificacion> copia = (Vector<Notificacion>) InformacionUsuario.getInstance().aBorrar.clone();
+       // InformacionUsuario.getInstance().aBorrar.clear();
         for(int i = 0; i < InformacionUsuario.getInstance().aBorrar.size(); ++i){
-            int id = InformacionUsuario.getInstance().aBorrar.get(i).identificador;
-            CirculosIncidencias.get(id).remove();
-            CirculosIncidencias.remove(id);
+            int id = InformacionUsuario.getInstance().aBorrar.get(i);
+            if(CirculosIncidencias.containsKey(id)) {
+                CirculosIncidencias.get(id).remove();
+                CirculosIncidencias.remove(id);
+            }
             Iterator entries = IncidenciasActuales.entrySet().iterator();
             boolean exit = true;
             while (entries.hasNext() && exit) {
@@ -615,12 +674,14 @@ public class MapsFragment extends Fragment {
                 Marker key = (Marker) entry.getKey();
                 if(value == id) {
                     key.remove();
+                    Log.d("borrando", "borrando " + value);
                     IncidenciasActuales.remove(key);
                     exit = false;
                 }
             }
         }
         InformacionUsuario.getInstance().aBorrar.clear();
+        borrados = true;
     }
     /*
     private void limpiar_incidencias(Vector<Marker> aux){
@@ -645,6 +706,7 @@ public class MapsFragment extends Fragment {
                 generarMarcadores(ll, (print.get(i).descripcion), print.get(i).nombre, (print.get(i).radio),(print.get(i).identificador));
             }
             InformacionUsuario.getInstance().aPintar.clear();
+            pintados = true;
         }
     }
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio, int id) {

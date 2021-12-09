@@ -53,10 +53,11 @@ public class InformacionUsuario {
     public float longitud2;
     public int radioEfecto;
     public int gravedad;
-    public Vector<Notificacion> actual = new Vector<Notificacion>();
+    public Vector<Integer> actual = new Vector<Integer>();
     public Vector<Notificacion> aPintar = new Vector<Notificacion>();
-    public Vector<Notificacion> aBorrar = new Vector<Notificacion>();
+    public Vector<Integer> aBorrar = new Vector<Integer>();
     AlertDialog alert = null;
+    public int actualtam = 0;
 
     static private InformacionUsuario usuario;
 
@@ -183,6 +184,7 @@ public class InformacionUsuario {
                     public void onResponse(JSONArray response) {
                         JSONObject Notificacion;
                         try {
+                            //aPintar.clear();
                             for (int i = 0; i < response.length(); ++i) {
                                 Notificacion = response.getJSONObject(i);
 
@@ -211,7 +213,7 @@ public class InformacionUsuario {
                                 boolean existe =  false;
                                 for(int j = 0; j < aPintar.size() && !existe; ++j)
                                 {
-                                    if(actual.get(i).identificador == aPintar.get(j).identificador) {
+                                    if(actual.get(i) == aPintar.get(j).identificador) {
                                         existe = true;
                                     }
                                 }
@@ -220,16 +222,31 @@ public class InformacionUsuario {
                                     actual.remove(i);
                                 }
                             }
+                            Vector<Notificacion>aux =  new Vector<Notificacion>();
                             for(int i = 0; i < aPintar.size(); ++i)
                             {
                                 for(int j = 0; j < actual.size(); ++j)
                                 {
+
+                                    int idpintar = aPintar.get(i).identificador;
+                                    int idactual = actual.get(j);
+                                    if(idpintar == idactual) {
+                                        aux.add(aPintar.get(i));
+                                    }/*
                                     if(aPintar.get(i).identificador == actual.get(j).identificador) {
                                         aPintar.remove(i);
-                                    }
+                                    }*/
                                 }
                             }
-                            actual.addAll(aPintar);
+                            for(int i = 0; i < aux.size(); ++i){
+                            //    aPintar.removeElementAt(aux.get(i));
+                                aPintar.removeElement(aux.get(i));
+                                Log.d("asdasdasdasdadsa", String.valueOf(aux.get(i)));
+                              //  aPintar.remove()
+                            }
+                            for(int i = 0; i < aPintar.size(); ++i) {
+                                actual.add(aPintar.get(i).identificador);
+                            }
                             Log.d("asd", "onResponse: ");
                             /*
                             for(todas){
