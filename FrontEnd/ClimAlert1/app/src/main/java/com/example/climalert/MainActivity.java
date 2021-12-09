@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         email_account = InformacionUsuario.getInstance().email;
+        InformacionUsuario.getInstance().setActivity(this);
         getUsuario(email_account);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
         Fragment fragment = new MapsFragment();
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         //InformacionUsuario.getInstance().buclear(this);
-        InformacionUsuario.getInstance().getLocalizacionesSecundarias(this);
+        InformacionUsuario.getInstance().getLocalizacionesSecundarias();
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

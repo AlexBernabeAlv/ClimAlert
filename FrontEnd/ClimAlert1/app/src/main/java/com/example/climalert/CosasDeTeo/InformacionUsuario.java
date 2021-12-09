@@ -58,6 +58,7 @@ public class InformacionUsuario {
     public Vector<Integer> aBorrar = new Vector<Integer>();
     AlertDialog alert = null;
     public int actualtam = 0;
+    public Activity activity;
 
     static private InformacionUsuario usuario;
 
@@ -102,10 +103,10 @@ public class InformacionUsuario {
         handler.postDelayed(runnable, milliseconds);
     }*/
 
-    public void getLocalizacionesSecundarias(Activity a){
+    public void getLocalizacionesSecundarias(){
 
         Log.d("secun", "getlocsecun");
-        RequestQueue queue = Volley.newRequestQueue(a);
+        RequestQueue queue = Volley.newRequestQueue(activity);
         String url = "https://climalert.herokuapp.com/usuario/" +InformacionUsuario.getInstance().email+ "/filtro";
         JSONObject mapa = new JSONObject();
         try {
@@ -161,8 +162,8 @@ public class InformacionUsuario {
         queue.add(request);
     }
 
-    public void coger_incidencias(Activity a){
-        RequestQueue queue = Volley.newRequestQueue(a);
+    public void coger_incidencias(){
+        RequestQueue queue = Volley.newRequestQueue(activity);
         InformacionUsuario us = InformacionUsuario.getInstance();
         String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
 
@@ -296,12 +297,16 @@ public class InformacionUsuario {
         }
     }
 
-    public void getloc(Activity a) {
+    public void setActivity(Activity a){
+        activity = a;
+    }
+
+    public void getloc() {
         // Get the location manager
         //he puesto el getactivity por la cara la verdad
-        LocationManager locationManager = (LocationManager) a.getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) activity.getSystemService(LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
-             Alert(a);
+             Alert();
             MapsFragment.alertaSinGPSMostrada = true;
         }
         else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
@@ -310,8 +315,8 @@ public class InformacionUsuario {
         Criteria criteria = new Criteria();
         Log.d("per","entro en permisoss1");
         String bestProvider = locationManager.getBestProvider(criteria, false);
-        if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(a, new String[]{
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 99);
@@ -330,7 +335,7 @@ public class InformacionUsuario {
             }
         };
         Log.d("per","casi entro en permisos");
-        if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         locationManager
@@ -345,14 +350,14 @@ public class InformacionUsuario {
             InformacionUsuario.getInstance().latitudactual = -1.0f;
         }
     }
-    private void Alert(Activity a) {
+    private void Alert() {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(a);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
                 .setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        a.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        activity.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

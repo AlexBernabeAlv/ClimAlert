@@ -148,11 +148,11 @@ public class MapsFragment extends Fragment {
     private void buclear(){
         Log.d("background222", "buclear: maps ");
         Log.d("boniato", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-        InformacionUsuario.getInstance().getloc(getActivity());
+        InformacionUsuario.getInstance().getloc();
         if(borrados && pintados) {
             borrados = false;
             pintados = false;
-            InformacionUsuario.getInstance().coger_incidencias(getActivity());
+            InformacionUsuario.getInstance().coger_incidencias();
             limpiar_incidencias();
             print_incidencias();
         }
@@ -173,7 +173,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }*/
 
-        refresh(1000);
+        refresh(100);
     }
 
     private void refresh(int milliseconds){
@@ -213,7 +213,7 @@ public class MapsFragment extends Fragment {
                 // Log.d( "ALGO","res2 : " + res[0].length);
                 // Log.d( "ALGO","res : " + res);
                 //   Log.d( "ALGO","res4 : " + res.length);
-                InformacionUsuario.getInstance().getloc(getActivity());
+                InformacionUsuario.getInstance().getloc();
                 if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
