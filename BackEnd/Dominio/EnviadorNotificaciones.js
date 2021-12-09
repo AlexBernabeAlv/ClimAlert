@@ -13,12 +13,13 @@ class EnviadorNotificaciones {
     async getNotificaciones(Email, Password, Latitud, Longitud) {
 
         var usuario = await GestorUsuarios.getUsuario(Email);
-        console.log(usuario);
-        console.log(Password);
+
         var notificaciones = [];
-        
+
+        var setNotificaciones = new Set();
+
         if (usuario && usuario.password == Password) {
-            console.log("buscando incidencias");
+
             var incidencias0 = await GestorIncidencias.getIncidencias(Latitud, Longitud, usuario.filtro.gravedad, usuario.filtro.radioEfecto, true);
 
             if (usuario.filtro.localizacion1 && usuario.filtro.localizacion1.latitud && usuario.filtro.localizacion1.longitud) {
@@ -34,22 +35,39 @@ class EnviadorNotificaciones {
 
             if (incidencias0) {
                 for (var i = 0; i < incidencias0.length; i++) {
-                    notificaciones.push(new Notificacion(incidencias0[i]));
+
+                    if (!setNotificaciones.has(incidencias0[i].id)) {
+
+                        setNotificaciones.add(incidencias0[i].id);
+                        notificaciones.push(new Notificacion(incidencias0[i]));
+                        
+                    }
+
                 }
             }
             if (incidencias1) {
                 for (var i = 0; i < incidencias1.length; i++) {
-                    notificaciones.push(new Notificacion(incidencias1[i]));
+
+                    if (!setNotificaciones.has(incidencias1[i].id)) {
+
+                        setNotificaciones.add(incidencias1[i].id);
+                        notificaciones.push(new Notificacion(incidencias1[i]));
+
+                    }
                 }
             }
             if (incidencias2) {
                 for (var i = 0; i < incidencias2.length; i++) {
-                    notificaciones.push(new Notificacion(incidencias2[i]));
+
+                    if (!setNotificaciones.has(incidencias2[i].id)) {
+
+                        setNotificaciones.add(incidencias2[i].id);
+                        notificaciones.push(new Notificacion(incidencias2[i]));
+
+                    }
                 }
             }
 
-            console.log("notificaciones:");
-            console.log(notificaciones);
             return notificaciones;
         }
 
