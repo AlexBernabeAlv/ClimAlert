@@ -213,19 +213,24 @@ class DataController{
 
                     if (lat1 && lon1) {
 
-                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);",
+                            [email, lat1, lon1],
+                            (err, res) => {
 
-                            if (err) {
+                                if (err) {
 
-                                reject(err);
-                            } else {
+                                    reject(err);
+                                } else {
 
-                                resolve("Cambios en ubicaciones aplicados");
-                            }
+                                    resolve("Cambios en ubicaciones aplicados");
+                                }
 
-                            
-                        });
 
+                            });
+
+                    } else {
+
+                        resolve("Nada que borrar");
                     }
 
                     if (lat2 && lon2) {
@@ -241,6 +246,9 @@ class DataController{
                             }
                         });
 
+                    } else {
+
+                        resolve("Nada que borrar");
                     }
 
 
