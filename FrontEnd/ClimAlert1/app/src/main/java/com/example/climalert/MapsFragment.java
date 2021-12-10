@@ -152,7 +152,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }*/
 
-        refresh(600);
+        refresh(50);
     }
 
     private void refresh(int milliseconds){
