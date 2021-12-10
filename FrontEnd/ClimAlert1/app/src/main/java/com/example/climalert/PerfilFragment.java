@@ -2,6 +2,8 @@ package com.example.climalert;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.google.android.gms.auth.api.Auth;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,10 +57,10 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         }
         else if (v.getId() == R.id.idSwitchFiltro) {
             if (switchF.isChecked()) {
-                //activa filtro
+                InformacionUsuario.getInstance().gravedad = 1;
             }
             else {
-                //desactiva filtro
+                InformacionUsuario.getInstance().gravedad = 0;
             }
         }
     }
@@ -66,7 +68,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     @Override
     public void onValueChange(@NonNull Slider slider, float v, boolean b) {
         if(slider.getId() == R.id.slider_radio) {
-            float f = slider.getValue();
+            InformacionUsuario.getInstance().radioEfecto = (int) slider.getValue();
             //se le manda el valor a donde sea
         }
     }
