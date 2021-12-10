@@ -332,13 +332,7 @@ public class MapsFragment extends Fragment {
         // Get the location manager
         //he puesto el getactivity por la cara la verdad
         LocationManager locationManager = (LocationManager) InformacionUsuario.getInstance().activity.getSystemService(LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
-            Alert(0, null);
-            MapsFragment.alertaSinGPSMostrada = true;
-        }
-        else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
-            MapsFragment.alertaSinGPSMostrada = false;
-        }
+
         Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, false);
         if (ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -368,6 +362,9 @@ public class MapsFragment extends Fragment {
                     markerActual.setAlpha(1);
                     Log.d("berni", "onEnabled");
                 }
+                if(MapsFragment.alertaSinGPSMostrada){
+                    MapsFragment.alertaSinGPSMostrada = false;
+                }
             }
             public void onProviderDisabled(String p) {
                 if(markerActual != null) {
@@ -375,6 +372,11 @@ public class MapsFragment extends Fragment {
                     markerActual.setAlpha(0);
                     Log.d("berni", "onDisabled");
                 }
+                if (!MapsFragment.alertaSinGPSMostrada) {
+                    Alert(0, null);
+                    MapsFragment.alertaSinGPSMostrada = true;
+                }
+
             }
             public void onStatusChanged(String p, int status, Bundle extras) {
             }
