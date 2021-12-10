@@ -152,7 +152,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }*/
 
-        refresh(50);
+        refresh(600);
     }
 
     private void refresh(int milliseconds){
@@ -182,7 +182,7 @@ public class MapsFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
-                mMap.clear();
+                //mMap.clear();
                 getloc();
                 LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
                 LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
