@@ -9,6 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:text="@string/descripcion_tormenta_electrica"
         android:elegantTextHeight="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"

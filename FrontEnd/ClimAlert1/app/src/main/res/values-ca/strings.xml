@@ -67,7 +67,7 @@
         <b>\nCongelació\n</b>
         <li>La congelació causa pèrdua de sensibilitat i color al voltant de la cara, els dits de les mans i dels peus.</li>\n
         <li>Senyals: entumiment, pell blanca o grisenca-groguenca, pell ferma o cerosa.</li>\n
-        <li>Mesures: Vagi a una habitació càlida. Submergeixi el seu cos en aigua tèbia. Usi la calor corporal per a escalfar-se. No es *masajee ni usi un coixinet tèrmic.</li>\n
+        <li>Mesures: Vagi a una habitació càlida. Submergeixi el seu cos en aigua tèbia. Usi la calor corporal per a escalfar-se. No es fer un massatge ni utilitzar un coixinet tèrmic.</li>\n
         <b>\nHipotèrmia\n</b>
         <li>La hipotèrmia és una temperatura corporal inusualment baixa. Una temperatura menor de 35 °C es considera una emergència.</li>\n
         <li>Senyals: esgarrifances, esgotament, confusió, malaptesa en el moviment de les mans, pèrdua de memòria, dificultat per a parlar o somnolència.</li>\n
@@ -125,7 +125,7 @@
         <li>En el cas d\'estar en un automòbil, s\'ha de sortir de la carretera i estacionar en un lloc apartat d\'estructures pesades, i accionar el fre de mà.</li>\n
         <li>En el cas d\'estar en el llit, posar-se boca avall i cobrir-se el cap i el coll amb un coixí.</li>\n
         <li>En el cas de trobar-se fora, romandre fora i allunyat d\'edificis.</li>\n
-        <li>En el cas de trobar-se dins, ajupir-se, cobrir-se amb el braç el cap i el clatell, posar-se sota alguna taula, i agarrar-se a una pota de la taula.</li>\n
+        <li>En el cas de trobar-se dins, ajupir-se, cobrir-se amb el braç el cap i el clatell, posar-se sota alguna taula, i agafar-se a una pota de la taula.</li>\n
     </string>
 
     <string name="descripcion_tsunami">Els tsunamis, també coneguts com a ones sísmiques, són una sèrie d\'ones enormes creades per una alteració submarina, com a terratrèmols, despreniments de terra, erupcions volcàniques o meteorits.\n
@@ -135,7 +135,7 @@
         <li>En cas de trobar-se en un vaixell, sortir de la mar immediatament.</li>\n
         <b>\nQuè fer\n</b>
         <li>Evacuï immediatament terra endins a la major altura possible si les autoritats demanen que es faci.</li>\n
-        <li>En el cas de trobar-se en l\'aigua, agarrar-se a alguna cosa que flotació, com per exemple, una bassa, un tronc d\'arbre o una porta.</li>\n
+        <li>En el cas de trobar-se en l\'aigua, agafar-se a alguna cosa que floti, com per exemple, una bassa, un tronc d\'arbre o una porta.</li>\n
         <li>En el cas de trobar-se en un vaixell, navegar en el sentit contrari a les ones i després sortir de la mar.</li>\n
     </string>
 
@@ -178,7 +178,7 @@
         <li>Eviti les àrees en la direcció del vent, i les valls corrent a baix, del volcà. Els enderrocs i les cendres seran arrossegats pel vent i cauran per gravetat.</li>\n
         <li>Si té suficients subministraments, protegeixi\'s temporalment de les cendres volcàniques en el mateix lloc on es troba. Cobreixi les boques de ventilació i segelli les portes i finestres.</li>\n
         <li>Si es troba a l\'aire lliure, protegeixi\'s de la caiguda de cendra que pot irritar la pell i danyar les vies respiratòries, els ulls i les ferides obertes. Usi una màscara certificada, ben ajustada, com una N95.</li>\n
-        <li>Eviti manejar mentre cau cendra de manera intensa. Si ha de manejar, llavors apagui les llums del seu vehicle.</li>\n
+        <li>Eviti conduir mentre cau cendra de manera intensa. Si ha de conduir, llavors apagui les llums del seu vehicle.</li>\n
     </string>
 
     <string name="descripcion_gota_fria">
@@ -201,10 +201,10 @@
         <li>Informa\'t dels comunicats meteorològics.</li>\n
         <li>En cas de riuada, localitza els punts més alts i/o estableix-te en un lloc que no sigui susceptible d\'inundacions.</li>\n
         <li>Allunya\'t de llocs amb barrancs, torrents i dels seus ponts.</li>\n
-        <li>No creus per trams inundats, la força del corrent et pot arrossegar. En el cas que et trobis en un amb el teu cotxe, el més important és abandonar l\'automòbil i buscar un terreny més elevat.</li>\n
+        <li>No creuis per trams inundats, la força del corrent et pot arrossegar. En el cas que et trobis en un amb el teu cotxe, el més important és abandonar l\'automòbil i buscar un terreny més elevat.</li>\n
     </string>
 
-    <string name="descripcion_tormenta_electrica">Els llamps són una de les principals causes de lesions i morts per riscos meteorològics. Encara que la majoria de les víctimes dels raigs sobreviuen, les persones aconseguides per un raig solen manifestar una sèrie de símptomes debilitants a llarg termini. Les tempestes elèctriques són tempestes perilloses que inclouen llamps i poden crear o causar vents potents de més de 50 mph (80 km/h),calamarsa, Inundacions sobtades i/o tornados.\n
+    <string name="descripcion_tormenta_electrica">Els llamps són una de les principals causes de lesions i morts per riscos meteorològics. Encara que la majoria de les víctimes dels raigs sobreviuen, les persones impactades per un raig solen manifestar una sèrie de símptomes debilitants a llarg termini. Les tempestes elèctriques són tempestes perilloses que inclouen llamps i poden crear o causar vents potents de més de 50 mph (80 km/h),calamarsa, Inundacions sobtades i/o tornados.\n
         <b>\nPrevenció\n</b>
         <li>Conegui el risc de tempestes elèctriques en la seva zona.</li>\n
         <li>Reforci la seva casa: tali els arbres que podrien caure sobre ella, valori la possibilitat de comprar protectors contra sobretensions o un parallamps.</li>\n
