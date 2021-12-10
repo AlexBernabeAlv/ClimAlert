@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.icu.text.IDNA;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -350,9 +351,9 @@ public class MapsFragment extends Fragment {
 
 
     private void createNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "hola");
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(InformacionUsuario.getInstance().activity, "hola");
+        Intent intent = new Intent(InformacionUsuario.getInstance().activity, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(InformacionUsuario.getInstance().activity, 0, intent, 0);
         builder.setContentIntent(pendingIntent);
         builder.setSmallIcon(R.drawable.logo_climalert);
         builder.setContentTitle("Aviso de incendio cerca");
@@ -363,7 +364,7 @@ public class MapsFragment extends Fragment {
         builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(InformacionUsuario.getInstance().activity);
         notificationManagerCompat.notify(22, builder.build());
     }
 
@@ -371,7 +372,7 @@ public class MapsFragment extends Fragment {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notificacion";
             NotificationChannel notificationChannel = new NotificationChannel("hola", name, NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) InformacionUsuario.getInstance().activity.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
