@@ -208,7 +208,8 @@ public class InformacionUsuario {
                                 Notificacion n = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion, id);
                                 aPintar.add(n);
                             }
-                            Log.d("asd", "onResponse: ");
+                            //Log.d("asd", "onResponse: ");
+                            Vector<Notificacion>aux =  new Vector<Notificacion>();
                             for(int i = 0; i < actual.size(); ++i)
                             {
                                 boolean existe =  false;
@@ -220,10 +221,16 @@ public class InformacionUsuario {
                                 }
                                 if(!existe) {
                                     aBorrar.add(actual.get(i).identificador);
-                                    actual.remove(i);
+                                    aux.add(actual.get(i));
                                 }
                             }
-                            Vector<Notificacion>aux =  new Vector<Notificacion>();
+
+                            for(int i = 0; i < aux.size(); ++i){
+
+                                actual.removeElement(aux.get(i));
+                            }
+
+                            aux.clear();
                             for(int i = 0; i < aPintar.size(); ++i)
                             {
                                 for(int j = 0; j < actual.size(); ++j)
@@ -242,12 +249,10 @@ public class InformacionUsuario {
                             for(int i = 0; i < aux.size(); ++i){
                             //    aPintar.removeElementAt(aux.get(i));
                                 aPintar.removeElement(aux.get(i));
-                                Log.d("asdasdasdasdadsa", String.valueOf(aux.get(i)));
+                               // Log.d("asdasdasdasdadsa", String.valueOf(aux.get(i)));
                               //  aPintar.remove()
                             }
-                            for(int i = 0; i < aPintar.size(); ++i) {
-                                actual.add(aPintar.get(i));
-                            }
+                            actual.addAll(aPintar);
                             Log.d("asd", "onResponse: ");
                             /*
                             for(todas){
@@ -264,7 +269,13 @@ public class InformacionUsuario {
                                 }
                             }
                             a todas le meto pintar, concat
+
                             */
+
+                            Log.d("bernat", "Actual " + String.valueOf(InformacionUsuario.getInstance().actual.size()));
+                            Log.d("bernat", "Pintar " + String.valueOf(InformacionUsuario.getInstance().aPintar.size()));
+                            Log.d("bernat", "Borrar " + String.valueOf(InformacionUsuario.getInstance().aBorrar.size()));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

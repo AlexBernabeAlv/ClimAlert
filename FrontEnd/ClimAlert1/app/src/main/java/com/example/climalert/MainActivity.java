@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     String email_account;
     private BottomNavigationView bottomNavigationView;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
         InformacionUsuario.getInstance().setActivity(this);
         getUsuario(email_account);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
-        Fragment fragment = new MapsFragment();
+        InformacionUsuario.getInstance().getLocalizacionesSecundarias();
+        fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, fragment)
                 .commit();
 
         //InformacionUsuario.getInstance().buclear(this);
-        InformacionUsuario.getInstance().getLocalizacionesSecundarias();
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
+
     }
 
 
@@ -179,11 +181,9 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_home:
 
-                    f = new MapsFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, fragment)
                             .commit();
 
                     break;
@@ -192,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
                     f = new LlamaditaFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;
@@ -201,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                     f = new Info_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;
@@ -210,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
                     f = new Settings_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;

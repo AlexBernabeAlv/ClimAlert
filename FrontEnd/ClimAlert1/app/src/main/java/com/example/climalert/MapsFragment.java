@@ -78,14 +78,16 @@ import java.util.Timer;
 import java.util.Vector;
 
 public class MapsFragment extends Fragment {
-    private GoogleMap mMap;
+    private  GoogleMap mMap;
     AlertDialog alert = null;
+    int contador = 0;
+    static int num_bucleares = 0;
     LatLng userLatLong;
     Timer timer;
     Marker UBI1;
     Marker UBI2;
-    HashMap<Marker, Integer> IncidenciasActuales =  new HashMap<Marker, Integer>();
-    HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();;
+     HashMap<Integer, Marker> IncidenciasActuales =  new HashMap<Integer, Marker>();
+     HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();;
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -95,9 +97,11 @@ public class MapsFragment extends Fragment {
     static public boolean alertaSinGPSMostrada = false;
     NotificationCompat.Builder mBuilder;
     JSONObject mapa;
-    boolean borrados = true;
-    boolean pintados = true;
+     boolean borrados = true;
+     boolean pintados = true;
+    boolean localizacionespuestas = false;
     public Marker markerActual;
+
 
     /*
 @Override
@@ -130,12 +134,40 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
+
         if(borrados && pintados) {
             borrados = false;
             pintados = false;
             InformacionUsuario.getInstance().coger_incidencias();
             limpiar_incidencias();
             print_incidencias(InformacionUsuario.getInstance().aPintar);
+        }
+        Log.d("tengo", String.valueOf(markerActual));
+
+
+
+        if(!localizacionespuestas) {
+
+            LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
+            LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
+
+            if (ll1.latitude != 0) {
+                UBI1 = mMap.addMarker(new MarkerOptions()
+                        .anchor(0.0f, 1.0f)
+                        .alpha(0.7f)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                        .position(ll1));
+                localizacionespuestas = true;
+            }
+            if (ll2.latitude != 0) {
+                UBI2 = mMap.addMarker(new MarkerOptions()
+                        .anchor(0.0f, 1.0f)
+                        .alpha(0.7f)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                        .position(ll2));
+                localizacionespuestas = true;
+            }
+
         }
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
@@ -159,6 +191,7 @@ public class MapsFragment extends Fragment {
             }
         };
         handler.postDelayed(runnable, milliseconds);
+
     }
 
 
@@ -167,7 +200,10 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
+
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -176,26 +212,21 @@ public class MapsFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
+                borrados = true;
+                pintados = true;
                 //mMap.clear();
+                markerActual = null;
                 getloc();
-                LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
-                LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
-                if(ll1.latitude != 0){
-                    UBI1 = mMap.addMarker(new MarkerOptions()
-                            .anchor(0.0f, 1.0f)
-                            .alpha(0.7f)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                            .position(ll1));
-                }
-                if(ll2.latitude != 0) {
-                    UBI2 = mMap.addMarker(new MarkerOptions()
-                            .anchor(0.0f, 1.0f)
-                            .alpha(0.7f)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                            .position(ll2));
-                }
+
                 print_incidencias(InformacionUsuario.getInstance().actual);
-                buclear();
+
+                localizacionespuestas = false;
+
+                if(num_bucleares != 1){
+                    num_bucleares++;
+                    buclear();
+                }
+
                 mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
                 NotificationManager notif=(NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -213,6 +244,10 @@ public class MapsFragment extends Fragment {
                 });
             }
         });
+
+
+
+
         return view;
     }
 
@@ -324,18 +359,21 @@ public class MapsFragment extends Fragment {
                     markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
+                Log.d("berni", "onChanged " +  InformacionUsuario.getInstance().latitudactual);
                 if(markerActual != null) markerActual.setPosition(llact);
             }
             public void onProviderEnabled(String p) {
                 if (markerActual != null) {
                     markerActual.setVisible(true);
                     markerActual.setAlpha(1);
+                    Log.d("berni", "onEnabled");
                 }
             }
             public void onProviderDisabled(String p) {
                 if(markerActual != null) {
                     markerActual.setVisible(false);
                     markerActual.setAlpha(0);
+                    Log.d("berni", "onDisabled");
                 }
             }
             public void onStatusChanged(String p, int status, Bundle extras) {
@@ -647,6 +685,7 @@ public class MapsFragment extends Fragment {
     private void limpiar_incidencias(){
        // Vector<Notificacion> copia = (Vector<Notificacion>) InformacionUsuario.getInstance().aBorrar.clone();
        // InformacionUsuario.getInstance().aBorrar.clear();
+        Vector < Integer > aux = new Vector<Integer>();
         for(int i = 0; i < InformacionUsuario.getInstance().aBorrar.size(); ++i){
             int id = InformacionUsuario.getInstance().aBorrar.get(i);
             if(CirculosIncidencias.containsKey(id)) {
@@ -657,16 +696,28 @@ public class MapsFragment extends Fragment {
             boolean exit = true;
             while (entries.hasNext() && exit) {
                 Map.Entry entry = (Map.Entry) entries.next();
-                Integer value = (Integer) entry.getValue();
-                Marker key = (Marker) entry.getKey();
-                if(value == id) {
-                    key.remove();
-                    IncidenciasActuales.remove(key);
+                Integer keyId = (Integer) entry.getKey();
+                Marker marcador = (Marker) entry.getValue();
+                if(keyId == id) {
+                    marcador.remove();
+                    IncidenciasActuales.remove(keyId);
                     exit = false;
+
+                    aux.add(InformacionUsuario.getInstance().aBorrar.get(i));
                 }
             }
         }
-        InformacionUsuario.getInstance().aBorrar.clear();
+
+        for(int i = 0; i < aux.size(); ++i){
+
+            InformacionUsuario.getInstance().aBorrar.removeElement(aux.get(i));
+        }
+
+        Log.d("bernat", String.format("Circulos %d %d", CirculosIncidencias.size(), contador));
+        Log.d("bernat", String.format("Marcadores %d %d", IncidenciasActuales.size(), contador));
+
+        contador++;
+
         borrados = true;
     }
     /*
@@ -684,23 +735,29 @@ public class MapsFragment extends Fragment {
     }*/
 
     public void print_incidencias(Vector<Notificacion> print){
-        if(InformacionUsuario.getInstance().aPintar != null) {
+        if(print != null) {
             for (int i = 0; i < print.size(); ++i) {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
                 generarMarcadores(ll, (print.get(i).descripcion), print.get(i).nombre, (print.get(i).radio),(print.get(i).identificador));
             }
-            InformacionUsuario.getInstance().aPintar.clear();
+            if(print ==  InformacionUsuario.getInstance().aPintar){
+
+                InformacionUsuario.getInstance().aPintar.clear();
+            }
+
             pintados = true;
         }
     }
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio, int id) {
-        Marker m  = mMap.addMarker(new MarkerOptions()
-                .snippet(info)
-                .position(latLng)
-                .alpha(0.9f)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                .title(tip));
-        drawCircle(latLng, radio * 2000, id);
-        IncidenciasActuales.put(m, id);
+
+            Marker m = mMap.addMarker(new MarkerOptions()
+                    .snippet(info)
+                    .position(latLng)
+                    .alpha(0.9f)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                    .title(tip));
+            drawCircle(latLng, radio * 2000, id);
+            IncidenciasActuales.put(id, m);
+
     }
 }
