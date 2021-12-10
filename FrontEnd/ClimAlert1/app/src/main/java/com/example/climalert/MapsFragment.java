@@ -134,7 +134,7 @@ public class MapsFragment extends Fragment {
             pintados = false;
             InformacionUsuario.getInstance().coger_incidencias();
             limpiar_incidencias();
-            print_incidencias();
+            print_incidencias(InformacionUsuario.getInstance().aPintar);
         }
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
@@ -145,13 +145,6 @@ public class MapsFragment extends Fragment {
         else if(InformacionUsuario.getInstance().actualtam > InformacionUsuario.getInstance().actual.size()){
             InformacionUsuario.getInstance().actualtam = InformacionUsuario.getInstance().actual.size();
         }
-        //mover el marker de donde estas
-        /*
-        if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
-            LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-            mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
-        }*/
-
         refresh(600);
     }
 
@@ -200,6 +193,7 @@ public class MapsFragment extends Fragment {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(ll2));
                 }
+                print_incidencias(InformacionUsuario.getInstance().actual);
                 buclear();
                 mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
@@ -688,8 +682,7 @@ public class MapsFragment extends Fragment {
         CirculosMarcadoresIncidencias.removeAllElements();
     }*/
 
-    public void print_incidencias(){
-        Vector<Notificacion> print = InformacionUsuario.getInstance().aPintar;
+    public void print_incidencias(Vector<Notificacion> print){
         if(InformacionUsuario.getInstance().aPintar != null) {
             for (int i = 0; i < print.size(); ++i) {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));

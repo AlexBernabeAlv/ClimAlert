@@ -53,7 +53,7 @@ public class InformacionUsuario {
     public float longitud2;
     public int radioEfecto;
     public int gravedad;
-    public Vector<Integer> actual = new Vector<Integer>();
+    public Vector<Notificacion> actual = new Vector<Notificacion>();
     public Vector<Notificacion> aPintar = new Vector<Notificacion>();
     public Vector<Integer> aBorrar = new Vector<Integer>();
     AlertDialog alert = null;
@@ -214,12 +214,12 @@ public class InformacionUsuario {
                                 boolean existe =  false;
                                 for(int j = 0; j < aPintar.size() && !existe; ++j)
                                 {
-                                    if(actual.get(i) == aPintar.get(j).identificador) {
+                                    if(actual.get(i).identificador == aPintar.get(j).identificador) {
                                         existe = true;
                                     }
                                 }
                                 if(!existe) {
-                                    aBorrar.add(actual.get(i));
+                                    aBorrar.add(actual.get(i).identificador);
                                     actual.remove(i);
                                 }
                             }
@@ -230,7 +230,7 @@ public class InformacionUsuario {
                                 {
 
                                     int idpintar = aPintar.get(i).identificador;
-                                    int idactual = actual.get(j);
+                                    int idactual = actual.get(j).identificador;
                                     if(idpintar == idactual) {
                                         aux.add(aPintar.get(i));
                                     }/*
@@ -246,7 +246,7 @@ public class InformacionUsuario {
                               //  aPintar.remove()
                             }
                             for(int i = 0; i < aPintar.size(); ++i) {
-                                actual.add(aPintar.get(i).identificador);
+                                actual.add(aPintar.get(i));
                             }
                             Log.d("asd", "onResponse: ");
                             /*

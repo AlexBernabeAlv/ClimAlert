@@ -42,7 +42,6 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     String email_account;
-    Fragment fragmentMapa;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -52,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
         InformacionUsuario.getInstance().setActivity(this);
         getUsuario(email_account);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
-        fragmentMapa = new MapsFragment();
+        Fragment fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, fragmentMapa)
+                .replace(R.id.contenedor, fragment)
                 .commit();
 
         //InformacionUsuario.getInstance().buclear(this);
@@ -180,10 +179,11 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_home:
 
+                    f = new MapsFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(fragmentMapa)
-                            .replace(R.id.contenedor, fragmentMapa)
+                            .remove(f)
+                            .replace(R.id.contenedor, f)
                             .commit();
 
                     break;
