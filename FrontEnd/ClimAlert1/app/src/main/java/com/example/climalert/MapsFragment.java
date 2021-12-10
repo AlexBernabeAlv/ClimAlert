@@ -153,7 +153,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }*/
 
-        refresh(50);
+        refresh(600);
     }
 
     private void refresh(int milliseconds){
@@ -328,7 +328,7 @@ public class MapsFragment extends Fragment {
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
                     markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 if(markerActual != null) markerActual.setPosition(llact);
             }
