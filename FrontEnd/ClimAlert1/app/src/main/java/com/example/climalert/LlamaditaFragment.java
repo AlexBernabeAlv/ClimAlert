@@ -96,7 +96,7 @@ public class LlamaditaFragment extends Fragment {
 
         mSpinner = (Spinner) view.findViewById(R.id.mSpinner);
         ArrayList<String> incidencias = new ArrayList<String>();
-        incidencias.add("Insolación");
+        incidencias.add("Calor Extremo");
         incidencias.add("Granizo");
         incidencias.add("Nevada");
         incidencias.add("Tornado");
@@ -140,7 +140,7 @@ public class LlamaditaFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
-                //dar_incidencia();
+                dar_incidencia();
             }
         });
         return view;
@@ -175,8 +175,6 @@ public class LlamaditaFragment extends Fragment {
                         //JSONObject usuario;
                         Log.d("a", String.valueOf(response));
                         //Log.d("ALGO", "he acabado el bucle");
-
-                        //ir a mapa
                     }
                 },
                 new Response.ErrorListener() {
