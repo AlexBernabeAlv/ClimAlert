@@ -175,7 +175,6 @@ public class LlamaditaFragment extends Fragment {
                         //JSONObject usuario;
                         Log.d("a", String.valueOf(response));
                         //Log.d("ALGO", "he acabado el bucle");
-                        
                     }
                 },
                 new Response.ErrorListener() {

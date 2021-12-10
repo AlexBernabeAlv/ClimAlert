@@ -1,13 +1,17 @@
 package com.example.climalert;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -17,10 +21,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
@@ -89,31 +96,7 @@ public class MapsFragment extends Fragment {
     JSONObject mapa;
     boolean borrados = true;
     boolean pintados = true;
-
-    //CLASE PORQUE JSONARRAY REQUEST ORIGINAL TE PIDE DE ENTRADA UNA ARRAY Y QUEREMOS QUE SEA OBJECT
-
-
-
-
-
-    /* //esta activada? tienes permisos? preguntar permisos?
-
-        if(tienes permisos)
-            if(localizacion activada)
-                perfe, se la paso a server
-            else
-                pido que active la localizacion
-        else no tengo permisos
-            pregunto por permisos
-            if(localizacion activada)
-                perfe, se la paso a server
-            else
-                pido que active la localizacion
-        -Mostrar ubicacion en mapa y pasar a servidor
-        -Pillar ubi de servidor y mostrar en mapa
-    * */
-
-
+    public Marker markerActual;
 
     /*
 @Override
@@ -146,9 +129,7 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
-        Log.d("background222", "buclear: maps ");
-        Log.d("boniato", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-        InformacionUsuario.getInstance().getloc();
+        getloc();
         if(borrados && pintados) {
             borrados = false;
             pintados = false;
@@ -156,7 +137,6 @@ public class MapsFragment extends Fragment {
             limpiar_incidencias();
             print_incidencias();
         }
-
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
             createNotificationChannel();
@@ -173,7 +153,7 @@ public class MapsFragment extends Fragment {
             mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
         }*/
 
-        refresh(100);
+        refresh(50);
     }
 
     private void refresh(int milliseconds){
@@ -194,7 +174,6 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.d("ACVE", "oncreateview: ha entrado");
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
         SupportMapFragment mapFragment =
@@ -205,26 +184,10 @@ public class MapsFragment extends Fragment {
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
                 mMap.clear();
-                //Log.d( "ALGO", "voy a coger incidencias");
-              //  coger_incidencias();
-               // getloc();
-                //Log.d( "ALGO","he cogido incidencias");
-                //  Log.d( "ALGO","res1 :" + res[0][0]);
-                // Log.d( "ALGO","res2 : " + res[0].length);
-                // Log.d( "ALGO","res : " + res);
-                //   Log.d( "ALGO","res4 : " + res.length);
-                InformacionUsuario.getInstance().getloc();
-                if(InformacionUsuario.getInstance().latitudactual != -1 && InformacionUsuario.getInstance().latitudactual != 0){
-                    LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
-                }
-
+                getloc();
                 LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
                 LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
-                Log.d("secun", String.valueOf(ll1));
                 if(ll1.latitude != 0){
-                    Log.d("secun", "entro1");
                     UBI1 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
@@ -232,7 +195,6 @@ public class MapsFragment extends Fragment {
                             .position(ll1));
                 }
                 if(ll2.latitude != 0) {
-                    Log.d("secun", "entro2");
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
@@ -249,8 +211,6 @@ public class MapsFragment extends Fragment {
 
                 notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 notif.notify(0, notify);
-
-
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(@NonNull LatLng latLng) {
@@ -339,6 +299,62 @@ public class MapsFragment extends Fragment {
 
     ///////////////////FUNCIONES//////////////FUNCIONES////////////FUNCIONES/////////////////////
 
+    public void getloc() {
+        // Get the location manager
+        //he puesto el getactivity por la cara la verdad
+        LocationManager locationManager = (LocationManager) InformacionUsuario.getInstance().activity.getSystemService(LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
+            Alert(0, null);
+            MapsFragment.alertaSinGPSMostrada = true;
+        }
+        else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
+            MapsFragment.alertaSinGPSMostrada = false;
+        }
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        if (ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(InformacionUsuario.getInstance().activity, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 99);
+            return;
+        }
+      //  Location location = locationManager.getLastKnownLocation(bestProvider);
+        LocationListener loc_listener = new LocationListener() {
+            public void onLocationChanged(Location l) {
+                LatLng llact = new LatLng(l.getLatitude(), l.getLongitude());
+                InformacionUsuario.getInstance().latitudactual = (float) l.getLatitude();
+                InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
+                if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
+                    LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
+                }
+                if(markerActual != null) markerActual.setPosition(llact);
+            }
+            public void onProviderEnabled(String p) {
+                if (markerActual != null) {
+                    markerActual.setVisible(true);
+                    markerActual.setAlpha(1);
+                }
+            }
+            public void onProviderDisabled(String p) {
+                if(markerActual != null) {
+                    markerActual.setVisible(false);
+                    markerActual.setAlpha(0);
+                }
+            }
+            public void onStatusChanged(String p, int status, Bundle extras) {
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager
+                .requestLocationUpdates(bestProvider, 0, 20.0f, loc_listener);
+        //location = locationManager.getLastKnownLocation(bestProvider);
+    }
+
 
     private void createNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "hola");
@@ -368,18 +384,13 @@ public class MapsFragment extends Fragment {
     }
 
     public void pintarRefugios(Activity a){
-
         RequestQueue queue = Volley.newRequestQueue(a);
-        Log.d("refug", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-
         String url = "https://climalert.herokuapp.com/refugio?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
         // Request a string response from the provided URL.
-        Log.d("refug", "refugios1");
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("refug", "refugios2");
                         String nombre;
                         float latitud;
                         float longitud;
@@ -400,7 +411,6 @@ public class MapsFragment extends Fragment {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("refug", "refugios3");
                         }
                     }
                 },
@@ -408,7 +418,6 @@ public class MapsFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Log.d("refug", "refugios4");
                     }
                 }) {
         };
@@ -424,8 +433,6 @@ public class MapsFragment extends Fragment {
         try {
 
             jRoutes = response.getJSONArray("routes");
-
-            Log.d("poly", "voy a trazar ruta4");
             for (int i = 0; i < jRoutes.length(); i++) {
                 jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
 
@@ -441,7 +448,6 @@ public class MapsFragment extends Fragment {
                 }
             }
         } catch (JSONException e) {
-            Log.d("poly", "voy a trazar error"+ e);
             e.printStackTrace();
         }
     }
@@ -486,23 +492,16 @@ public class MapsFragment extends Fragment {
         String l4 = String.valueOf(longitud2);
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+l1+","+l2+"&destination="+l3+","+l4+"&key=AIzaSyCGOeM2aM5SkecHOc4s_Tkf_B_KV77kWEo";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        Log.d("poly", l1);
-        Log.d("poly", l2);
-        Log.d("poly", l3);
-        Log.d("poly", l4);
         JsonObjectRequest jsor = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("poly", "voy a trazar ruta");
-                        Log.d("poly", "onResponse: " + response);
                         trazarRuta(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("poly", "error xd");
                         error.printStackTrace();
                     }
 
@@ -511,13 +510,11 @@ public class MapsFragment extends Fragment {
     }
 
     public void dar_localizacion() {
-        Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
        // JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {
-           // Log.d("secun", InformacionUsuario.getInstance().password);
             mapa.put("password", InformacionUsuario.getInstance().password);
             if (InformacionUsuario.getInstance().latitud1 != 0) {
                 mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
@@ -528,7 +525,6 @@ public class MapsFragment extends Fragment {
                 mapa.put("longitud2", InformacionUsuario.getInstance().longitud2);
             }
 
-        Log.d("sekkk", "latitud1:" + String.valueOf(InformacionUsuario.getInstance().latitud1) + "latitud2:" + String.valueOf(InformacionUsuario.getInstance().latitud2));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -538,7 +534,6 @@ public class MapsFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("sekkkk", "he entrado onresponse" + "latitud1:" + String.valueOf(InformacionUsuario.getInstance().latitud1) + "latitud2:" + String.valueOf(InformacionUsuario.getInstance().latitud2));
                         //JSONObject usuario;
                         //Log.d("a", String.valueOf(response));
 
@@ -548,7 +543,6 @@ public class MapsFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Log.d("sekkkk", "asdasd"+ String.valueOf(error));
                     }
 
                 }) {
@@ -584,7 +578,6 @@ public class MapsFragment extends Fragment {
                             if(UBI1 != null) UBI1.remove();
                             InformacionUsuario.getInstance().latitud1 = (float) latLng.latitude;
                             InformacionUsuario.getInstance().longitud1 = (float) latLng.longitude;
-                            Log.d("secun", "ubi 1 asignar ");
                             dar_localizacion();
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
@@ -674,7 +667,6 @@ public class MapsFragment extends Fragment {
                 Marker key = (Marker) entry.getKey();
                 if(value == id) {
                     key.remove();
-                    Log.d("borrando", "borrando " + value);
                     IncidenciasActuales.remove(key);
                     exit = false;
                 }
@@ -700,7 +692,6 @@ public class MapsFragment extends Fragment {
     public void print_incidencias(){
         Vector<Notificacion> print = InformacionUsuario.getInstance().aPintar;
         if(InformacionUsuario.getInstance().aPintar != null) {
-            Log.d( "ALGO", "res > 0");
             for (int i = 0; i < print.size(); ++i) {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
                 generarMarcadores(ll, (print.get(i).descripcion), print.get(i).nombre, (print.get(i).radio),(print.get(i).identificador));
@@ -720,83 +711,3 @@ public class MapsFragment extends Fragment {
         IncidenciasActuales.put(m, id);
     }
 }
-
-//CEMENTERIO
-/*
-
-
-------------------------------------------------------------------------------------------------------------------
-                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                locationListener = new LocationListener() {
-                    @Override
-                    public void onLocationChanged(@NonNull Location location) {
-                        userLatLong = new LatLng(location.getLatitude(), location.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(userLatLong).title("Your location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLatLong));
-                    }
-                };
-                askLocatonPermission();
-
-    private void askLocationPermission(){}
-
-    if(i == 2) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //quizas es getcontext
-            builder.setMessage("¿Deseas añadir este punto como ubicación secundaria 2?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            ll2 = latLng;
-                            UBI2 = mMap.addMarker(new MarkerOptions()
-                                    .anchor(0.0f, 1.0f)
-                                    .alpha(0.7f)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                                    .position(ll2));
-                            dar_localizacion();
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
-                        }
-                    });
-            alert = builder.create();
-            alert.show();
-        }
-        if(i == 3) {
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Ya has añadido dos ubicaciones secundarias, ¿deseas eliminar alguna?")
-                    .setCancelable(false)
-                    .setPositiveButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .setNeutralButton("La primera  ", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            UBI1.remove();
-                            ll1 = latLng;
-                            UBI1 = mMap.addMarker(new MarkerOptions()
-                                    .anchor(0.0f, 1.0f)
-                                    .alpha(0.7f)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                                    .position(ll1));
-                            dar_localizacion();
-                        }
-                    })
-                    .setNegativeButton("La segunda", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            UBI2.remove();
-                            ll2 = latLng;
-                            UBI2 = mMap.addMarker(new MarkerOptions()
-                                    .anchor(0.0f, 1.0f)
-                                    .alpha(0.7f)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                                    .position(ll2));
-                            dar_localizacion();
-                        }
-                    });
-            alert = builder.create();
-            alert.show();
-        }
- */
