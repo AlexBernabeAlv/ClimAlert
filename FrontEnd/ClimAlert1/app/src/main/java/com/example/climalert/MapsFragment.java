@@ -129,7 +129,6 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
-        getloc();
         if(borrados && pintados) {
             borrados = false;
             pintados = false;
