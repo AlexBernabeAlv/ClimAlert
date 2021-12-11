@@ -53,8 +53,12 @@ public class InformacionUsuario {
     public float longitud2;
     public int radioEfecto;
     public int gravedad;
-    public Notificacion[] res;
+    public Vector<Notificacion> actual = new Vector<Notificacion>();
+    public Vector<Notificacion> aPintar = new Vector<Notificacion>();
+    public Vector<Integer> aBorrar = new Vector<Integer>();
     AlertDialog alert = null;
+    public int actualtam = 0;
+    public Activity activity;
 
     static private InformacionUsuario usuario;
 
@@ -81,6 +85,7 @@ public class InformacionUsuario {
         }
         return usuario;
     }
+    /*
     public void buclear(Activity a){
         getloc(a);
         coger_incidencias(a);
@@ -96,15 +101,21 @@ public class InformacionUsuario {
             }
         };
         handler.postDelayed(runnable, milliseconds);
-    }
+    }*/
 
-    public void getLocalizacionesSecundarias(Activity a){
+    public void getLocalizacionesSecundarias(){
 
         Log.d("secun", "getlocsecun");
-        RequestQueue queue = Volley.newRequestQueue(a);
+        RequestQueue queue = Volley.newRequestQueue(activity);
         String url = "https://climalert.herokuapp.com/usuario/" +InformacionUsuario.getInstance().email+ "/filtro";
+        JSONObject mapa = new JSONObject();
+        try {
+            mapa.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // Request a string response from the provided URL.
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mapa,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -151,9 +162,8 @@ public class InformacionUsuario {
         queue.add(request);
     }
 
-    public void coger_incidencias(Activity a){
-        Log.d("ALGO", "coger incidencias entro");
-        RequestQueue queue = Volley.newRequestQueue(a);
+    public void coger_incidencias(){
+        RequestQueue queue = Volley.newRequestQueue(activity);
         InformacionUsuario us = InformacionUsuario.getInstance();
         String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
 
@@ -174,8 +184,8 @@ public class InformacionUsuario {
                     @Override
                     public void onResponse(JSONArray response) {
                         JSONObject Notificacion;
-                        res = new Notificacion[response.length()];
                         try {
+                            //aPintar.clear();
                             for (int i = 0; i < response.length(); ++i) {
                                 Notificacion = response.getJSONObject(i);
 
@@ -187,6 +197,7 @@ public class InformacionUsuario {
                                     indicaciones.add(IndicacionIncidencia.getString(j));
                                 }
                                 JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");
+                                Integer id = Integer.parseInt(incidenciaFenomeno.getString("id"));
                                 Integer radio = Integer.parseInt(incidencia.getString("radio"));
                                 JSONObject localizacion = incidencia.getJSONObject("localizacion");
                                 Float latitud = Float.parseFloat(localizacion.getString("latitud"));
@@ -194,10 +205,77 @@ public class InformacionUsuario {
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
-                                res[i] = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion);
-
+                                Notificacion n = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion, id);
+                                aPintar.add(n);
                             }
-                           // print_incidencias();
+                            //Log.d("asd", "onResponse: ");
+                            Vector<Notificacion>aux =  new Vector<Notificacion>();
+                            for(int i = 0; i < actual.size(); ++i)
+                            {
+                                boolean existe =  false;
+                                for(int j = 0; j < aPintar.size() && !existe; ++j)
+                                {
+                                    if(actual.get(i).identificador == aPintar.get(j).identificador) {
+                                        existe = true;
+                                    }
+                                }
+                                if(!existe) {
+                                    aBorrar.add(actual.get(i).identificador);
+                                    aux.add(actual.get(i));
+                                }
+                            }
+
+                            for(int i = 0; i < aux.size(); ++i){
+
+                                actual.removeElement(aux.get(i));
+                            }
+
+                            aux.clear();
+                            for(int i = 0; i < aPintar.size(); ++i)
+                            {
+                                for(int j = 0; j < actual.size(); ++j)
+                                {
+
+                                    int idpintar = aPintar.get(i).identificador;
+                                    int idactual = actual.get(j).identificador;
+                                    if(idpintar == idactual) {
+                                        aux.add(aPintar.get(i));
+                                    }/*
+                                    if(aPintar.get(i).identificador == actual.get(j).identificador) {
+                                        aPintar.remove(i);
+                                    }*/
+                                }
+                            }
+                            for(int i = 0; i < aux.size(); ++i){
+                            //    aPintar.removeElementAt(aux.get(i));
+                                aPintar.removeElement(aux.get(i));
+                               // Log.d("asdasdasdasdadsa", String.valueOf(aux.get(i)));
+                              //  aPintar.remove()
+                            }
+                            actual.addAll(aPintar);
+                            Log.d("asd", "onResponse: ");
+                            /*
+                            for(todas){
+                                if(! esta en pintar)
+                                {
+                                    la meto en borrar
+                                    la borro de todas
+                                }
+                            }
+                            for(pintar){
+                                if(esta en todas)
+                                {
+                                    la borro de pintar
+                                }
+                            }
+                            a todas le meto pintar, concat
+
+                            */
+
+                            Log.d("bernat", "Actual " + String.valueOf(InformacionUsuario.getInstance().actual.size()));
+                            Log.d("bernat", "Pintar " + String.valueOf(InformacionUsuario.getInstance().aPintar.size()));
+                            Log.d("bernat", "Borrar " + String.valueOf(InformacionUsuario.getInstance().aBorrar.size()));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -229,73 +307,8 @@ public class InformacionUsuario {
             }
         }
     }
+    public void setActivity(Activity a){
+        activity = a;
 
-    private void getloc(Activity a) {
-        // Get the location manager
-        //he puesto el getactivity por la cara la verdad
-        LocationManager locationManager = (LocationManager) a.getSystemService(LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !MapsFragment.alertaSinGPSMostrada) {
-             Alert(a);
-            MapsFragment.alertaSinGPSMostrada = true;
-        }
-        else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
-            MapsFragment.alertaSinGPSMostrada = false;
-        }
-        Criteria criteria = new Criteria();
-        Log.d("per","entro en permisoss1");
-        String bestProvider = locationManager.getBestProvider(criteria, false);
-        if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(a, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 99);
-            Log.d("per","entro en permisoss");
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(bestProvider);
-        LocationListener loc_listener = new LocationListener() {
-            public void onLocationChanged(Location l) {
-            }
-            public void onProviderEnabled(String p) {
-            }
-            public void onProviderDisabled(String p) {
-            }
-            public void onStatusChanged(String p, int status, Bundle extras) {
-            }
-        };
-        Log.d("per","casi entro en permisos");
-        if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager
-                .requestLocationUpdates(bestProvider, 0, 20.0f, loc_listener);
-        location = locationManager.getLastKnownLocation(bestProvider);
-        try {
-            InformacionUsuario.getInstance().latitudactual = (float) location.getLatitude();
-
-            InformacionUsuario.getInstance().longitudactual = (float) location.getLongitude();
-        } catch (NullPointerException e) {
-            InformacionUsuario.getInstance().longitudactual = -1.0f;
-            InformacionUsuario.getInstance().latitudactual = -1.0f;
-        }
     }
-    private void Alert(Activity a) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(a);
-        builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
-                .setCancelable(false)
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        a.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        alert = builder.create();
-        alert.show();
-    }
-
 }

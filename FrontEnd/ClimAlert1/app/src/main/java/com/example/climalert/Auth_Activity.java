@@ -143,6 +143,8 @@ public class Auth_Activity extends AppCompatActivity {
                         InformacionUsuario.getInstance().password = password;
                         Intent main = new Intent(Auth_Activity.this, MainActivity.class);
                         startActivity(main);
+
+
                     }
                 },
                 new Response.ErrorListener() {
