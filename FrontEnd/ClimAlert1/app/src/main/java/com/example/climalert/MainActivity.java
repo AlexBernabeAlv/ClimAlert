@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Región para guardar los datos; así el usuario accede automáticamente, sin tener que
         //pasar por [de nuevo] al inicio de sesión de Google
-        SharedPreferences prefe = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE);
+        //SharedPreferences prefe = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE);
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(catastrofe)
-                .replace(R.id.contenedor, catastrofe)
+                .replace(R.id.contenedor, catastrofe, "CATASTROFE")
                 .commit();
     }
 
@@ -184,6 +185,27 @@ public class MainActivity extends AppCompatActivity {
                 }) {
         };
         queue.add(request);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragCatastrofe = fm.findFragmentByTag("CATASTROFE");
+        if (fragCatastrofe != null && fragCatastrofe.isVisible()) {
+            Fragment f = new Info_Fragment();
+            fm.beginTransaction()
+                .replace(R.id.contenedor, f)
+                .commit();
+        } else {
+            Fragment fragMaps = fm.findFragmentByTag("MAPS");
+            if (fragMaps != null && fragMaps.isVisible()) {
+                moveTaskToBack(true);
+            } else {
+                Intent refresh = new Intent(this, MainActivity.class);
+                startActivity(refresh);
+            }
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener(){
