@@ -14,8 +14,8 @@ const WeatherApiComCurrent = {
 		]
 	},
 	fenomenos: [
-		'Inundacion',
-		'Insolacion'
+		'CalorExtremo',
+		'Inundacion'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
@@ -36,13 +36,13 @@ const WeatherApiComCurrent = {
 	},
 	getGravedad(evento, fenomeno) {
 		switch(fenomeno) {
+		case 'CalorExtremo':
+			if (evento.current.temp_c > 16) return 'critico';
+			if (evento.current.temp_c > 15) return 'noCritico';
+			return 'inocuo';
 		case 'Inundacion':
 			if (evento.current.precip_mm > 0.04) return 'critico';
 			if (evento.current.precip_mm > 0.03) return 'noCritico';
-			return 'inocuo';
-		case 'Insolacion':
-			if (evento.current.temp_c > 16) return 'critico';
-			if (evento.current.temp_c > 15) return 'noCritico';
 			return 'inocuo';
 		}
 	}
