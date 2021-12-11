@@ -147,14 +147,14 @@ public class MapsFragment extends Fragment {
         }
         Log.d("tengo", String.valueOf(markerActual));
 
+
+
         if(!localizacionespuestas) {
 
             LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
             LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
 
             if (ll1.latitude != 0) {
-                if(UBI1 != null) UBI1.remove();
-
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
@@ -163,7 +163,6 @@ public class MapsFragment extends Fragment {
                 localizacionespuestas = true;
             }
             if (ll2.latitude != 0) {
-                if(UBI2 != null) UBI2.remove();
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
@@ -173,7 +172,6 @@ public class MapsFragment extends Fragment {
             }
 
         }
-
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
             createNotificationChannel();
@@ -222,12 +220,11 @@ public class MapsFragment extends Fragment {
                 pintados = true;
                 //mMap.clear();
                 markerActual = null;
-                localizacionespuestas = false;
                 getloc();
 
                 print_incidencias(InformacionUsuario.getInstance().actual);
 
-
+                localizacionespuestas = false;
 
                 if(num_bucleares != 1){
                     num_bucleares++;
@@ -251,6 +248,8 @@ public class MapsFragment extends Fragment {
                 });
             }
         });
+
+
 
 
         return view;
@@ -623,7 +622,6 @@ public class MapsFragment extends Fragment {
                             InformacionUsuario.getInstance().longitud1 = (float) latLng.longitude;
                             Log.d("secun", "ubi 1 asignar ");
                             dar_localizacion();
-
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
