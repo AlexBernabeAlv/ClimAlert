@@ -51,7 +51,7 @@ public class InformacionUsuario {
     public float longitud1;
     public float latitud2;
     public float longitud2;
-    public int radioEfecto;
+    public int radioEfecto = -1;
     public int gravedad;
     public Vector<Notificacion> actual = new Vector<Notificacion>();
     public Vector<Notificacion> aPintar = new Vector<Notificacion>();
