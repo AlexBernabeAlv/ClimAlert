@@ -42,6 +42,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +54,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
+import com.example.climalert.ui.catastrofes.Calor_Extremo_Fragment;
+import com.example.climalert.ui.catastrofes.Incendio_Fragment;
+import com.example.climalert.ui.catastrofes.Terremoto_Fragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -236,6 +240,7 @@ public class MapsFragment extends Fragment {
 
                 mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
+
                 NotificationManager notif=(NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                 Notification notify=new Notification.Builder
                         (getContext()).setContentTitle("titulo").setContentText("llueve").
@@ -257,7 +262,7 @@ public class MapsFragment extends Fragment {
     }
 
     /////////////////////////////CLASES////////////////CLASES////////////////////////////
-    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
         // "title" and "snippet".
         private final View mWindow;
@@ -308,6 +313,7 @@ public class MapsFragment extends Fragment {
             ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
+
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
             if (title != null) {
                 // Spannable string allows us to edit the formatting of the text.
@@ -326,6 +332,21 @@ public class MapsFragment extends Fragment {
                 snippetUi.setText(snippetText);
             } else {
                 snippetUi.setText("");
+            }
+            mMap.setOnInfoWindowClickListener(this);
+        }
+
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            MainActivity main;
+            String title = marker.getTitle();
+            if (title.equals("Incendio")) {
+                main = (MainActivity) getActivity();
+                main.catastrofe_func(new Incendio_Fragment());
+            }
+            else if (title.equals("Terremoto")) {
+                main = (MainActivity) getActivity();
+                main.catastrofe_func(new Terremoto_Fragment());
             }
         }
     }
@@ -773,4 +794,6 @@ public class MapsFragment extends Fragment {
             IncidenciasActuales.put(id, m);
 
     }
+
+
 }
