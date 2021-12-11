@@ -340,11 +340,27 @@ public class MapsFragment extends Fragment {
         public void onInfoWindowClick(Marker marker) {
             MainActivity main;
             String title = marker.getTitle();
+            Log.d("FECHA", "prueba");
+            /*for (int i = 0; i < InformacionUsuario.getInstance().actual.size(); ++i) {
+                Log.d("FECHA", String.valueOf(InformacionUsuario.getInstance().actual.get(i).identificador) + title + InformacionUsuario.getInstance().actual.get(i).fecha);
+            }*/
             if (title.equals("Incendio")) {
+                int idInc = Integer.parseInt(marker.getSnippet());
+                for (int i = 0; i < InformacionUsuario.getInstance().actual.size(); ++i) {
+                    if (idInc == InformacionUsuario.getInstance().actual.get(i).identificador) {
+                        Log.d("FECHA", "id: " +String.valueOf(InformacionUsuario.getInstance().actual.get(i).identificador) + " tipo: " + title + " fecha: " + InformacionUsuario.getInstance().actual.get(i).fecha);
+                    }
+                }
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Incendio_Fragment());
             }
             else if (title.equals("Terremoto")) {
+                int idInc = Integer.parseInt(marker.getSnippet());
+                for (int i = 0; i < InformacionUsuario.getInstance().actual.size(); ++i) {
+                    if (idInc == InformacionUsuario.getInstance().actual.get(i).identificador) {
+                        Log.d("FECHA", "id: " +String.valueOf(InformacionUsuario.getInstance().actual.get(i).identificador) + " tipo: " + title + " fecha: " + InformacionUsuario.getInstance().actual.get(i).fecha);
+                    }
+                }
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Terremoto_Fragment());
             }
@@ -784,8 +800,10 @@ public class MapsFragment extends Fragment {
     }
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio, int id) {
 
+        String idStr = String.valueOf(id);
+
             Marker m = mMap.addMarker(new MarkerOptions()
-                    .snippet(info)
+                    .snippet(idStr)
                     .position(latLng)
                     .alpha(0.9f)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
