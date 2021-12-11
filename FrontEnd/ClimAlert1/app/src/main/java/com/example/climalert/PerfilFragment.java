@@ -3,8 +3,16 @@ package com.example.climalert;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.google.android.gms.auth.api.Auth;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +29,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener, Slider.OnChangeListener {
     Button logout;
@@ -62,6 +73,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
             else {
                 InformacionUsuario.getInstance().gravedad = 0;
             }
+            update_usuario();
         }
     }
 
@@ -70,6 +82,42 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         if(slider.getId() == R.id.slider_radio) {
             InformacionUsuario.getInstance().radioEfecto = (int) slider.getValue();
             //se le manda el valor a donde sea
+            update_usuario();
         }
+    }
+
+    public void update_usuario() {
+        Log.d("retorno", "updt us");
+        RequestQueue queue = Volley.newRequestQueue( InformacionUsuario.getInstance().activity);
+        String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/update";
+        JSONObject mapa = new JSONObject();
+        mapa = new JSONObject();
+        try {
+            mapa.put("password", InformacionUsuario.getInstance().password);
+            mapa.put("gravedad", InformacionUsuario.getInstance().gravedad);
+            mapa.put("radioEfecto", InformacionUsuario.getInstance().radioEfecto);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d("retorno", "catch map");
+        }
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, mapa,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //JSONObject usuario;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+
+                }) {
+        };
+        queue.add(request);
     }
 }
