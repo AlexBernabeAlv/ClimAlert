@@ -39,17 +39,17 @@ public class IdiomaFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.catala_button:
                 main = (MainActivity) getActivity();
-                main.cambio_idioma();
+                main.cambio_idioma("ca");
                 break;
 
             case R.id.castellano_button:
                 main = (MainActivity) getActivity();
-                main.cambio_idioma();
+                main.cambio_idioma("es");
                 break;
 
             case R.id.english_button:
                 main = (MainActivity) getActivity();
-                main.cambio_idioma();
+                main.cambio_idioma("en");
                 break;
 
         }

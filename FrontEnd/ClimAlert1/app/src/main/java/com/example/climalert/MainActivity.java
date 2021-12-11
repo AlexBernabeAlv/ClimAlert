@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,42 +26,42 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.databinding.ActivityMainBinding;
-import com.example.climalert.ui.catastrofes.Avalancha_Fragment;
-import com.example.climalert.ui.catastrofes.Gota_Fria_Fragment;
-import com.example.climalert.ui.catastrofes.Granizo_Fragment;
-import com.example.climalert.ui.catastrofes.Incendio_Fragment;
-import com.example.climalert.ui.catastrofes.Insolacion_Fragment;
-import com.example.climalert.ui.catastrofes.Inundacion_Fragment;
-import com.example.climalert.ui.catastrofes.Lluvia_Acida_Fragment;
-import com.example.climalert.ui.catastrofes.Nevada_Fragment;
-import com.example.climalert.ui.catastrofes.Terremoto_Fragment;
-import com.example.climalert.ui.catastrofes.Tornado_Fragment;
-import com.example.climalert.ui.catastrofes.Tsunami_Fragment;
-import com.example.climalert.ui.catastrofes.Volcan_Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     String email_account;
+    String currentLocale;
     private BottomNavigationView bottomNavigationView;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         email_account = InformacionUsuario.getInstance().email;
+        InformacionUsuario.getInstance().setActivity(this);
         getUsuario(email_account);
+        currentLocale = Locale.getDefault().getLanguage();
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("currentLocale")) {
+            currentLocale = getIntent().getStringExtra("currentLocale");
+        }
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        String newLocale = prefs.getString("saved_locale", currentLocale);
+        cambio_idioma(newLocale);
         //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
-        Fragment fragment = new MapsFragment();
+        InformacionUsuario.getInstance().getLocalizacionesSecundarias();
+        fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, fragment)
                 .commit();
 
-        InformacionUsuario.getInstance().buclear(this);
-        InformacionUsuario.getInstance().getLocalizacionesSecundarias(this);
+        //InformacionUsuario.getInstance().buclear(this);
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
+
     }
 
 
@@ -90,8 +95,23 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void cambio_idioma() {
-
+   public void cambio_idioma(String newLocale) {
+       if (!newLocale.equals(currentLocale)) {
+            currentLocale = newLocale;
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("saved_locale", newLocale);
+            editor.apply();
+            Locale myLocale = new Locale(newLocale);
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+            Intent refresh = new Intent(this, MainActivity.class);
+            refresh.putExtra("currentLocale", newLocale);
+            startActivity(refresh);
+        }
     }
 
     public void idioma_boton() {
@@ -178,11 +198,9 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_home:
 
-                    f = new MapsFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, fragment)
                             .commit();
 
                     break;
@@ -191,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
                     f = new LlamaditaFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;
@@ -200,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                     f = new Info_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;
@@ -209,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
                     f = new Settings_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .remove(f)
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;
