@@ -78,6 +78,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class MapsFragment extends Fragment {
     private  GoogleMap mMap;
@@ -103,6 +106,8 @@ public class MapsFragment extends Fragment {
      boolean pintados = true;
     boolean localizacionespuestas = false;
     public Marker markerActual;
+    boolean counter = true;
+    Future longRunningTaskFuture;
 
 
     /*
@@ -147,24 +152,33 @@ public class MapsFragment extends Fragment {
     }
     @Override
     public void onResume() {
+        counter = false;
+        localizacionespuestas = false;
         super.onResume();
         Log.d("DOMINGO3", "onResume: ");
+
+
     }
     @Override
     public void onStart() {
+        counter = false;
+        localizacionespuestas = false;
         super.onStart();
         Log.d("DOMINGO3", "onStart: ");
-        localizacionespuestas = false;
+
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.d("DOMINGO3", "onStop: ");
+        longRunningTaskFuture.cancel(true);
     }
 
     private void buclear(){
-        Log.d("domingo", "buclear ");
+        Log.d("domingo1", "locresp->  " + String.valueOf(localizacionespuestas));
+        Log.d("domingo1", "counter->   "+ String.valueOf(counter));
 
         if(borrados && pintados) {
             borrados = false;
@@ -175,6 +189,7 @@ public class MapsFragment extends Fragment {
         }
 
         if(!localizacionespuestas) {
+            counter = true;
 
             LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
             LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
@@ -187,7 +202,7 @@ public class MapsFragment extends Fragment {
                         .alpha(0.7f)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
-              //  localizacionespuestas = true;
+                localizacionespuestas = true;
             }
             if (ll2.latitude != 0) {
                 if(UBI2 != null) UBI2.remove();
@@ -196,7 +211,7 @@ public class MapsFragment extends Fragment {
                         .alpha(0.7f)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
-             //   localizacionespuestas = true;
+                localizacionespuestas = true;
             }
 
         }
@@ -219,9 +234,12 @@ public class MapsFragment extends Fragment {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
+
                 buclear();
             }
         };
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        longRunningTaskFuture = executorService.submit(runnable);
         handler.postDelayed(runnable, milliseconds);
 
     }

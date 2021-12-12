@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mServiceIntent = new Intent(this, mYourService.getClass());
         if (!isMyServiceRunning(mYourService.getClass())) {
             Log.d("domingo", "if my serive is not running");
-            startService(mServiceIntent);
+           // startService(mServiceIntent);
         }
         //InformacionUsuario.getInstance().buclear(this);
         ActivityMainBinding binding;
