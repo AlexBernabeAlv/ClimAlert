@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/title_settings" />
 
+    <item
+        android:id="@+id/navigation_incidencia"
+        android:icon="?android:attr/alertDialogIcon"
+        android:title="Incidencia" />
+
 </menu>
