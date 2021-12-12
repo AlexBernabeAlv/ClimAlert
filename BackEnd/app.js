@@ -7,12 +7,20 @@ const UsuarioAdmin = require('./Dominio/UsuarioAdmin');
 const Localizacion = require('./Dominio/Localizacion');
 const GestorUsuarios = require('./Dominio/GestorUsuarios');
 const EnviadorNotificaciones = require('./Dominio/EnviadorNotificaciones')
+const yaml = require('yamljs');
+const swaggerUI = require('swagger-ui-express');
+const cors = require('cors');
 
 
 const multer = require('multer');
 const upload = multer();
 
+
 const app = express();
+
+app.use(cors());
+const swaggerDocs = yaml.load('./api.yaml');
+app.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // for parsing application/json
 app.use(express.json());
