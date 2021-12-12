@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,131 +9,158 @@
     android:fillViewport="true"
     tools:context=".Info_Fragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/botones_catastrofe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/browser_actions_context_menu_max_width"
-        android:id="@+id/botones_catastrofe"
         tools:ignore="RtlSymmetry">
 
         <Button
             android:id="@+id/button_calor_extremo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_calor_extremo"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button_granizo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_calor_extremo"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_granizo"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_calor_extremo" />
 
         <Button
             android:id="@+id/button_tormenta_invernal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_granizo"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_tormenta_invernal"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_granizo" />
 
         <Button
             android:id="@+id/button_tornado"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_tormenta_invernal"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_tornado"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_tormenta_invernal" />
 
         <Button
             android:id="@+id/button_inundacion"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_tornado"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_inundacion"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_tornado" />
 
         <Button
             android:id="@+id/button_incendio"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_inundacion"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_incendio"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_inundacion" />
 
         <Button
             android:id="@+id/button_terremoto"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_incendio"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_terremoto"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_incendio" />
 
         <Button
             android:id="@+id/button_tsunami"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_terremoto"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_tsunami"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_terremoto" />
 
         <Button
             android:id="@+id/button_avalancha"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_tsunami"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_avalancha"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_tsunami" />
 
         <Button
             android:id="@+id/button_lluvia_acida"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_avalancha"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_lluvia_acida"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_avalancha" />
 
         <Button
             android:id="@+id/button_erupcion_volcanica"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_lluvia_acida"
-            android:text="@string/text_erupcion_volcanica"
+            android:backgroundTint="#FF9800"
             android:padding="10dp"
-            android:backgroundTint="#FF9800"/>
+            android:text="@string/text_erupcion_volcanica"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_lluvia_acida" />
 
         <Button
             android:id="@+id/button_gota_fria"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_erupcion_volcanica"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_gota_fria"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_erupcion_volcanica" />
 
         <Button
             android:id="@+id/button_tormenta_electrica"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@id/button_gota_fria"
+            android:backgroundTint="#FF9800"
             android:text="@string/text_tormenta_electrica"
-            android:backgroundTint="#FF9800"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_gota_fria" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
