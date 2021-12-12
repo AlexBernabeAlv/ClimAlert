@@ -10,11 +10,18 @@ const EnviadorNotificaciones = require('./Dominio/EnviadorNotificaciones')
 const GestorRefugios = require('./Dominio/GestorRefugios');
 const GestorComentarios = require('./Dominio/GestorComentarios');
 
+const yaml = require('yamljs');
+const swaggerUI = require('swagger-ui-express');
+const cors = require('cors');
 
 const multer = require('multer');
 const upload = multer();
 
 const app = express();
+
+const swaggerDocs = yaml.load('./api.yaml');
+app.use(cors());
+app.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // for parsing application/json
 app.use(express.json());
