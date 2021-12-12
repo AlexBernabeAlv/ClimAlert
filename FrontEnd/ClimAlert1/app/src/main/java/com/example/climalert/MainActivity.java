@@ -1,5 +1,6 @@
 package com.example.climalert;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     String currentLocale;
     private BottomNavigationView bottomNavigationView;
     Fragment fragment;
+    Intent mServiceIntent;
+    private MyService mYourService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.contenedor, fragment)
                 .commit();
 
+        mYourService = new MyService();
+        mServiceIntent = new Intent(this, mYourService.getClass());
+        if (!isMyServiceRunning(mYourService.getClass())) {
+            Log.d("domingo", "if my serive is not running");
+            startService(mServiceIntent);
+        }
         //InformacionUsuario.getInstance().buclear(this);
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -84,6 +93,29 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        //stopService(mServiceIntent);
+        Log.d("domingo", "ondestroy main");
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartservice");
+        broadcastIntent.setClass(this, Restarter.class);
+        this.sendBroadcast(broadcastIntent);
+        super.onDestroy();
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("Service status", "Running");
+                return true;
+            }
+        }
+        Log.i ("Service status", "Not running");
+        return false;
     }
 
 

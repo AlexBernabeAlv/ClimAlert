@@ -135,8 +135,36 @@ public class MapsFragment extends Fragment {
 
 */
 
-    private void buclear(){
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("DOMINGO3", "onPause: ");
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("DOMINGO3", "ondestroy: ");
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("DOMINGO3", "onResume: ");
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("DOMINGO3", "onStart: ");
+        localizacionespuestas = false;
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("DOMINGO3", "onStop: ");
+    }
+
+    private void buclear(){
+        Log.d("domingo", "buclear ");
 
         if(borrados && pintados) {
             borrados = false;
@@ -145,7 +173,6 @@ public class MapsFragment extends Fragment {
             limpiar_incidencias();
             print_incidencias(InformacionUsuario.getInstance().aPintar);
         }
-        Log.d("tengo", String.valueOf(markerActual));
 
         if(!localizacionespuestas) {
 
@@ -160,7 +187,7 @@ public class MapsFragment extends Fragment {
                         .alpha(0.7f)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
-                localizacionespuestas = true;
+              //  localizacionespuestas = true;
             }
             if (ll2.latitude != 0) {
                 if(UBI2 != null) UBI2.remove();
@@ -169,11 +196,10 @@ public class MapsFragment extends Fragment {
                         .alpha(0.7f)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
-                localizacionespuestas = true;
+             //   localizacionespuestas = true;
             }
 
         }
-
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
             createNotificationChannel();
@@ -184,7 +210,7 @@ public class MapsFragment extends Fragment {
         else if(InformacionUsuario.getInstance().actualtam > InformacionUsuario.getInstance().actual.size()){
             InformacionUsuario.getInstance().actualtam = InformacionUsuario.getInstance().actual.size();
         }
-        refresh(600);
+        refresh(300);
     }
 
     private void refresh(int milliseconds){
@@ -221,13 +247,12 @@ public class MapsFragment extends Fragment {
                 borrados = true;
                 pintados = true;
                 //mMap.clear();
+                Log.d("DOMINGO3", "onMapReady: ");
                 markerActual = null;
                 localizacionespuestas = false;
                 getloc();
 
                 print_incidencias(InformacionUsuario.getInstance().actual);
-
-
 
                 if(num_bucleares != 1){
                     num_bucleares++;
@@ -235,14 +260,6 @@ public class MapsFragment extends Fragment {
                 }
 
                 mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-
-                NotificationManager notif=(NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notify=new Notification.Builder
-                        (getContext()).setContentTitle("titulo").setContentText("llueve").
-                        setSmallIcon(R.drawable.logo_climalert).build();
-
-                notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                notif.notify(0, notify);
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(@NonNull LatLng latLng) {
@@ -396,18 +413,19 @@ public class MapsFragment extends Fragment {
 
 
     private void createNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(InformacionUsuario.getInstance().activity, "hola");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(InformacionUsuario.getInstance().activity, "canal1");
         Intent intent = new Intent(InformacionUsuario.getInstance().activity, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(InformacionUsuario.getInstance().activity, 0, intent, 0);
         builder.setContentIntent(pendingIntent);
         builder.setSmallIcon(R.drawable.logo_climalert);
-        builder.setContentTitle("Aviso de incendio cerca");
-        builder.setContentText("Consejos de Incendio");
+        builder.setContentTitle("ClimAlert");
+        builder.setContentText("Tienes una nueva incidencia cerca");
         builder.setColor(Color.RED);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setLights(Color.MAGENTA, 1000, 1000);
         builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
         builder.setDefaults(Notification.DEFAULT_SOUND);
+
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(InformacionUsuario.getInstance().activity);
         notificationManagerCompat.notify(22, builder.build());
@@ -416,7 +434,7 @@ public class MapsFragment extends Fragment {
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notificacion";
-            NotificationChannel notificationChannel = new NotificationChannel("hola", name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel("canal1", name, NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager notificationManager = (NotificationManager) InformacionUsuario.getInstance().activity.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
         }
