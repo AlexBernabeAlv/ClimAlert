@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, fragment)
+                .replace(R.id.contenedor, fragment, "MAPS")
                 .commit();
 
         //InformacionUsuario.getInstance().buclear(this);
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, fragment)
+                            .replace(R.id.contenedor, fragment, "MAPS")
                             .commit();
 
                     break;
