@@ -5,9 +5,9 @@ info:
   version: "0.1.0"
   title: ClimAlert
 servers:
-  - url: 'http://localhost:5000/api'
+  - url: 'http://localhost:5000/'
     description: "Local server."
-  - url: 'https://aswnews.herokuapp.com/api'
+  - url: 'https://climalert.herokuapp.com/'
     description: "Production server."
 paths:
   /BD/reset:
