@@ -399,7 +399,7 @@ public class MapsFragment extends Fragment {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(InformacionUsuario.getInstance().activity, "hola");
         Intent intent = new Intent(InformacionUsuario.getInstance().activity, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(InformacionUsuario.getInstance().activity, 0, intent, 0);
-        builder.setContentIntent(pendingIntent);
+       // builder.setContentIntent(pendingIntent);
         builder.setSmallIcon(R.drawable.logo_climalert);
         builder.setContentTitle("Aviso de incendio cerca");
         builder.setContentText("Consejos de Incendio");
