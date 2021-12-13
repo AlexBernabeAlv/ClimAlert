@@ -41,7 +41,8 @@ app.post('/BD/reset', async (req, res) => {
     
     await DataController.resetBD().catch(error => { console.error(error) });
     var result = await ConsultExternalApis();
-    res.status(200).send(result);
+    //res.status(200).send(result);
+	res.json(result);
 })
 
 //app.get
@@ -61,17 +62,19 @@ app.get('/usuario/:email', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        //res.status(200).send(result);
+        res.json(result);
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).send("Not found: No user with such email.");
 
     }
 
 })
 
-app.post('/usuario/new', async (req, res) => {
+//app.post('/usuario/new', async (req, res) => {
+app.post('/usuario', async (req, res) => {
     
     var email = req.body.email;
     var psswd = req.body.password;
@@ -80,7 +83,8 @@ app.post('/usuario/new', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        //res.status(200).send(result);
+        res.json(result);
 
     } else {
 
