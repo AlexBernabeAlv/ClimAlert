@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -41,12 +40,10 @@ public class MainActivity extends AppCompatActivity {
     String currentLocale;
     private BottomNavigationView bottomNavigationView;
     Fragment fragment;
-    ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toolbar = getSupportActionBar();
         email_account = InformacionUsuario.getInstance().email;
         InformacionUsuario.getInstance().setActivity(this);
         getUsuario(email_account);
@@ -74,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_call,
-                R.id.navigation_settings, R.id.navigation_info, R.id.navigation_incidencia)
+                R.id.navigation_home, R.id.navigation_call, R.id.navigation_settings, R.id.navigation_info)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -224,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_home:
 
-                    toolbar.setTitle("ClimAlert");
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.contenedor, fragment, "MAPS")
@@ -232,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case R.id.navigation_call:
-                    toolbar.setTitle("Call");
+
                     f = new LlamaditaFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
@@ -240,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     break;
                 case R.id.navigation_info:
-                    toolbar.setTitle("Informacion");
+
                     f = new Info_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
@@ -248,17 +243,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     break;
                 case R.id.navigation_settings:
-                    toolbar.setTitle("Ajustes");
-                    f = new Settings_Fragment();
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.contenedor, f)
-                            .commit();
-                    break;
 
-                case R.id.navigation_incidencia:
-                    toolbar.setTitle("Incidencia");
-                    f = new IncidenciaFragment();
+                    f = new Settings_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.contenedor, f)
