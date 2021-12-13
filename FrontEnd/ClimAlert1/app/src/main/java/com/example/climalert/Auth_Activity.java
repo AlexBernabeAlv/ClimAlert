@@ -79,14 +79,13 @@ public class Auth_Activity extends AppCompatActivity {
     public void sign_out() {
         mGoogleSignInClient.signOut();
         FirebaseAuth.getInstance().signOut();
-        /*
+        finishActivity(0);
         Auth_Activity a = new Auth_Activity();
         Intent intent = new Intent(a, MainActivity.class);
         startActivity(intent);//seria un new activity auth
 
-         */
-        Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
-        startActivity(maini);
+
+
     }
 
 
@@ -101,6 +100,8 @@ public class Auth_Activity extends AppCompatActivity {
     private void signIn() {
         Intent singInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(singInIntent, RC_SIGN_IN);
+        Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
+        startActivity(maini);
     }
 
 

@@ -49,9 +49,12 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         //Todos estos botones y cosas se pueden hacer en local
         view = inflater.inflate(R.layout.fragment_perfil, container, false);
+
 
         logout = (Button) view.findViewById(R.id.sign_out_button);
         logout.setOnClickListener(this);
@@ -75,9 +78,11 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_out_button:
-                auth_activity.getmGoogleSignInClient().signOut(); //aqui falla
-                Intent intent = new Intent(getActivity(), Auth_Activity.class);
-                startActivity(intent);
+                auth_activity.sign_out();
+                /*getmGoogleSignInClient().signOut(); //aqui falla
+                FirebaseAuth.getInstance().getCurrentUser().delete();
+                Intent intent = new Intent(getActivity(), Auth_Activity.class );
+                startActivity(intent);*/
                 break;
 
             case R.id.idSwitchFiltro:
