@@ -24,6 +24,8 @@
         <entry key="..\:/Users/felip/AndroidStudioProjects/ClimAlert/app/src/main/res/layout/fragment_dashboard.xml" value="0.10552536231884058" />
         <entry key="..\:/Users/felip/AndroidStudioProjects/ClimAlert/app/src/main/res/layout/fragment_maps.xml" value="0.10552536231884058" />
         <entry key="..\:/Users/felip/AndroidStudioProjects/ClimAlert/app/src/main/res/layout/fragment_settings.xml" value="0.10552536231884058" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.240625" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.240625" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/activity_auth.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/custom_info_contents.xml" value="0.22447916666666667" />
@@ -31,17 +33,30 @@
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/formulario.xml" value="0.16" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_avalancha.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_call.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_calor_extremo.xml" value="0.16621376811594202" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_config.xml" value="0.1743659420289855" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_dashboard.xml" value="0.1539855072463768" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_erupcion_volcanica.xml" value="0.1539855072463768" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_gota_fria.xml" value="0.1539855072463768" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_granizo.xml" value="0.1743659420289855" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_home.xml" value="0.15806159420289856" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_idioma.xml" value="0.1539855072463768" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_incendio.xml" value="0.1" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_incidencia.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_info.xml" value="0.20742753623188406" />
-        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_informacion.xml" value="0.1539855072463768" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_informacion.xml" value="0.33" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_inundacion.xml" value="0.15353260869565216" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_llamadita.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_lluvia_acida.xml" value="0.15353260869565216" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_maps.xml" value="0.15353260869565216" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_notifications.xml" value="0.15353260869565216" />
         <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_perfil.xml" value="0.25" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_settings.xml" value="0.1743659420289855" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_terremoto.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_electrica.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tormenta_invernal.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tornado.xml" value="0.21467391304347827" />
+        <entry key="..\:/Users/felip/Downloads/ClimAlert/FrontEnd/ClimAlert1/app/src/main/res/layout/fragment_tsunami.xml" value="0.21467391304347827" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlert/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlert/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/origa/AndroidStudioProjects/ClimAlert/app/src/main/res/layout/activity_auth.xml" value="0.22" />

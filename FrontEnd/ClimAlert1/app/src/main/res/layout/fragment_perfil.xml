@@ -25,15 +25,13 @@
         android:backgroundTint="#FF2196F3"/>
 
     <Button
+        android:id="@+id/guardar_cambios_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id="@+id/guardar_cambios_button"
-        android:layout_centerInParent="true"
         android:layout_above="@id/sign_out_button"
-        android:text="@string/boton_guardar_cambios"
-        android:backgroundTint="#4ABC4E"/>
+        android:layout_centerInParent="true"
+        android:backgroundTint="#4ABC4E"
+        android:text="@string/boton_guardar_cambios" />
 
     <TextView
         android:layout_width="wrap_content"
