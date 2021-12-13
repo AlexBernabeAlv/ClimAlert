@@ -36,8 +36,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     *
      * @return A new instance of fragment Info_Fragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -69,7 +68,14 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
 
         for (int i = 0; i < InformacionUsuario.getInstance().actual.size(); ++i) {
             if (IdInc == InformacionUsuario.getInstance().actual.get(i).identificador) {
-                String SFecha = "Fecha: " + InformacionUsuario.getInstance().actual.get(i).fecha.substring(0,10);
+                String SFecha;
+                String wtf = InformacionUsuario.getInstance().actual.get(i).fecha;
+                if(InformacionUsuario.getInstance().actual.get(i).fecha == null || InformacionUsuario.getInstance().actual.get(i).fecha == "null") {
+                    SFecha ="Fecha: no hay fecha disponible";
+                }
+                else {
+                    SFecha = "Fecha: " + InformacionUsuario.getInstance().actual.get(i).fecha.substring(0, 10);
+                }
                 String SID = "ID: " + InformacionUsuario.getInstance().actual.get(i).identificador;
                 Fecha.setText(SFecha);
                 ID.setText(SID);

@@ -154,6 +154,7 @@ public class MapsFragment extends Fragment {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
+                        .title("1")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
                 localizacionespuestas = true;
@@ -163,6 +164,7 @@ public class MapsFragment extends Fragment {
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
+                        .title("2")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
                 localizacionespuestas = true;
@@ -314,32 +316,35 @@ public class MapsFragment extends Fragment {
             } else {
                 titleUi.setText("");
             }
-
-            String snippet = marker.getSnippet();
-            int pos = snippet.lastIndexOf(" ");
-            snippet = snippet.substring(0, pos);
-            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-            if (snippet != null ) {
-                SpannableString snippetText = new SpannableString(snippet);
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
-                snippetUi.setText(snippetText);
-            } else {
-                snippetUi.setText("");
+            if(marker.getPosition().latitude != InformacionUsuario.getInstance().latitud1 && marker.getPosition().latitude != InformacionUsuario.getInstance().latitud2) {
+                String snippet = marker.getSnippet();
+                int pos = snippet.lastIndexOf(" ");
+                snippet = snippet.substring(0, pos);
+                TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+                if (snippet != null) {
+                    SpannableString snippetText = new SpannableString(snippet);
+                    snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
+                    snippetUi.setText(snippetText);
+                } else {
+                    snippetUi.setText("");
+                }
+                mMap.setOnInfoWindowClickListener(this);
             }
-            mMap.setOnInfoWindowClickListener(this);
         }
 
         @Override
         public void onInfoWindowClick(Marker marker) {
-            String snippet = marker.getSnippet();
-            String lastWord = snippet.substring(snippet.lastIndexOf(" ")+1);
-            InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
-            Fragment f = new VentanaIncidencia();
-            MainActivity main = (MainActivity) getActivity();
-            main.getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contenedor, f)
-                    .commit();
+            if (marker.getPosition().latitude != InformacionUsuario.getInstance().latitud1 && marker.getPosition().latitude != InformacionUsuario.getInstance().latitud2) {
+                String snippet = marker.getSnippet();
+                String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
+                InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
+                Fragment f = new VentanaIncidencia();
+                MainActivity main = (MainActivity) getActivity();
+                main.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, f)
+                        .commit();
+            }
         }
     }
 
