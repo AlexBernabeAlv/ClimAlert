@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,8 +32,8 @@ public class Auth_Activity extends AppCompatActivity {
     String mail;
     String password;
     public static int RC_SIGN_IN = 0;
-    GoogleSignInClient mGoogleSignInClient;
-    FirebaseAuth firebaseAuth;
+    public GoogleSignInClient mGoogleSignInClient;
+    public FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +79,10 @@ public class Auth_Activity extends AppCompatActivity {
 
     public void sign_out() {
         mGoogleSignInClient.signOut();
-        FirebaseAuth.getInstance().signOut();
-        finishActivity(0);
-        Auth_Activity a = new Auth_Activity();
-        Intent intent = new Intent(a, MainActivity.class);
-        startActivity(intent);//seria un new activity auth
-
-
+        Auth.GoogleSignInApi.signOut(mGoogleSignInClient.asGoogleApiClient());
+        /*FirebaseAuth.getInstance().signOut();
+        FirebaseAuth.getInstance().getCurrentUser().delete();
+*/
 
     }
 

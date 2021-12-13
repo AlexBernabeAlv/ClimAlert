@@ -24,10 +24,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.climalert.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -35,10 +38,11 @@ import org.json.JSONObject;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener, Slider.OnChangeListener {
     Button logout, g_cambios;
+    Auth_Activity auth_activity;
     //GoogleSignInClient googleSignInClient;
     //public static int RC_SIGN_IN = 0;
     View view;
-    Auth_Activity auth_activity;
+
     Slider s;
     Switch switchF;
 
@@ -78,11 +82,14 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_out_button:
-                auth_activity.sign_out();
-                /*getmGoogleSignInClient().signOut(); //aqui falla
-                FirebaseAuth.getInstance().getCurrentUser().delete();
-                Intent intent = new Intent(getActivity(), Auth_Activity.class );
-                startActivity(intent);*/
+
+            /*    GoogleSignInClient.signOut;
+                auth_activity.sign_out(); */
+                //Auth.GoogleSignInApi.signOut(auth_activity.getmGoogleSignInClient().asGoogleApiClient());
+                Intent intent = new Intent(getActivity(),  Auth_Activity.class );
+                auth_activity.mGoogleSignInClient.signOut();
+                auth_activity.mGoogleSignInClient.revokeAccess();
+                startActivity(intent);
                 break;
 
             case R.id.idSwitchFiltro:
