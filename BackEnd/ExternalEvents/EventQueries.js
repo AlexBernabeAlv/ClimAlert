@@ -17,15 +17,13 @@ async function checkEventos(api, incidencias) {
 			const hora = api.getHora(evento);
 			for (let fenomeno of api.fenomenos) {
 				const gravedad = api.getGravedad(evento, fenomeno);
-				const latitud = api.getLatitud(evento);
-				const longitud = api.getLongitud(evento);
 				if (gravedad != 'inocuo') {
+					const latitud = api.getLatitud(evento);
+					const longitud = api.getLongitud(evento);
 					const grave = (gravedad == 'critico');
 					const radio = 1;
 					//Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
 					const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
-					incidencia.setValido();
-					incidencia.setAPI();
 					//let name = api.name;
 					incidencias.push(incidencia);
 				}
