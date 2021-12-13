@@ -138,8 +138,14 @@ public class LlamaditaFragment extends Fragment {
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
                 dar_incidencia();
-                Intent CambiarVentana = new Intent(getActivity(), MapsFragment.class);
-                startActivity(CambiarVentana);
+                Fragment f = new Info_Fragment();
+                MainActivity main = (MainActivity) getActivity();
+                main.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, f)
+                        .commit();
+                //Intent CambiarVentana = new Intent(getActivity(), MapsFragment.class);
+                //startActivity(CambiarVentana);
 
             }
         });

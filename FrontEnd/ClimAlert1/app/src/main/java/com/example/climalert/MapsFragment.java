@@ -2,22 +2,11 @@ package com.example.climalert;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
-
 import android.app.NotificationChannel;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -28,7 +17,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.icu.text.IDNA;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -45,6 +33,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -54,7 +51,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -257,7 +253,7 @@ public class MapsFragment extends Fragment {
     }
 
     /////////////////////////////CLASES////////////////CLASES////////////////////////////
-    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
         // "title" and "snippet".
         private final View mWindow;
@@ -308,6 +304,7 @@ public class MapsFragment extends Fragment {
             ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
+
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
             if (title != null) {
                 // Spannable string allows us to edit the formatting of the text.
@@ -319,6 +316,8 @@ public class MapsFragment extends Fragment {
             }
 
             String snippet = marker.getSnippet();
+            int pos = snippet.lastIndexOf(" ");
+            snippet = snippet.substring(0, pos);
             TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
             if (snippet != null ) {
                 SpannableString snippetText = new SpannableString(snippet);
@@ -327,6 +326,20 @@ public class MapsFragment extends Fragment {
             } else {
                 snippetUi.setText("");
             }
+            mMap.setOnInfoWindowClickListener(this);
+        }
+
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            String snippet = marker.getSnippet();
+            String lastWord = snippet.substring(snippet.lastIndexOf(" ")+1);
+            InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
+            Fragment f = new VentanaIncidencia();
+            MainActivity main = (MainActivity) getActivity();
+            main.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contenedor, f)
+                    .commit();
         }
     }
 
@@ -762,9 +775,9 @@ public class MapsFragment extends Fragment {
         }
     }
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio, int id) {
-
+            String ID = String.valueOf(id);
             Marker m = mMap.addMarker(new MarkerOptions()
-                    .snippet(info)
+                    .snippet(info + " " + ID)
                     .position(latLng)
                     .alpha(0.9f)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))

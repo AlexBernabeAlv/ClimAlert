@@ -1,23 +1,8 @@
 package com.example.climalert.CosasDeTeo;
 
-import static android.content.Context.LOCATION_SERVICE;
-
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-
-import androidx.core.app.ActivityCompat;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -29,10 +14,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
-//import com.example.climalert.MapsFragment;
-//import com.google.android.gms.maps.CameraUpdateFactory;
-//import com.google.android.gms.maps.model.LatLng;
-//import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,10 +22,16 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
+//import com.example.climalert.MapsFragment;
+//import com.google.android.gms.maps.CameraUpdateFactory;
+//import com.google.android.gms.maps.model.LatLng;
+//import com.google.android.gms.maps.model.MarkerOptions;
+
 public class InformacionUsuario {
 
     public String email;
     public String password;
+    public String IDIncidenciaActual;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -63,6 +50,7 @@ public class InformacionUsuario {
     static private InformacionUsuario usuario;
 
     public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g){
+         IDIncidenciaActual = "";
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
