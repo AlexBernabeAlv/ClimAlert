@@ -202,8 +202,9 @@ public class MainActivity extends AppCompatActivity {
             if (fragMaps != null && fragMaps.isVisible()) {
                 moveTaskToBack(true);
             } else {
-                Intent refresh = new Intent(this, MainActivity.class);
-                startActivity(refresh);
+                fm.beginTransaction()
+                    .replace(R.id.contenedor, fragment, "MAPS")
+                    .commit();
             }
         }
     }
