@@ -59,14 +59,15 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         g_cambios = (Button) view.findViewById(R.id.guardar_cambios_button);
         g_cambios.setOnClickListener(this);
 
-
-
         s = (Slider) view.findViewById(R.id.slider_radio);
         if(InformacionUsuario.getInstance().radioEfecto != -1) s.setValue(InformacionUsuario.getInstance().radioEfecto);
-        else s.setValue(50);
+        else s.setValue(50.0f);
         s.addOnChangeListener(this);
 
         switchF = (Switch) view.findViewById(R.id.idSwitchFiltro);
+        if(InformacionUsuario.getInstance().gravedad == 1) switchF.setChecked(true);
+        else switchF.setChecked(false);
+        switchF.setOnClickListener(this);
 
         return view;
     }
@@ -83,7 +84,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
             case R.id.idSwitchFiltro:
                 if (switchF.isChecked()) InformacionUsuario.getInstance().gravedad = 1;
                 else InformacionUsuario.getInstance().gravedad = 0;
-                Log.d("a", "entro al switch");
+                Log.d("switch_toca_polla", "entro al switch");
                 break;
 
             case R.id.guardar_cambios_button:

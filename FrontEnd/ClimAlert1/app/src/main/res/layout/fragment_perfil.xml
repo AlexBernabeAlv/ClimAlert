@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/titulo_afectacion"
         android:valueFrom="0.0"
-        android:valueTo="250" />
+        android:valueTo="250.0" />
 
     <Switch
         android:id="@+id/idSwitchFiltro"
