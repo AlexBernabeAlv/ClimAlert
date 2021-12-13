@@ -78,8 +78,10 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_out_button:
-              /*  auth_activity.getmGoogleSignInClient().signOut(); //aqui falla
-                Intent intent = new Intent(getActivity(), Auth_Activity.class);
+                auth_activity.sign_out();
+                /*getmGoogleSignInClient().signOut(); //aqui falla
+                FirebaseAuth.getInstance().getCurrentUser().delete();
+                Intent intent = new Intent(getActivity(), Auth_Activity.class );
                 startActivity(intent);*/
                 break;
 
