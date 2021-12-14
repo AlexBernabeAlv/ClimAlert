@@ -1,5 +1,8 @@
+const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
+
 const WeatherApiComCurrent = {
 	name: 'WeatherApiComCurrent',
+	id: 'wacc',
 	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=',
 	getUrls() {
 		return [
@@ -50,6 +53,7 @@ const WeatherApiComCurrent = {
 
 const FirmsViirsSnppNrt = {
 	name: 'FirmsViirsSnppNrt',
+	id: 'firms',
 	baseUrl: 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/6092ec0d3b6b37225112d6016c6dd223/VIIRS_SNPP_NRT/',
 	getUrls() {
 		const north = 43;
@@ -96,6 +100,7 @@ const FirmsViirsSnppNrt = {
 
 const SeismicPortalEu = {
 	name: 'SeismicPortalEu',
+	id: 'speu',
 	baseUrl: 'https://www.seismicportal.eu/fdsnws/event/1/query?limit=20',
 	getUrls() {
 		const maxlat = '&maxlat=' + 43;
@@ -114,10 +119,8 @@ const SeismicPortalEu = {
 		let eventos = [];
 		if (respuesta != '') {
 			const features = JSON.parse(respuesta).features;
-			//console.log('features: ' + JSON.stringify(features, null, 2));
 			for (let i = 0; i < features.length; i++) {
 				const feature = features[i];
-				//console.log('feature: ' + JSON.stringify(feature, null, 2));
 				eventos.push(feature.properties);
 				i++;
 			}
@@ -132,12 +135,10 @@ const SeismicPortalEu = {
 	},
 	getFecha(evento) {
 		return evento.time.split('T')[0];
-		//return time = new Date();
 	},
 	getHora(evento) {
 		const time = evento.time.split('T')[1];
 		return time.split(':')[0] + ':' + time.split(':')[1];
-		//return time = new Date();
 	},
 	getGravedad(evento, fenomeno) {
 		//if (evento.mag >= 7) return 'critico';
@@ -147,8 +148,29 @@ const SeismicPortalEu = {
 	}
 }
 
+function getIncidencias(api, evento, incidencias) {
+	const fecha = api.getFecha(evento);
+	const hora = api.getHora(evento);
+	for (let fenomeno of api.fenomenos) {
+		const gravedad = api.getGravedad(evento, fenomeno);
+		if (gravedad != 'inocuo') {
+			const latitud = api.getLatitud(evento);
+			const longitud = api.getLongitud(evento);
+			const grave = (gravedad == 'critico');
+			const radio = 1;
+			const id = api.id;
+			//Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
+			const incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
+			//let name = api.name;
+			incidencias.push(incidencia);
+		}
+	}
+	return incidencias;
+}
+
 module.exports = {
 	WeatherApiComCurrent,
 	FirmsViirsSnppNrt,
-	SeismicPortalEu
+	SeismicPortalEu,
+	getIncidencias
 };

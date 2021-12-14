@@ -9,13 +9,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="" />
+    <list default="true" id="aaa54f9d-52bc-4249-8421-dc4e0cda992a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Info_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Info_Fragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/MainActivity.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\origa\.android\avd\Pixel_3a_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\origa\.android\avd\Nexus_6_API_24.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/FrontEnd/ClimAlert1">
       <ProjectState />
@@ -83,12 +86,9 @@
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="experimental" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\origa\AndroidStudioProjects\ClimAlertFinal\FrontEnd\ClimAlert1\app\src\main\res\layout" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.climalert" />
     </key>
@@ -178,9 +178,24 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Auth_Activity.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/ui/catastrofes/Avalancha_Fragment.java</url>
           <line>21</line>
           <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/FrontEnd/ClimAlert1/app/src/main/java/com/example/climalert/Settings_Fragment.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

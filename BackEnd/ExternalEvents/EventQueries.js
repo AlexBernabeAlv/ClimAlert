@@ -1,33 +1,16 @@
 const https = require('https');
 const fs = require('fs');
-const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
+const externalApis = require('./ExternalApis');
 
 async function checkEventos(api, incidencias) {
 	const urls = api.getUrls();
 	for (let i = 0; i < urls.length; i++) {
-		url = urls[i];
-		console.log('url: ' + url);
-		const respuesta = await callApi(api, url);
+		const respuesta = await callApi(api, url[i]);
 		//const respuesta = '';
 		const eventos = api.getEventos(respuesta);
 		console.log('eventos: ' + JSON.stringify(eventos, null, 2));
 		for (let i = 0; i < eventos.length; i++) {
-			const evento = eventos[i];
-			const fecha = api.getFecha(evento);
-			const hora = api.getHora(evento);
-			for (let fenomeno of api.fenomenos) {
-				const gravedad = api.getGravedad(evento, fenomeno);
-				if (gravedad != 'inocuo') {
-					const latitud = api.getLatitud(evento);
-					const longitud = api.getLongitud(evento);
-					const grave = (gravedad == 'critico');
-					const radio = 1;
-					//Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
-					const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
-					//let name = api.name;
-					incidencias.push(incidencia);
-				}
-			}
+			incidencias = externalApis.getIncidencias(api, eventos[i], incidencias);
 		}
 	}
 	return incidencias;

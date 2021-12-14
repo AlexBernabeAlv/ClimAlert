@@ -22,7 +22,6 @@ it('Main page content', function(done) {
 */
 
 const assert = require('assert').strict;
-const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
 const externalApis = require('../ExternalEvents/ExternalApis');
 const apiWacc = externalApis.WeatherApiComCurrent;
 const apiFirms = externalApis.FirmsViirsSnppNrt;
@@ -100,21 +99,7 @@ describe('test: fenómenos de APIs', function() {
 describe("test: WeatherApiComCurrent", function() {
 	it("deberia crear 1 incidencia de calor extremo y 1 incidencia de inundacion", function() {
 		const evento = EventoWaccCalorInundacion;
-		let incidencias = [];
-		const fecha = apiWacc.getFecha(evento);
-		const hora = apiWacc.getHora(evento);
-		for (let fenomeno of apiWacc.fenomenos) {
-			const gravedad = apiWacc.getGravedad(evento, fenomeno);
-			if (gravedad != 'inocuo') {
-				const latitud = apiWacc.getLatitud(evento);
-				const longitud = apiWacc.getLongitud(evento);
-				const grave = (gravedad == 'critico');
-				const radio = 1;
-				const incidencia = new incidenciaFenomeno(fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
-				//let name = apiWacc.name;
-				incidencias.push(incidencia);
-			}
-		}
+		const incidencias = externalApis.getIncidencias(apiWacc, evento, []);
 		assert.strictEqual(2, incidencias.length);
 		assert.strictEqual('CalorExtremo', incidencias[0].fenomenoMeteo.nombre);
 		assert.strictEqual('Inundacion', incidencias[1].fenomenoMeteo.nombre);

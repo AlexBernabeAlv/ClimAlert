@@ -70,7 +70,11 @@ class GestorUsuarios {
         var usu = new UsuarioEstandar(Email, Password);
         usu.setFiltro(Gravedad, RadioEfecto);
 
-        return await dataController.updateUsuario(usu, usu.password).catch(error => { console.error(error) });
+        var usuantiguo = await this.getUsuario(Email);
+
+        
+
+        return await dataController.updateUsuario(usu, usuantiguo.password).catch(error => { console.error(error) });
     }
 
     async deleteUsuario(Email, Password) {
@@ -78,39 +82,17 @@ class GestorUsuarios {
         return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
     }
 
-    async getFiltro(Email) {
+    async getFiltro(Email, Password) {
 
-        var res = await dataController.getUsuario(Email).catch(error => { console.error(error) });
+        var usuario = await this.getUsuario(Email).catch(error => { console.error(error) });
 
-        if (res.rows.length > 0) {
+        if (usuario && usuario.password == Password) {
 
-            var filtro = new Filtro();
+            return usuario.filtro;
 
-            filtro.setGravedad(res.rows[0].gravedad);
-            filtro.setRadioEfecto(res.rows[0].radioefecto);
-            
-            
-
-            if (res.rows[0].latitud && res.rows[0].longitud) {
-
-                filtro.setLocalizacion1(res.rows[0].latitud, res.rows[0].longitud);
-            }
-
-            if (res.rows.length > 1 && res.rows[1].latitud && res.rows[1].longitud) {
-
-                filtro.setLocalizacion2(res.rows[1].latitud, res.rows[1].longitud);
-            }
-
-            var result = filtro;
-
-        } else {
-
-            var result = "Usuario no existe";
         }
 
-        return result;
-
-
+        return false;
     }
 
     async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
