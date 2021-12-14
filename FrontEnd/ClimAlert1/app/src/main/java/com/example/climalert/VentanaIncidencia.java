@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 
@@ -62,7 +63,6 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
         TextView ID = (TextView) view.findViewById(R.id.ID);
         TextView Fecha = (TextView) view.findViewById(R.id.fecha);
         TextView Hora = (TextView) view.findViewById(R.id.hora);
-        Button Volver = (Button) view.findViewById(R.id.btnVolver);
 
         int IdInc = Integer.parseInt(InformacionUsuario.getInstance().IDIncidenciaActual);
 
@@ -84,18 +84,6 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 Titulo.setText(String.valueOf(InformacionUsuario.getInstance().actual.get(i).nombre));
             }
         }
-
-        Volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity main = (MainActivity) getActivity();
-                Fragment f = new MapsFragment();
-                main.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.contenedor, f, "MAPS")
-                        .commit();
-            }
-        });
         ID.setText(InformacionUsuario.getInstance().IDIncidenciaActual);
         return view;
     }
