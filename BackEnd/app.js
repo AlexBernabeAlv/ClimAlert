@@ -112,10 +112,10 @@ app.put('/usuarios/:email', async (req, res) => {
     }
 })
 
-app.delete('/usuarios/:email/delete', async (req, res) => {
+app.delete('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
-    var psswd = req.body.password;
+    var psswd = req.query.password;
 
     var result = await GestorUsuarios.deleteUsuario(email, psswd);
 
@@ -197,7 +197,7 @@ app.post('/incidencias', async (req, res) => {
     }
 })
 
-app.put('/incidencia/update', async (req, res) => {
+app.put('/incidencias', async (req, res) => {
 
     var id = req.query.id;
     var email = req.body.email;
@@ -269,7 +269,7 @@ function ConsultExternalApis()
 
 //Refugios
 
-app.post('/refugio/new', async (req, res) => {
+app.post('/refugios', async (req, res) => {
 
     var Email = req.body.email;
     var Nombre = req.body.nombre;
@@ -290,7 +290,7 @@ app.post('/refugio/new', async (req, res) => {
     }
 })
 
-app.get('/refugio', async (req, res) => {
+app.get('/refugios', async (req, res) => {
     
     var latitud = req.query.latitud;
     var longitud = req.query.longitud;
@@ -308,10 +308,10 @@ app.get('/refugio', async (req, res) => {
     }
 })
 
-app.delete('/refugio/:nombre/delete', async (req, res) => {
+app.delete('/refugios/:nombre', async (req, res) => {
 
-    var Email = req.body.email;
-    var Password = req.body.password;
+    var Email = req.query.email;
+    var Password = req.query.password;
     var Nombre = req.params.nombre;
 
     var result = await GestorRefugios.deleteRefugio(Email, Password, Nombre);
@@ -327,7 +327,7 @@ app.delete('/refugio/:nombre/delete', async (req, res) => {
     }
 })
 
-app.put('/refugio/:nombre/update', async (req, res) => {
+app.put('/refugios/:nombre', async (req, res) => {
 
     var email = req.body.email;
     var psswd = req.body.password;
@@ -348,7 +348,7 @@ app.put('/refugio/:nombre/update', async (req, res) => {
 
 //Comentarios
 
-app.post('/comentario/new', async (req, res) => {
+app.post('/comentarios', async (req, res) => {
 
     var Email = req.body.email;
     var Password = req.body.password;
@@ -369,7 +369,7 @@ app.post('/comentario/new', async (req, res) => {
     }
 })
 
-app.get('/comentario', async (req, res) => {
+app.get('/comentarios', async (req, res) => {
 
     var email = req.query.email;
 
@@ -387,7 +387,7 @@ app.get('/comentario', async (req, res) => {
 })
 
 
-app.get('/comentario/:commentid/respuestas', async (req, res) => {
+app.get('/comentarios/:commentid/respuestas', async (req, res) => {
 
     var commentid = req.params.commentid;
 
@@ -406,7 +406,7 @@ app.get('/comentario/:commentid/respuestas', async (req, res) => {
 
 
 
-app.get('/incidenciafenomeno/:incfenid/comentarios', async (req, res) => {
+app.get('/incidenciafenomenos/:incfenid/comentarios', async (req, res) => {
 
     var incfenid = req.params.incfenid;
 
@@ -423,11 +423,11 @@ app.get('/incidenciafenomeno/:incfenid/comentarios', async (req, res) => {
     }
 })
 
-app.put('/comentario/:commentid/delete', async (req, res) => {
+app.delete('/comentarios/:commentid', async (req, res) => {
 
     var commentid = req.params.commentid;
-    var email = req.body.email;
-    var password = req.body.password;
+    var email = req.query.email;
+    var password = req.query.password;
 
     var result = await GestorComentarios.deleteComentario(commentid, email, password);
 
@@ -442,7 +442,7 @@ app.put('/comentario/:commentid/delete', async (req, res) => {
     }
 })
 
-app.put('/comentario/:commentid/update', async (req, res) => {
+app.put('/comentarios/:commentid', async (req, res) => {
 
     var commentid = req.params.commentid;
     var contenido = req.body.contenido;
