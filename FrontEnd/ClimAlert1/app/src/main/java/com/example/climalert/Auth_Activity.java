@@ -31,7 +31,7 @@ public class Auth_Activity extends AppCompatActivity {
     String mail;
     String password;
     public static int RC_SIGN_IN = 0;
-    GoogleSignInClient mGoogleSignInClient;
+    static GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth firebaseAuth;
 
     @Override
