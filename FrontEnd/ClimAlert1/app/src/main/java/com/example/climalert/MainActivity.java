@@ -109,9 +109,12 @@ public class MainActivity extends AppCompatActivity {
             Configuration conf = res.getConfiguration();
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
+            /*
             Intent refresh = new Intent(this, MainActivity.class);
             refresh.putExtra("currentLocale", newLocale);
-            startActivity(refresh);
+            startActivity(refresh);*/
+            onBackPressed();
+
         }
     }
 
