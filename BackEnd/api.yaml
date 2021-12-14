@@ -1,0 +1,273 @@
+openapi: 3.0.0
+info:
+  description: |
+    Servidor que retorna alertas climatológicas.
+  version: "0.1.0"
+  title: ClimAlert
+servers:
+  - url: 'http://localhost:5000/'
+    description: "Local server."
+  - url: 'https://climalert.herokuapp.com/'
+    description: "Production server."
+paths:
+  /BD/reset:
+    post:
+      responses:
+        "200":
+          description: ""
+  /:
+    get:
+      responses:
+        "200":
+          description: ""
+  /usuario/{email}:
+    get:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    put:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutUser'
+      responses:
+        "200":
+          description: ""
+    delete:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  /usuario:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUser'
+      responses:
+        "200":
+          description: ""
+  /usuario/{email}/localizaciones:
+    get:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostLoc'
+      responses:
+        "200":
+          description: ""
+  /incidencias:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostIncidencia'
+      responses:
+        "200":
+          description: ""
+  /usuario/{email}/notificaciones:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostNotificacion'
+      responses:
+        "200":
+          description: ""
+  /refugio:
+    get:
+      parameters:
+        - name: latitud
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: longitud
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRefugio'
+      responses:
+        "200":
+          description: ""
+  /refugio/{nombre}:
+    put:
+      parameters:
+        - name: nombre
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutRefugio'
+      responses:
+        "200":
+          description: ""
+    delete:
+      parameters:
+        - name: nombre
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+
+components:
+  schemas:
+    PostUser:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PutUser:
+      type: object
+      properties:
+        password:
+          type: string
+        gravedad:
+          type: boolean
+        radioEfecto:
+          type: number
+    PostLoc:
+      type: object
+      properties:
+        password:
+          type: string
+        latitud1:
+          type: number
+        longitud1:
+          type: number
+        latitud2:
+          type: number
+        longitud2:
+          type: number
+    PostIncidencia:
+      type: object
+      properties:
+        nombreFenomeno:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+        fecha:
+          type: string
+        hora:
+          type: string
+    PostNotificacion:
+      type: object
+      properties:
+        password:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+    PostRefugio:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        nombre:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+    PutRefugio:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        newnombre:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
