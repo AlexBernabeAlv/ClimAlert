@@ -95,7 +95,7 @@ public class InformacionUsuario {
 
         Log.d("secun", "getlocsecun");
         RequestQueue queue = Volley.newRequestQueue(activity);
-        String url = "https://climalert.herokuapp.com/usuario/" +InformacionUsuario.getInstance().email+ "/filtro";
+        String url = "https://climalert.herokuapp.com/usuarios/" +InformacionUsuario.getInstance().email+ "/filtro";
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("password", password);
@@ -153,7 +153,7 @@ public class InformacionUsuario {
     public void coger_incidencias(){
         RequestQueue queue = Volley.newRequestQueue(activity);
         InformacionUsuario us = InformacionUsuario.getInstance();
-        String url = "https://climalert.herokuapp.com/usuario/"+ us.email +"/notificaciones";
+        String url = "https://climalert.herokuapp.com/usuarios/"+ us.email +"/notificaciones";
 
         JSONObject mapa = new JSONObject();
         try {

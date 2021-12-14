@@ -104,7 +104,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public void update_usuario() {
         Log.d("retorno", "updt us");
         RequestQueue queue = Volley.newRequestQueue( InformacionUsuario.getInstance().activity);
-        String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/update";
+        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email;
         JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {

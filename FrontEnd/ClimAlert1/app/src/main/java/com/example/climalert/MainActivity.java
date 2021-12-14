@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     private void getUsuario(String email){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://climalert.herokuapp.com/usuario/" + email;
+        String url = "https://climalert.herokuapp.com/usuarios/" + email;
                 // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

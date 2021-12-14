@@ -571,7 +571,7 @@ public class MapsFragment extends Fragment {
     public void dar_localizacion() {
         Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
+        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/localizaciones";
        // JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {

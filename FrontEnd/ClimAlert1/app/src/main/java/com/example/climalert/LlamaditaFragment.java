@@ -154,7 +154,7 @@ public class LlamaditaFragment extends Fragment {
 
     public void dar_incidencia() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/incidencia/new";
+        String url = "https://climalert.herokuapp.com/incidencias";
         JSONObject mapa = new JSONObject();
         try {
             spinnerres = mSpinner.getSelectedItem().toString();

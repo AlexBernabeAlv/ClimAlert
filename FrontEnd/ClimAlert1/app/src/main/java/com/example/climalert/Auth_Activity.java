@@ -124,7 +124,7 @@ public class Auth_Activity extends AppCompatActivity {
         mail = account.getEmail();
         password = account.getId();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://climalert.herokuapp.com/usuario/new";
+        String url = "https://climalert.herokuapp.com/usuarios";
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("email", mail);
