@@ -444,7 +444,7 @@ public class MapsFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(a);
         Log.d("refug", String.valueOf(InformacionUsuario.getInstance().latitudactual));
 
-        String url = "https://climalert.herokuapp.com/refugio?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
+        String url = "https://climalert.herokuapp.com/refugios?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
         // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
