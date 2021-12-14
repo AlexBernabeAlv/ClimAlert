@@ -158,7 +158,7 @@ function getIncidencias(api, evento, incidencias) {
 			const longitud = api.getLongitud(evento);
 			const grave = (gravedad == 'critico');
 			const radio = 1;
-			const id = api.id;
+			const id = 0;
 			//Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
 			const incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
 			//let name = api.name;

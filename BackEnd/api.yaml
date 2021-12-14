@@ -245,16 +245,16 @@ components:
               type: object
               properties:
                 latitud:
-                  type: string
+                  type: number
                 longitud:
-                  type: string
+                  type: number
             localizacion2:
               type: object
               properties:
                 latitud:
-                  type: string
+                  type: number
                 longitud:
-                  type: string
+                  type: number
             radioEfecto:
               type: integer
             gravedad:
