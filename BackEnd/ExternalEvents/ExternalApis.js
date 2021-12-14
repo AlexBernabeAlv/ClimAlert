@@ -160,7 +160,8 @@ function getIncidencias(api, evento, incidencias) {
 			const radio = 1;
 			const id = 0;
 			//Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
-			const incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
+			let incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
+			incidencia.setAPI();
 			//let name = api.name;
 			incidencias.push(incidencia);
 		}
