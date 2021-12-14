@@ -87,8 +87,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
                 auth_activity.sign_out(); */
                 //Auth.GoogleSignInApi.signOut(auth_activity.getmGoogleSignInClient().asGoogleApiClient());
                 Intent intent = new Intent(getActivity(),  Auth_Activity.class );
-                auth_activity.mGoogleSignInClient.signOut();
-                auth_activity.mGoogleSignInClient.revokeAccess();
+                Auth_Activity.mGoogleSignInClient.signOut();
+                Auth_Activity.mGoogleSignInClient.revokeAccess();
                 startActivity(intent);
                 break;
 

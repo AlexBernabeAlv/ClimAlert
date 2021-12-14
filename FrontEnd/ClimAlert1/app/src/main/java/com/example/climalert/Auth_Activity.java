@@ -32,7 +32,7 @@ public class Auth_Activity extends AppCompatActivity {
     String mail;
     String password;
     public static int RC_SIGN_IN = 0;
-    public GoogleSignInClient mGoogleSignInClient;
+    public static GoogleSignInClient mGoogleSignInClient;
     public FirebaseAuth firebaseAuth;
 
     @Override
@@ -84,6 +84,10 @@ public class Auth_Activity extends AppCompatActivity {
         FirebaseAuth.getInstance().getCurrentUser().delete();
 */
 
+    }
+
+    public Auth_Activity getActivity() {
+        return this;
     }
 
 
