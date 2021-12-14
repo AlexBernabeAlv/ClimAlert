@@ -41,18 +41,18 @@ app.post('/BD/reset', async (req, res) => {
     
     await DataController.resetBD().catch(error => { console.error(error) });
     var result = await ConsultExternalApis();
-    res.status(200).send(result);
+    //res.status(200).send(result);
+	res.json(result);
 })
 
 //app.get
 app.get('/', (req, res) => {
-
     console.log('GET request recived');
     res.status(200).send('Home Page');
 })
 
 //LLamadas api usuarios
-app.get('/usuario/:email', async (req, res) => {
+app.get('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
     var result = await GestorUsuarios.getUsuario(email);
@@ -61,18 +61,20 @@ app.get('/usuario/:email', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        //res.status(200).send(result);
+        res.json(result);
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).send("Not found: No user with such email.");
 
     }
 
 })
 
-app.post('/usuario/new', async (req, res) => {
-    
+//app.post('/usuario/new', async (req, res) => {
+app.post('/usuarios', async (req, res) => {
+
     var email = req.body.email;
     var psswd = req.body.password;
 
@@ -80,16 +82,17 @@ app.post('/usuario/new', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        //res.status(200).send(result);
+        res.json(result);
 
     } else {
 
-        res.status(404).send("Usuario ya existe");
+        res.status(400).send("Bad request: User with email already exists.");
 
     }
 })
 
-app.put('/usuario/:email/update', async (req, res) => {
+app.put('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
@@ -100,7 +103,7 @@ app.put('/usuario/:email/update', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.json(result);
 
     } else {
 
@@ -109,7 +112,7 @@ app.put('/usuario/:email/update', async (req, res) => {
     }
 })
 
-app.delete('/usuario/:email/delete', async (req, res) => {
+app.delete('/usuarios/:email/delete', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
@@ -130,7 +133,7 @@ app.delete('/usuario/:email/delete', async (req, res) => {
 
 //localizaciones usuario
 
-app.post('/usuario/:email/localizaciones/new', async (req, res) => {
+app.post('/usuarios/:email/localizaciones', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
@@ -152,7 +155,7 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
     }
 })
 
-app.post('/usuario/:email/filtro', async (req, res) => {
+app.post('/usuarios/:email/filtro', async (req, res) => {
 
     var email = req.params.email;
     var password = req.body.password;
@@ -173,7 +176,7 @@ app.post('/usuario/:email/filtro', async (req, res) => {
 
 //llamadas api notificaciones
 
-app.post('/incidencia/new', async (req, res) => {
+app.post('/incidencias', async (req, res) => {
 
     var nombreFenomeno = req.body.nombreFenomeno;
     var latitud = req.body.latitud;
@@ -185,7 +188,7 @@ app.post('/incidencia/new', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send({ result: result });
+        res.json(result);
 
     } else {
 
@@ -214,7 +217,7 @@ app.put('/incidencia/update', async (req, res) => {
     }
 })
 
-app.post('/usuario/:email/incidenciasNoValidas', async (req, res) => {
+app.post('/usuarios/:email/incidenciasNoValidas', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
@@ -236,7 +239,7 @@ app.post('/usuario/:email/incidenciasNoValidas', async (req, res) => {
     }
 })
 
-app.post('/usuario/:email/notificaciones', async (req, res) => {
+app.post('/usuarios/:email/notificaciones', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
@@ -248,12 +251,12 @@ app.post('/usuario/:email/notificaciones', async (req, res) => {
     if (result) {
 
         console.log("return result");
-        res.status(200).send(result);
+        res.json(result);
 
     } else {
 
         console.log("return error");
-        res.status(404).send({ result: result });
+        res.status(404).send(result);
 
     }
 })
@@ -296,11 +299,11 @@ app.get('/refugio', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.json(result);
 
     } else {
 
-        res.status(404).send({ result: "Refugio no existe" });
+        res.status(404).send("Not found: No shelters at such coordinates.");
 
     }
 })

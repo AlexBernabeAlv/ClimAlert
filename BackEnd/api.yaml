@@ -26,7 +26,7 @@ paths:
       responses:
         "200":
           description: ""
-  /usuario/{email}:
+  /usuarios/{email}:
     get:
       parameters:
         - name: email
@@ -55,7 +55,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PutUser'
+              $ref: '#/components/schemas/PutUsuario'
       responses:
         "200":
           description: ""
@@ -74,18 +74,37 @@ paths:
       responses:
         "200":
           description: ""
-  /usuario:
+  /usuarios:
     post:
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PostUser'
+              $ref: '#/components/schemas/PostUsuario'
+      responses:
+        "200":
+          description: "" #que retorna? frontend no usa nada de la respuesta
+        "400":
+          description: "Bad request: User with email already exists."
+  /usuarios/{email}/filtro:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostFiltro'
       responses:
         "200":
           description: ""
-  /usuario/{email}/localizaciones:
+  /usuarios/{email}/localizaciones:
     get:
       parameters:
         - name: email
@@ -123,7 +142,7 @@ paths:
       responses:
         "200":
           description: ""
-  /usuario/{email}/notificaciones:
+  /usuarios/{email}/notificaciones:
     post:
       parameters:
         - name: email
@@ -156,6 +175,12 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Refugio"
+        "404":
+          description: "Not found: No shelters at such coordinates."
     post:
       requestBody:
         required: true
@@ -206,14 +231,65 @@ paths:
 
 components:
   schemas:
-    PostUser:
+    Usuario:
       type: object
       properties:
         email:
           type: string
         password:
           type: string
-    PutUser:
+        filtro:
+          type: object
+          properties:
+            localizacion1:
+              type: object
+              properties:
+                latitud:
+                  type: string
+                longitud:
+                  type: string
+            localizacion2:
+              type: object
+              properties:
+                latitud:
+                  type: string
+                longitud:
+                  type: string
+            radioEfecto:
+              type: integer
+            gravedad:
+              type: integer
+    Incidencia:
+      type: object
+      properties:
+        x:
+          type: string
+        y:
+          type: string
+    Refugio:
+      type: object
+      properties:
+        nombre:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+        distancia:
+          type: number
+    PostFiltro:
+      type: object
+      properties:
+        password:
+          type: number
+    PostUsuario:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PutUsuario:
       type: object
       properties:
         password:
