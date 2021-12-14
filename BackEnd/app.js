@@ -48,7 +48,7 @@ app.post('/BD/reset', async (req, res) => {
 //app.get
 app.get('/', (req, res) => {
     console.log('GET request recived');
-    res.status(200).send('Home Page');
+    res.send('Pong.');
 })
 
 //LLamadas api usuarios
@@ -107,7 +107,7 @@ app.put('/usuarios/:email', async (req, res) => {
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).send("Not found: No user with such email.");
 
     }
 })
@@ -121,11 +121,11 @@ app.delete('/usuarios/:email', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send({ result: result });
+        res.status(200).send(result);
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).send("Not found: No user with such email.");
 
     }
 })

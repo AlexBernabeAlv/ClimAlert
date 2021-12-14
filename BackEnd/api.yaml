@@ -14,7 +14,7 @@ paths:
     post:
       responses:
         "200":
-          description: ""
+          description: "Returns all the incidents found in APIs from Open Data."
           content:
             application/json:
               schema:
@@ -25,7 +25,26 @@ paths:
     get:
       responses:
         "200":
-          description: ""
+          description: "Ping."
+          schema:
+            type: string
+  /usuarios:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUsuario'
+      responses:
+        "200":
+          description: "Returns the created user data."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        "400":
+          description: "Bad request: User with email already exists."
   /usuarios/{email}:
     get:
       parameters:
@@ -36,7 +55,7 @@ paths:
             type: string
       responses:
         "200":
-          description: ""
+          description: "Returns the user data with email."
           content:
             application/json:
               schema:
@@ -58,7 +77,13 @@ paths:
               $ref: '#/components/schemas/PutUsuario'
       responses:
         "200":
-          description: ""
+          description: "Returns the updated user data."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        "404":
+          description: "Not found: No user with such email."
     delete:
       parameters:
         - name: email
@@ -74,19 +99,8 @@ paths:
       responses:
         "200":
           description: ""
-  /usuarios:
-    post:
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostUsuario'
-      responses:
-        "200":
-          description: "" #que retorna? frontend no usa nada de la respuesta
-        "400":
-          description: "Bad request: User with email already exists."
+        "404":
+          description: "Not found: No user with such email."
   /usuarios/{email}/filtro:
     post:
       parameters:
