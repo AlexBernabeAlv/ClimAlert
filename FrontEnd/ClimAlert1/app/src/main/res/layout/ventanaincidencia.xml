@@ -43,13 +43,6 @@
             android:layout_marginTop="25dp"
             android:textSize="20dp"
             android:hint="Hora: 13:31" />
-
-        <Button
-            android:id="@+id/btnVolver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:text="Volver"/>
     </LinearLayout>
 
 

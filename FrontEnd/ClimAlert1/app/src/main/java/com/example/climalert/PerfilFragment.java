@@ -38,7 +38,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     //GoogleSignInClient googleSignInClient;
     //public static int RC_SIGN_IN = 0;
     View view;
-    Auth_Activity auth_activity;
     Slider s;
     Switch switchF;
 
@@ -76,8 +75,9 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_out_button:
-                auth_activity.getmGoogleSignInClient().signOut(); //aqui falla
-                Intent intent = new Intent(getActivity(), Auth_Activity.class);
+                Intent intent = new Intent(getActivity(),  Auth_Activity.class );
+                Auth_Activity.mGoogleSignInClient.signOut();
+                Auth_Activity.mGoogleSignInClient.revokeAccess();
                 startActivity(intent);
                 break;
 
