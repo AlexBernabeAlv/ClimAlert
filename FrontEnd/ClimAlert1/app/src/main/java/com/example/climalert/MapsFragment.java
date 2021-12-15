@@ -316,8 +316,11 @@ public class MapsFragment extends Fragment {
             } else {
                 titleUi.setText("");
             }
-            if(marker.getPosition().latitude != InformacionUsuario.getInstance().latitud1 && marker.getPosition().latitude != InformacionUsuario.getInstance().latitud2
-                    && marker.getPosition().latitude != InformacionUsuario.getInstance().latitudactual) {
+            if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
+                    !marker.getTitle().equals("USTED ESTA AQUÍ") && !marker.getTitle().equals("refugio")) {
+                Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
+                Log.d("123456", "marker: " + marker.getTitle() );
+                Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
                 String snippet = marker.getSnippet();
                 int pos = snippet.lastIndexOf(" ");
                 snippet = snippet.substring(0, pos);
@@ -329,7 +332,6 @@ public class MapsFragment extends Fragment {
                 } else {
                     snippetUi.setText("");
                 }
-                mMap.setOnInfoWindowClickListener(this);
             }
             else{
                 TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
@@ -337,6 +339,7 @@ public class MapsFragment extends Fragment {
                 snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 21, 0);
                 snippetUi.setText(snippetText);
             }
+            mMap.setOnInfoWindowClickListener(this);
         }
 
         @Override
@@ -470,6 +473,7 @@ public class MapsFragment extends Fragment {
                                 mMap.addMarker(new MarkerOptions()
                                         .anchor(0.0f, 1.0f)
                                         .alpha(0.7f)
+                                        .title("refugio")
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                                         .position(lr));
                                 trazarRutaEntreOrigenDestino(InformacionUsuario.getInstance().latitudactual,InformacionUsuario.getInstance().longitudactual, latitud, longitud);
@@ -652,6 +656,7 @@ public class MapsFragment extends Fragment {
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
+                                    .title("  1")
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(latLng));
                         }
@@ -678,6 +683,7 @@ public class MapsFragment extends Fragment {
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
+                            .title("  2")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(latLng));
                     }
