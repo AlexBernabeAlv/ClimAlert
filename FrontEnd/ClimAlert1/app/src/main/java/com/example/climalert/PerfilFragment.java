@@ -38,7 +38,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     //GoogleSignInClient googleSignInClient;
     //public static int RC_SIGN_IN = 0;
     View view;
-    Slider s;
     Switch switchF;
 
     @Override
@@ -60,10 +59,12 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
 
         int r = InformacionUsuario.getInstance().radioEfecto;
         float x;
-        if(r != -1) x = r;
+        if(r != 0) x = r;
         else x = 50.0f;
-        s = (Slider) view.findViewById(R.id.slider_radio);
+        Slider s = (Slider) view.findViewById(R.id.slider_radio);
         s.setValue(x);
+        s.setValueFrom(0.0f);
+        s.setValueTo(250.0f);
         s.addOnChangeListener(this);
 
         switchF = (Switch) view.findViewById(R.id.idSwitchFiltro);

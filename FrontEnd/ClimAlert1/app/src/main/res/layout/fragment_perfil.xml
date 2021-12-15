@@ -44,9 +44,7 @@
         android:id="@+id/slider_radio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titulo_afectacion"
-        android:valueFrom="0.0"
-        android:valueTo="250.0" />
+        android:layout_below="@id/titulo_afectacion" />
 
     <Switch
         android:id="@+id/idSwitchFiltro"
