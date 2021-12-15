@@ -58,9 +58,12 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         g_cambios = (Button) view.findViewById(R.id.guardar_cambios_button);
         g_cambios.setOnClickListener(this);
 
+        int r = InformacionUsuario.getInstance().radioEfecto;
+        float x;
+        if(r != -1) x = r;
+        else x = 50.0f;
         s = (Slider) view.findViewById(R.id.slider_radio);
-        if(InformacionUsuario.getInstance().radioEfecto != -1) s.setValue(InformacionUsuario.getInstance().radioEfecto);
-        else s.setValue(50.0f);
+        s.setValue(x);
         s.addOnChangeListener(this);
 
         switchF = (Switch) view.findViewById(R.id.idSwitchFiltro);
