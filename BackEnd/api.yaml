@@ -119,16 +119,6 @@ paths:
         "200":
           description: ""
   /usuarios/{email}/localizaciones:
-    get:
-      parameters:
-        - name: email
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: ""
     post:
       parameters:
         - name: email
@@ -173,7 +163,7 @@ paths:
       responses:
         "200":
           description: ""
-  /refugio:
+  /refugios:
     get:
       parameters:
         - name: latitud
@@ -205,7 +195,7 @@ paths:
       responses:
         "200":
           description: ""
-  /refugio/{nombre}:
+  /refugios/{nombre}:
     put:
       parameters:
         - name: nombre
