@@ -160,6 +160,11 @@ public class Auth_Activity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public GoogleSignInClient getmGoogleSignInClient() {
         return mGoogleSignInClient;
     }

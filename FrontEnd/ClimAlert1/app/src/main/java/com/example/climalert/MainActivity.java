@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(perfil)
-                .replace(R.id.contenedor, perfil)
+                .replace(R.id.contenedor, perfil, "SETTINGS")
                 .commit();
     }
 
@@ -109,9 +109,12 @@ public class MainActivity extends AppCompatActivity {
             Configuration conf = res.getConfiguration();
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
-            Intent refresh = new Intent(this, MainActivity.class);
-            refresh.putExtra("currentLocale", newLocale);
-            startActivity(refresh);
+            //onBackPressed();
+            View v = findViewById(R.id.navigation_settings);
+            v.callOnClick();
+            //Intent refresh = new Intent(this, MainActivity.class);
+            //refresh.putExtra("currentLocale", newLocale);
+            //startActivity(refresh);
         }
     }
 
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(idioma)
-                .replace(R.id.contenedor, idioma)
+                .replace(R.id.contenedor, idioma, "SETTINGS")
                 .commit();
     }
 
@@ -182,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
                         error.printStackTrace();
                     }
 
-                }) {
-        };
+                })
+        ;
         queue.add(request);
     }
 
@@ -193,18 +196,21 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragCatastrofe = fm.findFragmentByTag("CATASTROFE");
         if (fragCatastrofe != null && fragCatastrofe.isVisible()) {
-            Fragment f = new Info_Fragment();
-            fm.beginTransaction()
-                .replace(R.id.contenedor, f)
-                .commit();
+            View v = findViewById(R.id.navigation_info);
+            v.callOnClick();
         } else {
             Fragment fragMaps = fm.findFragmentByTag("MAPS");
             if (fragMaps != null && fragMaps.isVisible()) {
                 moveTaskToBack(true);
             } else {
-                fm.beginTransaction()
-                    .replace(R.id.contenedor, fragment, "MAPS")
-                    .commit();
+                Fragment fragPerfil = fm.findFragmentByTag("SETTINGS");
+                if (fragPerfil != null && fragPerfil.isVisible()) {
+                    View v = findViewById(R.id.navigation_settings);
+                    v.callOnClick();
+                } else {
+                    View v = findViewById(R.id.navigation_home);
+                    v.callOnClick();
+                }
             }
         }
     }
