@@ -141,7 +141,7 @@ public class MapsFragment extends Fragment {
             limpiar_incidencias();
             print_incidencias(InformacionUsuario.getInstance().aPintar);
         }
-        Log.d("tengo", String.valueOf(markerActual));
+        Log.d("12345678", String.valueOf(markerActual));
 
         if(!localizacionespuestas) {
 
@@ -171,6 +171,7 @@ public class MapsFragment extends Fragment {
             }
 
         }
+
 
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
@@ -317,7 +318,7 @@ public class MapsFragment extends Fragment {
                 titleUi.setText("");
             }
             if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("USTED ESTA AQUÍ") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
                 Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
                 Log.d("123456", "marker: " + marker.getTitle() );
                 Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
@@ -344,7 +345,8 @@ public class MapsFragment extends Fragment {
 
         @Override
         public void onInfoWindowClick(Marker marker) {
-            if (marker.getPosition().latitude != InformacionUsuario.getInstance().latitud1 && marker.getPosition().latitude != InformacionUsuario.getInstance().latitud2) {
+            if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
                 InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
@@ -378,28 +380,31 @@ public class MapsFragment extends Fragment {
       //  Location location = locationManager.getLastKnownLocation(bestProvider);
         LocationListener loc_listener = new LocationListener() {
             public void onLocationChanged(Location l) {
+                Log.d("1234567", "onloc");
                 LatLng llact = new LatLng(l.getLatitude(), l.getLongitude());
                 InformacionUsuario.getInstance().latitudactual = (float) l.getLatitude();
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("ACTUAL"));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 Log.d("berni", "onChanged " +  InformacionUsuario.getInstance().latitudactual);
                 if(markerActual != null) markerActual.setPosition(llact);
             }
             public void onProviderEnabled(String p) {
+                Log.d("1234567", "onprov");
                 if (markerActual != null) {
                     markerActual.setVisible(true);
                     markerActual.setAlpha(1);
-                    Log.d("berni", "onEnabled");
+
                 }
                 if(MapsFragment.alertaSinGPSMostrada){
                     MapsFragment.alertaSinGPSMostrada = false;
                 }
             }
             public void onProviderDisabled(String p) {
+                Log.d("1234567", "onprovdis");
                 if(markerActual != null) {
                     markerActual.setVisible(false);
                     markerActual.setAlpha(0);
