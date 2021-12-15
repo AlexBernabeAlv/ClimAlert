@@ -68,8 +68,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         s.addOnChangeListener(this);
 
         switchF = (Switch) view.findViewById(R.id.idSwitchFiltro);
-        if(InformacionUsuario.getInstance().gravedad == 1) switchF.setChecked(true);
-        else switchF.setChecked(false);
+        switchF.setChecked(InformacionUsuario.getInstance().gravedad == 1);
         switchF.setOnClickListener(this);
 
         return view;
@@ -88,7 +87,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
             case R.id.idSwitchFiltro:
                 if (switchF.isChecked()) InformacionUsuario.getInstance().gravedad = 1;
                 else InformacionUsuario.getInstance().gravedad = 0;
-                Log.d("switch_toca_polla", "entro al switch");
                 break;
 
             case R.id.guardar_cambios_button:

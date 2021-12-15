@@ -302,7 +302,6 @@ public class MapsFragment extends Fragment {
                 // Passing 0 to setImageResource will clear the image view.
                 badge = 0;
             }*/
-            pintarRefugios(getActivity());
             badge = 0;
             ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
@@ -356,6 +355,10 @@ public class MapsFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.contenedor, f)
                         .commit();
+            }
+            if(marker.getTitle().equals("ACTUAL")){
+                pintarRefugios(getActivity());
+
             }
         }
     }
