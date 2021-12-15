@@ -112,9 +112,6 @@ public class MainActivity extends AppCompatActivity {
             //onBackPressed();
             View v = findViewById(R.id.navigation_settings);
             v.callOnClick();
-            //Intent refresh = new Intent(this, MainActivity.class);
-            //refresh.putExtra("currentLocale", newLocale);
-            //startActivity(refresh);
         }
     }
 
