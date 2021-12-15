@@ -126,6 +126,11 @@ public class LlamaditaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:635386833"));
+                if (ActivityCompat.checkSelfPermission(InformacionUsuario.getInstance().activity,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ) {
+                    ActivityCompat.requestPermissions(InformacionUsuario.getInstance().activity, new String[]{
+                            Manifest.permission.CALL_PHONE}, 99);
+                    return;
+                }
                 if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
                     return;
                 startActivity(i);
