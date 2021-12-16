@@ -40,6 +40,7 @@ public class InformacionUsuario {
     public float longitud2;
     public int radioEfecto;
     public int gravedad;
+    public boolean admin;
     public Vector<Notificacion> actual = new Vector<Notificacion>();
     public Vector<Notificacion> aPintar = new Vector<Notificacion>();
     public Vector<Integer> aBorrar = new Vector<Integer>();
@@ -49,7 +50,7 @@ public class InformacionUsuario {
 
     static private InformacionUsuario usuario;
 
-    public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g){
+    public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g, boolean admin_app){
          IDIncidenciaActual = "";
          latitud1 = la1;
          longitud1 = lo1;
@@ -57,6 +58,7 @@ public class InformacionUsuario {
          longitud2 = lo2;
          radioEfecto = re;
          gravedad = g;
+         admin = admin_app;
     }
     public void SetLocalizaciones(float la1, float lo1, float la2, float lo2){
         latitud1 = la1;

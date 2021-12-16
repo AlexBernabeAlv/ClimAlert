@@ -149,29 +149,55 @@ public class MainActivity extends AppCompatActivity {
                         float longitud2 = 0;
                         int gravedad = 0;
                         int radio = 0;
+                        boolean admin = false;
 
                         try {
                             JSONObject filtro = response.getJSONObject("filtro");
                             if(filtro != null)
                             {
-                                JSONObject localizacion1 = filtro.getJSONObject("localizacion1");
-                                if(localizacion1 != null) {
-                                    latitud1 = Float.parseFloat(localizacion1.getString("latitud"));
-                                    longitud1 = Float.parseFloat(localizacion1.getString("longitud"));
+                                try {
+                                    JSONObject localizacion1 = filtro.getJSONObject("localizacion1");
+                                    if (localizacion1 != null) {
+                                        latitud1 = Float.parseFloat(localizacion1.getString("latitud"));
+                                        longitud1 = Float.parseFloat(localizacion1.getString("longitud"));
+                                    }
                                 }
-                                JSONObject localizacion2 = filtro.getJSONObject("localizacion2");
-                                if(localizacion2 != null) {
-                                    latitud2 = Float.parseFloat(localizacion2.getString("latitud"));
-                                    longitud2 = Float.parseFloat(localizacion2.getString("longitud"));
+                                catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                                radio = Integer.parseInt(filtro.getString("radioEfecto"));
-                                gravedad = Integer.parseInt(filtro.getString("gravedad"));
+                                try {
+                                    JSONObject localizacion2 = filtro.getJSONObject("localizacion2");
+                                    if (localizacion2 != null) {
+                                        latitud2 = Float.parseFloat(localizacion2.getString("latitud"));
+                                        longitud2 = Float.parseFloat(localizacion2.getString("longitud"));
+                                    }
+                                }
+                                catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                try {
+                                    radio = Integer.parseInt(filtro.getString("radioEfecto"));
+                                }
+                                catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    gravedad = Integer.parseInt(filtro.getString("gravedad"));
+                                }
+                                catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad);
+                        try {
+                            admin = Boolean.parseBoolean(response.getString("admin"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad, admin);
 
                         Log.d("a", String.valueOf(response));
                     }
@@ -259,4 +285,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void modo_admin() {
+        Fragment f = new VentanaAdminFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f)
+                .commit();
+    }
 }

@@ -25,6 +25,10 @@
     <string name= "boton_perfil"> Perfil </string>
     <string name= "boton_logout"> Tancar Sessió </string>
     <string name= "boton_guardar_cambios"> Guardar Canvis </string>
+    <string name= "radio_afectacion"> Radi Afectació </string>
+    <string name= "filtro_incidencias"> Filtre Incidencies </string>
+    <string name= "modo_administrador"> Mode Administrador </string>
+
 
     <string name="descripcion_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n
         <b>\nPrevenció\n</b>

@@ -34,7 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener, Slider.OnChangeListener {
-    Button logout, g_cambios;
+    Button logout, g_cambios, admin_button;
     //GoogleSignInClient googleSignInClient;
     //public static int RC_SIGN_IN = 0;
     View view;
@@ -71,6 +71,11 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         switchF.setChecked(InformacionUsuario.getInstance().gravedad == 1);
         switchF.setOnClickListener(this);
 
+        admin_button = (Button) view.findViewById(R.id.modo_administrador_button);
+        if(InformacionUsuario.getInstance().admin) admin_button.setVisibility(View.VISIBLE);
+        else admin_button.setVisibility(View.GONE);
+        admin_button.setOnClickListener(this);
+
         return view;
     }
 
@@ -92,6 +97,12 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
             case R.id.guardar_cambios_button:
                 update_usuario();
                 break;
+
+            case R.id.modo_administrador_button:
+                MainActivity main = (MainActivity) getActivity();
+                main.modo_admin();
+                break;
+
 
         }
     }
