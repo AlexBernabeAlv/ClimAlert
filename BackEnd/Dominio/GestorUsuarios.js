@@ -21,13 +21,15 @@ class GestorUsuarios {
 
             return false;
 
-        } else if(res.rows[0].isAdmin){
+        } else if(res.rows[0].admin == true){
 
             usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
+            
 
         } else {
 
             usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
+            
         }
 
         usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
