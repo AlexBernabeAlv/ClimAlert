@@ -10,6 +10,7 @@ class Usuario {
         this.email = Email;
         this.password = Passwd;
         this.filtro = new Filtro();
+        this.admin = false;
     }
 
     isAdmin() {
