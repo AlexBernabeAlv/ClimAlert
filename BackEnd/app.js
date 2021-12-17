@@ -39,8 +39,8 @@ const DataController = require('./BD/DataController');
 
 app.post('/BD/reset', async (req, res) => {
     
-    await DataController.resetBD().catch(error => { console.error(error) });
-    var result = await ConsultExternalApis();
+    var result = await DataController.resetBD().catch(error => { console.error(error) });
+    await ConsultExternalApis();
     //res.status(200).send(result);
 	res.json(result);
 })
@@ -121,11 +121,11 @@ app.delete('/usuarios/:email', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send("Not found: No user with such email.");
+        res.status(404).json("Not found: No user with such email.");
 
     }
 })
@@ -146,11 +146,11 @@ app.post('/usuarios/:email/localizaciones', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send({ result: result });
+        res.status(200).json({ result: result });
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).json("Usuario no existe");
 
     }
 })
@@ -163,11 +163,11 @@ app.post('/usuarios/:email/filtro', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).json("Usuario no existe");
 
     }
 
@@ -183,17 +183,17 @@ app.post('/incidencias', async (req, res) => {
     var longitud = req.body.longitud;
     var fecha = req.body.fecha;
     var hora = req.body.hora;
+    var email = req.query.email;
+    var password = req.body.password;
 
-    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false);
+    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false, email, password);
+    if (typeof result == 'number') {
 
-    if (result) {
-
-        res.json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
@@ -206,14 +206,13 @@ app.put('/incidencias', async (req, res) => {
 
     var result = await GestorIncidencias.updateIncidencia(email, password, id, gravedad);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
@@ -226,16 +225,13 @@ app.post('/usuarios/:email/incidenciasNoValidas', async (req, res) => {
 
     var result = await GestorIncidencias.getIncidenciasNoValidas(email, pssword, lat, lon);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        console.log("return result");
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        console.log("return error");
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
@@ -248,16 +244,13 @@ app.post('/usuarios/:email/notificaciones', async (req, res) => {
 
     var result = await EnviadorNotificaciones.getNotificaciones(email, pssword, lat, lon);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        console.log("return result");
-        res.json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        console.log("return error");
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
@@ -281,11 +274,11 @@ app.post('/refugios', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No puedes crear este refugio" });
+        res.status(404).json("No puedes crear este refugio" );
 
     }
 })
@@ -303,7 +296,7 @@ app.get('/refugios', async (req, res) => {
 
     } else {
 
-        res.status(404).send("Not found: No shelters at such coordinates.");
+        res.status(404).json("Not found: No shelters at such coordinates.");
 
     }
 })
@@ -318,11 +311,11 @@ app.delete('/refugios/:nombre', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send({ result: result });
+        res.status(200).json({ result: result });
 
     } else {
 
-        res.status(404).send({ result: "No puedes destruir este refugio" });
+        res.status(404).json({ result: "No puedes destruir este refugio" });
 
     }
 })
@@ -337,11 +330,11 @@ app.put('/refugios/:nombre', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "Usuario no Admin" });
+        res.status(404).json({ result: "Usuario no Admin" });
 
     }
 })
@@ -360,11 +353,11 @@ app.post('/comentarios', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No puedes crear este comentario" });
+        res.status(404).json("No puedes crear este comentario");
 
     }
 })
@@ -377,11 +370,11 @@ app.get('/comentarios', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No se ha encontrado comentarios" });
+        res.status(404).json("No se ha encontrado comentarios");
 
     }
 })
@@ -395,18 +388,18 @@ app.get('/comentarios/:commentid/respuestas', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No se ha encontrado comentarios" });
+        res.status(404).json("No se ha encontrado comentarios");
 
     }
 })
 
 
 
-app.get('/incidenciafenomenos/:incfenid/comentarios', async (req, res) => {
+app.get('/incidenciasFenomeno/:incfenid/comentarios', async (req, res) => {
 
     var incfenid = req.params.incfenid;
 
@@ -414,11 +407,11 @@ app.get('/incidenciafenomenos/:incfenid/comentarios', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No se ha encontrado comentarios" });
+        res.status(404).json("No se ha encontrado comentarios");
 
     }
 })
@@ -433,11 +426,11 @@ app.delete('/comentarios/:commentid', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send({ result: result });
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No puedes borrar este comentario" });
+        res.status(404).json("No puedes borrar este comentario");
 
     }
 })
@@ -453,16 +446,50 @@ app.put('/comentarios/:commentid', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send({ result: result });
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send({ result: "No puedes editar este comentario" });
+        res.status(404).json("No puedes editar este comentario");
 
     }
 })
 
+function checkReturnCode(Code) {
 
+    var message;
+
+    switch (Code) {
+
+        case 400:
+
+            message = "Bad Request";
+            break;
+
+        case 401:
+
+            message = "Unauthorized";
+            break;
+
+        case 403:
+
+            message = "Forbidden";
+            break;
+
+        case 404:
+
+            message = "Not Found";
+            break;
+
+        default:
+
+            message = "OK";
+            break;
+    }
+
+    return message;
+
+}
 
 //app.all
 app.all('*', (req, res) => {

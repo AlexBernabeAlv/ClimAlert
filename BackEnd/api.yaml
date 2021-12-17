@@ -126,6 +126,12 @@ paths:
           description: ""
   /incidencias:
     post:
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -135,6 +141,45 @@ paths:
       responses:
         "200":
           description: ""
+    put:
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutIncidencia'
+      responses:
+        "200":
+          description: ""
+  /usuarios/{email}/incidenciasNoValidas:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostNotificacion'
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incidencia"
+        "404":
+          description: "Not found: No incidencias at such coordinates."
   /usuarios/{email}/notificaciones:
     post:
       parameters:
@@ -221,6 +266,100 @@ paths:
       responses:
         "200":
           description: ""
+  /comentarios:
+    get:
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Returns all comments of user with email."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No user with such email."
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostComentarios'
+      responses:
+        "200":
+          description: ""
+  /comentarios/{commentid}/respuestas:
+    get:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns all replies to the comment with commentid."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No comment with such id."
+  /incidenciasFenomeno/{incfenid}/comentarios:
+    get:
+      parameters:
+        - name: incfenid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns all comments to the incidencia with incfenid."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No incidencia with such id."
+  /comentarios/{commentid}:
+    delete:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteComment'
+      responses:
+        "200":
+          description: "Deletes the comment with commentid."
+        "404":
+          description: "Not found: No comment with such id."
+    put:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutComment'
+    
 
 components:
   schemas:
@@ -259,6 +398,10 @@ components:
           type: string
         y:
           type: string
+        fecha:
+          type: date
+        hora:
+          type: time
     Refugio:
       type: object
       properties:
@@ -270,6 +413,23 @@ components:
           type: number
         distancia:
           type: number
+    Comentario:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        incfenid:
+          type: integer
+        contenido:
+          type: string
+        commentresponseid:
+          type: integer
+        fecha:
+          type: date
+        hora:
+          type: time
     PostFiltro:
       type: object
       properties:
@@ -317,6 +477,17 @@ components:
           type: string
         hora:
           type: string
+        password:
+          type: string
+    PutIncidencia:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        gravedad:
+          type: integer
     PostNotificacion:
       type: object
       properties:
@@ -352,3 +523,32 @@ components:
           type: number
         longitud:
           type: number
+    PostComentarios:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        incfenid:
+          type: integer
+        commentresponseid:
+          type: integer
+        contenido:
+          type: string
+    DeleteComment:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PutComment:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        contenido:
+          type: string

@@ -19,7 +19,7 @@ class GestorUsuarios {
 
         if (res.rows.length == 0) {
 
-            return false;
+            return 401;
 
         } else if(res.rows[0].admin == true){
 
@@ -43,7 +43,6 @@ class GestorUsuarios {
 
             usuario.filtro.setLocalizacion2(res.rows[1].latitud, res.rows[1].longitud);
         }
-        
 
         return usuario;
     }

@@ -18,21 +18,29 @@ class GestorIncidencias {
     }
     */
 
-    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api) {
+    async createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api, Email, Password) {
 
-        var nombre = await dataController.getFenomeno(NombreFenomeno).catch(error => { console.error(error) });
+        var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
 
+        if (usuario.password == Password || Api) {
 
-        if (nombre == NombreFenomeno) {
+            if (usuario.isAdmin) Valido = true;
 
-            var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, Valido, Api)
-                .catch(error => { console.error(error) });
+            var nombre = await dataController.getFenomeno(NombreFenomeno).catch(error => { console.error(error) });
 
-        } else {
-            result = "Fenomeno no existe";
+            if (nombre == NombreFenomeno) {
+
+                var result = await dataController.createIncidencia(Latitud, Longitud, Fecha, Hora, nombre, Valido, Api, Email)
+                    .catch(error => { console.error(error) });
+
+            } else {
+                return 404;
+            }
+
+            return 200;
         }
-
-        return result;
+        
+        return 401;
     }
 
     async getIncidencias(Latitud, Longitud, Gravedad, RadioEfecto, Valido) {
@@ -88,25 +96,38 @@ class GestorIncidencias {
 
         var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
 
-        if (usuario.isAdmin && usuario.password == Password) {
+        if (typeof usuario == 'number') return usuario;
 
-            return await this.getIncidencias(Latitud, Longitud, 0, usuario.filtro.radioEfecto, false).catch(error => { console.error(error) });
+        if (usuario.password == Password) {
+
+            if (usuario.isAdmin) {
+                return await this.getIncidencias(Latitud, Longitud, 0, usuario.filtro.radioEfecto, false).catch(error => { console.error(error) });
+            }
+
+            return 403;
         }
 
-        return false;
+        return 401;
     }
 
     async updateIncidencia(Email, Password, Id, Gravedad) {
 
         var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
 
-        if (usuario.isAdmin && usuario.password == Password) {
+        if (typeof usuario == 'number') return usuario;
 
-            return await dataController.updateIncidencia(Id, Gravedad).catch(error => { console.error(error) });
+        if (usuario.password == Password) {
+
+            if (usuario.isAdmin) {
+                var result = await dataController.updateIncidencia(Id, Gravedad).catch(error => { console.error(error) });
+                if (result) return 200;
+                return 400;
+            }
+
+            return 403;
         }
 
-        return false;
-
+        return 401;
     }
 
 }

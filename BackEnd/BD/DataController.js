@@ -51,7 +51,7 @@ class DataController{
                 }  
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', true, '0', '3');", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('yo@gmail.com', '1234', true, '0', '200', false);", (err, res) => {
 
                 if (err) {
 
@@ -59,14 +59,14 @@ class DataController{
                 }
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('ecomute', 'ecomute1234', false, '0', '50');", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('ecomute', 'ecomute1234', false, '0', '50', false);", (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
 
-                    pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [false, "2021/12/25", "00:00", "Incendio", false], (err, res) => {
+                    pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api, email) VALUES($1, $2, $3, $4, $5, 'yo@gmail.com') RETURNING incfenid;", [false, "2021/12/25", "00:00", "Incendio", false], (err, res) => {
 
                         if (err) {
 
@@ -289,11 +289,11 @@ class DataController{
         return promise;
     }
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api) {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api, Email) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [Valido, Fecha, Hora, NombreFenomeno, Api], (err, res) => {
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api, email) VALUES($1, $2, $3, $4, $5, $6) RETURNING incfenid;", [Valido, Fecha, Hora, NombreFenomeno, Api, Email], (err, res) => {
 
                 if (err) {
 
@@ -543,7 +543,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE incfenid = $1", [Incfenid], (err, res) => {
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE incfenid = $1 AND comentresponseid IS NULL", [Incfenid], (err, res) => {
 
                 if (err) {
 
