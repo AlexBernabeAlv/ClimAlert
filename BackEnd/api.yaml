@@ -5,22 +5,11 @@ info:
   version: "0.1.0"
   title: ClimAlert
 servers:
-  - url: 'http://localhost:5000/'
-    description: "Local server."
   - url: 'https://climalert.herokuapp.com/'
     description: "Production server."
+  - url: 'http://localhost:5000/'
+    description: "Local server."
 paths:
-  /BD/reset:
-    post:
-      responses:
-        "200":
-          description: "Returns all the incidents found in APIs from Open Data."
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Incidencia"
   /:
     get:
       responses:
