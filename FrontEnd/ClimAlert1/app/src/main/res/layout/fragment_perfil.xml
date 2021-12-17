@@ -31,10 +31,19 @@
         android:text="@string/boton_guardar_cambios"
         android:backgroundTint="#4ABC4E"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/modo_administrador_button"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/guardar_cambios_button"
+        android:text="@string/modo_administrador"
+        android:backgroundTint="#D4AF37"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Radio Afectacion"
+        android:text="@string/radio_afectacion"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
@@ -50,8 +59,9 @@
         android:id="@+id/idSwitchFiltro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filtro de gravedad   "
-        android:layout_centerInParent="true"/>
+        android:text="@string/filtro_incidencias"
+        android:layout_centerInParent="true"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
 </RelativeLayout>
