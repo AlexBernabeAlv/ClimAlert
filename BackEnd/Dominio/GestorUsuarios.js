@@ -102,7 +102,7 @@ class GestorUsuarios {
 
         }
 
-        return false;
+        return usuario;
     }
 
     async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
