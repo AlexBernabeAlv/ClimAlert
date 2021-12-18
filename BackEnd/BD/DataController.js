@@ -114,7 +114,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES($1, $2, $3, $4, $5, $6);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto, false], (err, res) => {
 
                 if (err) {
 
