@@ -43,6 +43,19 @@
             android:layout_marginTop="25dp"
             android:textSize="20dp"
             android:hint="Hora: 13:31" />
+        <Button
+            android:id="@+id/btnConsejo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Información sobre el fenómeno"/>
+        <Button
+            android:id="@+id/btnForo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:text="Foro"/>
+
     </LinearLayout>
 
 
