@@ -2,22 +2,11 @@ package com.example.climalert;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
-
 import android.app.NotificationChannel;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -28,7 +17,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.icu.text.IDNA;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -45,6 +33,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -54,7 +51,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -145,7 +141,7 @@ public class MapsFragment extends Fragment {
             limpiar_incidencias();
             print_incidencias(InformacionUsuario.getInstance().aPintar);
         }
-        Log.d("tengo", String.valueOf(markerActual));
+        Log.d("12345678", String.valueOf(markerActual));
 
         if(!localizacionespuestas) {
 
@@ -158,6 +154,7 @@ public class MapsFragment extends Fragment {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
+                        .title("  1")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
                 localizacionespuestas = true;
@@ -167,12 +164,14 @@ public class MapsFragment extends Fragment {
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
+                        .title("  2")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
                 localizacionespuestas = true;
             }
 
         }
+
 
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
@@ -257,7 +256,7 @@ public class MapsFragment extends Fragment {
     }
 
     /////////////////////////////CLASES////////////////CLASES////////////////////////////
-    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
         // "title" and "snippet".
         private final View mWindow;
@@ -303,11 +302,11 @@ public class MapsFragment extends Fragment {
                 // Passing 0 to setImageResource will clear the image view.
                 badge = 0;
             }*/
-            pintarRefugios(getActivity());
             badge = 0;
             ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
+
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
             if (title != null) {
                 // Spannable string allows us to edit the formatting of the text.
@@ -317,15 +316,49 @@ public class MapsFragment extends Fragment {
             } else {
                 titleUi.setText("");
             }
-
-            String snippet = marker.getSnippet();
-            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-            if (snippet != null ) {
-                SpannableString snippetText = new SpannableString(snippet);
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
+            if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
+                Log.d("123456", "marker: " + marker.getTitle() );
+                Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
+                String snippet = marker.getSnippet();
+                int pos = snippet.lastIndexOf(" ");
+                snippet = snippet.substring(0, pos);
+                TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+                if (snippet != null) {
+                    SpannableString snippetText = new SpannableString(snippet);
+                    snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippet.length(), 0);
+                    snippetUi.setText(snippetText);
+                } else {
+                    snippetUi.setText("");
+                }
+            }
+            else{
+                TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+                SpannableString snippetText = new SpannableString("Ubicación del usuario");
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 21, 0);
                 snippetUi.setText(snippetText);
-            } else {
-                snippetUi.setText("");
+            }
+            mMap.setOnInfoWindowClickListener(this);
+        }
+
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                String snippet = marker.getSnippet();
+                String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
+                InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
+                Fragment f = new VentanaIncidencia();
+                MainActivity main = (MainActivity) getActivity();
+                main.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, f)
+                        .commit();
+            }
+            if(marker.getTitle().equals("ACTUAL")){
+                pintarRefugios(getActivity());
+
             }
         }
     }
@@ -350,28 +383,31 @@ public class MapsFragment extends Fragment {
       //  Location location = locationManager.getLastKnownLocation(bestProvider);
         LocationListener loc_listener = new LocationListener() {
             public void onLocationChanged(Location l) {
+                Log.d("1234567", "onloc");
                 LatLng llact = new LatLng(l.getLatitude(), l.getLongitude());
                 InformacionUsuario.getInstance().latitudactual = (float) l.getLatitude();
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("USTED ESTA AQUÍ"));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("ACTUAL"));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 Log.d("berni", "onChanged " +  InformacionUsuario.getInstance().latitudactual);
                 if(markerActual != null) markerActual.setPosition(llact);
             }
             public void onProviderEnabled(String p) {
+                Log.d("1234567", "onprov");
                 if (markerActual != null) {
                     markerActual.setVisible(true);
                     markerActual.setAlpha(1);
-                    Log.d("berni", "onEnabled");
+
                 }
                 if(MapsFragment.alertaSinGPSMostrada){
                     MapsFragment.alertaSinGPSMostrada = false;
                 }
             }
             public void onProviderDisabled(String p) {
+                Log.d("1234567", "onprovdis");
                 if(markerActual != null) {
                     markerActual.setVisible(false);
                     markerActual.setAlpha(0);
@@ -399,7 +435,7 @@ public class MapsFragment extends Fragment {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(InformacionUsuario.getInstance().activity, "hola");
         Intent intent = new Intent(InformacionUsuario.getInstance().activity, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(InformacionUsuario.getInstance().activity, 0, intent, 0);
-        builder.setContentIntent(pendingIntent);
+       // builder.setContentIntent(pendingIntent);
         builder.setSmallIcon(R.drawable.logo_climalert);
         builder.setContentTitle("Aviso de incendio cerca");
         builder.setContentText("Consejos de Incendio");
@@ -426,7 +462,7 @@ public class MapsFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(a);
         Log.d("refug", String.valueOf(InformacionUsuario.getInstance().latitudactual));
 
-        String url = "https://climalert.herokuapp.com/refugio?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
+        String url = "https://climalert.herokuapp.com/refugios?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
         // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -445,6 +481,7 @@ public class MapsFragment extends Fragment {
                                 mMap.addMarker(new MarkerOptions()
                                         .anchor(0.0f, 1.0f)
                                         .alpha(0.7f)
+                                        .title("refugio")
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                                         .position(lr));
                                 trazarRutaEntreOrigenDestino(InformacionUsuario.getInstance().latitudactual,InformacionUsuario.getInstance().longitudactual, latitud, longitud);
@@ -553,7 +590,7 @@ public class MapsFragment extends Fragment {
     public void dar_localizacion() {
         Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/localizaciones/new";
+        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/localizaciones";
        // JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {
@@ -627,6 +664,7 @@ public class MapsFragment extends Fragment {
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
+                                    .title("  1")
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(latLng));
                         }
@@ -653,6 +691,7 @@ public class MapsFragment extends Fragment {
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
+                            .title("  2")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(latLng));
                     }
@@ -762,9 +801,9 @@ public class MapsFragment extends Fragment {
         }
     }
     public void generarMarcadores(LatLng latLng, String info, String tip, int radio, int id) {
-
+            String ID = String.valueOf(id);
             Marker m = mMap.addMarker(new MarkerOptions()
-                    .snippet(info)
+                    .snippet(info + " " + ID)
                     .position(latLng)
                     .alpha(0.9f)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))

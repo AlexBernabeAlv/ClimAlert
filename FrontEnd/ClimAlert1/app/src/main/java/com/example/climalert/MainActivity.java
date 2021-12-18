@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, fragment)
+                .replace(R.id.contenedor, fragment, "MAPS")
                 .commit();
 
         //InformacionUsuario.getInstance().buclear(this);
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Región para guardar los datos; así el usuario accede automáticamente, sin tener que
         //pasar por [de nuevo] al inicio de sesión de Google
-        SharedPreferences prefe = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE);
+        //SharedPreferences prefe = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE);
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(perfil)
-                .replace(R.id.contenedor, perfil)
+                .replace(R.id.contenedor, perfil, "SETTINGS")
                 .commit();
     }
 
@@ -108,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
             Configuration conf = res.getConfiguration();
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
-            Intent refresh = new Intent(this, MainActivity.class);
-            refresh.putExtra("currentLocale", newLocale);
-            startActivity(refresh);
+            //onBackPressed();
+            View v = findViewById(R.id.navigation_settings);
+            v.callOnClick();
         }
     }
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(idioma)
-                .replace(R.id.contenedor, idioma)
+                .replace(R.id.contenedor, idioma, "SETTINGS")
                 .commit();
     }
 
@@ -128,14 +129,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(catastrofe)
-                .replace(R.id.contenedor, catastrofe)
+                .replace(R.id.contenedor, catastrofe, "CATASTROFE")
                 .commit();
     }
 
     private void getUsuario(String email){
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://climalert.herokuapp.com/usuario/" + email;
+        String url = "https://climalert.herokuapp.com/usuarios/" + email;
                 // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -148,29 +149,55 @@ public class MainActivity extends AppCompatActivity {
                         float longitud2 = 0;
                         int gravedad = 0;
                         int radio = 0;
+                        boolean admin = false;
 
                         try {
                             JSONObject filtro = response.getJSONObject("filtro");
                             if(filtro != null)
                             {
-                                JSONObject localizacion1 = filtro.getJSONObject("localizacion1");
-                                if(localizacion1 != null) {
-                                    latitud1 = Float.parseFloat(localizacion1.getString("latitud"));
-                                    longitud1 = Float.parseFloat(localizacion1.getString("longitud"));
+                                try {
+                                    JSONObject localizacion1 = filtro.getJSONObject("localizacion1");
+                                    if (localizacion1 != null) {
+                                        latitud1 = Float.parseFloat(localizacion1.getString("latitud"));
+                                        longitud1 = Float.parseFloat(localizacion1.getString("longitud"));
+                                    }
                                 }
-                                JSONObject localizacion2 = filtro.getJSONObject("localizacion2");
-                                if(localizacion2 != null) {
-                                    latitud2 = Float.parseFloat(localizacion2.getString("latitud"));
-                                    longitud2 = Float.parseFloat(localizacion2.getString("longitud"));
+                                catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                                radio = Integer.parseInt(filtro.getString("radioEfecto"));
-                                gravedad = Integer.parseInt(filtro.getString("gravedad"));
+                                try {
+                                    JSONObject localizacion2 = filtro.getJSONObject("localizacion2");
+                                    if (localizacion2 != null) {
+                                        latitud2 = Float.parseFloat(localizacion2.getString("latitud"));
+                                        longitud2 = Float.parseFloat(localizacion2.getString("longitud"));
+                                    }
+                                }
+                                catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                try {
+                                    radio = Integer.parseInt(filtro.getString("radioEfecto"));
+                                }
+                                catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    gravedad = Integer.parseInt(filtro.getString("gravedad"));
+                                }
+                                catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad);
+                        try {
+                            admin = Boolean.parseBoolean(response.getString("admin"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad, admin);
 
                         Log.d("a", String.valueOf(response));
                     }
@@ -181,9 +208,34 @@ public class MainActivity extends AppCompatActivity {
                         error.printStackTrace();
                     }
 
-                }) {
-        };
+                })
+        ;
         queue.add(request);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragCatastrofe = fm.findFragmentByTag("CATASTROFE");
+        if (fragCatastrofe != null && fragCatastrofe.isVisible()) {
+            View v = findViewById(R.id.navigation_info);
+            v.callOnClick();
+        } else {
+            Fragment fragMaps = fm.findFragmentByTag("MAPS");
+            if (fragMaps != null && fragMaps.isVisible()) {
+                moveTaskToBack(true);
+            } else {
+                Fragment fragPerfil = fm.findFragmentByTag("SETTINGS");
+                if (fragPerfil != null && fragPerfil.isVisible()) {
+                    View v = findViewById(R.id.navigation_settings);
+                    v.callOnClick();
+                } else {
+                    View v = findViewById(R.id.navigation_home);
+                    v.callOnClick();
+                }
+            }
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener(){
@@ -200,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, fragment)
+                            .replace(R.id.contenedor, fragment, "MAPS")
                             .commit();
 
                     break;
@@ -233,4 +285,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void modo_admin() {
+        Fragment f = new VentanaAdminFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f)
+                .commit();
+    }
 }

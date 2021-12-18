@@ -8,8 +8,7 @@ on:
   push:
     branches: [ main, develop ]
   pull_request:
-    #branches: [ main, develop ]
-    branches: [ feature/CLIMALERT-103_TestingExternalApis ]
+    branches: [ main, develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   #workflow_dispatch:
@@ -24,7 +23,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
       - name: Use Node.js version 16.x
         uses: actions/setup-node@v2
         with:

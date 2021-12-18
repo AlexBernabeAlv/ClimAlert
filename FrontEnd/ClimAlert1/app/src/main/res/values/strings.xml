@@ -25,6 +25,11 @@
     <string name= "boton_idioma"> Idioma </string>
     <string name= "boton_perfil"> Perfil </string>
     <string name= "boton_logout"> Cerrar Sessión </string>
+    <string name= "boton_guardar_cambios"> Guardar Cambios </string>
+    <string name= "radio_afectacion"> Radio Afectacion </string>
+    <string name= "filtro_incidencias"> Filtro Incidencias </string>
+    <string name= "modo_administrador"> Modo Administrador </string>
+
 
     <string name="descripcion_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
         <b>\nPrevención\n</b>

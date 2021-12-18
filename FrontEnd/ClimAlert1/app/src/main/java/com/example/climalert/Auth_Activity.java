@@ -31,7 +31,7 @@ public class Auth_Activity extends AppCompatActivity {
     String mail;
     String password;
     public static int RC_SIGN_IN = 0;
-    GoogleSignInClient mGoogleSignInClient;
+    static GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -124,7 +124,7 @@ public class Auth_Activity extends AppCompatActivity {
         mail = account.getEmail();
         password = account.getId();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://climalert.herokuapp.com/usuario/new";
+        String url = "https://climalert.herokuapp.com/usuarios";
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("email", mail);
@@ -158,6 +158,11 @@ public class Auth_Activity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(request);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     public GoogleSignInClient getmGoogleSignInClient() {

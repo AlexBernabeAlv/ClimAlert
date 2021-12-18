@@ -1,5 +1,6 @@
 package com.example.climalert;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.gms.auth.api.Auth;
 import android.util.Log;

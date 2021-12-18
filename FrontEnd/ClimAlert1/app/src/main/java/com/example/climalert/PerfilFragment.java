@@ -34,12 +34,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener, Slider.OnChangeListener {
-    Button logout;
+    Button logout, g_cambios, admin_button;
     //GoogleSignInClient googleSignInClient;
     //public static int RC_SIGN_IN = 0;
     View view;
-    Auth_Activity auth_activity;
-    Slider s;
     Switch switchF;
 
     @Override
@@ -50,30 +48,62 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //Todos estos botones y cosas se pueden hacer en local
         view = inflater.inflate(R.layout.fragment_perfil, container, false);
+
         logout = (Button) view.findViewById(R.id.sign_out_button);
         logout.setOnClickListener(this);
-        s = (Slider) view.findViewById(R.id.slider_radio);
+
+        g_cambios = (Button) view.findViewById(R.id.guardar_cambios_button);
+        g_cambios.setOnClickListener(this);
+
+        int r = InformacionUsuario.getInstance().radioEfecto;
+        float x;
+        if(r != 0) x = r;
+        else x = 50.0f;
+        Slider s = (Slider) view.findViewById(R.id.slider_radio);
+        s.setValue(x);
+        s.setValueFrom(0.0f);
+        s.setValueTo(250.0f);
         s.addOnChangeListener(this);
+
         switchF = (Switch) view.findViewById(R.id.idSwitchFiltro);
+        switchF.setChecked(InformacionUsuario.getInstance().gravedad == 1);
+        switchF.setOnClickListener(this);
+
+        admin_button = (Button) view.findViewById(R.id.modo_administrador_button);
+        if(InformacionUsuario.getInstance().admin) admin_button.setVisibility(View.VISIBLE);
+        else admin_button.setVisibility(View.GONE);
+        admin_button.setOnClickListener(this);
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.sign_out_button) {
-            auth_activity.getmGoogleSignInClient().signOut(); //aqui falla
-            Intent intent = new Intent(getActivity(), Auth_Activity.class);
-            startActivity(intent);
-        }
-        else if (v.getId() == R.id.idSwitchFiltro) {
-            if (switchF.isChecked()) {
-                InformacionUsuario.getInstance().gravedad = 1;
-            }
-            else {
-                InformacionUsuario.getInstance().gravedad = 0;
-            }
-            update_usuario();
+        switch (v.getId()) {
+            case R.id.sign_out_button:
+                Intent intent = new Intent(getActivity(),  Auth_Activity.class );
+                Auth_Activity.mGoogleSignInClient.signOut();
+                Auth_Activity.mGoogleSignInClient.revokeAccess();
+                startActivity(intent);
+                break;
+
+            case R.id.idSwitchFiltro:
+                if (switchF.isChecked()) InformacionUsuario.getInstance().gravedad = 1;
+                else InformacionUsuario.getInstance().gravedad = 0;
+                break;
+
+            case R.id.guardar_cambios_button:
+                update_usuario();
+                break;
+
+            case R.id.modo_administrador_button:
+                MainActivity main = (MainActivity) getActivity();
+                main.modo_admin();
+                break;
+
+
         }
     }
 
@@ -81,15 +111,13 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
     public void onValueChange(@NonNull Slider slider, float v, boolean b) {
         if(slider.getId() == R.id.slider_radio) {
             InformacionUsuario.getInstance().radioEfecto = (int) slider.getValue();
-            //se le manda el valor a donde sea
-            update_usuario();
         }
     }
 
     public void update_usuario() {
         Log.d("retorno", "updt us");
         RequestQueue queue = Volley.newRequestQueue( InformacionUsuario.getInstance().activity);
-        String url = "https://climalert.herokuapp.com/usuario/"+InformacionUsuario.getInstance().email+"/update";
+        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email;
         JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {

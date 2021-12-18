@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".VentanaAdminFragment">
+
+    <Button
+        android:id="@+id/validar_incidencias_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Validar Incidencias"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:backgroundTint="#FF9800"/>
+
+    <Button
+        android:id="@+id/gestionar_usuarios_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Gestionar Usuarios"
+        android:layout_below="@id/validar_incidencias_button"
+        android:backgroundTint="#FF9800"/>
+
+    <Button
+        android:id="@+id/gestionar_refugios_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_below="@id/gestionar_usuarios_button"
+        android:text="Gestionar Refugios"
+        android:backgroundTint="#FF9800"/>
+
+</RelativeLayout>

@@ -9,19 +9,41 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sign_out_button"
+        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
         android:text="@string/boton_logout"
         android:backgroundTint="#FF2196F3"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guardar_cambios_button"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/sign_out_button"
+        android:text="@string/boton_guardar_cambios"
+        android:backgroundTint="#4ABC4E"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/modo_administrador_button"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/guardar_cambios_button"
+        android:text="@string/modo_administrador"
+        android:backgroundTint="#D4AF37"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Radio Afectacion"
+        android:text="@string/radio_afectacion"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
@@ -29,19 +51,17 @@
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider_radio"
-        android:layout_below="@id/titulo_afectacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:value="3.0"
-        android:valueFrom="0.0"
-        android:valueTo="5.0" />
+        android:layout_below="@id/titulo_afectacion" />
 
     <Switch
         android:id="@+id/idSwitchFiltro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filtro de gravedad   "
-        android:layout_centerInParent="true"/>
+        android:text="@string/filtro_incidencias"
+        android:layout_centerInParent="true"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
 </RelativeLayout>
