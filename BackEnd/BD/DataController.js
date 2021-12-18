@@ -88,7 +88,7 @@ class DataController{
 
                                         if (res.rowCount == 1) {
 
-                                            resolve("Reset correcto");
+                                            resolve(200);
                                         }
 
                                     }
@@ -187,10 +187,10 @@ class DataController{
 
                     if (res.rowCount == 0) {
 
-                        reject("Usuario no existe");
+                        reject(401);
                     }
                     else if (res.rowCount == 1) {
-                        resolve("Usuario borrado");
+                        resolve(200);
                     }
                 }
             });
@@ -213,24 +213,15 @@ class DataController{
 
                     if (lat1 && lon1) {
 
-                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);",
-                            [email, lat1, lon1],
-                            (err, res) => {
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
+                            if (err) {
 
-                                if (err) {
+                                reject(err);
+                            } else {
 
-                                    reject(err);
-                                } else {
-
-                                    resolve("Cambios en ubicaciones aplicados");
-                                }
-
-
-                            });
-
-                    } else {
-
-                        resolve("Nada que borrar");
+                                resolve(200);
+                            }
+                        });
                     }
 
                     if (lat2 && lon2) {
@@ -242,16 +233,10 @@ class DataController{
                                 reject(err);
                             } else {
 
-                                resolve("Cambios en ubicaciones aplicados");
+                                resolve(200);
                             }
                         });
-
-                    } else {
-
-                        resolve("Nada que borrar");
                     }
-
-
                 }
             });
 

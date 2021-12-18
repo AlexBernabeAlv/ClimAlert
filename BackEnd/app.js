@@ -41,8 +41,14 @@ app.post('/BD/reset', async (req, res) => {
     
     var result = await DataController.resetBD().catch(error => { console.error(error) });
     await ConsultExternalApis();
-    //res.status(200).send(result);
-	res.json(result);
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
 })
 
 //app.get
@@ -59,17 +65,14 @@ app.get('/usuarios/:email', async (req, res) => {
 
     result.password = "AAAAAHHHHH, querias mirar mi contraseña eh?";
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        //res.status(200).send(result);
-        res.json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Not found: No user with such email.");
-
+        res.status(200).json(result);
     }
-
 })
 
 //app.post('/usuario/new', async (req, res) => {
@@ -80,15 +83,13 @@ app.post('/usuarios', async (req, res) => {
 
     var result = await GestorUsuarios.createUsuario(email, psswd);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        //res.status(200).send(result);
-        res.json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(400).send("Bad request: User with email already exists.");
-
+        res.status(200).json(result);
     }
 })
 
@@ -101,14 +102,13 @@ app.put('/usuarios/:email', async (req, res) => {
 
     var result = await GestorUsuarios.updateUsuario(email, psswd, gravedad, radioefecto);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Not found: No user with such email.");
-
+        res.status(200).json(result);
     }
 })
 
@@ -119,14 +119,13 @@ app.delete('/usuarios/:email', async (req, res) => {
 
     var result = await GestorUsuarios.deleteUsuario(email, psswd);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("Not found: No user with such email.");
-
+        res.status(200).json(result);
     }
 })
 
@@ -144,14 +143,13 @@ app.post('/usuarios/:email/localizaciones', async (req, res) => {
 
     var result = await GestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("Usuario no existe");
-
+        res.status(200).json(result);
     }
 })
 
@@ -479,6 +477,11 @@ function checkReturnCode(Code) {
         case 404:
 
             message = "Not Found";
+            break;
+
+        case 500:
+
+            message = "Internal Server Error";
             break;
 
         default:
