@@ -106,13 +106,13 @@ class GestorUsuarios {
     }
 
     async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
-        if (lat1 && lon1) {
+        if (lat1 != null && lon1 != null) {
 
             if (lat1 > 90 || lat1 < -90) return 400;
             if (lon1 > 180 || lon1 < -180) return 400;
         }
 
-        if (lat2 && lon2) {
+        if (lat2 != null && lon2 != null) {
 
             if (lat2 > 90 || lat2 < -90) return 400;
             if (lon2 > 180 || lon2 < -180) return 400;

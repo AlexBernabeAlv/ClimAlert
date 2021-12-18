@@ -211,7 +211,7 @@ class DataController{
                     reject(err);
                 } else {
 
-                    if (lat1 && lon1) {
+                    if (lat1 != null && lon1 != null) {
 
                         pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
                             if (err) {
@@ -224,7 +224,7 @@ class DataController{
                         });
                     }
 
-                    if (lat2 && lon2) {
+                    if (lat2 != null && lon2 != null) {
 
                         pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
 
@@ -237,6 +237,9 @@ class DataController{
                             }
                         });
                     }
+
+                    resolve(200);
+
                 }
             });
 
