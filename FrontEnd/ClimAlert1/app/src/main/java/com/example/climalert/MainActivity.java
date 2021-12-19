@@ -124,7 +124,14 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void catastrofe_func(Fragment catastrofe) {
+    public void admin_func(Fragment f) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f, "SETTINGS")
+                .commit();
+    }
+
+    public void catastrofe_func(Fragment catastrofe) { //se le podria hacer un rebrand
 
         getSupportFragmentManager()
                 .beginTransaction()

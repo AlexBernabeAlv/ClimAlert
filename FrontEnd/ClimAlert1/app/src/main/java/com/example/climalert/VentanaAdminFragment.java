@@ -10,6 +10,9 @@ import android.widget.Switch;
 import androidx.fragment.app.Fragment;
 
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.ui.admin.GestionarRefugiosFragment;
+import com.example.climalert.ui.admin.GestionarUsuariosFragment;
+import com.example.climalert.ui.admin.ValidarIncidenciasFragment;
 import com.google.android.material.slider.Slider;
 
 public class VentanaAdminFragment extends Fragment implements View.OnClickListener {
@@ -34,14 +37,21 @@ public class VentanaAdminFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        MainActivity main;
         switch (v.getId()) {
             case R.id.gestionar_refugios_button:
+                main = (MainActivity) getActivity();
+                main.admin_func(new GestionarRefugiosFragment());
                 break;
-                
+
             case R.id.gestionar_usuarios_button:
+                main = (MainActivity) getActivity();
+                main.admin_func(new GestionarUsuariosFragment());
                 break;
 
             case R.id.validar_incidencias_button:
+                main = (MainActivity) getActivity();
+                main.admin_func(new ValidarIncidenciasFragment());
                 break;
         }
 
