@@ -20,23 +20,14 @@ class GestorRefugios {
         if (usu.isAdmin && usu.password == Password) {
 
             var refugio = new Refugio(Nombre, Latitud, Longitud);
-            return await dataController.createRefugio(refugio).catch(error => { console.error(error) });
+            var result = await dataController.createRefugio(refugio).catch(error => { console.error(error) });
+
+            if (!result) return 400;
+            return result;
+
         } else {
 
-            return false;
-        }
-    }
-
-    async updateRefugio() {
-
-        var usu = await GestorUsuarios.getUsuario(Email);
-        if (usu.isAdmin && usu.password == Password) {
-
-            var refugio = new Refugio(Nombre, Latitud, Longitud);
-            return await dataController.updateRefugio(refugio).catch(error => { console.error(error) });
-        } else {
-
-            return false;
+            return 401;
         }
     }
 
@@ -48,7 +39,7 @@ class GestorRefugios {
             return await dataController.deleteRefugio(Nombre).catch(error => { console.error(error) });
         } else {
 
-            return false;
+            return 401;
         }
     }
 

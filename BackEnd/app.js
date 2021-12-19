@@ -270,14 +270,13 @@ app.post('/refugios', async (req, res) => {
 
     var result = await GestorRefugios.createRefugio(Email, Password, Nombre, Latitud, Longitud);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No puedes crear este refugio" );
-
+        res.status(200).json(result);
     }
 })
 
@@ -288,14 +287,13 @@ app.get('/refugios', async (req, res) => {
 
     var result = await GestorRefugios.getRefugioByLoc(latitud, longitud);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("Not found: No shelters at such coordinates.");
-
+        res.status(200).json(result);
     }
 })
 
@@ -307,35 +305,16 @@ app.delete('/refugios/:nombre', async (req, res) => {
 
     var result = await GestorRefugios.deleteRefugio(Email, Password, Nombre);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
-
-        res.status(404).json({ result: "No puedes destruir este refugio" });
-
-    }
-})
-
-app.put('/refugios/:nombre', async (req, res) => {
-
-    var email = req.body.email;
-    var psswd = req.body.password;
-    var Nombre = req.params.nombre;
-
-    var result = await GestorRefugios.updateRefugio(email, psswd, Nombre, radioefecto);
-
-    if (result) {
 
         res.status(200).json(result);
-
-    } else {
-
-        res.status(404).json({ result: "Usuario no Admin" });
-
     }
 })
+
 
 //Comentarios
 
@@ -344,19 +323,20 @@ app.post('/comentarios', async (req, res) => {
     var Email = req.body.email;
     var Password = req.body.password;
     var Incfenid = req.body.incfenid;
-    var ComentResponseId = req.body.comentresponseid;
+    var ComentResponseId = req.body.commentresponseid;
     var Contenido = req.body.contenido;
+    var Fecha = req.body.fecha;
+    var Hora = req.body.hora;
 
-    var result = await GestorComentarios.createComentario(Email, Password, Incfenid, ComentResponseId, Contenido);
+    var result = await GestorComentarios.createComentario(Email, Password, Incfenid, ComentResponseId, Contenido, Fecha, Hora);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No puedes crear este comentario");
-
+        res.status(200).json(result);
     }
 })
 
@@ -366,14 +346,13 @@ app.get('/comentarios', async (req, res) => {
 
     var result = await GestorComentarios.getComentariosUsuario(email);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No se ha encontrado comentarios");
-
+        res.status(200).json(result);
     }
 })
 
@@ -384,18 +363,31 @@ app.get('/comentarios/:commentid/respuestas', async (req, res) => {
 
     var result = await GestorComentarios.getComentariosComentario(commentid);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No se ha encontrado comentarios");
-
+        res.status(200).json(result);
     }
 })
 
+app.get('/comentarios/:commentid', async (req, res) => {
 
+    var commentid = req.params.commentid;
+
+    var result = await GestorComentarios.getComentario(commentid);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
 
 app.get('/incidenciasFenomeno/:incfenid/comentarios', async (req, res) => {
 
@@ -403,53 +395,50 @@ app.get('/incidenciasFenomeno/:incfenid/comentarios', async (req, res) => {
 
     var result = await GestorComentarios.getComentariosIncidenciaFenomeno(incfenid);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No se ha encontrado comentarios");
-
+        res.status(200).json(result);
     }
 })
 
-app.delete('/comentarios/:commentid', async (req, res) => {
+app.put('/comentarios/:commentid/delete', async (req, res) => {
 
     var commentid = req.params.commentid;
-    var email = req.query.email;
-    var password = req.query.password;
+    var email = req.body.email;
+    var password = req.body.password;
 
     var result = await GestorComentarios.deleteComentario(commentid, email, password);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No puedes borrar este comentario");
-
+        res.status(200).json(result);
     }
 })
 
 app.put('/comentarios/:commentid', async (req, res) => {
 
     var commentid = req.params.commentid;
-    var contenido = req.body.contenido;
     var email = req.body.email;
     var password = req.body.password;
+    var contenido = req.body.contenido;
 
     var result = await GestorComentarios.editComentario(commentid, contenido, email, password);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).json(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).json("No puedes editar este comentario");
-
+        res.status(200).json(result);
     }
 })
 

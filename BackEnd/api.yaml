@@ -230,22 +230,6 @@ paths:
         "200":
           description: ""
   /refugios/{nombre}:
-    put:
-      parameters:
-        - name: nombre
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PutRefugio'
-      responses:
-        "200":
-          description: ""
     delete:
       parameters:
         - name: nombre
@@ -328,7 +312,42 @@ paths:
         "404":
           description: "Not found: No incidencia with such id."
   /comentarios/{commentid}:
-    delete:
+    get:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns all comments to the incidencia with incfenid."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No incidencia with such id."
+    put:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutComment'
+      responses:
+        "200":
+          description: "Deletes the comment with commentid."
+        "404":
+          description: "Not found: No comment with such id."
+  /comentarios/{commentid}/delete:
+    put:
       parameters:
         - name: commentid
           in: path
@@ -346,20 +365,6 @@ paths:
           description: "Deletes the comment with commentid."
         "404":
           description: "Not found: No comment with such id."
-    put:
-      parameters:
-        - name: commentid
-          in: path
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PutComment'
-    
 
 components:
   schemas:
@@ -427,9 +432,9 @@ components:
         commentresponseid:
           type: integer
         fecha:
-          type: date
+          type: string
         hora:
-          type: time
+          type: string
     PostFiltro:
       type: object
       properties:
@@ -510,19 +515,6 @@ components:
           type: number
         longitud:
           type: number
-    PutRefugio:
-      type: object
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-        newnombre:
-          type: string
-        latitud:
-          type: number
-        longitud:
-          type: number
     PostComentarios:
       type: object
       properties:
@@ -535,6 +527,10 @@ components:
         commentresponseid:
           type: integer
         contenido:
+          type: string
+        fecha:
+          type: string
+        hora:
           type: string
     DeleteComment:
       type: object
