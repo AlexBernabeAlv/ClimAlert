@@ -78,6 +78,8 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         rvMensajes.setLayoutManager(l);
         rvMensajes.setAdapter(adapter);
         String u = InformacionUsuario.getInstance().email;
+        int pos = u.indexOf("@");
+        u = u.substring(0, pos);
         nombreUs.setText(u);
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
