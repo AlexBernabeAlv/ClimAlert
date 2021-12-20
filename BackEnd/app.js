@@ -171,6 +171,22 @@ app.post('/usuarios/:email/filtro', async (req, res) => {
 
 })
 
+app.post('/usuariosEstandar', async (req, res) => {
+
+    var email = req.body.email;
+    var password = req.body.password;
+    var result = await GestorUsuarios.getUsuarios(email, password);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
+
 
 //llamadas api notificaciones
 
@@ -214,14 +230,13 @@ app.put('/incidencias', async (req, res) => {
     }
 })
 
-app.post('/usuarios/:email/incidenciasNoValidas', async (req, res) => {
+app.post('/usuarios/:email/incidenciasAdmin', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
-    var lat = req.body.latitud;
-    var lon = req.body.longitud;
+    var valido = req.body.valido;
 
-    var result = await GestorIncidencias.getIncidenciasNoValidas(email, pssword, lat, lon);
+    var result = await GestorIncidencias.getIncidenciasAdmin(email, pssword, valido);
 
     if (typeof result == 'number') {
 

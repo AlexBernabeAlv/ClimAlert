@@ -157,6 +157,25 @@ class DataController{
         return promise;
     }
 
+    getUsuarios() {
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT * FROM usuario WHERE admin = false;", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+
+            });
+        });
+
+        return promise;
+    }
+
     updateUsuario(usuario, oldPassword) {
 
         var promise = new Promise((resolve, reject) => {
@@ -343,14 +362,26 @@ class DataController{
                     reject(err);
                 } else {
 
-                    if (res.rows.length == 0) {
+                    resolve(res);
+                }
 
-                        reject(false);
-                    } else {
+            });
+        });
 
-                        resolve(res);
-                    }
+        return promise;
+    }
 
+    getIncidenciasAdmin(Valido) {
+
+        var promise = new Promise((resolve, reject) => {
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE valido = $1", [Valido], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
                 }
 
             });

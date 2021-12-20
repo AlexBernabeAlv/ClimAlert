@@ -92,7 +92,7 @@ class GestorIncidencias {
         }
     }
 
-    async getIncidenciasNoValidas(Email, Password, Latitud, Longitud) {
+    async getIncidenciasAdmin(Email, Password, Valido) {
 
         var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
 
@@ -101,7 +101,28 @@ class GestorIncidencias {
         if (usuario.password == Password) {
 
             if (usuario.isAdmin) {
-                return await this.getIncidencias(Latitud, Longitud, 0, usuario.filtro.radioEfecto, false).catch(error => { console.error(error) });
+                var incid = await dataController.getIncidenciasAdmin(Valido).catch(error => { console.error(error) });
+                if (!incid) return 400;
+
+                var incidencias = [];
+
+                for (var i = 0; i < incid.rows.length; i++) {
+                    //Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
+                    var inc = new IncidenciaFenomeno(incid.rows[i].incfenid,
+                        incid.rows[i].fecha,
+                        incid.rows[i].hora,
+                        incid.rows[i].nombrefen,
+                        incid.rows[i].descripcion,
+                        incid.rows[i].radioefecto,
+                        incid.rows[i].gravedad,
+                        incid.rows[i].latitud,
+                        incid.rows[i].longitud);
+                    incidencias.push(inc);
+                    if (incid.rows[i].valido) {
+                        inc.setValido();
+                    }
+                }
+                return incidencias;
             }
 
             return 403;

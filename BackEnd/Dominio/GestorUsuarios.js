@@ -12,6 +12,8 @@ class GestorUsuarios {
 
     async getUsuario(Email) {
 
+        if (!Email) return 401;
+
         var res = await dataController.getUsuario(Email).catch(error => { console.error(error) });
 
 
@@ -45,6 +47,32 @@ class GestorUsuarios {
         }
 
         return usuario;
+    }
+
+    async getUsuarios(Email, Password) {
+
+        var usuario = await this.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (typeof usuario == 'number') return usuario;
+
+        if (!usuario.admin) return 403;
+
+        if (usuario.password == Password) {
+
+            var usuarios = [];
+
+            var usus = await dataController.getUsuarios().catch(error => { console.error(error) });
+
+            var usu;
+
+            for (var i = 0; i < usus.rows.length; i++) {
+
+                usu = new UsuarioEstandar(usus.rows[i].email, usus.rows[i].password);
+                usuarios.push(usu);
+            }
+            return usuarios;
+        }
+        return 401;
     }
 
     async createUsuario(Email, Password) {
