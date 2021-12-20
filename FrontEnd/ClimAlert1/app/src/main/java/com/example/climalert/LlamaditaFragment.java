@@ -173,6 +173,8 @@ public class LlamaditaFragment extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             hour = sdf.format(new Date());
             mapa.put("hora", hour);
+            mapa.put("email", InformacionUsuario.getInstance().email);
+            mapa.put("password", InformacionUsuario.getInstance().password);
 
         } catch (JSONException e) {
             e.printStackTrace();
