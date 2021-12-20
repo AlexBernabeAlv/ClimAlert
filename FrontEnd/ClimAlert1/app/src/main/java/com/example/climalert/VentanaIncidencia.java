@@ -39,6 +39,8 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
 
     private String nombreFenomeno;
 
+    private int IdInc;
+
     public static VentanaIncidencia newInstance(String param1, String param2) {
         VentanaIncidencia fragment = new VentanaIncidencia();
         Bundle args = new Bundle();
@@ -84,7 +86,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
         Button Foro = (Button) view.findViewById(R.id.btnForo);
         Foro.setOnClickListener(this);
 
-        int IdInc = Integer.parseInt(InformacionUsuario.getInstance().IDIncidenciaActual);
+        IdInc = Integer.parseInt(InformacionUsuario.getInstance().IDIncidenciaActual);
 
         for (int i = 0; i < InformacionUsuario.getInstance().actual.size(); ++i) {
             if (IdInc == InformacionUsuario.getInstance().actual.get(i).identificador) {
@@ -185,6 +187,8 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 }
                 break;
             case R.id.btnForo:
+                main = (MainActivity) getActivity();
+                main.foro_incidencia_boton(IdInc);
                 break;
         }
     }
