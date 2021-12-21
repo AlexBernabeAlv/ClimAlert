@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment f = new VentanaAdminFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f)
+                .replace(R.id.contenedor, f, "SETTINGS")
                 .commit();
     }
 }

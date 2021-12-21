@@ -24,6 +24,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.ui.catastrofes.Avalancha_Fragment;
+import com.example.climalert.ui.catastrofes.Calor_Extremo_Fragment;
+import com.example.climalert.ui.catastrofes.Erupcion_Volcanica_Fragment;
+import com.example.climalert.ui.catastrofes.Gota_Fria_Fragment;
+import com.example.climalert.ui.catastrofes.Granizo_Fragment;
+import com.example.climalert.ui.catastrofes.Incendio_Fragment;
+import com.example.climalert.ui.catastrofes.Inundacion_Fragment;
+import com.example.climalert.ui.catastrofes.Lluvia_Acida_Fragment;
+import com.example.climalert.ui.catastrofes.Terremoto_Fragment;
+import com.example.climalert.ui.catastrofes.Tormenta_Electrica_Fragment;
+import com.example.climalert.ui.catastrofes.Tormenta_Invernal_Fragment;
+import com.example.climalert.ui.catastrofes.Tornado_Fragment;
+import com.example.climalert.ui.catastrofes.Tsunami_Fragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,15 +108,15 @@ public class LlamaditaFragment extends Fragment {
         ArrayList<String> incidencias = new ArrayList<String>();
         incidencias.add("Calor Extremo");
         incidencias.add("Granizo");
-        incidencias.add("Nevada");
+        incidencias.add("Tormenta Invernal");
         incidencias.add("Tornado");
         incidencias.add("Inundación");
-        incidencias.add("Incendio");
+        incidencias.add("Incendio Forestal");
         incidencias.add("Terremoto");
         incidencias.add("Tsunami");
         incidencias.add("Avalancha");
         incidencias.add("Lluvia Ácida");
-        incidencias.add("Volcan");
+        incidencias.add("Erupción Volcánica");
         incidencias.add("Gota Fría");
         incidencias.add("Tormenta Eléctrica");
 
@@ -142,13 +155,75 @@ public class LlamaditaFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
+                spinnerres = mSpinner.getSelectedItem().toString();
                 dar_incidencia();
-                Fragment f = new Info_Fragment();
-                MainActivity main = (MainActivity) getActivity();
-                main.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.contenedor, f)
-                        .commit();
+                MainActivity main;
+                switch (spinnerres) {
+                    case "Calor Extremo":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Calor_Extremo_Fragment());
+                        break;
+
+                    case "Granizo":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Granizo_Fragment());
+                        break;
+
+                    case "Tormenta Invernal":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Tormenta_Invernal_Fragment());
+                        break;
+
+                    case "Tornado":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Tornado_Fragment());
+                        break;
+
+                    case "Inundación":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Inundacion_Fragment());
+                        break;
+
+                    case "Incendio Forestal":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Incendio_Fragment());
+                        break;
+
+                    case "Tsunami":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Tsunami_Fragment());
+                        break;
+
+                    case "Terremoto":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Terremoto_Fragment());
+                        break;
+
+                    case "Avalancha":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Avalancha_Fragment());
+                        break;
+
+                    case "Lluvia Ácida":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Lluvia_Acida_Fragment());
+                        break;
+
+                    case "Erupción Volcánica":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Erupcion_Volcanica_Fragment());
+                        break;
+
+                    case "Gota Fría":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Gota_Fria_Fragment());
+                        break;
+
+                    case "Tormenta Eléctrica":
+                        main = (MainActivity) getActivity();
+                        main.catastrofe_func(new Tormenta_Electrica_Fragment());
+                        break;
+                }
                 //Intent CambiarVentana = new Intent(getActivity(), MapsFragment.class);
                 //startActivity(CambiarVentana);
 
@@ -162,7 +237,6 @@ public class LlamaditaFragment extends Fragment {
         String url = "https://climalert.herokuapp.com/incidencias";
         JSONObject mapa = new JSONObject();
         try {
-            spinnerres = mSpinner.getSelectedItem().toString();
             mapa.put("nombreFenomeno", spinnerres);
             if (InformacionUsuario.getInstance().latitudactual != 0) {
                 mapa.put("latitud", String.valueOf(InformacionUsuario.getInstance().latitudactual));
