@@ -182,6 +182,7 @@ public class InformacionUsuario {
                                 JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
                                 JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
                                 String fecha =  incidenciaFenomeno.getString("fecha");
+                                String hora =  incidenciaFenomeno.getString("hora");
                                 Vector<String> indicaciones =  new Vector<String>();
                                 for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
                                     indicaciones.add(IndicacionIncidencia.getString(j));
@@ -193,9 +194,10 @@ public class InformacionUsuario {
                                 Float latitud = Float.parseFloat(localizacion.getString("latitud"));
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
+                                String fuente = incidenciaFenomeno.getString("creador");
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
-                                Notificacion n = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion, id);
+                                Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id);
                                 aPintar.add(n);
                             }
                             //Log.d("asd", "onResponse: ");
@@ -279,7 +281,7 @@ public class InformacionUsuario {
         queue.add(request);
     }
 
-    public class myJsonArrayRequest extends JsonRequest<JSONArray> {
+    public static class myJsonArrayRequest extends JsonRequest<JSONArray> {
         public myJsonArrayRequest(int method, String url, JSONObject JsonRequest,
                                   Response.Listener<JSONArray> listener, Response.ErrorListener errorListener){
             super(method,url,(JsonRequest == null) ? null : JsonRequest.toString(), listener, errorListener);
