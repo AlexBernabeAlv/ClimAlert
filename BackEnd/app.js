@@ -330,6 +330,23 @@ app.delete('/refugios/:nombre', async (req, res) => {
     }
 })
 
+app.post('/allRefugios', async (req, res) => {
+
+    var Email = req.body.email;
+    var Password = req.body.password;
+
+    var result = await GestorRefugios.getRefugios(Email, Password);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
+
 
 //Comentarios
 

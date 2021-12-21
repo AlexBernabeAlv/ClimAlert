@@ -124,6 +124,21 @@ paths:
       responses:
         "200":
           description: ""
+  /usuariosEstandar:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getUsuariosEstandar'
+      responses:
+        "200":
+          description: "OK"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Forbidden"
   /incidencias:
     post:
       parameters:
@@ -180,6 +195,27 @@ paths:
                 $ref: "#/components/schemas/Incidencia"
         "404":
           description: "Not found: No incidencias at such coordinates."
+  /usuarios/{email}/incidenciasAdmin:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIncidenciasAdmin'
+      responses:
+        "200":
+          description: "OK"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Forbidden"
   /usuarios/{email}/notificaciones:
     post:
       parameters:
@@ -250,6 +286,21 @@ paths:
       responses:
         "200":
           description: ""
+  /allRefugios:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getAllRefugios'
+      responses:
+        "200":
+          description: "OK"
+        "401"
+          description: "Unauthorized"
+        "403"
+          description: "Forbidden"
   /comentarios:
     get:
       parameters:
@@ -547,4 +598,25 @@ components:
         password:
           type: string
         contenido:
+          type: string
+    getUsuariosEstandar:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    getIncidenciasAdmin:
+      type: object
+      properties:
+        password:
+          type: string
+        valido:
+          type: boolean
+    getAllRefugios:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
           type: string

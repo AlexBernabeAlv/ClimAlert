@@ -520,6 +520,25 @@ class DataController{
         return promise;
     }
 
+    getRefugios() {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT * FROM refugio;", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+            });
+        });
+
+        return promise;
+    }
+
     //Aqui Comentarios
 
     createComentario(Comentario) {
