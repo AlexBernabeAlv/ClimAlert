@@ -117,6 +117,9 @@ class GestorIncidencias {
                         incid.rows[i].gravedad,
                         incid.rows[i].latitud,
                         incid.rows[i].longitud);
+
+                    inc.creador = incid.rows[i].email;
+
                     incidencias.push(inc);
                     if (incid.rows[i].valido) {
                         inc.setValido();
