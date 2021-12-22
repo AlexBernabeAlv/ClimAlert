@@ -281,7 +281,7 @@ public class InformacionUsuario {
         queue.add(request);
     }
 
-    public class myJsonArrayRequest extends JsonRequest<JSONArray> {
+    public static class myJsonArrayRequest extends JsonRequest<JSONArray> {
         public myJsonArrayRequest(int method, String url, JSONObject JsonRequest,
                                   Response.Listener<JSONArray> listener, Response.ErrorListener errorListener){
             super(method,url,(JsonRequest == null) ? null : JsonRequest.toString(), listener, errorListener);

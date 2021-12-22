@@ -23,8 +23,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class VentanaForo extends Fragment implements View.OnClickListener {
 
@@ -126,34 +131,46 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
     public void enviar_mensaje() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/comentarios"; //mirar url correcto
-        JSONObject mensaje = new JSONObject();
+        JSONObject mapa = new JSONObject();
         try {
-            mensaje.put("Email", String.valueOf(InformacionUsuario.getInstance().email));
-            mensaje.put("Password", String.valueOf(InformacionUsuario.getInstance().password));
+            mapa.put("email", String.valueOf(InformacionUsuario.getInstance().email));
+            mapa.put("password", String.valueOf(InformacionUsuario.getInstance().password));
             //Añadir atributo public String CommentResponseID; a InformacionUsuario
             if (InformacionUsuario.getInstance().CommentResponseID != "") {
-                mensaje.put("CommentResponseId", String.valueOf(InformacionUsuario.getInstance().CommentResponseID));
-            } else mensaje.put("Incfenid", String.valueOf(InformacionUsuario.getInstance().IDIncidenciaActual));
+                mapa.put("commentResponseId", String.valueOf(InformacionUsuario.getInstance().CommentResponseID));
+                mapa.put("incfenid", "");
+            }
+            else {
+                mapa.put("commentResponseId", "");
+                mapa.put("incfenid", String.valueOf(InformacionUsuario.getInstance().IDIncidenciaActual));
+            }
             //poner variable de la clase mensaje del contenido
-            mensaje.put("contenido", txtMensaje.getText().toString());
+            mapa.put("contenido", txtMensaje.getText().toString());
+            String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+            mapa.put("fecha", date);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            String hour = sdf.format(new Date());
+            mapa.put("hora", hour);
+            Log.d("FUNCIONA", String.valueOf(mapa));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         // Request a string response from the provided URL.
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mensaje,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mapa,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         //JSONObject usuario;
-                        Log.d("a", String.valueOf(response));
+                        Log.d("FUNCIONA", String.valueOf(response));
                         //Log.d("ALGO", "he acabado el bucle");
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("FUNCIONANO", String.valueOf(error));
                         error.printStackTrace();
                     }
 
@@ -166,33 +183,38 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/incidenciafenomenos/" + InformacionUsuario.getInstance().IDIncidenciaActual + "/comentarios";
         // Request a string response from the provided URL.
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        // Request a string response from the provided URL.
+
+        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+
                     @Override
-                    public void onResponse(JSONObject response) {
-                        String nombre;
-                        String contenido;
+                    public void onResponse(JSONArray response) {
+                        JSONObject Mensaje;
                         try {
-                            if (response != null) {
-                                nombre = response.getString("email");
+                            for (int i = 0; i < response.length(); ++i) {
+                                Mensaje = response.getJSONObject(i);
+                                String nombre;
+                                String contenido;
+                                nombre = Mensaje.getString("email");
                                 int pos = nombre.lastIndexOf("@");
                                 nombre = nombre.substring(0, pos);
-                                contenido = response.getString("contenido");
+                                contenido = Mensaje.getString("contenido");
                                 adapter.addMensaje(new Mensaje(contenido, nombre));
-                                //aqui añadiriamos el mensaje al vector de mensajes que saldrían por pantalla
+                                Log.d("FUNCIONA", Mensaje.toString());
                             }
                         } catch (JSONException e) {
+                            Log.d("FUNCIONANO", "Casi crack");
                             e.printStackTrace();
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }) {
-        };
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("fff", "onErrorResponse: ");
+            }
+        });
+        // Add the request to the RequestQueue.
         queue.add(request);
     }
 }
