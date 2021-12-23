@@ -11,6 +11,7 @@ class Usuario {
         this.password = Passwd;
         this.filtro = new Filtro();
         this.admin = false;
+        this.banned = false;
     }
 
     isAdmin() {

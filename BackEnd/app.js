@@ -112,6 +112,24 @@ app.put('/usuarios/:email', async (req, res) => {
     }
 })
 
+app.put('/usuarios/:emailUsr/ban', async (req, res) => {
+
+    var emailUsr = req.params.emailUsr;
+    var email = req.body.email;
+    var psswd = req.body.password;
+
+    var result = await GestorUsuarios.banUsuario(email, psswd, emailUsr);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
+
 app.delete('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
@@ -200,7 +218,7 @@ app.post('/incidencias', async (req, res) => {
     var email = req.query.email;
     var password = req.body.password;
 
-    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false, email, password);
+    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false, email, password, 0);
     if (typeof result == 'number') {
 
         var message = checkReturnCode(result);
@@ -217,8 +235,10 @@ app.put('/incidencias', async (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     var gravedad = req.body.gravedad;
+    var medida = req.body.medida;
+    var radioEfecto = req.body.radioEfecto;
 
-    var result = await GestorIncidencias.updateIncidencia(email, password, id, gravedad);
+    var result = await GestorIncidencias.updateIncidencia(email, password, id, gravedad, radioEfecto, medida);
 
     if (typeof result == 'number') {
 
@@ -472,6 +492,50 @@ app.put('/comentarios/:commentid', async (req, res) => {
 
         res.status(200).json(result);
     }
+})
+
+app.post('/usuarios/:emailBuscado/estadisticosIncidencias', async (req, res) => {
+
+
+    var emailBuscado = req.params.emailBuscado;
+    var email = req.body.email;
+    var password = req.body.password;
+    var filtro = req.body.filtro;
+
+
+    var result = await GestorIncidencias.getIncidenciasByCreador(email, password, emailBuscado, filtro);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+
+})
+
+
+app.post('/usuarios/:emailBuscado/estadisticosComentarios', async (req, res) => {
+
+
+    var emailBuscado = req.params.emailBuscado;
+    var email = req.body.email;
+    var password = req.body.password;
+    var filtro = req.body.filtro;
+
+    var result = await GestorComentarios.getComentariosByCreador(email, password, emailBuscado, filtro);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+
 })
 
 function checkReturnCode(Code) {

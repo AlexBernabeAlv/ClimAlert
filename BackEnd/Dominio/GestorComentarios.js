@@ -105,6 +105,41 @@ class GestorComentarios {
         return result;
     }
 
+    async getComentariosByCreador(Email, Password, EmailCreador, Filtro) {
+
+        console.log(Email + ' ' + Password + ' ' + EmailCreador);
+
+        var usuario = await GestorUsuarios.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (typeof usuario == 'number') return usuario;
+
+        if (usuario.password == Password) {
+
+            if (usuario.admin || usuario.email == EmailCreador) {
+
+                console.log(usuario.email == EmailCreador);
+
+                console.log(usuario.admin);
+
+                if (Filtro == 'dia') {
+
+                    var result = await dataController.getComentariosByCreadorGroupDia(EmailCreador).catch(error => { console.error(error) });
+                }
+                else if (Filtro == 'minuto') {
+
+                    var result = await dataController.getComentariosByCreadorGroupMinuto(EmailCreador).catch(error => { console.error(error) });
+                }
+
+                if (result) return result;
+                return 400;
+            }
+
+            return 403;
+        }
+
+        return 401;
+    }
+
     async deleteComentario(CommentId, Email, Password) {
 
         var usu = await GestorUsuarios.getUsuario(Email);

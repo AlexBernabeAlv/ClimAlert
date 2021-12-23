@@ -18,6 +18,7 @@ class IncidenciaFenomeno{
         this.incidencia = new Incidencia(Radio, Gravedad, Latitud, Longitud);
         this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno, Descripcion, null, null);
         this.creador = "no se sabe";
+        this.medida = 0;
 
     }
 
@@ -27,6 +28,14 @@ class IncidenciaFenomeno{
 
     setAPI() {
         this.API = true;
+    }
+
+    setMedida(Medida) {
+        this.medida = Medida;
+    }
+
+    setCreador(Creador) {
+        this.creador = Creador;
     }
 }
 

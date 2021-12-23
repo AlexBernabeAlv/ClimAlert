@@ -34,6 +34,8 @@ class GestorUsuarios {
             
         }
 
+        usuario.banned = res.rows[0].banned;
+
         usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
 
         if (res.rows[0].latitud && res.rows[0].longitud) {
@@ -118,6 +120,17 @@ class GestorUsuarios {
     async deleteUsuario(Email, Password) {
 
         return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
+    }
+
+    async banUsuario(Email, Password, EmailUsr) {
+
+        var usuario = await this.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (usuario.password != Password) return 401;
+
+        if (!usuario.admin) return 403;
+
+        return await dataController.banUsuarrio(EmailUsr).catch(error => { return error });
     }
 
     async getFiltro(Email, Password) {

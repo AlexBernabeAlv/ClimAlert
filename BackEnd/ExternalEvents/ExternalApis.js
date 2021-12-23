@@ -162,8 +162,10 @@ function getIncidencias(api, evento, incidencias) {
 			//Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
 			let incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
 			incidencia.setAPI();
-            incidencia.setValido();
-			//let name = api.name;
+			incidencia.setValido();
+			/*--------------------------------------------------------->incidencia.setMedida(medida de API)<---------------------------------------------------------*/
+			incidencia.setCreador(api.name);
+
 			incidencias.push(incidencia);
 		}
 	}
