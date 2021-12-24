@@ -28,6 +28,8 @@
     <string name= "radio_afectacion"> Effect Radius </string>
     <string name= "filtro_incidencias"> Incidents Filter </string>
     <string name= "modo_administrador"> Administrator Mode </string>
+    <string name= "boton_ban"> Ban </string>
+    <string name= "boton_stats"> Stats </string>
 
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or
         much more humid conditions than average. This extreme heat can cause heat stroke,

@@ -86,16 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void perfil_boton() {
-        Fragment perfil = new PerfilFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(perfil)
-                .replace(R.id.contenedor, perfil, "SETTINGS")
-                .commit();
-    }
-
    public void cambio_idioma(String newLocale) {
        if (!newLocale.equals(currentLocale)) {
             currentLocale = newLocale;
@@ -115,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void perfil_boton() {
+        Fragment perfil = new PerfilFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(perfil)
+                .replace(R.id.contenedor, perfil, "SETTINGS")
+                .commit();
+    }
+
     public void idioma_boton() {
         Fragment idioma = new IdiomaFragment();
         getSupportFragmentManager()
@@ -125,6 +124,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void admin_func(Fragment f) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f, "SETTINGS")
+                .commit();
+    }
+
+    public void modo_admin() {
+        Fragment f = new VentanaAdminFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, f, "SETTINGS")
@@ -292,12 +299,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    public void modo_admin() {
-        Fragment f = new VentanaAdminFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
-                .commit();
-    }
 }

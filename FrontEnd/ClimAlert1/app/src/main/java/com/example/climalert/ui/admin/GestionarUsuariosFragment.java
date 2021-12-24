@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.example.climalert.CosasDeTeo.UsuarioEstandar;
+import com.example.climalert.MainActivity;
 import com.example.climalert.R;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -40,6 +41,7 @@ import java.util.Vector;
 public class GestionarUsuariosFragment extends Fragment {
     JSONObject mapa = new JSONObject();
     LinearLayout linearLayout;
+    View view;
     public Vector<UsuarioEstandar> usuariosEstandar = new Vector<UsuarioEstandar>();
     public Vector<String> estadisticos = new Vector<String>();
     public Vector<String> estadisticosComent = new Vector<String>();
@@ -52,64 +54,19 @@ public class GestionarUsuariosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_usuarios, container, false);
         getUsuariosEstandar();
-        try {
-            sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        int n = usuariosEstandar.capacity();
-        View view = inflater.inflate(R.layout.fragment_usuarios, container, false);
-        linearLayout = view.findViewById(R.id.linear_layout_usuarios);
-        for(int i = 1; i <= n; ++i) {
-            Button btn = new Button(getContext());
-            btn.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            btn.setId(i);
-            btn.setText(String.valueOf(i)); //esto ha de ser el email del usuario
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Button ban = new Button(getContext());
-                    ban.setLayoutParams(new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
-                    ban.setText("BAN");
-                    ban.setBackgroundColor(Color.RED);
-                    linearLayout.addView(ban);
-                    ban.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            banUsuario("ecomute");
-                        }
-                    });
-                    Button ver = new Button(getContext());
-                    ver.setLayoutParams(new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
-                    ver.setText("VER");
-                    ver.setBackgroundColor(Color.GREEN);
-                    linearLayout.addView(ver);
-                    ver.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ver_perfil();
-                        }
-                    });
-
-                }
-            });
-            linearLayout.addView(btn);
-        }
         return view;
 
     }
 
-    private void ver_perfil(){
-
+    private void setMargins(View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
     }
-
 
     //ESTA FUNCION BANEA Y DESBANEA AL USUARIO QUE LE PASAS COMO PARAMETRO
     public void banUsuario(String usuario){
@@ -256,6 +213,7 @@ public class GestionarUsuariosFragment extends Fragment {
                                 UsuarioEstandar n = new UsuarioEstandar(email, password, radioEfecto, gravedad, admin);
                                 usuariosEstandar.add(n);
                             }
+                            mostrar_usuarios();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -273,22 +231,25 @@ public class GestionarUsuariosFragment extends Fragment {
         queue.add(request);
     }
 
-    private void buclear() {
-
-        refresh(600);
+    public void mostrar_usuarios() {
+        int n = usuariosEstandar.size();
+        linearLayout = view.findViewById(R.id.linear_layout_usuarios);
+        for(int i = 0; i < n; ++i) {
+            Button btn = new Button(getContext());
+            btn.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            btn.setId(i);
+            setMargins(view, 100, 0, 0, 0);
+            btn.setText(usuariosEstandar.get(i).email);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity main = (MainActivity) getActivity();
+                    main.admin_func(new GestionPerfilFragment());
+                }
+            });
+            linearLayout.addView(btn);
+        }
     }
-
-    private void refresh(int milliseconds){
-        final Handler handler = new Handler();
-
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                buclear();
-            }
-        };
-        handler.postDelayed(runnable, milliseconds);
-
-    }
-
 }
