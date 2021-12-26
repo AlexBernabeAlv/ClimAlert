@@ -43,8 +43,6 @@ public class GestionarUsuariosFragment extends Fragment {
     LinearLayout linearLayout;
     View view;
     public Vector<UsuarioEstandar> usuariosEstandar = new Vector<UsuarioEstandar>();
-    public Vector<String> estadisticos = new Vector<String>();
-    public Vector<String> estadisticosComent = new Vector<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,117 +67,10 @@ public class GestionarUsuariosFragment extends Fragment {
     }
 
     //ESTA FUNCION BANEA Y DESBANEA AL USUARIO QUE LE PASAS COMO PARAMETRO
-    public void banUsuario(String usuario){
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+usuario+"/ban";
-        mapa = new JSONObject();
-        try {
-            mapa.put("email", InformacionUsuario.getInstance().email);
-            mapa.put("password", InformacionUsuario.getInstance().password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Request a string response from the provided URL.
-        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.PUT, url, mapa,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
-                    }
-                }) {
-        };
-        queue.add(request);
-    }
 
     //esta función obtiene una lista con todos los usuarios que no son admin
-    public void getEstadisticosIncidencia() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/estadisticosIncidencias";
-        mapa = new JSONObject();
-        try {
-            mapa.put("filtro", "dia");
-            mapa.put("password", InformacionUsuario.getInstance().password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        // Request a string response from the provided URL.
-        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject estadisticoResponse;
-                        estadisticos.clear();
-                        try {
-                            for (int i = 0; i < response.length(); ++i) {
-                                estadisticoResponse = response.getJSONObject(i);
-                                String fecha = estadisticoResponse.getString("fecha");
-                                estadisticos.add(fecha);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
-                    }
 
-                }) {
-        };
-        queue.add(request);
-    }
-
-    public void getEstadisticosComentarios() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/estadisticosIncidencias";
-        mapa = new JSONObject();
-        try {
-            mapa.put("filtro", "dia");
-            mapa.put("password", InformacionUsuario.getInstance().password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Request a string response from the provided URL.
-        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject estadisticoResponse;
-                        estadisticosComent.clear();
-                        try {
-                            for (int i = 0; i < response.length(); ++i) {
-                                estadisticoResponse = response.getJSONObject(i);
-                                String fecha = estadisticoResponse.getString("fecha");
-                                estadisticosComent.add(fecha);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
-                    }
-
-                }) {
-        };
-        queue.add(request);
-    }
 
     //esta función obtiene una lista con todos los usuarios que no son admin
     public void getUsuariosEstandar() {
@@ -203,7 +94,6 @@ public class GestionarUsuariosFragment extends Fragment {
                         try {
                             for (int i = 0; i < response.length(); ++i) {
                                 usuarioResponse = response.getJSONObject(i);
-
                                 String email =  usuarioResponse.getString("email");
                                 String password =  usuarioResponse.getString("password");
                                 boolean admin =  usuarioResponse.getBoolean("admin");
@@ -241,12 +131,17 @@ public class GestionarUsuariosFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
             setMargins(view, 100, 0, 0, 0);
-            btn.setText(usuariosEstandar.get(i).email);
+            String mail = usuariosEstandar.get(i).email;
+            btn.setText(mail);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     MainActivity main = (MainActivity) getActivity();
-                    main.admin_func(new GestionPerfilFragment());
+                    Bundle b = new Bundle();
+                    b.putString("email", mail);
+                    Fragment f = new GestionPerfilFragment();
+                    f.setArguments(b);
+                    main.admin_func(f);
                 }
             });
             linearLayout.addView(btn);
