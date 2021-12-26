@@ -181,10 +181,10 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
 
     public void obtener_comentarios() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/incidenciafenomenos/" + InformacionUsuario.getInstance().IDIncidenciaActual + "/comentarios";
+        String url = "https://climalert.herokuapp.com/incidenciasFenomeno/" + InformacionUsuario.getInstance().IDIncidenciaActual + "/comentarios";
         // Request a string response from the provided URL.
         // Request a string response from the provided URL.
-
+        Log.d("mensajes", url);
         InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
 
@@ -200,6 +200,7 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
                                 int pos = nombre.lastIndexOf("@");
                                 nombre = nombre.substring(0, pos);
                                 contenido = Mensaje.getString("contenido");
+                                Log.d("mensajes", nombre + " " + contenido);
                                 adapter.addMensaje(new Mensaje(contenido, nombre));
                                 Log.d("FUNCIONA", Mensaje.toString());
                             }
