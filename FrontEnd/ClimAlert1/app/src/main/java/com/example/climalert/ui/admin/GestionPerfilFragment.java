@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +30,6 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
     Bundle bundle = getArguments();
     String mail, pass;
     int gravedad, radio;
-    public Vector<String> estadisticosComent = new Vector<String>();
-    public Vector<String> estadisticos = new Vector<String>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +69,11 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.stats_button:
+                GestionPerfilStatsFragment f = new GestionPerfilStatsFragment();
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.contenedor, f, "SETTINGS")
+                        .commit();
                 break;
         }
     }
@@ -103,89 +107,6 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         };
         queue.add(request);
     }
-
-    public void getEstadisticosComentarios() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/estadisticosIncidencias";
-        mapa = new JSONObject();
-        try {
-            mapa.put("filtro", "dia");
-            mapa.put("password", InformacionUsuario.getInstance().password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Request a string response from the provided URL.
-        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject estadisticoResponse;
-                        estadisticosComent.clear();
-                        try {
-                            for (int i = 0; i < response.length(); ++i) {
-                                estadisticoResponse = response.getJSONObject(i);
-                                String fecha = estadisticoResponse.getString("fecha");
-                                estadisticosComent.add(fecha);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
-                    }
-
-                }) {
-        };
-        queue.add(request);
-    }
-
-    public void getEstadisticosIncidencia() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/estadisticosIncidencias";
-        mapa = new JSONObject();
-        try {
-            mapa.put("filtro", "dia");
-            mapa.put("password", InformacionUsuario.getInstance().password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Request a string response from the provided URL.
-        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject estadisticoResponse;
-                        estadisticos.clear();
-                        try {
-                            for (int i = 0; i < response.length(); ++i) {
-                                estadisticoResponse = response.getJSONObject(i);
-                                String fecha = estadisticoResponse.getString("fecha");
-                                estadisticos.add(fecha);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
-                    }
-
-                }) {
-        };
-        queue.add(request);
-    }
-
 }
 
 

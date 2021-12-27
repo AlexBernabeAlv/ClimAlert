@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginVertical="@dimen/activity_vertical_margin"
-        android:text="Email: " />
+        android:text="@string/text_email" />
 
     <TextView
         android:id="@+id/texto_email_a_rellenar"
@@ -34,7 +34,7 @@
         android:layout_below="@id/texto_email"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginVertical="@dimen/activity_vertical_margin"
-        android:text="Pass: " />
+        android:text="@string/text_passw" />
 
     <TextView
         android:id="@+id/texto_password_a_rellenar"
@@ -55,7 +55,7 @@
         android:layout_below="@id/texto_password"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginVertical="@dimen/activity_vertical_margin"
-        android:text="Grav: " />
+        android:text="@string/text_grav" />
 
     <TextView
         android:id="@+id/texto_gravedad_a_rellenar"
@@ -78,7 +78,7 @@
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_marginTop="38dp"
-        android:text="Ratio?: " />
+        android:text="@string/text_rad" />
 
     <TextView
         android:id="@+id/texto_radio_a_rellenar"
