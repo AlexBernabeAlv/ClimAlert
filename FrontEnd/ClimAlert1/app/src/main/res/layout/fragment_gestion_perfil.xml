@@ -5,6 +5,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.admin.GestionarUsuariosFragment">
 
+
+
+    <TextView
+        android:id="@+id/texto_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:text="Email: " />
+
+    <TextView
+        android:id="@+id/texto_email_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@id/texto_email" />
+
+
+
+    <TextView
+        android:id="@+id/texto_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_email"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:text="Pass: " />
+
+    <TextView
+        android:id="@+id/texto_password_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@id/texto_password"
+        android:layout_below="@id/texto_email_a_rellenar" />
+
+
+
+
+    <TextView
+        android:id="@+id/texto_gravedad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_password"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:text="Grav: " />
+
+    <TextView
+        android:id="@+id/texto_gravedad_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@id/texto_gravedad"
+        android:layout_below="@id/texto_password_a_rellenar" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/texto_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_gravedad"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginTop="38dp"
+        android:text="Ratio?: " />
+
+    <TextView
+        android:id="@+id/texto_radio_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@id/texto_radio"
+        android:layout_below="@id/texto_gravedad_a_rellenar" />
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

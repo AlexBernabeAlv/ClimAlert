@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,6 +27,8 @@ import java.util.Vector;
 public class GestionPerfilFragment extends Fragment implements View.OnClickListener {
     JSONObject mapa = new JSONObject();
     Bundle bundle = getArguments();
+    String mail, pass;
+    int gravedad, radio;
     public Vector<String> estadisticosComent = new Vector<String>();
     public Vector<String> estadisticos = new Vector<String>();
     @Override
@@ -37,6 +40,21 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gestion_perfil, container, false);
+        mail = getArguments().getString("email");
+        pass = getArguments().getString("password");
+        gravedad = getArguments().getInt("gravedad");
+        radio = getArguments().getInt("radio");
+        String rad, grav;
+        rad = String.valueOf(radio);
+        grav = String.valueOf(gravedad);
+        TextView t_email = view.findViewById(R.id.texto_email_a_rellenar);
+        t_email.setText(mail);
+        TextView t_pass = view.findViewById(R.id.texto_password_a_rellenar);
+        t_pass.setText(pass);
+        TextView t_gravedad = view.findViewById(R.id.texto_gravedad_a_rellenar);
+        t_gravedad.setText(grav);
+        TextView t_radio = view.findViewById(R.id.texto_radio_a_rellenar);
+        t_radio.setText(rad);
         Button ban = (Button) view.findViewById(R.id.ban_button);
         ban.setOnClickListener(this);
         Button stats = (Button) view.findViewById(R.id.stats_button);
@@ -48,7 +66,6 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ban_button:
-                String mail = bundle.getString("email"); //aqui falla
                 banUsuario(mail);
                 break;
 

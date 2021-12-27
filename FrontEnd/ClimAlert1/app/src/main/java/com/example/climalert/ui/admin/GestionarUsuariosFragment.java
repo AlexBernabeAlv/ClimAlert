@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,6 +43,8 @@ public class GestionarUsuariosFragment extends Fragment {
     JSONObject mapa = new JSONObject();
     LinearLayout linearLayout;
     View view;
+    FragmentManager fm;
+    GestionPerfilFragment gestionPerfilFragment;
     public Vector<UsuarioEstandar> usuariosEstandar = new Vector<UsuarioEstandar>();
 
     @Override
@@ -100,7 +103,8 @@ public class GestionarUsuariosFragment extends Fragment {
                                 JSONObject filtro = usuarioResponse.getJSONObject("filtro");
                                 int radioEfecto =  filtro.getInt("radioEfecto");
                                 int gravedad =  filtro.getInt("gravedad");
-                                UsuarioEstandar n = new UsuarioEstandar(email, password, radioEfecto, gravedad, admin);
+                                UsuarioEstandar n = new UsuarioEstandar(email, password,
+                                        radioEfecto, gravedad, admin);
                                 usuariosEstandar.add(n);
                             }
                             mostrar_usuarios();
@@ -131,20 +135,30 @@ public class GestionarUsuariosFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
             setMargins(view, 100, 0, 0, 0);
-            String mail = usuariosEstandar.get(i).email;
-            btn.setText(mail);
+            UsuarioEstandar u = usuariosEstandar.get(i);
+            btn.setText(usuariosEstandar.get(i).email);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity main = (MainActivity) getActivity();
-                    Bundle b = new Bundle();
-                    b.putString("email", mail);
-                    Fragment f = new GestionPerfilFragment();
-                    f.setArguments(b);
-                    main.admin_func(f);
+                    gestionar_perfil(u);
                 }
             });
             linearLayout.addView(btn);
         }
+    }
+
+
+    private void gestionar_perfil(UsuarioEstandar u) {
+        gestionPerfilFragment = new GestionPerfilFragment();
+        Bundle b = new Bundle();
+        b.putString("email", u.email);
+        b.putString("password", u.password);
+        b.putInt("radio", u.radioEfecto);
+        b.putInt("gravedad", u.gravedad);
+        gestionPerfilFragment.setArguments(b);
+        fm = getFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.contenedor, gestionPerfilFragment, "SETTINGS")
+                .commit();
     }
 }
