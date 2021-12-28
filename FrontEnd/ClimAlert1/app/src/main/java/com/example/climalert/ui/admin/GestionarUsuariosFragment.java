@@ -55,8 +55,8 @@ public class GestionarUsuariosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_usuarios, container, false);
         getUsuariosEstandar();
+        view = inflater.inflate(R.layout.fragment_usuarios, container, false);
         return view;
 
     }
@@ -134,7 +134,7 @@ public class GestionarUsuariosFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
-            setMargins(view, 100, 0, 0, 0);
+            setMargins(view, 100, 0, 0, 0); //mejorar esto
             UsuarioEstandar u = usuariosEstandar.get(i);
             btn.setText(usuariosEstandar.get(i).email);
             btn.setOnClickListener(new View.OnClickListener() {

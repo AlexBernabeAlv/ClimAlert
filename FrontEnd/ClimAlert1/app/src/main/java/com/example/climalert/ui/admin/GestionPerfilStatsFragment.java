@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +26,8 @@ import java.util.Vector;
 
 public class GestionPerfilStatsFragment extends Fragment {
     JSONObject mapa = new JSONObject();
+    View view;
+    LinearLayout linearLayout;
     public Vector<String> estadisticosComent = new Vector<String>();
     public Vector<String> estadisticos = new Vector<String>();
     @Override
@@ -34,9 +38,27 @@ public class GestionPerfilStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_stats_perfil, container, false);
+        getEstadisticosComentarios();
+        getEstadisticosIncidencia();
+        view = inflater.inflate(R.layout.fragment_stats_perfil, container, false);
+        muestra_fechas();
         return view;
     }
+
+    private void muestra_fechas() {
+        int n = estadisticosComent.size(); //o estadisticos normal
+        linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas);
+        for(int i = 0; i < n; ++i) {
+            TextView t = new TextView(getContext());
+            t.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            t.setId(i);
+            t.setText(estadisticosComent.get(i));
+            linearLayout.addView(t);
+        }
+    }
+
     public void getEstadisticosComentarios() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuarios/"+ InformacionUsuario.getInstance().email+"/estadisticosIncidencias";

@@ -1,13 +1,19 @@
 package com.example.climalert.ui.admin;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +39,8 @@ public class GestionarRefugiosFragment extends Fragment {
     String nombreRefugio;
     Float longitudRefugio;
     Float latitudRefugio;
+    ScrollView scrollView;
+    View view;
 
 
     @Override
@@ -44,8 +52,55 @@ public class GestionarRefugiosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getRefugios();
-        View view = inflater.inflate(R.layout.fragment_refugios, container, false);
+        view = inflater.inflate(R.layout.fragment_refugios, container, false);
+        gestiona_refugios();
         return view;
+    }
+
+    private void gestiona_refugios() {
+        int n = refugios.size();
+        scrollView = view.findViewById(R.id.scroll_gestionar_refugios);
+        for (int i = 0; i < n; ++i) {
+            Button btn = new Button(getContext());
+            btn.setLayoutParams(new ScrollView.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            btn.setId(i);
+            btn.setBackgroundColor(Color.RED);
+            Refugio r = refugios.get(i);
+            btn.setText(r.nombre);
+            btn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    eliminar_refugio(r.nombre);
+                }
+            });
+            scrollView.addView(btn);
+        }
+        Button add = new Button(getContext());
+        add.setLayoutParams(new ScrollView.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        int id = 1502;
+        add.setId(id);
+        add.setBackgroundColor(Color.GREEN);
+        add.setText("ADD"); //meter un R.string.loquesea
+        add.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //creamos otra pantalla donde ira toda la creacion del nuevo refugio
+                CrearRefugioFragment f = new CrearRefugioFragment();
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.contenedor, f, "SETTINGS")
+                        .commit();
+            }
+        });
+        scrollView.addView(add);
+    }
+
+    private void eliminar_refugio(String nombre) {
+        //aqui podeis eliminar el refugio
     }
 
 
