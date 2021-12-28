@@ -188,7 +188,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 break;
             case R.id.btnForo:
                 main = (MainActivity) getActivity();
-                main.foro_incidencia_boton(IdInc);
+                main.foro_incidencia_boton(IdInc, true);
                 break;
         }
     }

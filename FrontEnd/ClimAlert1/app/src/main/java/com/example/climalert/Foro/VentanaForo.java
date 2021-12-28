@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.MainActivity;
 import com.example.climalert.R;
 
 import org.json.JSONArray;
@@ -50,9 +51,17 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
     private AdapterMensajes adapter;
 
     private int IdInc;
+    private int IdCom;
+    private boolean foroDeInc;
 
-    public VentanaForo(int idInc) {
-        IdInc = idInc;
+    public VentanaForo(int id, boolean esDeIncidencia) {
+        this.foroDeInc = esDeIncidencia;
+        if (esDeIncidencia) {
+            this.IdInc = id;
+        }
+        else {
+            this.IdCom = id;
+        }
     }
 
     public VentanaForo() {
@@ -103,8 +112,11 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 enviar_mensaje();
-                adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
+                //adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
                 txtMensaje.setText("");
+                MainActivity main;
+                main = (MainActivity) getActivity();
+                main.foro_incidencia_boton(IdInc, true);
             }
         });
 
@@ -196,12 +208,14 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
                                 Mensaje = response.getJSONObject(i);
                                 String nombre;
                                 String contenido;
+                                int id;
                                 nombre = Mensaje.getString("email");
                                 int pos = nombre.lastIndexOf("@");
                                 nombre = nombre.substring(0, pos);
                                 contenido = Mensaje.getString("contenido");
-                                Log.d("mensajes", nombre + " " + contenido);
-                                adapter.addMensaje(new Mensaje(contenido, nombre));
+                                id = Mensaje.getInt("id");
+                                Log.d("mensajes", id + " " + nombre + " " + contenido);
+                                adapter.addMensaje(new Mensaje(contenido, nombre, id, IdInc, true));
                                 Log.d("FUNCIONA", Mensaje.toString());
                             }
                         } catch (JSONException e) {

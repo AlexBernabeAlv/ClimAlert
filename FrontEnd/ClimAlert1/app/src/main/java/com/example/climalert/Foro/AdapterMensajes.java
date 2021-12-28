@@ -38,6 +38,9 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
     public void onBindViewHolder(@NonNull HolderMensaje holder, int position) {
         holder.getNombre().setText(listMensaje.get(position).getNombre());
         holder.getMensaje().setText(listMensaje.get(position).getMensaje());
+        holder.setId(listMensaje.get(position).getId());
+        holder.setIdParent(listMensaje.get(position).getIdParent());
+        holder.setEsDeIncidencia(listMensaje.get(position).isEsDeIncidencia());
     }
 
     @Override

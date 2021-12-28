@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void foro_incidencia_boton(int IdInc) {
-        Fragment foro = new VentanaForo(IdInc);
+    public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(foro)

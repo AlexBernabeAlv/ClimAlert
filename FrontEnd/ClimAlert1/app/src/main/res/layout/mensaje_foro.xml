@@ -6,22 +6,50 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     cardview:cardCornerRadius="10sp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5sp">
-        <TextView
-            android:id="@+id/nombreMensaje"
+        android:orientation="horizontal"
+        android:padding="10sp">
+
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5sp">
+
+            <TextView
+                android:id="@+id/nombreMensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Alex" />
+
+            <TextView
+                android:id="@+id/contenidoMensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola bienvenido" />
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alex"
-            android:layout_weight="1"/>
-        <TextView
-            android:id="@+id/contenidoMensaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hola bienvenido"/>
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/btnEliminar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"/>
+            <Button
+                android:id="@+id/btnVerComentario"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
+                android:text="+"/>
+        </LinearLayout>
 
     </LinearLayout>
 
