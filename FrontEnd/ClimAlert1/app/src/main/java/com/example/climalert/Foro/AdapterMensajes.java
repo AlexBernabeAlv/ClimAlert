@@ -41,6 +41,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
         holder.setId(listMensaje.get(position).getId());
         holder.setIdParent(listMensaje.get(position).getIdParent());
         holder.setEsDeIncidencia(listMensaje.get(position).isEsDeIncidencia());
+        holder.setEsDeLogeado(listMensaje.get(position).isEsDeLogeado());
     }
 
     @Override

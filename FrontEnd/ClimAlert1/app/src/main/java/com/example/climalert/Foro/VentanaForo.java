@@ -111,12 +111,16 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enviar_mensaje();
-                //adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
-                txtMensaje.setText("");
-                MainActivity main;
-                main = (MainActivity) getActivity();
-                main.foro_incidencia_boton(IdInc, true);
+                Log.d("MENSAJE", txtMensaje.getText().toString());
+                if (txtMensaje.getText().toString() != "") {
+                    Log.d("MENSAJE", txtMensaje.getText().toString());
+                    enviar_mensaje();
+                    //adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
+                    txtMensaje.setText("");
+                    MainActivity main;
+                    main = (MainActivity) getActivity();
+                    main.foro_incidencia_boton(IdInc, true);
+                }
             }
         });
 
@@ -215,7 +219,11 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
                                 contenido = Mensaje.getString("contenido");
                                 id = Mensaje.getInt("id");
                                 Log.d("mensajes", id + " " + nombre + " " + contenido);
-                                adapter.addMensaje(new Mensaje(contenido, nombre, id, IdInc, true));
+                                Boolean esDeLogeado = false;
+                                Log.d("LOGEADO2", Mensaje.getString("email"));
+                                Log.d("LOGEADO2", InformacionUsuario.getInstance().email);
+                                if(Mensaje.getString("email") == InformacionUsuario.getInstance().email) esDeLogeado = true;
+                                adapter.addMensaje(new Mensaje(contenido, nombre, id, IdInc, true, esDeLogeado));
                                 Log.d("FUNCIONA", Mensaje.toString());
                             }
                         } catch (JSONException e) {

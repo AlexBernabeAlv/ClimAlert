@@ -33,6 +33,7 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
     private int id;
     private int idParent;
     private boolean esDeIncidencia;
+    private boolean esDeLogeado;
     private Context c;
 
     public HolderMensaje(@NonNull View itemView) {
@@ -43,8 +44,14 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
         Log.d("prueba", "entra en el holder");
         btnVerComentario = (Button) itemView.findViewById(R.id.btnVerComentario);
         btnVerComentario.setOnClickListener(this);
-        btnEliminar = (Button) itemView.findViewById(R.id.btnEliminar);
-        btnEliminar.setOnClickListener(this);
+        //btnEliminar = (Button) itemView.findViewById(R.id.btnEliminar);
+        Log.d("LOGEADO3", String.valueOf(esDeIncidencia));
+        Log.d("LOGEADO3", String.valueOf(esDeLogeado));
+        if(esDeLogeado) {
+            btnEliminar = (Button) itemView.findViewById(R.id.btnEliminar);
+            btnEliminar.setVisibility(View.VISIBLE);
+            btnEliminar.setOnClickListener(this);
+        }
     }
 
 
@@ -87,6 +94,15 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
     public void setEsDeIncidencia(boolean esDeIncidencia) {
         this.esDeIncidencia = esDeIncidencia;
     }
+
+    public boolean isEsDeLogeado() {
+        return esDeLogeado;
+    }
+
+    public void setEsDeLogeado(boolean esDeLogeado) {
+        this.esDeLogeado = esDeLogeado;
+    }
+
 
     public Context getC() {
         return c;

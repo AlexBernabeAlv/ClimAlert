@@ -6,16 +6,18 @@ public class Mensaje {
     private int id;
     private int idParent;
     private boolean esDeIncidencia;
+    private boolean esDeLogeado;
 
     public Mensaje() {
     }
 
-    public Mensaje(String mensaje, String nombre, int id, int idParent, boolean esDeIncidencia) {
+    public Mensaje(String mensaje, String nombre, int id, int idParent, boolean esDeIncidencia, boolean esDeLogeado) {
         this.mensaje = mensaje;
         this.nombre = nombre;
         this.id = id;
         this.idParent = idParent;
         this.esDeIncidencia = esDeIncidencia;
+        this.esDeLogeado = esDeLogeado;
     }
 
     public int getId() {
@@ -45,6 +47,14 @@ public class Mensaje {
 
     public void setEsDeIncidencia(boolean esDeIncidencia) {
         this.esDeIncidencia = esDeIncidencia;
+    }
+
+    public boolean isEsDeLogeado() {
+        return esDeLogeado;
+    }
+
+    public void setEsDeLogeado(boolean esDeLogeado) {
+        this.esDeLogeado = esDeLogeado;
     }
 
     public String getMensaje() {
