@@ -34,6 +34,7 @@
     <string name= "text_passw"> Password: </string>
     <string name= "text_grav"> Severity Filter: </string>
     <string name= "text_rad"> Radius: </string>
+    <string name= "text_add"> Add </string>
 
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or
         much more humid conditions than average. This extreme heat can cause heat stroke,
