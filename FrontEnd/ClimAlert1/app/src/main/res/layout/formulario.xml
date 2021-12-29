@@ -9,7 +9,7 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aviso de Incidencia"
+        android:text="@string/sos_aviso_incidencia"
         android:textSize="25dp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
@@ -32,20 +32,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:hint="descripción"
+        android:hint="@string/sos_hint_descripcion"
         android:inputType="text"/>
     <Button
         android:id="@+id/btnAceptar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Enviar"/>
+        android:text="@string/sos_boton_enviar"/>
     <Button
         android:id="@+id/btnSOS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="SOS"/>
+        android:text="S.O.S."/>
     </LinearLayout>
 
 

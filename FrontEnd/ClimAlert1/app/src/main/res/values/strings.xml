@@ -13,7 +13,7 @@
     <string name="text_tormenta_invernal">Tormenta invernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundación</string>
-    <string name="text_incendio">Incendio</string>
+    <string name="text_incendio_forestal">Incendio</string>
     <string name="text_terremoto">Terremoto</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Avalancha</string>
@@ -22,13 +22,17 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="sos_aviso_incidencia">Aviso de incidencia</string>
+    <string name="sos_hint_descripcion">Descripción</string>
+    <string name="sos_boton_enviar">Enviar</string>
+
     <string name= "boton_idioma"> Idioma </string>
     <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Cerrar Sessión </string>
-    <string name= "boton_guardar_cambios"> Guardar Cambios </string>
-    <string name= "radio_afectacion"> Radio Afectacion </string>
-    <string name= "filtro_incidencias"> Filtro Incidencias </string>
-    <string name= "modo_administrador"> Modo Administrador </string>
+    <string name= "boton_logout"> Cerrar sesión </string>
+    <string name= "boton_guardar_cambios"> Guardar cambios </string>
+    <string name= "radio_afectacion"> Radio de afectación </string>
+    <string name= "filtro_incidencias"> Filtro de incidencias </string>
+    <string name= "modo_administrador"> Modo administrador </string>
 
 
     <string name="descripcion_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n

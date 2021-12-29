@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.climalert.R;
 
-public class Incendio_Fragment extends Fragment {
+public class Incendio_Forestal_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
