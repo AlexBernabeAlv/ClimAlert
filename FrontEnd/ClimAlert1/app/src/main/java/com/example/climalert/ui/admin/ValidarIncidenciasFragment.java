@@ -1,13 +1,15 @@
 package com.example.climalert.ui.admin;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,9 +20,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Notificacion;
 import com.example.climalert.R;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +29,8 @@ import java.util.Vector;
 
 public class ValidarIncidenciasFragment extends Fragment {
     JSONObject mapa = new JSONObject();
+    View view;
+    LinearLayout linearLayout;
     public Vector<Notificacion> incidenciasNoValidas = new Vector<Notificacion>();
 
     @Override
@@ -41,7 +42,7 @@ public class ValidarIncidenciasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getIncidenciasNoValidas();
-        View view = inflater.inflate(R.layout.fragment_validar, container, false);
+        view = inflater.inflate(R.layout.fragment_validar_incidencias, container, false);
         return view;
     }
 
@@ -89,6 +90,7 @@ public class ValidarIncidenciasFragment extends Fragment {
                                 Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id);
                                 incidenciasNoValidas.add(n);
                             }
+                            validar_incidencias();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -102,42 +104,38 @@ public class ValidarIncidenciasFragment extends Fragment {
         queue.add(request);
     }
 
-    public void validarIncidencia() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/incidencias?id="+ "aquiVaLaId";
-        mapa = new JSONObject();
-        try {
-            mapa.put("email", InformacionUsuario.getInstance().email);
-            mapa.put("password", InformacionUsuario.getInstance().password);
-            try {
-                //aqui en vez de un 8 habra que pasarle algo
-                mapa.put("gravedad", 1);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private void validar_incidencias() {
+        int n = incidenciasNoValidas.size();
+        linearLayout = view.findViewById(R.id.layout_valida_incidencia);
+        for (int i = 0; i < n; ++i) {
+            Button btn = new Button(getContext());
+            btn.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            btn.setId(i);
+            int marg = linearLayout.getWidth();
+            btn.setBackgroundColor(Color.GREEN);
+            btn.setText(incidenciasNoValidas.get(i).nombre);
+            setMargins(view, marg/3, 10, marg/3, 10);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ValidaIncidenciaFragment f = new ValidaIncidenciaFragment();
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.contenedor, f, "SETTINGS")
+                            .commit();
+                }
+            });
+            linearLayout.addView(btn);
         }
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, mapa,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-
-                }) {
-        };
-        queue.add(request);
     }
 
-
-
-
+    private void setMargins(View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
 }

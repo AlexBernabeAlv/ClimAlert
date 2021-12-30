@@ -35,6 +35,9 @@
     <string name= "text_grav"> Severity Filter: </string>
     <string name= "text_rad"> Radius: </string>
     <string name= "text_add"> Add </string>
+    <string name= "nombre_refugio"> Name </string>
+    <string name= "latitud_refugio"> Latitude </string>
+    <string name= "longitud_refugio"> Longitude </string>
 
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or
         much more humid conditions than average. This extreme heat can cause heat stroke,

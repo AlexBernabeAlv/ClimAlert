@@ -32,9 +32,6 @@ import java.util.Vector;
 public class GestionarRefugiosFragment extends Fragment {
     JSONObject mapa = new JSONObject();
     public Vector<Refugio> refugios = new Vector<Refugio>();
-    String nombreRefugio;
-    Float longitudRefugio;
-    Float latitudRefugio;
     LinearLayout linearLayout;
     View view;
 
@@ -152,50 +149,6 @@ public class GestionarRefugiosFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                         Log.d("secun", "dar loc fallar " + error);
-                    }
-
-                }) {
-        };
-        queue.add(request);
-    }
-
-    public void addRefugio() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/refugios";
-        mapa = new JSONObject();
-        try {
-            mapa.put("email", InformacionUsuario.getInstance().email);
-            mapa.put("password", InformacionUsuario.getInstance().password);
-            try {
-                mapa.put("nombre", nombreRefugio);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                mapa.put("latitud", latitudRefugio);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                mapa.put("longitud", longitudRefugio);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
                     }
 
                 }) {
