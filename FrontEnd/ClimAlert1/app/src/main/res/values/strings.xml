@@ -7,7 +7,6 @@
     <string name="title_dashboard">Panel de control</string>
     <string name="title_notifications">Notificaciones</string>
 
-
     <string name="text_calor_extremo">Calor extremo</string>
     <string name="text_granizo">Granizo</string>
     <string name="text_tormenta_invernal">Tormenta invernal</string>
@@ -21,6 +20,15 @@
     <string name="text_erupcion_volcanica">Erupción volcánica</string>
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
+
+    <string name="map_ubicacion_usuario">Ubicación del usuario</string>
+    <string name="map_editar_ubicaciones">Editar ubicaciones</string>
+    <string name="map_borrar_ubicaciones">Borrar ubicaciones</string>
+    <string name="map_ubicacion_1">Ubicación 1</string>
+    <string name="map_ubicacion_2">Ubicación 2</string>
+    <string name="map_button_si">Sí</string>
+    <string name="map_button_no">No</string>
+    <string name="map_msg_activa_gps">El sistema GPS está desactivado. ¿Desea activarlo?</string>
 
     <string name="sos_aviso_incidencia">Aviso de incidencia</string>
     <string name="sos_hint_descripcion">Descripción</string>

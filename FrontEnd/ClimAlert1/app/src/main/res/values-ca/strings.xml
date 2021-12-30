@@ -21,6 +21,15 @@
     <string name="text_gota_fria">Gota freda</string>
     <string name="text_tormenta_electrica">Tempesta elèctrica</string>
 
+    <string name="map_ubicacion_usuario">Ubicació de l\'usuari</string>
+    <string name="map_editar_ubicaciones">Editar ubicacions</string>
+    <string name="map_borrar_ubicaciones">Esborrar ubicacions</string>
+    <string name="map_ubicacion_1">Ubicació 1</string>
+    <string name="map_ubicacion_2">Ubicació 2</string>
+    <string name="map_button_si">Sí</string>
+    <string name="map_button_no">No</string>
+    <string name="map_msg_activa_gps">El sistema GPS està desactivat. Voleu activar-lo?</string>
+
     <string name="sos_aviso_incidencia">Avís d\'incidència</string>
     <string name="sos_hint_descripcion">Descripció</string>
     <string name="sos_boton_enviar">Enviar</string>
