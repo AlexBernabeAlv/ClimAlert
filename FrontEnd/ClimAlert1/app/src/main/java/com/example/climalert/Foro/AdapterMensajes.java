@@ -37,6 +37,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
 
     @Override
     public void onBindViewHolder(@NonNull HolderMensaje holder, int position) {
+        holder.setEsDeLogeado(false);
         holder.getNombre().setText(listMensaje.get(position).getNombre());
         holder.getMensaje().setText(listMensaje.get(position).getMensaje());
         holder.setId(listMensaje.get(position).getId());
