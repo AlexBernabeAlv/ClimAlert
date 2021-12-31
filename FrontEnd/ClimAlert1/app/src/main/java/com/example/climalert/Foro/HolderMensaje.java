@@ -45,13 +45,7 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
         btnVerComentario = (Button) itemView.findViewById(R.id.btnVerComentario);
         btnVerComentario.setOnClickListener(this);
         //btnEliminar = (Button) itemView.findViewById(R.id.btnEliminar);
-        Log.d("LOGEADO3", String.valueOf(esDeIncidencia));
-        Log.d("LOGEADO3", String.valueOf(esDeLogeado));
-        if(esDeLogeado) {
-            btnEliminar = (Button) itemView.findViewById(R.id.btnEliminar);
-            btnEliminar.setVisibility(View.VISIBLE);
-            btnEliminar.setOnClickListener(this);
-        }
+
     }
 
 
@@ -110,6 +104,15 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
 
     public void setC(Context c) {
         this.c = c;
+    }
+
+    public void mostrarBotonEliminar() {
+        Log.d("LOGEADO3", String.valueOf(esDeLogeado));
+        if(esDeLogeado) {
+            btnEliminar = (Button) itemView.findViewById(R.id.btnEliminar);
+            btnEliminar.setVisibility(View.VISIBLE);
+            btnEliminar.setOnClickListener(this);
+        }
     }
 
     @Override

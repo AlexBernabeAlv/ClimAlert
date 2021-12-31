@@ -222,7 +222,8 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
                                 Boolean esDeLogeado = false;
                                 Log.d("LOGEADO2", Mensaje.getString("email"));
                                 Log.d("LOGEADO2", InformacionUsuario.getInstance().email);
-                                if(Mensaje.getString("email") == InformacionUsuario.getInstance().email) esDeLogeado = true;
+                                if(Mensaje.getString("email").equals(InformacionUsuario.getInstance().email)) esDeLogeado = true;
+                                Log.d("LOGEADO2", String.valueOf(esDeLogeado));
                                 adapter.addMensaje(new Mensaje(contenido, nombre, id, IdInc, true, esDeLogeado));
                                 Log.d("FUNCIONA", Mensaje.toString());
                             }

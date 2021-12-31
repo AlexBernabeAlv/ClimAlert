@@ -1,6 +1,7 @@
 package com.example.climalert.Foro;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,11 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
         holder.setIdParent(listMensaje.get(position).getIdParent());
         holder.setEsDeIncidencia(listMensaje.get(position).isEsDeIncidencia());
         holder.setEsDeLogeado(listMensaje.get(position).isEsDeLogeado());
+
+        holder.mostrarBotonEliminar();
+
+        Log.d("LOGEADO2", listMensaje.get(position).getNombre() + " " + String.valueOf(listMensaje.get(position).isEsDeLogeado()) + " en adaptermensaje.java");
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.climalert.Foro;
 
+import android.util.Log;
+
 public class Mensaje {
     private String mensaje;
     private String nombre;
@@ -18,6 +20,7 @@ public class Mensaje {
         this.idParent = idParent;
         this.esDeIncidencia = esDeIncidencia;
         this.esDeLogeado = esDeLogeado;
+        Log.d("LOGEADO2", nombre + " " + String.valueOf(esDeLogeado) + " en mensaje.java");
     }
 
     public int getId() {
