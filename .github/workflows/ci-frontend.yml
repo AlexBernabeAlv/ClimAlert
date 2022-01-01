@@ -31,4 +31,5 @@ jobs:
           api-level: 30
           profile: Pixel 4
           working-directory: FrontEnd/ClimAlert1
+          script: ./gradlew connectedAndroidTest
           #script: ./gradlew connectedCheck
