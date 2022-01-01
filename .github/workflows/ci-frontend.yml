@@ -25,6 +25,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        working-directory: FrontEnd/ClimAlert1
       - name: run espresso tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
