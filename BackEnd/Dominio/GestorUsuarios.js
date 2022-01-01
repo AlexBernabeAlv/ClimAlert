@@ -12,6 +12,8 @@ class GestorUsuarios {
 
     async getUsuario(Email) {
 
+        if (!Email) return 401;
+
         var res = await dataController.getUsuario(Email).catch(error => { console.error(error) });
 
 
@@ -19,16 +21,20 @@ class GestorUsuarios {
 
         if (res.rows.length == 0) {
 
-            return false;
+            return 401;
 
-        } else if(res.rows[0].isAdmin){
+        } else if(res.rows[0].admin == true){
 
             usuario = new UsuarioAdmin(res.rows[0].email, res.rows[0].password);
+            
 
         } else {
 
             usuario = new UsuarioEstandar(res.rows[0].email, res.rows[0].password);
+            
         }
+
+        usuario.banned = res.rows[0].banned;
 
         usuario.setFiltro(res.rows[0].gravedad, res.rows[0].radioefecto);
 
@@ -41,45 +47,90 @@ class GestorUsuarios {
 
             usuario.filtro.setLocalizacion2(res.rows[1].latitud, res.rows[1].longitud);
         }
-        
 
         return usuario;
+    }
+
+    async getUsuarios(Email, Password) {
+
+        var usuario = await this.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (typeof usuario == 'number') return usuario;
+
+        if (!usuario.admin) return 403;
+
+        if (usuario.password == Password) {
+
+            var usuarios = [];
+
+            var usus = await dataController.getUsuarios().catch(error => { console.error(error) });
+
+            var usu;
+
+            for (var i = 0; i < usus.rows.length; i++) {
+
+                usu = new UsuarioEstandar(usus.rows[i].email, usus.rows[i].password);
+                usuarios.push(usu);
+            }
+            return usuarios;
+        }
+        return 401;
     }
 
     async createUsuario(Email, Password) {
 
         var usuario = await this.getUsuario(Email);
-       
+
+        var retusu;
+
         var usu;
 
         if (usuario && usuario.email == Email) {
 
             var oldPassword = usuario.password;
             usuario.password = Password;
-            return await dataController.updateUsuario(usuario, oldPassword).catch(error => { console.error(error) });
+            retusu = await dataController.updateUsuario(usuario, oldPassword).catch(error => { console.error(error) });
         } else {
 
             usu = new UsuarioEstandar(Email, Password);
-            return await dataController.createUsuario(usu).catch(error => { console.error(error) });
+            retusu = await dataController.createUsuario(usu).catch(error => { console.error(error) });
         }
-        
+        if (retusu.email == Email && retusu.password == Password) return retusu;
+        return 500;
     }
 
     async updateUsuario(Email, Password, Gravedad, RadioEfecto) {
+
+        if (Gravedad > 1 || Gravedad < 0 || RadioEfecto > 500 || RadioEfecto < 0) return 400;
 
         var usu = new UsuarioEstandar(Email, Password);
         usu.setFiltro(Gravedad, RadioEfecto);
 
         var usuantiguo = await this.getUsuario(Email);
 
-        
+        if (typeof usuantiguo == 'number') return usuantiguo;
 
-        return await dataController.updateUsuario(usu, usuantiguo.password).catch(error => { console.error(error) });
+        var retusu;
+
+        retusu = await dataController.updateUsuario(usu, usuantiguo.password).catch(error => { console.error(error) });
+        if  (retusu && retusu.email == Email && retusu.password == Password) return retusu;
+        return 500;
     }
 
     async deleteUsuario(Email, Password) {
 
         return await dataController.deleteUsuario(Email, Password).catch(error => { console.error(error) });
+    }
+
+    async banUsuario(Email, Password, EmailUsr) {
+
+        var usuario = await this.getUsuario(Email).catch(error => { console.error(error) });
+
+        if (usuario.password != Password) return 401;
+
+        if (!usuario.admin) return 403;
+
+        return await dataController.banUsuarrio(EmailUsr).catch(error => { return error });
     }
 
     async getFiltro(Email, Password) {
@@ -92,10 +143,21 @@ class GestorUsuarios {
 
         }
 
-        return false;
+        return usuario;
     }
 
     async updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2) {
+        if (lat1 != null && lon1 != null) {
+
+            if (lat1 > 90 || lat1 < -90) return 400;
+            if (lon1 > 180 || lon1 < -180) return 400;
+        }
+
+        if (lat2 != null && lon2 != null) {
+
+            if (lat2 > 90 || lat2 < -90) return 400;
+            if (lon2 > 180 || lon2 < -180) return 400;
+        }
 
         var usuario = await this.getUsuario(email).catch(error => { console.error(error) });
 
@@ -105,7 +167,7 @@ class GestorUsuarios {
 
         } else {
 
-            var result = "Usuario no existe";
+            var result = 401;
         }
 
         return result;

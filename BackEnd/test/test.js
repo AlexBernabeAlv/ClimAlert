@@ -100,9 +100,11 @@ describe("test: WeatherApiComCurrent", function() {
 	it("deberia crear 1 incidencia de calor extremo y 1 incidencia de inundacion", function() {
 		const evento = EventoWaccCalorInundacion;
 		const incidencias = externalApis.getIncidencias(apiWacc, evento, []);
-		assert.strictEqual(2, incidencias.length);
-		assert.strictEqual('CalorExtremo', incidencias[0].fenomenoMeteo.nombre);
-		assert.strictEqual('Inundacion', incidencias[1].fenomenoMeteo.nombre);
+		assert.strictEqual(incidencias.length, 2);
+		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'CalorExtremo');
+		assert.strictEqual(incidencias[1].fenomenoMeteo.nombre, 'Inundacion');
+		assert(incidencias[0].API);
+		assert(incidencias[1].API);
 	});
 
 	it("deberia retornar gravedad inocua", function() {
