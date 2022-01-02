@@ -27,7 +27,7 @@ const apiWacc = externalApis.WeatherApiComCurrent;
 const apiFirms = externalApis.FirmsViirsSnppNrt;
 const apiSpeu = externalApis.SeismicPortalEu;
 
-const EventoWaccCalorInundacion = {
+const EventoWaccCalorInundacionTornado = {
 	location: {
 		name: "Figueras",
 		region: "Catalonia",
@@ -69,8 +69,25 @@ const EventoWaccCalorInundacion = {
 	}
 }
 
+const EventoFirmsIncendio = {
+    latitude: 41.19487,
+    longitude: 1.22852,
+    bright_ti4: 305.18,
+    scan: 0.4,
+    track: 0.44,
+    acq_date: '2022-01-01',
+    acq_time: 217,
+    satellite: 'N',
+    instrument: 'VIIRS',
+    confidence: 'n',
+    version: '2.0NRT',
+    bright_ti5: 278.84,
+    frp: 1.27,
+    daynight: 'N'
+}
+
 describe('test: fenómenos de APIs', function() {
-	let fenomenosWacc = ['CalorExtremo', 'Inundacion'];
+	let fenomenosWacc = ['CalorExtremo', 'Inundacion', 'Tornado'];
 	let fenomenosFirms = ['Incendio'];
 	let fenomenosSpeu = ['Terremoto'];
 	it('deberia retornar el número indicado de fenómenos de Wacc', function() {
@@ -96,21 +113,79 @@ describe('test: fenómenos de APIs', function() {
 	});
 });
 
-describe("test: WeatherApiComCurrent", function() {
-	it("deberia crear 1 incidencia de calor extremo y 1 incidencia de inundacion", function() {
-		const evento = EventoWaccCalorInundacion;
+describe("test: WeatherApiComCurrent incidencias", function() {
+	it("deberia crear 1 incidencia de calor extremo, inundacion y tornado", function() {
+		const evento = EventoWaccCalorInundacionTornado;
 		const incidencias = externalApis.getIncidencias(apiWacc, evento, []);
-		assert.strictEqual(incidencias.length, 2);
+		assert.strictEqual(incidencias.length, 3);
 		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'CalorExtremo');
 		assert.strictEqual(incidencias[1].fenomenoMeteo.nombre, 'Inundacion');
+		assert.strictEqual(incidencias[2].fenomenoMeteo.nombre, 'Tornado');
 		assert(incidencias[0].API);
 		assert(incidencias[1].API);
+		assert(incidencias[2].API);
 		assert.strictEqual(incidencias[0].creador, 'Weather Api Current');
 		assert.strictEqual(incidencias[1].creador, 'Weather Api Current');
+		assert.strictEqual(incidencias[2].creador, 'Weather Api Current');
 		assert.strictEqual(incidencias[0].medida, evento.current.temp_c);
 		assert.strictEqual(incidencias[1].medida, evento.current.precip_mm);
+		assert.strictEqual(incidencias[2].medida, evento.current.wind_kph);
+	});
+});
+
+describe("test: WeatherApiComCurrent gravedad calor extremo", function() {
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				temp_c: 0.00
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('inocuo', gravedad);
 	});
 
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				temp_c: -4.6
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				temp_c: 10
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			current: {
+				temp_c: 16
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			current: {
+				temp_c: 17
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: WeatherApiComCurrent gravedad inundacion", function() {
 	it("deberia retornar gravedad inocua", function() {
 		const evento = {
 			current: {
@@ -148,6 +223,48 @@ describe("test: WeatherApiComCurrent", function() {
 			}
 		}
 		const gravedad = apiWacc.getGravedad(evento, 'Inundacion');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: WeatherApiComCurrent gravedad tornado", function() {
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				wind_kph: 0.00
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				wind_kph: 15
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			current: {
+				wind_kph: 35
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			current: {
+				wind_kph: 36
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
 		assert.strictEqual('critico', gravedad);
 	});
 });

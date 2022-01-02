@@ -18,7 +18,8 @@ const WeatherApiComCurrent = {
 	},
 	fenomenos: [
 		'CalorExtremo',
-		'Inundacion'
+		'Inundacion',
+		'Tornado'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
@@ -41,11 +42,15 @@ const WeatherApiComCurrent = {
 		switch(fenomeno) {
 		case 'CalorExtremo':
 			if (evento.current.temp_c > 16) return 'critico';
-			if (evento.current.temp_c > 15) return 'noCritico';
+			if (evento.current.temp_c > 10) return 'noCritico';
 			return 'inocuo';
 		case 'Inundacion':
 			if (evento.current.precip_mm > 0.04) return 'critico';
 			if (evento.current.precip_mm > 0.03) return 'noCritico';
+			return 'inocuo';
+		case 'Tornado':
+			if (evento.current.wind_kph > 35) return 'critico';
+			if (evento.current.wind_kph > 15) return 'noCritico';
 			return 'inocuo';
 		}
 	},
@@ -55,6 +60,8 @@ const WeatherApiComCurrent = {
 			return evento.current.temp_c;
 		case 'Inundacion':
 			return evento.current.precip_mm;
+		case 'Tornado':
+			return evento.current.wind_kph;
 		}
 	}
 }
@@ -102,8 +109,19 @@ const FirmsViirsSnppNrt = {
 		return '00:00';
 	},
 	getGravedad(evento, fenomeno) {
-		return 'critico';
-	}
+        switch(fenomeno) {
+        case 'Incendio':
+			if (evento.bright_ti4 > 330) return 'critico';
+			if (evento.bright_ti4 > 280) return 'noCritico';
+			return 'inocuo';
+		}
+	},
+    getMedida(evento, fenomeno) {
+        switch(fenomeno) {
+        case 'Incendio':
+            return evento.bright_ti4;
+        }
+    }
 }
 
 const SeismicPortalEu = {
