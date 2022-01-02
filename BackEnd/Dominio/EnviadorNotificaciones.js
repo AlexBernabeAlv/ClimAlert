@@ -71,6 +71,7 @@ class EnviadorNotificaciones {
             return notificaciones;
         }
 
+        return 401;
     }
 }
 

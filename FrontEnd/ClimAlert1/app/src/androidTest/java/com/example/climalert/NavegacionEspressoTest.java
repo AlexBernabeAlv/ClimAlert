@@ -3,6 +3,7 @@ package com.example.climalert;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressBack;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.PreferenceMatchers.withTitle;
@@ -71,7 +72,7 @@ public class NavegacionEspressoTest {
         onView(isRoot()).perform(pressBack());
         onView(withId(R.id.button_gota_fria)).perform(click());
         onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.button_tormenta_electrica)).perform(click());
+        //onView(withId(R.id.button_tormenta_electrica)).perform(scrollTo(), click());
     }
 
     @Test
