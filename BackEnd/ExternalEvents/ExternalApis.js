@@ -1,7 +1,7 @@
 const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
 
 const WeatherApiComCurrent = {
-	name: 'WeatherApiComCurrent',
+	name: 'Weather Api Current',
 	id: 'wacc',
 	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=',
 	getUrls() {
@@ -48,11 +48,19 @@ const WeatherApiComCurrent = {
 			if (evento.current.precip_mm > 0.03) return 'noCritico';
 			return 'inocuo';
 		}
+	},
+	getMedida(evento, fenomeno) {
+		switch(fenomeno) {
+		case 'CalorExtremo':
+			return evento.current.temp_c;
+		case 'Inundacion':
+			return evento.current.precip_mm;
+		}
 	}
 }
 
 const FirmsViirsSnppNrt = {
-	name: 'FirmsViirsSnppNrt',
+	name: 'Fire Information for Resource Management System',
 	id: 'firms',
 	baseUrl: 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/6092ec0d3b6b37225112d6016c6dd223/VIIRS_SNPP_NRT/',
 	getUrls() {
@@ -99,7 +107,7 @@ const FirmsViirsSnppNrt = {
 }
 
 const SeismicPortalEu = {
-	name: 'SeismicPortalEu',
+	name: 'Seismic Portal EU',
 	id: 'speu',
 	baseUrl: 'https://www.seismicportal.eu/fdsnws/event/1/query?limit=20',
 	getUrls() {
@@ -163,9 +171,9 @@ function getIncidencias(api, evento, incidencias) {
 			let incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
 			incidencia.setAPI();
 			incidencia.setValido();
-			/*--------------------------------------------------------->incidencia.setMedida(medida de API)<---------------------------------------------------------*/
 			incidencia.setCreador(api.name);
-
+			const medida = api.getMedida(evento, fenomeno);
+			incidencia.setMedida(medida);
 			incidencias.push(incidencia);
 		}
 	}

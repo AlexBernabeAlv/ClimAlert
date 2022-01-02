@@ -105,6 +105,10 @@ describe("test: WeatherApiComCurrent", function() {
 		assert.strictEqual(incidencias[1].fenomenoMeteo.nombre, 'Inundacion');
 		assert(incidencias[0].API);
 		assert(incidencias[1].API);
+		assert.strictEqual(incidencias[0].creador, 'Weather Api Current');
+		assert.strictEqual(incidencias[1].creador, 'Weather Api Current');
+		assert.strictEqual(incidencias[0].medida, evento.current.temp_c);
+		assert.strictEqual(incidencias[1].medida, evento.current.precip_mm);
 	});
 
 	it("deberia retornar gravedad inocua", function() {
