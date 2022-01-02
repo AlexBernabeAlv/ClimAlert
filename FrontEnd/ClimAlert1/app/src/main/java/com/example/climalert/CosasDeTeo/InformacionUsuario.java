@@ -32,6 +32,7 @@ public class InformacionUsuario {
     public String email;
     public String password;
     public String IDIncidenciaActual;
+    public String CommentResponseID;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -52,6 +53,7 @@ public class InformacionUsuario {
 
     public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g, boolean admin_app){
          IDIncidenciaActual = "";
+         CommentResponseID = "";
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
@@ -279,7 +281,7 @@ public class InformacionUsuario {
         queue.add(request);
     }
 
-    public class myJsonArrayRequest extends JsonRequest<JSONArray> {
+    public static class myJsonArrayRequest extends JsonRequest<JSONArray> {
         public myJsonArrayRequest(int method, String url, JSONObject JsonRequest,
                                   Response.Listener<JSONArray> listener, Response.ErrorListener errorListener){
             super(method,url,(JsonRequest == null) ? null : JsonRequest.toString(), listener, errorListener);

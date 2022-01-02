@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.Foro.VentanaForo;
 import com.example.climalert.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -116,13 +117,33 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
+    public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
+
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, f, "SETTINGS")
                 .commit();
     }
-
+    
     public void catastrofe_func(Fragment catastrofe) { //se le podria hacer un rebrand
         getSupportFragmentManager()
                 .beginTransaction()
