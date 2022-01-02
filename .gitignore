@@ -1,2 +1,4 @@
 
 BackEnd/node_modules/.bin/*
+.idea/*
+BackEnd/.idea/*
