@@ -17,7 +17,7 @@ import com.example.climalert.ui.catastrofes.Calor_Extremo_Fragment;
 import com.example.climalert.ui.catastrofes.Erupcion_Volcanica_Fragment;
 import com.example.climalert.ui.catastrofes.Gota_Fria_Fragment;
 import com.example.climalert.ui.catastrofes.Granizo_Fragment;
-import com.example.climalert.ui.catastrofes.Incendio_Fragment;
+import com.example.climalert.ui.catastrofes.Incendio_Forestal_Fragment;
 import com.example.climalert.ui.catastrofes.Inundacion_Fragment;
 import com.example.climalert.ui.catastrofes.Lluvia_Acida_Fragment;
 import com.example.climalert.ui.catastrofes.Terremoto_Fragment;
@@ -147,7 +147,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
 
                     case "Incendio":
                         main = (MainActivity) getActivity();
-                        main.catastrofe_func(new Incendio_Fragment());
+                        main.catastrofe_func(new Incendio_Forestal_Fragment());
                         break;
 
                     case "Tsunami":
