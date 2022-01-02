@@ -1,10 +1,15 @@
 package com.example.climalert.ui.admin;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,14 +21,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.R;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CrearRefugioFragment extends Fragment {
     String nombreRefugio;
-    Float longitudRefugio;
-    Float latitudRefugio;
+    Float longitudRefugio, latitudRefugio;
+    AlertDialog alert = null;
     JSONObject mapa = new JSONObject();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,20 +40,39 @@ public class CrearRefugioFragment extends Fragment {
                              Bundle savedInstanceState) {
         // esto no va a fragment_avalancha
         View view = inflater.inflate(R.layout.fragment_crear_refugio, container, false);
-        EditText nombre = (EditText) view.findViewById(R.id.edit_text_nombreRef);
-        nombreRefugio = nombre.getText().toString();
-        EditText latitud = (EditText) view. findViewById(R.id.edit_text_latitudRef);
-        String lat = latitud.getText().toString();
-        //latitudRefugio = Float.parseFloat(lat);
-        EditText longitud = (EditText) view. findViewById(R.id.edit_text_longitudRef);
-        String longi = longitud.getText().toString();
-        //longitudRefugio = Float.parseFloat(longi);
 
-        //boton añadir
+        EditText nombre = view.findViewById(R.id.edit_text_nombreRef);
+        EditText latitud = view. findViewById(R.id.edit_text_latitudRef);
+        EditText longitud = view. findViewById(R.id.edit_text_longitudRef);
 
-        addRefugio();
+        Button ref = view.findViewById(R.id.crea_refugio_button);
+        ref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!nombre.getText().toString().isEmpty() && !latitud.getText().toString().isEmpty() && !longitud.getText().toString().isEmpty()) {
+                    nombreRefugio = nombre.getText().toString();
+                    latitudRefugio = Float.valueOf(latitud.getText().toString());
+                    longitudRefugio = Float.parseFloat(longitud.getText().toString());
+                    addRefugio();
+                }
+                else Alert();
+            }
+        });
         return view;
     }
+
+    private void Alert() {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Todos los campos no han sido rellenados")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        }
+                    });
+            alert = builder.create();
+            alert.show();
+
+        }
 
     public void addRefugio() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -92,5 +117,4 @@ public class CrearRefugioFragment extends Fragment {
         };
         queue.add(request);
     }
-
 }
