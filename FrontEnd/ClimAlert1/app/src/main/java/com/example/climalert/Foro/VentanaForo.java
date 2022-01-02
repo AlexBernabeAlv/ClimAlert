@@ -56,12 +56,13 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
 
     public VentanaForo(int id, boolean esDeIncidencia) {
         this.foroDeInc = esDeIncidencia;
-        if (esDeIncidencia) {
-            this.IdInc = id;
-        }
-        else {
-            this.IdCom = id;
-        }
+        this.IdInc = id;
+    }
+
+    public VentanaForo(int idCom, int idInc, boolean foroDeInc) {
+        this.IdInc = idInc;
+        this.IdCom = idCom;
+        this.foroDeInc = foroDeInc;
     }
 
     public VentanaForo() {
@@ -106,20 +107,22 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         u = u.substring(0, pos);
         nombreUs.setText(u);
 
-        obtener_comentarios();
+        if (foroDeInc) obtener_comentarios_incidencia();
+        else obtener_comentarios_comentario();
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("MENSAJE", txtMensaje.getText().toString());
                 if (txtMensaje.getText().toString() != "") {
-                    Log.d("MENSAJE", txtMensaje.getText().toString());
+                    Log.d("mensajes", txtMensaje.getText().toString());
                     enviar_mensaje();
                     //adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
                     txtMensaje.setText("");
                     MainActivity main;
                     main = (MainActivity) getActivity();
-                    main.foro_incidencia_boton(IdInc, true);
+                    if (foroDeInc) main.foro_incidencia_boton(IdInc, true);
+                    else main.foro_comentario_boton(IdCom, IdInc, false);
                 }
             }
         });
@@ -152,13 +155,12 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
             mapa.put("email", String.valueOf(InformacionUsuario.getInstance().email));
             mapa.put("password", String.valueOf(InformacionUsuario.getInstance().password));
             //Añadir atributo public String CommentResponseID; a InformacionUsuario
-            if (InformacionUsuario.getInstance().CommentResponseID != "") {
-                mapa.put("commentResponseId", String.valueOf(InformacionUsuario.getInstance().CommentResponseID));
-                mapa.put("incfenid", "");
+            if (!foroDeInc) {
+                mapa.put("commentresponseid", String.valueOf(IdCom));
+                mapa.put("incfenid", String.valueOf(IdInc));
             }
             else {
-                mapa.put("commentResponseId", "");
-                mapa.put("incfenid", String.valueOf(InformacionUsuario.getInstance().IDIncidenciaActual));
+                mapa.put("incfenid", String.valueOf(IdInc));
             }
             //poner variable de la clase mensaje del contenido
             mapa.put("contenido", txtMensaje.getText().toString());
@@ -167,7 +169,7 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             String hour = sdf.format(new Date());
             mapa.put("hora", hour);
-            Log.d("FUNCIONA", String.valueOf(mapa));
+            Log.d("FUNCIONASI", String.valueOf(mapa));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -179,14 +181,14 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
                     @Override
                     public void onResponse(JSONObject response) {
                         //JSONObject usuario;
-                        Log.d("FUNCIONA", String.valueOf(response));
+                        Log.d("FUNCIONASI", String.valueOf(response));
                         //Log.d("ALGO", "he acabado el bucle");
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("FUNCIONANO", String.valueOf(error));
+                        Log.d("FUNCIONASI", String.valueOf(error));
                         error.printStackTrace();
                     }
 
@@ -195,7 +197,7 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         queue.add(request);
     }
 
-    public void obtener_comentarios() {
+    public void obtener_comentarios_incidencia() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/incidenciasFenomeno/" + InformacionUsuario.getInstance().IDIncidenciaActual + "/comentarios";
         // Request a string response from the provided URL.
@@ -218,13 +220,60 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
                                 nombre = nombre.substring(0, pos);
                                 contenido = Mensaje.getString("contenido");
                                 id = Mensaje.getInt("id");
-                                Log.d("mensajes", id + " " + nombre + " " + contenido);
+                                Log.d("mensajes", String.valueOf(Mensaje));
                                 Boolean esDeLogeado = false;
                                 Log.d("LOGEADO2", Mensaje.getString("email"));
                                 Log.d("LOGEADO2", InformacionUsuario.getInstance().email);
                                 if(Mensaje.getString("email").equals(InformacionUsuario.getInstance().email)) esDeLogeado = true;
                                 Log.d("LOGEADO2", String.valueOf(esDeLogeado));
-                                adapter.addMensaje(new Mensaje(contenido, nombre, id, IdInc, true, esDeLogeado));
+                                adapter.addMensaje(new Mensaje(contenido, nombre, id, IdInc, IdInc, true, esDeLogeado));
+                                Log.d("FUNCIONA", Mensaje.toString());
+                            }
+                        } catch (JSONException e) {
+                            Log.d("FUNCIONANO", "Casi crack");
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("fff", "onErrorResponse: ");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(request);
+    }
+
+    public void obtener_comentarios_comentario() {
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = "https://climalert.herokuapp.com/comentarios/" + IdCom + "/respuestas";
+        // Request a string response from the provided URL.
+        // Request a string response from the provided URL.
+        Log.d("mensajes", url);
+        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONObject Mensaje;
+                        try {
+                            for (int i = 0; i < response.length(); ++i) {
+                                Mensaje = response.getJSONObject(i);
+                                String nombre;
+                                String contenido;
+                                int id;
+                                nombre = Mensaje.getString("email");
+                                int pos = nombre.lastIndexOf("@");
+                                nombre = nombre.substring(0, pos);
+                                contenido = Mensaje.getString("contenido");
+                                id = Mensaje.getInt("id");
+                                Log.d("mensajes", String.valueOf(Mensaje));
+                                Boolean esDeLogeado = false;
+                                Log.d("LOGEADO2", Mensaje.getString("email"));
+                                Log.d("LOGEADO2", InformacionUsuario.getInstance().email);
+                                if(Mensaje.getString("email").equals(InformacionUsuario.getInstance().email)) esDeLogeado = true;
+                                Log.d("LOGEADO2", String.valueOf(esDeLogeado));
+                                adapter.addMensaje(new Mensaje(contenido, nombre, id, IdCom, IdInc, false, esDeLogeado));
                                 Log.d("FUNCIONA", Mensaje.toString());
                             }
                         } catch (JSONException e) {
@@ -242,3 +291,5 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         queue.add(request);
     }
 }
+
+

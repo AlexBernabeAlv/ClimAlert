@@ -32,6 +32,7 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
     private Button btnEliminar;
     private int id;
     private int idParent;
+    private int idInc;
     private boolean esDeIncidencia;
     private boolean esDeLogeado;
     private Context c;
@@ -48,6 +49,13 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
 
     }
 
+    public int getIdInc() {
+        return idInc;
+    }
+
+    public void setIdInc(int idInc) {
+        this.idInc = idInc;
+    }
 
     public TextView getNombre() {
         return nombre;
@@ -121,17 +129,15 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
         switch (v.getId()) {
             case R.id.btnVerComentario:
                 Log.d("prueba", "entra en el boton");
-                //NavegacionVentanaComentario n = new NavegacionVentanaComentario();
-                //n.navegar_ventana_comentario(1, false);
                 main = (MainActivity) c;
-                //main.foro_incidencia_boton(1, false);
-                main.catastrofe_func(new Terremoto_Fragment());
+                main.foro_comentario_boton(id, idInc, false);
                 break;
             case R.id.btnEliminar:
                 Log.d("prueba", "elimina comentario con id " + id);
                 eliminar_mensaje(id);
                 main = (MainActivity) c;
-                main.foro_incidencia_boton(idParent, true);
+                if (esDeIncidencia) main.foro_incidencia_boton(idParent, true);
+                else main.foro_comentario_boton(idParent, idInc, false);
                 break;
         }
     }

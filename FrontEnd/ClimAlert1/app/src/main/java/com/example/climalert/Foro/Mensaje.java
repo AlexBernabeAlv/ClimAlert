@@ -7,17 +7,19 @@ public class Mensaje {
     private String nombre;
     private int id;
     private int idParent;
+    private int idInc;
     private boolean esDeIncidencia;
     private boolean esDeLogeado;
 
     public Mensaje() {
     }
 
-    public Mensaje(String mensaje, String nombre, int id, int idParent, boolean esDeIncidencia, boolean esDeLogeado) {
+    public Mensaje(String mensaje, String nombre, int id, int idParent, int idInc, boolean esDeIncidencia, boolean esDeLogeado) {
         this.mensaje = mensaje;
         this.nombre = nombre;
         this.id = id;
         this.idParent = idParent;
+        this.idInc = idInc;
         this.esDeIncidencia = esDeIncidencia;
         this.esDeLogeado = esDeLogeado;
         Log.d("LOGEADO2", nombre + " " + String.valueOf(esDeLogeado) + " en mensaje.java");
@@ -30,6 +32,14 @@ public class Mensaje {
     public Mensaje(String mensaje, String nombre) {
         this.mensaje = mensaje;
         this.nombre = nombre;
+    }
+
+    public int getIdInc() {
+        return idInc;
+    }
+
+    public void setIdInc(int idInc) {
+        this.idInc = idInc;
     }
 
     public void setId(int id) {

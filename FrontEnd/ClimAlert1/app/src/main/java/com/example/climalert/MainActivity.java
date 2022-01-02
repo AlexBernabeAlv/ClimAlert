@@ -134,6 +134,15 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
     public void catastrofe_func(Fragment catastrofe) {
 
         getSupportFragmentManager()
