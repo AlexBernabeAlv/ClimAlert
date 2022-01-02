@@ -324,11 +324,11 @@ public class MapsFragment extends Fragment {
                 } else {
                     snippetUi.setText("");
                 }
-            }
-            else{
+            } else {
                 TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-                SpannableString snippetText = new SpannableString(getString(R.string.map_ubicacion_usuario));
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 21, 0);
+                String ubicacionUsuario = getString(R.string.map_ubicacion_usuario);
+                SpannableString snippetText = new SpannableString(ubicacionUsuario);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, ubicacionUsuario.length(), 0);
                 snippetUi.setText(snippetText);
             }
             mMap.setOnInfoWindowClickListener(this);
