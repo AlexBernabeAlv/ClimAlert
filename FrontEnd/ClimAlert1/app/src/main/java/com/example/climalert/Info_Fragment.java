@@ -1,6 +1,5 @@
 package com.example.climalert;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +12,16 @@ import androidx.fragment.app.Fragment;
 import com.example.climalert.ui.catastrofes.Avalancha_Fragment;
 import com.example.climalert.ui.catastrofes.Gota_Fria_Fragment;
 import com.example.climalert.ui.catastrofes.Granizo_Fragment;
-import com.example.climalert.ui.catastrofes.Incendio_Fragment;
-import com.example.climalert.ui.catastrofes.Insolacion_Fragment;
+import com.example.climalert.ui.catastrofes.Tormenta_Invernal_Fragment;
+import com.example.climalert.ui.catastrofes.Incendio_Forestal_Fragment;
+import com.example.climalert.ui.catastrofes.Calor_Extremo_Fragment;
 import com.example.climalert.ui.catastrofes.Inundacion_Fragment;
 import com.example.climalert.ui.catastrofes.Lluvia_Acida_Fragment;
 import com.example.climalert.ui.catastrofes.Terremoto_Fragment;
 import com.example.climalert.ui.catastrofes.Tormenta_Electrica_Fragment;
 import com.example.climalert.ui.catastrofes.Tornado_Fragment;
 import com.example.climalert.ui.catastrofes.Tsunami_Fragment;
-import com.example.climalert.ui.catastrofes.Volcan_Fragment;
+import com.example.climalert.ui.catastrofes.Erupcion_Volcanica_Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,14 +76,14 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_informacion, container, false);
 
-        Button b_insolacion = (Button) view.findViewById(R.id.button_insolacion);
-        b_insolacion.setOnClickListener(this);
+        Button b_calor_extremo = (Button) view.findViewById(R.id.button_calor_extremo);
+        b_calor_extremo.setOnClickListener(this);
 
         Button b_granizo = (Button) view.findViewById(R.id.button_granizo);
         b_granizo.setOnClickListener(this);
 
-        Button b_nevada = (Button) view.findViewById(R.id.button_nevada);
-        b_nevada.setOnClickListener(this);
+        Button b_tormenta_invernal = (Button) view.findViewById(R.id.button_tormenta_invernal);
+        b_tormenta_invernal.setOnClickListener(this);
 
         Button b_tornado = (Button) view.findViewById(R.id.button_tornado);
         b_tornado.setOnClickListener(this);
@@ -106,14 +106,14 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
         Button b_lluvia_acida = (Button) view.findViewById(R.id.button_lluvia_acida);
         b_lluvia_acida.setOnClickListener(this);
 
-        Button b_volcan = (Button) view.findViewById(R.id.button_volcan);
-        b_volcan.setOnClickListener(this);
+        Button b_erupcion_volcanica = (Button) view.findViewById(R.id.button_erupcion_volcanica);
+        b_erupcion_volcanica.setOnClickListener(this);
 
         Button b_gota_fria = (Button) view.findViewById(R.id.button_gota_fria);
         b_gota_fria.setOnClickListener(this);
 
-        Button b_tor_elec = (Button) view.findViewById(R.id.button_tormenta_electrica);
-        b_tor_elec.setOnClickListener(this);
+        Button b_tormenta_electrica = (Button) view.findViewById(R.id.button_tormenta_electrica);
+        b_tormenta_electrica.setOnClickListener(this);
 
         return view;
     }
@@ -122,14 +122,19 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         MainActivity main;
         switch (v.getId()) {
-            case R.id.button_insolacion:
+            case R.id.button_calor_extremo:
                 main = (MainActivity) getActivity();
-                main.catastrofe_func(new Insolacion_Fragment());
+                main.catastrofe_func(new Calor_Extremo_Fragment());
                 break;
 
             case R.id.button_granizo:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Granizo_Fragment());
+                break;
+
+            case R.id.button_tormenta_invernal:
+                main = (MainActivity) getActivity();
+                main.catastrofe_func(new Tormenta_Invernal_Fragment());
                 break;
 
             case R.id.button_tornado:
@@ -144,7 +149,7 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
 
             case R.id.button_incendio:
                 main = (MainActivity) getActivity();
-                main.catastrofe_func(new Incendio_Fragment());
+                main.catastrofe_func(new Incendio_Forestal_Fragment());
                 break;
 
             case R.id.button_tsunami:
@@ -167,9 +172,9 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
                 main.catastrofe_func(new Lluvia_Acida_Fragment());
                 break;
 
-            case R.id.button_volcan:
+            case R.id.button_erupcion_volcanica:
                 main = (MainActivity) getActivity();
-                main.catastrofe_func(new Volcan_Fragment());
+                main.catastrofe_func(new Erupcion_Volcanica_Fragment());
                 break;
 
             case R.id.button_gota_fria:

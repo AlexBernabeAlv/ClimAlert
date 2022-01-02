@@ -3,7 +3,6 @@ package com.example.climalert;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -30,8 +29,9 @@ import org.json.JSONObject;
 
 public class Auth_Activity extends AppCompatActivity {
     String mail;
+    String password;
     public static int RC_SIGN_IN = 0;
-    GoogleSignInClient mGoogleSignInClient;
+    static GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -44,9 +44,9 @@ public class Auth_Activity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleConf);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(signedIn()) { //Comprovamos si el usuario ya había iniciado sesión
-            Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
-            startActivity(maini);
+        if(signedIn()) { //Comprobamos si el usuario ya había iniciado sesión
+            Intent main = new Intent(Auth_Activity.this, MainActivity.class);
+            startActivity(main);
         }
         else {
 
@@ -68,7 +68,11 @@ public class Auth_Activity extends AppCompatActivity {
 
     private boolean signedIn() {
         GoogleSignInAccount acc = GoogleSignIn.getLastSignedInAccount(this);
-        if(acc != null) return true;
+        if(acc != null) {
+            InformacionUsuario.getInstance().email = acc.getEmail();
+            InformacionUsuario.getInstance().password = acc.getId();
+            return true;
+        }
         else return false;
     }
 
@@ -118,12 +122,13 @@ public class Auth_Activity extends AppCompatActivity {
     private void handleSignInResult (Task<GoogleSignInAccount> completedTask) throws ApiException {
         GoogleSignInAccount account = completedTask.getResult(ApiException.class);
         mail = account.getEmail();
+        password = account.getId();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://climalert.herokuapp.com/usuario/new";
+        String url = "https://climalert.herokuapp.com/usuarios";
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("email", mail);
-            mapa.put("password", account.getId());
+            mapa.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -134,17 +139,11 @@ public class Auth_Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         //JSONObject usuario;
-                        try {
-                            String usuario = response.getString("email");
-                            InformacionUsuario.getInstance().email = usuario;
+                        InformacionUsuario.getInstance().email = mail;
+                        InformacionUsuario.getInstance().password = password;
+                        Intent main = new Intent(Auth_Activity.this, MainActivity.class);
+                        startActivity(main);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            //Log.d("ALGO", "usuario no obtenido");
-                        }
-
-                        Intent maini = new Intent(Auth_Activity.this, MainActivity.class);
-                        startActivity(maini);
 
                     }
                 },
@@ -161,4 +160,12 @@ public class Auth_Activity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    public GoogleSignInClient getmGoogleSignInClient() {
+        return mGoogleSignInClient;
+    }
 }
