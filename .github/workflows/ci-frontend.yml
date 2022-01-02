@@ -26,6 +26,4 @@ jobs:
           profile: Nexus 6
           working-directory: FrontEnd/ClimAlert1
           script: ./gradlew connectedAndroidTest
-          #script: ./gradlew connectedCheck 
-          #script: ./gradlew test
 

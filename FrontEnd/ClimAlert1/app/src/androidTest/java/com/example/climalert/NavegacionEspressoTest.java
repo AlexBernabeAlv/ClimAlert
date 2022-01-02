@@ -78,7 +78,6 @@ public class NavegacionEspressoTest {
 
     @Test
     public void navegacionAjustesTest() {
-        onView(withText("fail")).check(matches(isDisplayed()));
         onView(withId(R.id.navigation_settings)).perform(click());
         onView(withId(R.id.perfil_usuario)).perform(click());
         onView(isRoot()).perform(pressBack());
