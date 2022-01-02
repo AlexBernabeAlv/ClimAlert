@@ -268,3 +268,49 @@ describe("test: WeatherApiComCurrent gravedad tornado", function() {
 		assert.strictEqual('critico', gravedad);
 	});
 });
+
+describe("test: Firms incidencias", function() {
+	it("deberia crear 1 incidencia de incendio forestal", function() {
+		const evento = EventoFirmsIncendio;
+		const incidencias = externalApis.getIncidencias(apiFirms, evento, []);
+		assert.strictEqual(incidencias.length, 1);
+		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'Incendio');
+		assert(incidencias[0].API);
+		assert.strictEqual(incidencias[0].creador, 'Fire Information for Resource Management System');
+		assert.strictEqual(incidencias[0].medida, evento.bright_ti4);
+	});
+});
+
+describe("test: Firms gravedad incendio forestal", function() {
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			bright_ti4: 0.00
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			bright_ti4: 280
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			bright_ti4: 330
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			bright_ti4: 360
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('critico', gravedad);
+	});
+});
