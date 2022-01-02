@@ -52,6 +52,7 @@ public class ValidarIncidenciasFragment extends Fragment {
     public void getIncidenciasNoValidas() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuarios/"+ InformacionUsuario.getInstance().email+"/incidenciasAdmin";
+
         mapa = new JSONObject();
         try {
             mapa.put("password", InformacionUsuario.getInstance().password);
@@ -115,20 +116,36 @@ public class ValidarIncidenciasFragment extends Fragment {
             btn.setId(i);
             int marg = linearLayout.getWidth();
             btn.setBackgroundColor(Color.GREEN);
-            btn.setText(incidenciasNoValidas.get(i).nombre);
+            Notificacion noti = incidenciasNoValidas.get(i);
+            btn.setText(noti.nombre);
             setMargins(view, marg/3, 10, marg/3, 10);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ValidaIncidenciaFragment f = new ValidaIncidenciaFragment();
-                    FragmentManager fm = getFragmentManager();
-                    fm.beginTransaction()
-                            .replace(R.id.contenedor, f, "SETTINGS")
-                            .commit();
+                    valida_la_incidencia(noti);
                 }
             });
             linearLayout.addView(btn);
         }
+    }
+
+    private void valida_la_incidencia(Notificacion n) {
+        ValidaIncidenciaFragment f = new ValidaIncidenciaFragment();
+        Bundle b = new Bundle();
+        b.putString("fecha", n.fecha);
+        b.putString("hora", n.hora);
+        b.putString("fuente", n.fuente);
+        b.putInt("radio", n.radio);
+        b.putFloat("latitud", n.latitud);
+        b.putFloat("longitud", n.longitud);
+        b.putString("nombre", n.nombre);
+        b.putString("descripcion", n.descripcion);
+        b.putInt("id", n.identificador);
+        f.setArguments(b);
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.contenedor, f, "SETTINGS")
+                .commit();
     }
 
     private void setMargins(View view, int left, int top, int right, int bottom) {

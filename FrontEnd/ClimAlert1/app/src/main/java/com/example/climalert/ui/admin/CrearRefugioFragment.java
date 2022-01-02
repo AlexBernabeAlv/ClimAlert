@@ -41,7 +41,7 @@ public class CrearRefugioFragment extends Fragment {
         //latitudRefugio = Float.parseFloat(lat);
         EditText longitud = (EditText) view. findViewById(R.id.edit_text_longitudRef);
         String longi = longitud.getText().toString();
-        longitudRefugio = Float.parseFloat(longi);
+        //longitudRefugio = Float.parseFloat(longi);
 
         //boton añadir
 
