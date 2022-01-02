@@ -39,57 +39,61 @@ const DataController = require('./BD/DataController');
 
 app.post('/BD/reset', async (req, res) => {
     
-    await DataController.resetBD().catch(error => { console.error(error) });
-    var result = await ConsultExternalApis();
-    res.status(200).send(result);
+    var result = await DataController.resetBD().catch(error => { console.error(error) });
+    await ConsultExternalApis();
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
 })
 
 //app.get
 app.get('/', (req, res) => {
-
     console.log('GET request recived');
-    res.status(200).send('Home Page');
+    res.send('Pong.');
 })
 
 //LLamadas api usuarios
-app.get('/usuario/:email', async (req, res) => {
+app.get('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
     var result = await GestorUsuarios.getUsuario(email);
 
     result.password = "AAAAAHHHHH, querias mirar mi contraseña eh?";
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Usuario no existe");
-
+        res.status(200).json(result);
     }
-
 })
 
-app.post('/usuario/new', async (req, res) => {
-    
+//app.post('/usuario/new', async (req, res) => {
+app.post('/usuarios', async (req, res) => {
+
     var email = req.body.email;
     var psswd = req.body.password;
 
     var result = await GestorUsuarios.createUsuario(email, psswd);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Usuario ya existe");
-
+        res.status(200).json(result);
     }
 })
 
-app.put('/usuario/:email/update', async (req, res) => {
+app.put('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
@@ -98,39 +102,55 @@ app.put('/usuario/:email/update', async (req, res) => {
 
     var result = await GestorUsuarios.updateUsuario(email, psswd, gravedad, radioefecto);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Usuario no existe");
-
+        res.status(200).json(result);
     }
 })
 
-app.delete('/usuario/:email/delete', async (req, res) => {
+app.put('/usuarios/:emailUsr/ban', async (req, res) => {
+
+    var emailUsr = req.params.emailUsr;
+    var email = req.body.email;
+    var psswd = req.body.password;
+
+    var result = await GestorUsuarios.banUsuario(email, psswd, emailUsr);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
+
+app.delete('/usuarios/:email', async (req, res) => {
 
     var email = req.params.email;
-    var psswd = req.body.password;
+    var psswd = req.query.password;
 
     var result = await GestorUsuarios.deleteUsuario(email, psswd);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Usuario no existe");
-
+        res.status(200).json(result);
     }
 })
 
 
 //localizaciones usuario
 
-app.post('/usuario/:email/localizaciones/new', async (req, res) => {
+app.post('/usuarios/:email/localizaciones', async (req, res) => {
 
     var email = req.params.email;
     var psswd = req.body.password;
@@ -141,18 +161,17 @@ app.post('/usuario/:email/localizaciones/new', async (req, res) => {
 
     var result = await GestorUsuarios.updateLocalizacionesUsuario(email, psswd, lat1, lon1, lat2, lon2);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send("Usuario no existe");
-
+        res.status(200).json(result);
     }
 })
 
-app.post('/usuario/:email/filtro', async (req, res) => {
+app.post('/usuarios/:email/filtro', async (req, res) => {
 
     var email = req.params.email;
     var password = req.body.password;
@@ -160,83 +179,96 @@ app.post('/usuario/:email/filtro', async (req, res) => {
 
     if (result) {
 
-        res.status(200).send(result);
+        res.status(200).json(result);
 
     } else {
 
-        res.status(404).send("Usuario no existe");
+        res.status(404).json("Usuario no existe");
 
     }
 
 })
 
+app.post('/usuariosEstandar', async (req, res) => {
+
+    var email = req.body.email;
+    var password = req.body.password;
+    var result = await GestorUsuarios.getUsuarios(email, password);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
+
 
 //llamadas api notificaciones
 
-app.post('/incidencia/new', async (req, res) => {
+app.post('/incidencias', async (req, res) => {
 
     var nombreFenomeno = req.body.nombreFenomeno;
     var latitud = req.body.latitud;
     var longitud = req.body.longitud;
     var fecha = req.body.fecha;
     var hora = req.body.hora;
+    var email = req.query.email;
+    var password = req.body.password;
 
-    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false);
+    var result = await GestorIncidencias.createIncidencia(latitud, longitud, fecha, hora, nombreFenomeno, false, false, email, password, 0);
+    if (typeof result == 'number') {
 
-    if (result) {
-
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
-app.put('/incidencia/update', async (req, res) => {
+app.put('/incidencias', async (req, res) => {
 
     var id = req.query.id;
     var email = req.body.email;
     var password = req.body.password;
     var gravedad = req.body.gravedad;
+    var medida = req.body.medida;
+    var radioEfecto = req.body.radioEfecto;
 
-    var result = await GestorIncidencias.updateIncidencia(email, password, id, gravedad);
+    var result = await GestorIncidencias.updateIncidencia(email, password, id, gravedad, radioEfecto, medida);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
-app.post('/usuario/:email/incidenciasNoValidas', async (req, res) => {
+app.post('/usuarios/:email/incidenciasAdmin', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
-    var lat = req.body.latitud;
-    var lon = req.body.longitud;
+    var valido = req.body.valido;
 
-    var result = await GestorIncidencias.getIncidenciasNoValidas(email, pssword, lat, lon);
+    var result = await GestorIncidencias.getIncidenciasAdmin(email, pssword, valido);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        console.log("return result");
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        console.log("return error");
-        res.status(404).send(result);
-
+        res.status(200).json(result);
     }
 })
 
-app.post('/usuario/:email/notificaciones', async (req, res) => {
+app.post('/usuarios/:email/notificaciones', async (req, res) => {
 
     var email = req.params.email;
     var pssword = req.body.password;
@@ -245,16 +277,13 @@ app.post('/usuario/:email/notificaciones', async (req, res) => {
 
     var result = await EnviadorNotificaciones.getNotificaciones(email, pssword, lat, lon);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        console.log("return result");
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        console.log("return error");
-        res.status(404).send({ result: result });
-
+        res.status(200).json(result);
     }
 })
 
@@ -266,7 +295,7 @@ function ConsultExternalApis()
 
 //Refugios
 
-app.post('/refugio/new', async (req, res) => {
+app.post('/refugios', async (req, res) => {
 
     var Email = req.body.email;
     var Nombre = req.body.nombre;
@@ -276,151 +305,159 @@ app.post('/refugio/new', async (req, res) => {
 
     var result = await GestorRefugios.createRefugio(Email, Password, Nombre, Latitud, Longitud);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No puedes crear este refugio" });
-
+        res.status(200).json(result);
     }
 })
 
-app.get('/refugio', async (req, res) => {
+app.get('/refugios', async (req, res) => {
     
     var latitud = req.query.latitud;
     var longitud = req.query.longitud;
 
     var result = await GestorRefugios.getRefugioByLoc(latitud, longitud);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "Refugio no existe" });
-
+        res.status(200).json(result);
     }
 })
 
-app.delete('/refugio/:nombre/delete', async (req, res) => {
+app.delete('/refugios/:nombre', async (req, res) => {
 
-    var Email = req.body.email;
-    var Password = req.body.password;
+    var Email = req.query.email;
+    var Password = req.query.password;
     var Nombre = req.params.nombre;
 
     var result = await GestorRefugios.deleteRefugio(Email, Password, Nombre);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No puedes destruir este refugio" });
-
+        res.status(200).json(result);
     }
 })
 
-app.put('/refugio/:nombre/update', async (req, res) => {
+app.post('/allRefugios', async (req, res) => {
 
-    var email = req.body.email;
-    var psswd = req.body.password;
-    var Nombre = req.params.nombre;
+    var Email = req.body.email;
+    var Password = req.body.password;
 
-    var result = await GestorRefugios.updateRefugio(email, psswd, Nombre, radioefecto);
+    var result = await GestorRefugios.getRefugios(Email, Password);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "Usuario no Admin" });
-
+        res.status(200).json(result);
     }
 })
+
 
 //Comentarios
 
-app.post('/comentario/new', async (req, res) => {
+app.post('/comentarios', async (req, res) => {
 
     var Email = req.body.email;
     var Password = req.body.password;
     var Incfenid = req.body.incfenid;
-    var ComentResponseId = req.body.comentresponseid;
+    var ComentResponseId = req.body.commentresponseid;
     var Contenido = req.body.contenido;
+    var Fecha = req.body.fecha;
+    var Hora = req.body.hora;
 
-    var result = await GestorComentarios.createComentario(Email, Password, Incfenid, ComentResponseId, Contenido);
+    var result = await GestorComentarios.createComentario(Email, Password, Incfenid, ComentResponseId, Contenido, Fecha, Hora);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No puedes crear este comentario" });
-
+        res.status(200).json(result);
     }
 })
 
-app.get('/comentario', async (req, res) => {
+app.get('/comentarios', async (req, res) => {
 
     var email = req.query.email;
 
     var result = await GestorComentarios.getComentariosUsuario(email);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No se ha encontrado comentarios" });
-
+        res.status(200).json(result);
     }
 })
 
 
-app.get('/comentario/:commentid/respuestas', async (req, res) => {
+app.get('/comentarios/:commentid/respuestas', async (req, res) => {
 
     var commentid = req.params.commentid;
 
     var result = await GestorComentarios.getComentariosComentario(commentid);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No se ha encontrado comentarios" });
-
+        res.status(200).json(result);
     }
 })
 
+app.get('/comentarios/:commentid', async (req, res) => {
 
+    var commentid = req.params.commentid;
 
-app.get('/incidenciafenomeno/:incfenid/comentarios', async (req, res) => {
+    var result = await GestorComentarios.getComentario(commentid);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+})
+
+app.get('/incidenciasFenomeno/:incfenid/comentarios', async (req, res) => {
 
     var incfenid = req.params.incfenid;
 
     var result = await GestorComentarios.getComentariosIncidenciaFenomeno(incfenid);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send(result);
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No se ha encontrado comentarios" });
-
+        res.status(200).json(result);
     }
 })
 
-app.put('/comentario/:commentid/delete', async (req, res) => {
+app.put('/comentarios/:commentid/delete', async (req, res) => {
 
     var commentid = req.params.commentid;
     var email = req.body.email;
@@ -428,38 +465,119 @@ app.put('/comentario/:commentid/delete', async (req, res) => {
 
     var result = await GestorComentarios.deleteComentario(commentid, email, password);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No puedes borrar este comentario" });
-
+        res.status(200).json(result);
     }
 })
 
-app.put('/comentario/:commentid/update', async (req, res) => {
+app.put('/comentarios/:commentid', async (req, res) => {
 
     var commentid = req.params.commentid;
-    var contenido = req.body.contenido;
     var email = req.body.email;
     var password = req.body.password;
+    var contenido = req.body.contenido;
 
     var result = await GestorComentarios.editComentario(commentid, contenido, email, password);
 
-    if (result) {
+    if (typeof result == 'number') {
 
-        res.status(200).send({ result: result });
-
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
     } else {
 
-        res.status(404).send({ result: "No puedes editar este comentario" });
-
+        res.status(200).json(result);
     }
 })
 
+app.post('/usuarios/:emailBuscado/estadisticosIncidencias', async (req, res) => {
 
+
+    var emailBuscado = req.params.emailBuscado;
+    var email = req.body.email;
+    var password = req.body.password;
+    var filtro = req.body.filtro;
+
+
+    var result = await GestorIncidencias.getIncidenciasByCreador(email, password, emailBuscado, filtro);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+
+})
+
+
+app.post('/usuarios/:emailBuscado/estadisticosComentarios', async (req, res) => {
+
+
+    var emailBuscado = req.params.emailBuscado;
+    var email = req.body.email;
+    var password = req.body.password;
+    var filtro = req.body.filtro;
+
+    var result = await GestorComentarios.getComentariosByCreador(email, password, emailBuscado, filtro);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).json(result);
+    }
+
+})
+
+function checkReturnCode(Code) {
+
+    var message;
+
+    switch (Code) {
+
+        case 400:
+
+            message = "Bad Request";
+            break;
+
+        case 401:
+
+            message = "Unauthorized";
+            break;
+
+        case 403:
+
+            message = "Forbidden";
+            break;
+
+        case 404:
+
+            message = "Not Found";
+            break;
+
+        case 500:
+
+            message = "Internal Server Error";
+            break;
+
+        default:
+
+            message = "OK";
+            break;
+    }
+
+    return message;
+
+}
 
 //app.all
 app.all('*', (req, res) => {

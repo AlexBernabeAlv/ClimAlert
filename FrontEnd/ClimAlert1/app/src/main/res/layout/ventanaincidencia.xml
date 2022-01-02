@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:textSize="20dp"
-            android:hint="ID: 26" />
+            android:hint="ID: 26 ERROR" />
         <TextView
             android:id="@+id/fecha"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="45dp"
             android:textSize="20dp"
-            android:hint="Fecha: 13/12/2021"
+            android:hint="Fecha: 13/12/2021 ERROR"
             />
         <TextView
             android:id="@+id/hora"
@@ -42,7 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:textSize="20dp"
-            android:hint="Hora: 13:31" />
+            android:hint="Hora: 13:31 ERROR" />
+        <TextView
+            android:id="@+id/desc_api"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:hint="Nombre API:  ERROR" />
     </LinearLayout>
 
 
