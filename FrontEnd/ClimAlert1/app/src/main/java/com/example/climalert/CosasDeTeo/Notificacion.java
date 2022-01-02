@@ -11,12 +11,13 @@ public class Notificacion {
     public float longitud;
     public float latitud;
     public String nombre;
+    public String medida;
     public String descripcion;
     public int identificador;
     public Vector<String> inidicaciones = new Vector<String>();
 
 
-    public Notificacion(String f,String hor, String fuent, Integer r, Float la, Float lo, String nom, String desc, Integer id){
+    public Notificacion(String f,String hor, String fuent, Integer r, Float la, Float lo, String nom, String desc, Integer id, String med){
         fecha = f;
         hora = hor;
         fuente = fuent;
@@ -26,6 +27,7 @@ public class Notificacion {
         nombre = nom;
         descripcion = desc;
         identificador = id;
+        medida = med;
     }
 
 

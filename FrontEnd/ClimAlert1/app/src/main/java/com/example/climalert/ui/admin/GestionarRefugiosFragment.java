@@ -134,7 +134,7 @@ public class GestionarRefugiosFragment extends Fragment {
                                 String nombre =  refugioResponse.getString("nombre");
                                 JSONObject localizacion = refugioResponse.getJSONObject("localizacion");
                                 float latitud = Float.parseFloat(localizacion.getString("latitud"));
-                                float longitud = Float.parseFloat(localizacion.getString("latitud"));
+                                float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 Refugio r = new Refugio(nombre, latitud, longitud);
                                 refugios.add(r);
                             }

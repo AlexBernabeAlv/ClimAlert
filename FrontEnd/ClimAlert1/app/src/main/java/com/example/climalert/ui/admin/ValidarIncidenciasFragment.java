@@ -84,10 +84,11 @@ public class ValidarIncidenciasFragment extends Fragment {
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = IncidenciaResponse.getJSONObject("fenomenoMeteo");
                                 String fuente = IncidenciaResponse.getString("creador");
+                                String medida = IncidenciaResponse.getString("medida");
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
 
-                                Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id);
+                                Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id, medida);
                                 incidenciasNoValidas.add(n);
                             }
                             validar_incidencias();
