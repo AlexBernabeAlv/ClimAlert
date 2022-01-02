@@ -20,27 +20,20 @@ class GestorRefugios {
         if (usu.isAdmin && usu.password == Password) {
 
             var refugio = new Refugio(Nombre, Latitud, Longitud);
-            return await dataController.createRefugio(refugio).catch(error => { console.error(error) });
+            var result = await dataController.createRefugio(refugio).catch(error => { console.error(error) });
+
+            if (!result) return 400;
+            return result;
+
         } else {
 
-            return false;
-        }
-    }
-
-    async updateRefugio() {
-
-        var usu = await GestorUsuarios.getUsuario(Email);
-        if (usu.isAdmin && usu.password == Password) {
-
-            var refugio = new Refugio(Nombre, Latitud, Longitud);
-            return await dataController.updateRefugio(refugio).catch(error => { console.error(error) });
-        } else {
-
-            return false;
+            return 401;
         }
     }
 
     async deleteRefugio(Email, Password, Nombre) {
+
+        if (!Password) return 401;
 
         var usu = await GestorUsuarios.getUsuario(Email);
         if (usu.isAdmin && usu.password == Password) {
@@ -48,13 +41,40 @@ class GestorRefugios {
             return await dataController.deleteRefugio(Nombre).catch(error => { console.error(error) });
         } else {
 
-            return false;
+            return 401;
         }
     }
 
     async getRefugioByLoc(Latitud, Longitud) {
 
         return await dataController.getRefugioByLoc(Latitud, Longitud).catch(error => { console.error(error) });
+    }
+
+    async getRefugios(Email, Password) {
+
+        if (!Password) return 401;
+
+        var usu = await GestorUsuarios.getUsuario(Email);
+
+        if (!usu.isAdmin) return 403;
+
+        else if (usu.password == Password) {
+
+            var refugios = await dataController.getRefugios().catch(error => { console.error(error) });
+
+            var refs = [];
+
+            for (var i = 0; i < refugios.rows.length; i++) {
+
+                refs.push(new Refugio(refugios.rows[i].nombre, refugios.rows[i].latitud, refugios.rows[i].longitud));
+            }
+
+            return refs;
+
+        } else {
+
+            return 401;
+        }
     }
 }
 

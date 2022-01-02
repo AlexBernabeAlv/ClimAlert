@@ -27,7 +27,7 @@ const apiWacc = externalApis.WeatherApiComCurrent;
 const apiFirms = externalApis.FirmsViirsSnppNrt;
 const apiSpeu = externalApis.SeismicPortalEu;
 
-const EventoWaccCalorInundacion = {
+const EventoWaccCalorInundacionTornado = {
 	location: {
 		name: "Figueras",
 		region: "Catalonia",
@@ -69,8 +69,53 @@ const EventoWaccCalorInundacion = {
 	}
 }
 
+const EventoFirmsIncendio = {
+    latitude: 41.19487,
+    longitude: 1.22852,
+    bright_ti4: 305.18,
+    scan: 0.4,
+    track: 0.44,
+    acq_date: '2022-01-01',
+    acq_time: 217,
+    satellite: 'N',
+    instrument: 'VIIRS',
+    confidence: 'n',
+    version: '2.0NRT',
+    bright_ti5: 278.84,
+    frp: 1.27,
+    daynight: 'N'
+}
+
+const EventoSpeuTerremoto = {
+    geometry: {
+        type: "Point",
+        coordinates: [
+            1.44,
+            42.52,
+            -5.0
+        ]
+    },
+    type: "Feature",
+    id: "20211011_0000080",
+    properties: {
+        lastupdate: "2021-10-11T11:59:00.0Z",
+        magtype: "ml",
+        evtype: "ke",
+        lon: 1.44,
+        auth: "EMSC",
+        lat: 42.52,
+        depth: 5.0,
+        unid: "20211011_0000080",
+        mag: 3.8,
+        time: "2021-10-11T08:23:14.4Z",
+        source_id: "1046960",
+        source_catalog: "EMSC-RTS",
+        flynn_region: "PYRENEES"
+    }
+}
+
 describe('test: fenómenos de APIs', function() {
-	let fenomenosWacc = ['CalorExtremo', 'Inundacion'];
+	let fenomenosWacc = ['CalorExtremo', 'Inundacion', 'Tornado'];
 	let fenomenosFirms = ['Incendio'];
 	let fenomenosSpeu = ['Terremoto'];
 	it('deberia retornar el número indicado de fenómenos de Wacc', function() {
@@ -96,15 +141,79 @@ describe('test: fenómenos de APIs', function() {
 	});
 });
 
-describe("test: WeatherApiComCurrent", function() {
-	it("deberia crear 1 incidencia de calor extremo y 1 incidencia de inundacion", function() {
-		const evento = EventoWaccCalorInundacion;
+describe("test: WeatherApiComCurrent incidencias", function() {
+	it("deberia crear 1 incidencia de calor extremo, inundacion y tornado", function() {
+		const evento = EventoWaccCalorInundacionTornado;
 		const incidencias = externalApis.getIncidencias(apiWacc, evento, []);
-		assert.strictEqual(2, incidencias.length);
-		assert.strictEqual('CalorExtremo', incidencias[0].fenomenoMeteo.nombre);
-		assert.strictEqual('Inundacion', incidencias[1].fenomenoMeteo.nombre);
+		assert.strictEqual(incidencias.length, 3);
+		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'CalorExtremo');
+		assert.strictEqual(incidencias[1].fenomenoMeteo.nombre, 'Inundacion');
+		assert.strictEqual(incidencias[2].fenomenoMeteo.nombre, 'Tornado');
+		assert(incidencias[0].API);
+		assert(incidencias[1].API);
+		assert(incidencias[2].API);
+		assert.strictEqual(incidencias[0].creador, 'Weather Api Current');
+		assert.strictEqual(incidencias[1].creador, 'Weather Api Current');
+		assert.strictEqual(incidencias[2].creador, 'Weather Api Current');
+		assert.strictEqual(incidencias[0].medida, evento.current.temp_c);
+		assert.strictEqual(incidencias[1].medida, evento.current.precip_mm);
+		assert.strictEqual(incidencias[2].medida, evento.current.wind_kph);
+	});
+});
+
+describe("test: WeatherApiComCurrent gravedad calor extremo", function() {
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				temp_c: 0.00
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('inocuo', gravedad);
 	});
 
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				temp_c: -4.6
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				temp_c: 10
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			current: {
+				temp_c: 16
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			current: {
+				temp_c: 17
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'CalorExtremo');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: WeatherApiComCurrent gravedad inundacion", function() {
 	it("deberia retornar gravedad inocua", function() {
 		const evento = {
 			current: {
@@ -142,6 +251,142 @@ describe("test: WeatherApiComCurrent", function() {
 			}
 		}
 		const gravedad = apiWacc.getGravedad(evento, 'Inundacion');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: WeatherApiComCurrent gravedad tornado", function() {
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				wind_kph: 0.00
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			current: {
+				wind_kph: 15
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			current: {
+				wind_kph: 35
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			current: {
+				wind_kph: 36
+			}
+		}
+		const gravedad = apiWacc.getGravedad(evento, 'Tornado');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: Firms incidencias", function() {
+	it("deberia crear 1 incidencia de incendio forestal", function() {
+		const evento = EventoFirmsIncendio;
+		const incidencias = externalApis.getIncidencias(apiFirms, evento, []);
+		assert.strictEqual(incidencias.length, 1);
+		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'Incendio');
+		assert(incidencias[0].API);
+		assert.strictEqual(incidencias[0].creador, 'Fire Information for Resource Management System');
+		assert.strictEqual(incidencias[0].medida, evento.bright_ti4);
+	});
+});
+
+describe("test: Firms gravedad incendio forestal", function() {
+	const evento = EventoFirmsIncendio;
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			bright_ti4: 0.00
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			bright_ti4: 280
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			bright_ti4: 330
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			bright_ti4: 360
+		}
+		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: Speu incidencias", function() {
+	it("deberia crear 1 incidencia de terremoto", function() {
+		const evento = EventoSpeuTerremoto.properties;
+		const incidencias = externalApis.getIncidencias(apiSpeu, evento, []);
+		assert.strictEqual(incidencias.length, 1);
+		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'Terremoto');
+		assert(incidencias[0].API);
+		assert.strictEqual(incidencias[0].creador, 'Seismic Portal EU');
+		assert.strictEqual(incidencias[0].medida, evento.mag);
+	});
+});
+
+describe("test: Speu gravedad terremoto", function() {
+	const evento = EventoSpeuTerremoto.properties;
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			mag: 0.00
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			mag: 3.5
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			mag: 4
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			mag: 7
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
 		assert.strictEqual('critico', gravedad);
 	});
 });

@@ -1,4 +1,4 @@
-package com.example.climalert.ui.catastrofes;
+package com.example.climalert.ui.admin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.climalert.R;
 
-public class Nevada_Fragment extends Fragment {
+public class ValidarIncidenciasFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class Nevada_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_nevada, container, false);
+        View view = inflater.inflate(R.layout.fragment_validar, container, false);
         return view;
     }
 }
