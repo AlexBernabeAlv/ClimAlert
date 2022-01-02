@@ -1,28 +1,13 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Climalert Frontend CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  #workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: macos-latest # recommended for android
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out repository
         uses: actions/checkout@v2
       - name: set up JDK 11
@@ -40,5 +25,6 @@ jobs:
           api-level: 29
           profile: Nexus 6
           working-directory: FrontEnd/ClimAlert1
-          script: ./gradlew connectedAndroidTest
-          #script: ./gradlew connectedCheck
+          #script: ./gradlew connectedAndroidTest
+          script: ./gradlew test
+
