@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.PreferenceMatchers.withTitle;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -77,6 +78,7 @@ public class NavegacionEspressoTest {
 
     @Test
     public void navegacionAjustesTest() {
+        onView(withText("fail")).check(matches(isDisplayed()));
         onView(withId(R.id.navigation_settings)).perform(click());
         onView(withId(R.id.perfil_usuario)).perform(click());
         onView(isRoot()).perform(pressBack());
