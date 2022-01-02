@@ -86,6 +86,34 @@ const EventoFirmsIncendio = {
     daynight: 'N'
 }
 
+const EventoSpeuTerremoto = {
+    geometry: {
+        type: "Point",
+        coordinates: [
+            1.44,
+            42.52,
+            -5.0
+        ]
+    },
+    type: "Feature",
+    id: "20211011_0000080",
+    properties: {
+        lastupdate: "2021-10-11T11:59:00.0Z",
+        magtype: "ml",
+        evtype: "ke",
+        lon: 1.44,
+        auth: "EMSC",
+        lat: 42.52,
+        depth: 5.0,
+        unid: "20211011_0000080",
+        mag: 3.8,
+        time: "2021-10-11T08:23:14.4Z",
+        source_id: "1046960",
+        source_catalog: "EMSC-RTS",
+        flynn_region: "PYRENEES"
+    }
+}
+
 describe('test: fenómenos de APIs', function() {
 	let fenomenosWacc = ['CalorExtremo', 'Inundacion', 'Tornado'];
 	let fenomenosFirms = ['Incendio'];
@@ -282,6 +310,7 @@ describe("test: Firms incidencias", function() {
 });
 
 describe("test: Firms gravedad incendio forestal", function() {
+	const evento = EventoFirmsIncendio;
 	it("deberia retornar gravedad inocua", function() {
 		const evento = {
 			bright_ti4: 0.00
@@ -311,6 +340,53 @@ describe("test: Firms gravedad incendio forestal", function() {
 			bright_ti4: 360
 		}
 		const gravedad = apiFirms.getGravedad(evento, 'Incendio');
+		assert.strictEqual('critico', gravedad);
+	});
+});
+
+describe("test: Speu incidencias", function() {
+	it("deberia crear 1 incidencia de terremoto", function() {
+		const evento = EventoSpeuTerremoto.properties;
+		const incidencias = externalApis.getIncidencias(apiSpeu, evento, []);
+		assert.strictEqual(incidencias.length, 1);
+		assert.strictEqual(incidencias[0].fenomenoMeteo.nombre, 'Terremoto');
+		assert(incidencias[0].API);
+		assert.strictEqual(incidencias[0].creador, 'Seismic Portal EU');
+		assert.strictEqual(incidencias[0].medida, evento.mag);
+	});
+});
+
+describe("test: Speu gravedad terremoto", function() {
+	const evento = EventoSpeuTerremoto.properties;
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			mag: 0.00
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad inocua", function() {
+		const evento = {
+			mag: 3.5
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
+		assert.strictEqual('inocuo', gravedad);
+	});
+
+	it("deberia retornar gravedad no critica", function() {
+		const evento = {
+			mag: 4
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
+		assert.strictEqual('noCritico', gravedad);
+	});
+
+	it("deberia retornar gravedad critica", function() {
+		const evento = {
+			mag: 7
+		}
+		const gravedad = apiSpeu.getGravedad(evento, 'Terremoto');
 		assert.strictEqual('critico', gravedad);
 	});
 });

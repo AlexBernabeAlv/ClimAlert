@@ -136,7 +136,8 @@ const SeismicPortalEu = {
 		let month = new Date().getMonth();
 		if (month == 0) month = 12;
 		const start = '&start=' + new Date().getFullYear() - 1 + '-' + month + '-01';
-		return [this.baseUrl + maxlat + minlat + maxlon + minlon + '&format=json&minmag=3.4'];
+		const url = this.baseUrl + maxlat + minlat + maxlon + minlon + '&format=json&minmag=3.4';
+		return [url];
 	},
 	fenomenos: [
 		'Terremoto'
@@ -167,11 +168,19 @@ const SeismicPortalEu = {
 		return time.split(':')[0] + ':' + time.split(':')[1];
 	},
 	getGravedad(evento, fenomeno) {
-		//if (evento.mag >= 7) return 'critico';
-		//if (evento.mag >= 5) return 'noCritico';
-		//return 'inocuo';
-		return 'critico';
-	}
+        switch(fenomeno) {
+        case 'Terremoto':
+            if (evento.mag > 4) return 'critico';
+            if (evento.mag > 3.5) return 'noCritico';
+            return 'inocuo';
+        }
+	},
+    getMedida(evento, fenomeno) {
+        switch(fenomeno) {
+        case 'Terremoto':
+            return evento.mag;
+        }
+    }
 }
 
 function getIncidencias(api, evento, incidencias) {
