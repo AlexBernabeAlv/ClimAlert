@@ -9,6 +9,7 @@ const GestorUsuarios = require('./Dominio/GestorUsuarios');
 const EnviadorNotificaciones = require('./Dominio/EnviadorNotificaciones')
 const GestorRefugios = require('./Dominio/GestorRefugios');
 const GestorComentarios = require('./Dominio/GestorComentarios');
+const API4me4u = require('./Dominio/API4Me4You');
 
 const yaml = require('yamljs');
 const swaggerUI = require('swagger-ui-express');
@@ -536,6 +537,25 @@ app.post('/usuarios/:emailBuscado/estadisticosComentarios', async (req, res) => 
         res.status(200).json(result);
     }
 
+})
+
+//4me4u
+
+app.post('/4me4u/products', async (req, res) => {
+
+
+    var productName = req.body.productName;
+
+    result = await API4me4u.getObjectPrestado(productName);
+
+    if (typeof result == 'number') {
+
+        var message = checkReturnCode(result);
+        res.status(result).json(message);
+    } else {
+
+        res.status(200).send(result);
+    }
 })
 
 function checkReturnCode(Code) {
