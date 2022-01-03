@@ -35,9 +35,18 @@
     <string name= "text_passw"> Contrasenya: </string>
     <string name= "text_rad"> Radi: </string>
     <string name= "text_add"> Afegir </string>
-    <string name= "nombre_refugio"> Nom </string>
-    <string name= "latitud_refugio"> Latitud </string>
-    <string name= "longitud_refugio"> Longitud </string>
+    <string name= "nombre_refugio"> Nom: </string>
+    <string name= "latitud_refugio"> Latitud: </string>
+    <string name= "longitud_refugio"> Longitud: </string>
+    <string name= "boton_validar"> Validar </string>
+    <string name= "fecha_incidencia"> Data: </string>
+    <string name= "hora_incidencia"> Hora: </string>
+    <string name= "desc_incidencia"> Descripció: </string>
+    <string name= "fuente_incidencia"> Font: </string>
+    <string name= "grvedad_incidencia"> Gravetat: </string>
+
+
+
 
 
 

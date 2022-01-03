@@ -116,10 +116,9 @@ public class ValidarIncidenciasFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
             int marg = linearLayout.getWidth();
-            btn.setBackgroundColor(Color.GREEN);
+            setMargins(view, marg/3, 5, marg/3, 5);
             Notificacion noti = incidenciasNoValidas.get(i);
             btn.setText(noti.nombre);
-            setMargins(view, marg/3, 10, marg/3, 10);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

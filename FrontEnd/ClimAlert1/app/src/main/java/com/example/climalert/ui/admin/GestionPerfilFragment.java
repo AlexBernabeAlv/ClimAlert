@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.MainActivity;
 import com.example.climalert.R;
 
 import org.json.JSONArray;
@@ -66,6 +67,9 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.ban_button:
                 banUsuario(mail);
+                MainActivity main = (MainActivity) getActivity();
+                View vista = main.findViewById(R.id.navigation_settings);
+                vista.callOnClick();
                 break;
 
             case R.id.stats_button:

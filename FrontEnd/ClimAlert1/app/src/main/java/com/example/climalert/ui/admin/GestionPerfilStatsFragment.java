@@ -38,15 +38,22 @@ public class GestionPerfilStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getEstadisticosComentarios();
         getEstadisticosIncidencia();
+        getEstadisticosComentarios();
         view = inflater.inflate(R.layout.fragment_stats_perfil, container, false);
-        muestra_fechas();
         return view;
     }
 
+    private void setMargins(View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
+
     private void muestra_fechas() {
-        int n = estadisticosComent.size(); //o estadisticos normal
+        int n = estadisticos.size(); //o estadisticos normal
         linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas);
         for(int i = 0; i < n; ++i) {
             TextView t = new TextView(getContext());
@@ -54,7 +61,9 @@ public class GestionPerfilStatsFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             t.setId(i);
-            t.setText(estadisticosComent.get(i));
+            int marg = linearLayout.getWidth();
+            setMargins(view, marg/3, 5, marg/3, 5);
+            t.setText(estadisticos.get(i));
             linearLayout.addView(t);
         }
     }
@@ -83,6 +92,7 @@ public class GestionPerfilStatsFragment extends Fragment {
                                 String fecha = estadisticoResponse.getString("fecha");
                                 estadisticosComent.add(fecha);
                             }
+                            muestra_fechas();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -124,6 +134,7 @@ public class GestionPerfilStatsFragment extends Fragment {
                                 String fecha = estadisticoResponse.getString("fecha");
                                 estadisticos.add(fecha);
                             }
+                            muestra_fechas();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

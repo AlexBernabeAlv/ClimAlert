@@ -136,7 +136,7 @@ public class GestionarUsuariosFragment extends Fragment {
             btn.setId(i);
             int l = linearLayout.getWidth();
             int marg = l/3;
-            setMargins(view, marg, 10, marg, 10);
+            setMargins(view, marg, 5, marg, 5);
             UsuarioEstandar u = usuariosEstandar.get(i);
             btn.setText(usuariosEstandar.get(i).email);
             btn.setOnClickListener(new View.OnClickListener() {

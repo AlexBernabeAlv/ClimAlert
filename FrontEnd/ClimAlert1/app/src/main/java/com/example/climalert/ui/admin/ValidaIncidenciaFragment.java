@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
     String fecha,hora,nombre,desc, fuente;
     int radio, id;
     float latitud, longitud;
+    CheckBox gravedad;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +71,16 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
         TextView t_rad = view.findViewById(R.id.texto_radio_incidencia_a_rellenar);
         t_rad.setText(radi);
 
+        gravedad = (CheckBox) view.findViewById(R.id.checkbox_gravedad);
+        gravedad.setOnClickListener(this);
+
         Button val = (Button) view.findViewById(R.id.valida_una_incidencia_button);
-        val.setBackgroundColor(Color.GREEN);
         val.setOnClickListener(this);
 
         return view;
     }
 
-    public void validarIncidencia() {
+    public void validarIncidencia(int i) {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/incidencias?id="+ "aquiVaLaId";
         mapa = new JSONObject();
@@ -85,7 +89,7 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
             mapa.put("password", InformacionUsuario.getInstance().password);
             try {
                 //aqui en vez de un 8 habra que pasarle algo
-                mapa.put("gravedad", 1);
+                mapa.put("gravedad", i);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -113,6 +117,7 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        validarIncidencia();
+        if(gravedad.isChecked()) validarIncidencia(1);
+        else validarIncidencia(0);
     }
 }

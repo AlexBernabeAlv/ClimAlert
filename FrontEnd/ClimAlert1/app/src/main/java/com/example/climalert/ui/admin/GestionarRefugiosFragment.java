@@ -60,10 +60,9 @@ public class GestionarRefugiosFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
             int marg = linearLayout.getWidth();
-            btn.setBackgroundColor(Color.RED);
+            setMargins(view, marg/3, 5, marg/3, 5);
             Refugio r = refugios.get(i);
             btn.setText(r.nombre);
-            setMargins(view, marg/3, 10, marg/3, 10);
             btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,7 +81,7 @@ public class GestionarRefugiosFragment extends Fragment {
         add.setText(R.string.text_add);
         int l = linearLayout.getWidth();
         int marg = l/3;
-        setMargins(view, marg, 10, marg, 10);
+        setMargins(view, marg/3, 5, marg/3, 5);
         //add.setGravity(Gravity.CENTER_HORIZONTAL);
         add.setOnClickListener(new OnClickListener() {
             @Override

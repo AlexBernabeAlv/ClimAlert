@@ -66,7 +66,8 @@ public class CrearRefugioFragment extends Fragment {
             builder.setMessage("Todos los campos no han sido rellenados")
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        public void onClick
+                                (@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         }
                     });
             alert = builder.create();
