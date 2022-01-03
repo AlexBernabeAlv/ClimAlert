@@ -1,6 +1,8 @@
 package com.example.climalert;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -37,6 +39,7 @@ import com.example.climalert.ui.catastrofes.Tormenta_Electrica_Fragment;
 import com.example.climalert.ui.catastrofes.Tormenta_Invernal_Fragment;
 import com.example.climalert.ui.catastrofes.Tornado_Fragment;
 import com.example.climalert.ui.catastrofes.Tsunami_Fragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +55,9 @@ import java.util.Locale;
  * create an instance of this fragment.
  */
 public class LlamaditaFragment extends Fragment {
+
+    AlertDialog alert = null;
+    Boolean banned = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,6 +109,7 @@ public class LlamaditaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.formulario, container, false);
+        getUsuario(InformacionUsuario.getInstance().email);
 
         mSpinner = (Spinner) view.findViewById(R.id.mSpinner);
         ArrayList<String> incidencias = new ArrayList<String>();
@@ -153,6 +160,7 @@ public class LlamaditaFragment extends Fragment {
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(banned) Alert(0);
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                 Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
                 spinnerres = mSpinner.getSelectedItem().toString();
@@ -231,6 +239,60 @@ public class LlamaditaFragment extends Fragment {
         });
         return view;
     }
+
+    private void getUsuario(String email){
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = "https://climalert.herokuapp.com/usuarios/" + email;
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            banned = Boolean.parseBoolean(response.getString("banned"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                })
+                ;
+        queue.add(request);
+    }
+
+    private void Alert(int i) {
+        if(i == 0) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Usuario baneado")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        }
+                    });
+
+            alert = builder.create();
+            alert.show();
+        }
+        if(i == 1) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Localizacion no activada")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        }
+                    });
+            alert = builder.create();
+            alert.show();
+        }
+    }
+
+
 
     public void dar_incidencia() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
