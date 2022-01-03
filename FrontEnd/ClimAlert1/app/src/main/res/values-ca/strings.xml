@@ -12,7 +12,7 @@
     <string name="text_tormenta_invernal">Tempesta hivernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundació</string>
-    <string name="text_incendio">Incendi Forestal</string>
+    <string name="text_incendio_forestal">Incendi forestal</string>
     <string name="text_terremoto">Terratrèmol</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Allau</string>
@@ -21,13 +21,17 @@
     <string name="text_gota_fria">Gota freda</string>
     <string name="text_tormenta_electrica">Tempesta elèctrica</string>
 
+    <string name="sos_aviso_incidencia">Avís d\'incidència</string>
+    <string name="sos_hint_descripcion">Descripció</string>
+    <string name="sos_boton_enviar">Enviar</string>
+
     <string name= "boton_idioma"> Idioma </string>
     <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Tancar Sessió </string>
-    <string name= "boton_guardar_cambios"> Guardar Canvis </string>
-    <string name= "radio_afectacion"> Radi Afectació </string>
-    <string name= "filtro_incidencias"> Filtre Incidencies </string>
-    <string name= "modo_administrador"> Mode Administrador </string>
+    <string name= "boton_logout"> Tancar sessió </string>
+    <string name= "boton_guardar_cambios"> Guardar canvis </string>
+    <string name= "radio_afectacion"> Radi d\'afectació </string>
+    <string name= "filtro_incidencias"> Filtre d\'incidencies </string>
+    <string name= "modo_administrador"> Mode administrador </string>
     <string name= "boton_ban"> Ban </string>
     <string name= "boton_stats"> Estadístiques </string>
     <string name= "text_email"> Email: </string>
@@ -44,10 +48,6 @@
     <string name= "desc_incidencia"> Descripció: </string>
     <string name= "fuente_incidencia"> Font: </string>
     <string name= "grvedad_incidencia"> Gravetat: </string>
-
-
-
-
 
 
     <string name="descripcion_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n

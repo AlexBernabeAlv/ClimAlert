@@ -1,7 +1,7 @@
 const incidenciaFenomeno = require('../Dominio/IncidenciaFenomeno');
 
 const WeatherApiComCurrent = {
-	name: 'WeatherApiComCurrent',
+	name: 'Weather Api Current',
 	id: 'wacc',
 	baseUrl: 'https://api.weatherapi.com/v1/current.json?q=',
 	getUrls() {
@@ -18,7 +18,8 @@ const WeatherApiComCurrent = {
 	},
 	fenomenos: [
 		'CalorExtremo',
-		'Inundacion'
+		'Inundacion',
+		'Tornado'
 	],
 	getEventos(respuesta) {
 		let eventos = [];
@@ -41,18 +42,32 @@ const WeatherApiComCurrent = {
 		switch(fenomeno) {
 		case 'CalorExtremo':
 			if (evento.current.temp_c > 16) return 'critico';
-			if (evento.current.temp_c > 15) return 'noCritico';
+			if (evento.current.temp_c > 10) return 'noCritico';
 			return 'inocuo';
 		case 'Inundacion':
 			if (evento.current.precip_mm > 0.04) return 'critico';
 			if (evento.current.precip_mm > 0.03) return 'noCritico';
 			return 'inocuo';
+		case 'Tornado':
+			if (evento.current.wind_kph > 35) return 'critico';
+			if (evento.current.wind_kph > 15) return 'noCritico';
+			return 'inocuo';
+		}
+	},
+	getMedida(evento, fenomeno) {
+		switch(fenomeno) {
+		case 'CalorExtremo':
+			return evento.current.temp_c;
+		case 'Inundacion':
+			return evento.current.precip_mm;
+		case 'Tornado':
+			return evento.current.wind_kph;
 		}
 	}
 }
 
 const FirmsViirsSnppNrt = {
-	name: 'FirmsViirsSnppNrt',
+	name: 'Fire Information for Resource Management System',
 	id: 'firms',
 	baseUrl: 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/6092ec0d3b6b37225112d6016c6dd223/VIIRS_SNPP_NRT/',
 	getUrls() {
@@ -94,12 +109,23 @@ const FirmsViirsSnppNrt = {
 		return '00:00';
 	},
 	getGravedad(evento, fenomeno) {
-		return 'critico';
-	}
+        switch(fenomeno) {
+        case 'Incendio':
+			if (evento.bright_ti4 > 330) return 'critico';
+			if (evento.bright_ti4 > 280) return 'noCritico';
+			return 'inocuo';
+		}
+	},
+    getMedida(evento, fenomeno) {
+        switch(fenomeno) {
+        case 'Incendio':
+            return evento.bright_ti4;
+        }
+    }
 }
 
 const SeismicPortalEu = {
-	name: 'SeismicPortalEu',
+	name: 'Seismic Portal EU',
 	id: 'speu',
 	baseUrl: 'https://www.seismicportal.eu/fdsnws/event/1/query?limit=20',
 	getUrls() {
@@ -110,7 +136,8 @@ const SeismicPortalEu = {
 		let month = new Date().getMonth();
 		if (month == 0) month = 12;
 		const start = '&start=' + new Date().getFullYear() - 1 + '-' + month + '-01';
-		return [this.baseUrl + maxlat + minlat + maxlon + minlon + '&format=json&minmag=3.4'];
+		const url = this.baseUrl + maxlat + minlat + maxlon + minlon + '&format=json&minmag=3.4';
+		return [url];
 	},
 	fenomenos: [
 		'Terremoto'
@@ -141,11 +168,19 @@ const SeismicPortalEu = {
 		return time.split(':')[0] + ':' + time.split(':')[1];
 	},
 	getGravedad(evento, fenomeno) {
-		//if (evento.mag >= 7) return 'critico';
-		//if (evento.mag >= 5) return 'noCritico';
-		//return 'inocuo';
-		return 'critico';
-	}
+        switch(fenomeno) {
+        case 'Terremoto':
+            if (evento.mag > 4) return 'critico';
+            if (evento.mag > 3.5) return 'noCritico';
+            return 'inocuo';
+        }
+	},
+    getMedida(evento, fenomeno) {
+        switch(fenomeno) {
+        case 'Terremoto':
+            return evento.mag;
+        }
+    }
 }
 
 function getIncidencias(api, evento, incidencias) {
@@ -158,10 +193,14 @@ function getIncidencias(api, evento, incidencias) {
 			const longitud = api.getLongitud(evento);
 			const grave = (gravedad == 'critico');
 			const radio = 1;
-			const id = api.id;
+			const id = 0;
 			//Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud
-			const incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
-			//let name = api.name;
+			let incidencia = new incidenciaFenomeno(id, fecha, hora, fenomeno, null, radio, grave, latitud, longitud);
+			incidencia.setAPI();
+			incidencia.setValido();
+			incidencia.setCreador(api.name);
+			const medida = api.getMedida(evento, fenomeno);
+			incidencia.setMedida(medida);
 			incidencias.push(incidencia);
 		}
 	}

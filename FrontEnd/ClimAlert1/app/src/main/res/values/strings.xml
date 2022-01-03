@@ -13,7 +13,7 @@
     <string name="text_tormenta_invernal">Tormenta invernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundación</string>
-    <string name="text_incendio">Incendio</string>
+    <string name="text_incendio_forestal">Incendio</string>
     <string name="text_terremoto">Terremoto</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Avalancha</string>
@@ -22,20 +22,24 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="sos_aviso_incidencia">Aviso de incidencia</string>
+    <string name="sos_hint_descripcion">Descripción</string>
+    <string name="sos_boton_enviar">Enviar</string>
+
     <string name= "boton_idioma"> Idioma </string>
     <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Cerrar Sessión </string>
-    <string name= "boton_guardar_cambios"> Guardar Cambios </string>
-    <string name= "radio_afectacion"> Radio Afectacion </string>
-    <string name= "filtro_incidencias"> Filtro Incidencias </string>
-    <string name= "modo_administrador"> Modo Administrador </string>
+    <string name= "boton_logout"> Cerrar sesión </string>
+    <string name= "boton_guardar_cambios"> Guardar cambios </string>
+    <string name= "radio_afectacion"> Radio de afectación </string>
+    <string name= "filtro_incidencias"> Filtro de incidencias </string>
+    <string name= "modo_administrador"> Modo administrador </string>
     <string name= "boton_ban"> Banear </string>
     <string name= "boton_stats"> Estadísticas </string>
     <string name= "text_email"> Email: </string>
-    <string name= "text_passw"> Password: </string>
-    <string name= "text_grav"> Severity Filter: </string>
-    <string name= "text_rad"> Radius: </string>
-    <string name= "text_add"> Add </string>
+    <string name= "text_passw"> Contraseña: </string>
+    <string name= "text_grav"> Filtro Gravedad: </string>
+    <string name= "text_rad"> Radio: </string>
+    <string name= "text_add"> Añadir </string>
     <string name= "nombre_refugio"> Nombre: </string>
     <string name= "latitud_refugio"> Latitud: </string>
     <string name= "longitud_refugio"> Longitud: </string>
@@ -45,7 +49,6 @@
     <string name= "desc_incidencia"> Descripción: </string>
     <string name= "fuente_incidencia"> Fuente: </string>
     <string name= "grvedad_incidencia"> Gravedad: </string>
-
 
 
 

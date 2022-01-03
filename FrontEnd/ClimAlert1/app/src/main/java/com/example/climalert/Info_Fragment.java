@@ -13,7 +13,7 @@ import com.example.climalert.ui.catastrofes.Avalancha_Fragment;
 import com.example.climalert.ui.catastrofes.Gota_Fria_Fragment;
 import com.example.climalert.ui.catastrofes.Granizo_Fragment;
 import com.example.climalert.ui.catastrofes.Tormenta_Invernal_Fragment;
-import com.example.climalert.ui.catastrofes.Incendio_Fragment;
+import com.example.climalert.ui.catastrofes.Incendio_Forestal_Fragment;
 import com.example.climalert.ui.catastrofes.Calor_Extremo_Fragment;
 import com.example.climalert.ui.catastrofes.Inundacion_Fragment;
 import com.example.climalert.ui.catastrofes.Lluvia_Acida_Fragment;
@@ -149,7 +149,7 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
 
             case R.id.button_incendio:
                 main = (MainActivity) getActivity();
-                main.catastrofe_func(new Incendio_Fragment());
+                main.catastrofe_func(new Incendio_Forestal_Fragment());
                 break;
 
             case R.id.button_tsunami:
