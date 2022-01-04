@@ -21,19 +21,33 @@
     <string name="text_gota_fria">Cold drop</string>
     <string name="text_tormenta_electrica">Thunder storm</string>
 
-    <string name="desc_incidencia_calor_extremo">Calor extremo</string>
-    <string name="desc_incidencia_granizo">Granizo</string>
-    <string name="desc_incidencia_tormenta_invernal">Tormenta invernal</string>
-    <string name="desc_incidencia_tornado">Tornado</string>
-    <string name="desc_incidencia_inundacion">Inundación</string>
-    <string name="desc_incidencia_incendio_forestal">Incendio</string>
-    <string name="desc_incidencia_terremoto">Terremoto</string>
-    <string name="desc_incidencia_tsunami">Tsunami</string>
-    <string name="desc_incidencia_avalancha">Avalancha</string>
-    <string name="desc_incidencia_lluvia_acida">Lluvia ácida</string>
-    <string name="desc_incidencia_erupcion_volcanica">Erupción volcánica</string>
-    <string name="desc_incidencia_gota_fria">Gota fría</string>
-    <string name="desc_incidencia_tormenta_electrica">Tormenta eléctrica</string>
+    <string name="unidad_calor_extremo">ºC of temperature</string>
+    <string name="unidad_granizo">mm</string>
+    <string name="unidad_tormenta_invernal">mm</string>
+    <string name="unidad_tornado">km/h</string>
+    <string name="unidad_inundacion">mm</string>
+    <string name="unidad_incendio_forestal">Kelvin of brightness</string>
+    <string name="unidad_terremoto">of magnitude</string>
+    <string name="unidad_tsunami">mm</string>
+    <string name="unidad_avalancha">mm</string>
+    <string name="unidad_lluvia_acida">mm</string>
+    <string name="unidad_erupcion_volcanica">Kelvin of brightness</string>
+    <string name="unidad_gota_fria">mm</string>
+    <string name="unidad_tormenta_electrica">Kelvin of brightness</string>
+
+    <string name="desc_incidencia_calor_extremo">....</string>
+    <string name="desc_incidencia_granizo">....</string>
+    <string name="desc_incidencia_tormenta_invernal">....</string>
+    <string name="desc_incidencia_tornado">....</string>
+    <string name="desc_incidencia_inundacion">....</string>
+    <string name="desc_incidencia_incendio_forestal">....</string>
+    <string name="desc_incidencia_terremoto">....</string>
+    <string name="desc_incidencia_tsunami">....</string>
+    <string name="desc_incidencia_avalancha">....</string>
+    <string name="desc_incidencia_lluvia_acida">....</string>
+    <string name="desc_incidencia_erupcion_volcanica">....</string>
+    <string name="desc_incidencia_gota_fria">....</string>
+    <string name="desc_incidencia_tormenta_electrica">....</string>
 
     <string name="map_ubicacion_usuario">User location</string>
     <string name="map_refugio">Shelter</string>

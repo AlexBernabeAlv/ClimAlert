@@ -826,7 +826,6 @@ public class MapsFragment extends Fragment {
                 MainActivity main = (MainActivity) getActivity();
                 String nombreFenomeno = null;
                 String descripcion = null;
-                int medida = 0;
                 switch(print.get(i).nombre) {
                     case "CalorExtremo":
                         nombreFenomeno = main.getString(R.string.text_calor_extremo);
