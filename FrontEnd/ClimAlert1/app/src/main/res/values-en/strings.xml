@@ -51,11 +51,29 @@
 
     <string name= "boton_idioma"> Language </string>
     <string name= "boton_perfil"> Profile </string>
+
     <string name= "boton_logout"> Log out </string>
     <string name= "boton_guardar_cambios"> Save changes </string>
     <string name= "radio_afectacion"> Effect radius </string>
     <string name= "filtro_incidencias"> Incidents filter </string>
     <string name= "modo_administrador"> Administrator mode </string>
+    <string name= "boton_ban"> Ban </string>
+    <string name= "boton_stats"> Stats </string>
+    <string name= "text_email"> Email: </string>
+    <string name= "text_passw"> Password: </string>
+    <string name= "text_grav"> Severity Filter: </string>
+    <string name= "text_rad"> Radius: </string>
+    <string name= "text_add"> Add </string>
+    <string name= "nombre_refugio"> Name: </string>
+    <string name= "latitud_refugio"> Latitude: </string>
+    <string name= "longitud_refugio"> Longitude: </string>
+    <string name= "boton_validar"> Validate </string>
+    <string name= "fecha_incidencia"> Date: </string>
+    <string name= "hora_incidencia"> Hour: </string>
+    <string name= "desc_incidencia"> Description: </string>
+    <string name= "fuente_incidencia"> Resource: </string>
+    <string name= "grvedad_incidencia"> Severity: </string>
+
 
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or
         much more humid conditions than average. This extreme heat can cause heat stroke,

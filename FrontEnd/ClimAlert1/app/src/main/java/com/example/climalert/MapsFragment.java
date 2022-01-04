@@ -67,10 +67,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.Vector;
@@ -85,7 +88,8 @@ public class MapsFragment extends Fragment {
     Marker UBI1;
     Marker UBI2;
     HashMap<Integer, Marker> IncidenciasActuales =  new HashMap<Integer, Marker>();
-    HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();;
+    HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();
+    Vector<LatLng> items = new Vector<LatLng>();
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -215,7 +219,7 @@ public class MapsFragment extends Fragment {
                 markerActual = null;
                 localizacionespuestas = false;
                 getloc();
-
+                formeforu();
                 print_incidencias(InformacionUsuario.getInstance().actual);
 
 
@@ -685,6 +689,51 @@ public class MapsFragment extends Fragment {
             alert.show();
 
         }
+    }
+
+    public void formeforu() {
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = "https://climalert.herokuapp.com/4me4u/products";
+        JSONObject mapa = new JSONObject();
+        try {
+            //DAVID, AQUI CAMBIAS EL HARDCORED POR ELDEL ITEMTEXT
+            mapa.put("productName", "Test");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Request a string response from the provided URL.
+        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONObject item;
+                        try {
+                            for (int i = 0; i < response.length(); ++i) {
+                                item = response.getJSONObject(i);
+                                JSONObject userId = item.getJSONObject("userId");
+                                Float latitud = Float.parseFloat(userId.getString("latitude"));
+                                Float longitud = Float.parseFloat(userId.getString("longitude"));
+                                LatLng ll = new LatLng(latitud, longitud);
+                                items.add(ll);
+                            }
+                        }
+                        catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                        Log.d("a", String.valueOf(response));
+                        //Log.d("ALGO", "he acabado el bucle");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+
+                }) {
+        };
+        queue.add(request);
     }
 
     //el this por el getactivity

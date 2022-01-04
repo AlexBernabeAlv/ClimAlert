@@ -56,6 +56,22 @@
     <string name= "radio_afectacion"> Radi d\'afectació </string>
     <string name= "filtro_incidencias"> Filtre d\'incidencies </string>
     <string name= "modo_administrador"> Mode administrador </string>
+    <string name= "boton_ban"> Ban </string>
+    <string name= "boton_stats"> Estadístiques </string>
+    <string name= "text_email"> Email: </string>
+    <string name= "text_grav"> Filtre Gravetat: </string>
+    <string name= "text_passw"> Contrasenya: </string>
+    <string name= "text_rad"> Radi: </string>
+    <string name= "text_add"> Afegir </string>
+    <string name= "nombre_refugio"> Nom: </string>
+    <string name= "latitud_refugio"> Latitud: </string>
+    <string name= "longitud_refugio"> Longitud: </string>
+    <string name= "boton_validar"> Validar </string>
+    <string name= "fecha_incidencia"> Data: </string>
+    <string name= "hora_incidencia"> Hora: </string>
+    <string name= "desc_incidencia"> Descripció: </string>
+    <string name= "fuente_incidencia"> Font: </string>
+    <string name= "grvedad_incidencia"> Gravetat: </string>
 
 
     <string name="descripcion_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n

@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.Foro.VentanaForo;
 import com.example.climalert.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -76,15 +77,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 
-    public void perfil_boton() {
-        Fragment perfil = new PerfilFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(perfil)
-                .replace(R.id.contenedor, perfil, "SETTINGS")
-                .commit();
-    }
-
     public void changeLang (String newLang) {
         if (!newLang.equals(currentLang)) {
             SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
@@ -95,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
             View v = findViewById(R.id.navigation_home);
             v.callOnClick();
         }
+    }
+    public void perfil_boton() {
+        Fragment perfil = new PerfilFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(perfil)
+                .replace(R.id.contenedor, perfil, "SETTINGS")
+                .commit();
     }
 
     public void setCurrentLocale(String newLang) {
@@ -116,7 +116,35 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
+    public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
+
     public void admin_func(Fragment f) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f, "SETTINGS")
+                .commit();
+    }
+
+    public void modo_admin() {
+        Fragment f = new VentanaAdminFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, f, "SETTINGS")
@@ -270,12 +298,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    public void modo_admin() {
-        Fragment f = new VentanaAdminFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
-                .commit();
-    }
 }
+
