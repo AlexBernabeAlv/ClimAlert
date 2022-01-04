@@ -46,7 +46,6 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginHorizontal="10dp"
-                android:text="-"
                 android:visibility="invisible"
                 android:background="@drawable/delete_icon"/>
             <Button

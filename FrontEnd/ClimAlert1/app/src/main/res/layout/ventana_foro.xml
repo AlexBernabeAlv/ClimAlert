@@ -3,20 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5sp"
+    android:layout_marginBottom="55dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="12dp">
         <TextView
             android:id="@+id/nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textStyle="bold"/>
+            android:text="Nombre de usuario"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
 
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,11 +43,6 @@
             android:layout_height="wrap_content"
             android:hint="Enviar"/>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMensajes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
 
 
 
