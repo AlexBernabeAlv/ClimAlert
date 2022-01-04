@@ -197,7 +197,7 @@ public class InformacionUsuario {
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
                                 String fuente = incidenciaFenomeno.getString("creador");
-                                String medida = incidenciaFenomeno.getString("medida");
+                                Float medida = Float.parseFloat(incidenciaFenomeno.getString("medida"));
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
                                 Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id, medida);

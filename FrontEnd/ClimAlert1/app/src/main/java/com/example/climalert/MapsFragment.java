@@ -826,59 +826,72 @@ public class MapsFragment extends Fragment {
                 MainActivity main = (MainActivity) getActivity();
                 String nombreFenomeno = null;
                 String descripcion = null;
-                int medida = 0;
+                //String medida = null;
                 switch(print.get(i).nombre) {
                     case "CalorExtremo":
                         nombreFenomeno = main.getString(R.string.text_calor_extremo);
                         descripcion = main.getString(R.string.desc_incidencia_calor_extremo);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "Granizo":
                         nombreFenomeno = main.getString(R.string.text_granizo);
                         descripcion = main.getString(R.string.desc_incidencia_granizo);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_granizo);
                         break;
                     case "TormentaInvernal":
                         nombreFenomeno = main.getString(R.string.text_tormenta_invernal);
                         descripcion = main.getString(R.string.desc_incidencia_tormenta_invernal);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_tormenta_invernal);
                         break;
                     case "Tornado":
                         nombreFenomeno = main.getString(R.string.text_tornado);
                         descripcion = main.getString(R.string.desc_incidencia_tornado);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "Inundacion":
                         nombreFenomeno = main.getString(R.string.text_inundacion);
                         descripcion = main.getString(R.string.desc_incidencia_inundacion);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "Incendio":
                         nombreFenomeno = main.getString(R.string.text_incendio_forestal);
                         descripcion = main.getString(R.string.desc_incidencia_incendio_forestal);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "Terremoto":
                         nombreFenomeno = main.getString(R.string.text_terremoto);
                         descripcion = main.getString(R.string.desc_incidencia_terremoto);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "Tsunami":
                         nombreFenomeno = main.getString(R.string.text_tsunami);
                         descripcion = main.getString(R.string.desc_incidencia_tsunami);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "Avalancha":
                         nombreFenomeno = main.getString(R.string.text_avalancha);
                         descripcion = main.getString(R.string.desc_incidencia_avalancha);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "LluviaAcida":
                         nombreFenomeno = main.getString(R.string.text_lluvia_acida);
                         descripcion = main.getString(R.string.desc_incidencia_lluvia_acida);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "ErupcionVolcanica":
                         nombreFenomeno = main.getString(R.string.text_erupcion_volcanica);
                         descripcion = main.getString(R.string.desc_incidencia_erupcion_volcanica);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "GotaFria":
                         nombreFenomeno = main.getString(R.string.text_gota_fria);
                         descripcion = main.getString(R.string.desc_incidencia_gota_fria);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                         break;
                     case "TormentaElectrica":
                         nombreFenomeno = main.getString(R.string.text_tormenta_electrica);
                         descripcion = main.getString(R.string.desc_incidencia_tormenta_electrica);
+                        //descripcion += " " + print.get(i).medida + " " + main.getString(R.string.unidad_calor_extremo);
                 }
                 generarMarcadores(ll, descripcion, nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
             }
