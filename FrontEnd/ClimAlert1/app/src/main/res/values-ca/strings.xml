@@ -33,7 +33,8 @@
     <string name= "filtro_incidencias"> Filtre d\'incidencies </string>
     <string name= "modo_administrador"> Mode administrador </string>
     <string name= "boton_ban"> Ban </string>
-    <string name= "boton_stats"> Estadístiques </string>
+    <string name= "boton_stats_incidencias"> Estadístiques Incidencies </string>
+    <string name= "boton_stats_comentarios"> Estadístiques Comentaris </string>
     <string name= "text_email"> Email: </string>
     <string name= "text_grav"> Filtre Gravetat: </string>
     <string name= "text_passw"> Contrasenya: </string>

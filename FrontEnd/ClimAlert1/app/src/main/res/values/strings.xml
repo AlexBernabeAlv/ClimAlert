@@ -34,7 +34,8 @@
     <string name= "filtro_incidencias"> Filtro de incidencias </string>
     <string name= "modo_administrador"> Modo administrador </string>
     <string name= "boton_ban"> Banear </string>
-    <string name= "boton_stats"> Estadísticas </string>
+    <string name= "boton_stats_incidencias"> Estadísticas Incidencias </string>
+    <string name= "boton_stats_comentarios"> Estadísticas Comentarios </string>
     <string name= "text_email"> Email: </string>
     <string name= "text_passw"> Contraseña: </string>
     <string name= "text_grav"> Filtro Gravedad: </string>

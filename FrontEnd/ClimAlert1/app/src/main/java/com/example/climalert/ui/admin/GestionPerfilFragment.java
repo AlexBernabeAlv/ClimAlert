@@ -24,11 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Vector;
-
 public class GestionPerfilFragment extends Fragment implements View.OnClickListener {
     JSONObject mapa = new JSONObject();
-    Bundle bundle = getArguments();
     String mail, pass;
     int gravedad, radio;
     @Override
@@ -44,6 +41,7 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         pass = getArguments().getString("password");
         gravedad = getArguments().getInt("gravedad");
         radio = getArguments().getInt("radio");
+
         String rad, grav;
         rad = String.valueOf(radio);
         grav = String.valueOf(gravedad);
@@ -55,15 +53,23 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         t_gravedad.setText(grav);
         TextView t_radio = view.findViewById(R.id.texto_radio_a_rellenar);
         t_radio.setText(rad);
+
         Button ban = (Button) view.findViewById(R.id.ban_button);
         ban.setOnClickListener(this);
-        Button stats = (Button) view.findViewById(R.id.stats_button);
-        stats.setOnClickListener(this);
+        Button stats_incidencias = (Button) view.findViewById(R.id.stats_incidencias_button);
+        stats_incidencias.setOnClickListener(this);
+        Button stats_comentarios = (Button) view.findViewById(R.id.stats_comentarios_button);
+        stats_comentarios.setOnClickListener(this);
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
+        Fragment f;
+        Bundle b = new Bundle();
+        b.putString(mail, "email");
+        FragmentManager fm = getFragmentManager();;
         switch (v.getId()) {
             case R.id.ban_button:
                 banUsuario(mail);
@@ -72,9 +78,17 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
                 vista.callOnClick();
                 break;
 
-            case R.id.stats_button:
-                GestionPerfilStatsFragment f = new GestionPerfilStatsFragment();
-                FragmentManager fm = getFragmentManager();
+            case R.id.stats_incidencias_button:
+                f = new GestionPerfilStatsIncidenciasFragment();
+                f.setArguments(b);
+                fm.beginTransaction()
+                        .replace(R.id.contenedor, f, "SETTINGS")
+                        .commit();
+                break;
+
+            case R.id.stats_comentarios_button:
+                f = new GestionPerfilStatsComentariosFragment();
+                f.setArguments(b);
                 fm.beginTransaction()
                         .replace(R.id.contenedor, f, "SETTINGS")
                         .commit();

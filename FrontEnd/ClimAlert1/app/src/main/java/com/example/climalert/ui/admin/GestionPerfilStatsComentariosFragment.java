@@ -24,12 +24,12 @@ import org.json.JSONObject;
 
 import java.util.Vector;
 
-public class GestionPerfilStatsFragment extends Fragment {
+public class GestionPerfilStatsComentariosFragment extends Fragment {
     JSONObject mapa = new JSONObject();
     View view;
     LinearLayout linearLayout;
     public Vector<String> estadisticosComent = new Vector<String>();
-    public Vector<String> estadisticos = new Vector<String>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +38,10 @@ public class GestionPerfilStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getEstadisticosIncidencia();
-        getEstadisticosComentarios();
-        view = inflater.inflate(R.layout.fragment_stats_perfil, container, false);
+        assert getArguments() != null;
+        String email_usu = getArguments().getString("email");
+        getEstadisticosComentarios(email_usu);
+        view = inflater.inflate(R.layout.fragment_stats_comentarios_perfil, container, false);
         return view;
     }
 
@@ -52,25 +53,9 @@ public class GestionPerfilStatsFragment extends Fragment {
         }
     }
 
-    private void muestra_fechas() {
-        int n = estadisticos.size(); //o estadisticos normal
-        linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas);
-        for(int i = 0; i < n; ++i) {
-            TextView t = new TextView(getContext());
-            t.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            t.setId(i);
-            int marg = linearLayout.getWidth();
-            setMargins(view, marg/3, 5, marg/3, 5);
-            t.setText(estadisticos.get(i));
-            linearLayout.addView(t);
-        }
-    }
-
-    public void getEstadisticosComentarios() {
+    public void getEstadisticosComentarios(String email) {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+ InformacionUsuario.getInstance().email+"/estadisticosIncidencias";
+        String url = "https://climalert.herokuapp.com/usuarios/"+ email + "/estadisticosIncidencias";
         mapa = new JSONObject();
         try {
             mapa.put("filtro", "dia");
@@ -110,45 +95,20 @@ public class GestionPerfilStatsFragment extends Fragment {
         queue.add(request);
     }
 
-    public void getEstadisticosIncidencia() {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/estadisticosIncidencias";
-        mapa = new JSONObject();
-        try {
-            mapa.put("filtro", "dia");
-            mapa.put("password", InformacionUsuario.getInstance().password);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private void muestra_fechas() {
+        int n = estadisticosComent.size();
+        linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas);
+        for(int i = 0; i < n; ++i) {
+            TextView t = new TextView(getContext());
+            t.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            t.setId(i);
+            int marg = linearLayout.getWidth();
+            setMargins(view, marg/3, 5, marg/3, 5);
+            t.setText(estadisticosComent.get(i));
+            linearLayout.addView(t);
         }
-
-        // Request a string response from the provided URL.
-        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        JSONObject estadisticoResponse;
-                        estadisticos.clear();
-                        try {
-                            for (int i = 0; i < response.length(); ++i) {
-                                estadisticoResponse = response.getJSONObject(i);
-                                String fecha = estadisticoResponse.getString("fecha");
-                                estadisticos.add(fecha);
-                            }
-                            muestra_fechas();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
-                    }
-
-                }) {
-        };
-        queue.add(request);
     }
+
 }

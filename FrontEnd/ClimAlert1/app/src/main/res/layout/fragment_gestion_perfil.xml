@@ -96,22 +96,26 @@
         android:id="@+id/ban_button"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_marginBottom="100dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:text="@string/boton_ban"
         android:backgroundTint="#F44336"/>
 
     <Button
-        android:id="@+id/stats_button"
+        android:id="@+id/stats_incidencias_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="100dp"
+        android:layout_above="@id/ban_button"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="#3F51B5"
-        android:text="@string/boton_stats" />
+        android:text="@string/boton_stats_incidencias" />
+
+    <Button
+        android:id="@+id/stats_comentarios_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/stats_incidencias_button"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#03A9F4"
+        android:text="@string/boton_stats_comentarios" />
 
 </RelativeLayout>
