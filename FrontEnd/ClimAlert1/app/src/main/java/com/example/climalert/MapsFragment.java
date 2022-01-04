@@ -309,7 +309,7 @@ public class MapsFragment extends Fragment {
                 titleUi.setText("");
             }
             if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals(getString(R.string.map_refugio))) {
                 Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
                 Log.d("123456", "marker: " + marker.getTitle() );
                 Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
@@ -337,7 +337,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onInfoWindowClick(Marker marker) {
             if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals(getString(R.string.map_refugio))) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
                 InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
@@ -471,7 +471,7 @@ public class MapsFragment extends Fragment {
                                 mMap.addMarker(new MarkerOptions()
                                         .anchor(0.0f, 1.0f)
                                         .alpha(0.7f)
-                                        .title("refugio")
+                                        .title(getString(R.string.map_refugio))
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                                         .position(lr));
                                 trazarRutaEntreOrigenDestino(InformacionUsuario.getInstance().latitudactual,InformacionUsuario.getInstance().longitudactual, latitud, longitud);
@@ -774,7 +774,64 @@ public class MapsFragment extends Fragment {
         if(print != null) {
             for (int i = 0; i < print.size(); ++i) {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
-                generarMarcadores(ll, (print.get(i).descripcion), print.get(i).nombre, (print.get(i).radio),(print.get(i).identificador));
+                MainActivity main = (MainActivity) getActivity();
+                String nombreFenomeno = null;
+                String descripcion = null;
+                int medida = 0;
+                switch(print.get(i).nombre) {
+                    case "CalorExtremo":
+                        nombreFenomeno = main.getString(R.string.text_calor_extremo);
+                        descripcion = main.getString(R.string.desc_incidencia_calor_extremo);
+                        break;
+                    case "Granizo":
+                        nombreFenomeno = main.getString(R.string.text_granizo);
+                        descripcion = main.getString(R.string.desc_incidencia_granizo);
+                        break;
+                    case "TormentaInvernal":
+                        nombreFenomeno = main.getString(R.string.text_tormenta_invernal);
+                        descripcion = main.getString(R.string.desc_incidencia_tormenta_invernal);
+                        break;
+                    case "Tornado":
+                        nombreFenomeno = main.getString(R.string.text_tornado);
+                        descripcion = main.getString(R.string.desc_incidencia_tornado);
+                        break;
+                    case "Inundacion":
+                        nombreFenomeno = main.getString(R.string.text_inundacion);
+                        descripcion = main.getString(R.string.desc_incidencia_inundacion);
+                        break;
+                    case "Incendio":
+                        nombreFenomeno = main.getString(R.string.text_incendio_forestal);
+                        descripcion = main.getString(R.string.desc_incidencia_incendio_forestal);
+                        break;
+                    case "Terremoto":
+                        nombreFenomeno = main.getString(R.string.text_terremoto);
+                        descripcion = main.getString(R.string.desc_incidencia_terremoto);
+                        break;
+                    case "Tsunami":
+                        nombreFenomeno = main.getString(R.string.text_tsunami);
+                        descripcion = main.getString(R.string.desc_incidencia_tsunami);
+                        break;
+                    case "Avalancha":
+                        nombreFenomeno = main.getString(R.string.text_avalancha);
+                        descripcion = main.getString(R.string.desc_incidencia_avalancha);
+                        break;
+                    case "LluviaAcida":
+                        nombreFenomeno = main.getString(R.string.text_lluvia_acida);
+                        descripcion = main.getString(R.string.desc_incidencia_lluvia_acida);
+                        break;
+                    case "ErupcionVolcanica":
+                        nombreFenomeno = main.getString(R.string.text_erupcion_volcanica);
+                        descripcion = main.getString(R.string.desc_incidencia_erupcion_volcanica);
+                        break;
+                    case "GotaFria":
+                        nombreFenomeno = main.getString(R.string.text_gota_fria);
+                        descripcion = main.getString(R.string.desc_incidencia_gota_fria);
+                        break;
+                    case "TormentaElectrica":
+                        nombreFenomeno = main.getString(R.string.text_tormenta_electrica);
+                        descripcion = main.getString(R.string.desc_incidencia_tormenta_electrica);
+                }
+                generarMarcadores(ll, descripcion, nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
             }
             if(print ==  InformacionUsuario.getInstance().aPintar){
 

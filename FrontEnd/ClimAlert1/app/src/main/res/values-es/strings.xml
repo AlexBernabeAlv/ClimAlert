@@ -21,7 +21,22 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="desc_incidencia_calor_extremo">Calor extremo</string>
+    <string name="desc_incidencia_granizo">Granizo</string>
+    <string name="desc_incidencia_tormenta_invernal">Tormenta invernal</string>
+    <string name="desc_incidencia_tornado">Tornado</string>
+    <string name="desc_incidencia_inundacion">Inundación</string>
+    <string name="desc_incidencia_incendio_forestal">Incendio</string>
+    <string name="desc_incidencia_terremoto">Terremoto</string>
+    <string name="desc_incidencia_tsunami">Tsunami</string>
+    <string name="desc_incidencia_avalancha">Avalancha</string>
+    <string name="desc_incidencia_lluvia_acida">Lluvia ácida</string>
+    <string name="desc_incidencia_erupcion_volcanica">Erupción volcánica</string>
+    <string name="desc_incidencia_gota_fria">Gota fría</string>
+    <string name="desc_incidencia_tormenta_electrica">Tormenta eléctrica</string>
+
     <string name="map_ubicacion_usuario">Ubicación del usuario</string>
+    <string name="map_refugio">Refugio</string>
     <string name="map_editar_ubicaciones">Editar ubicaciones</string>
     <string name="map_borrar_ubicaciones">Borrar ubicaciones</string>
     <string name="map_ubicacion_1">Ubicación 1</string>
