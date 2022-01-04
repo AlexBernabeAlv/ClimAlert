@@ -30,6 +30,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -103,6 +105,10 @@ public class MapsFragment extends Fragment {
      boolean pintados = true;
     boolean localizacionespuestas = false;
     public Marker markerActual;
+    Button Buscador;
+    boolean buscador_pulsado = false;
+    EditText textoObjeto;
+    Button Buscar;
 
 
     /*
@@ -212,6 +218,46 @@ public class MapsFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
+        Buscador = (Button) view.findViewById(R.id.botonbuscador);
+        Buscador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(buscador_pulsado){
+                    buscador_pulsado = false;
+                    textoObjeto.setText("");
+                    textoObjeto.setVisibility(View.INVISIBLE);
+                    Buscar.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    buscador_pulsado = true;
+                    textoObjeto.setVisibility(View.VISIBLE);
+                    Buscar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        textoObjeto = (EditText) view.findViewById(R.id.textoObj);
+        Buscar = (Button) view.findViewById(R.id.buscarObj);
+        Buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                formeforu();
+                Log.d("ENTRA", "HACE FORMEFORU");
+                if (items != null){
+                    for (int i = 0; i < items.size(); ++i) {
+                        Log.d("ENTRA", items.get(i).toString());
+                        LatLng ll = items.get(i);
+                        Marker m = mMap.addMarker(new MarkerOptions()
+                                .snippet(textoObjeto.getText().toString())
+                                .position(ll)
+                                .alpha(0.9f)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                .title("Objeto"));
+                    }
+                    items.removeAllElements();
+                }
+
+            }
+        });
 
 
         SupportMapFragment mapFragment =
@@ -229,8 +275,6 @@ public class MapsFragment extends Fragment {
                 getloc();
                 formeforu();
                 print_incidencias(InformacionUsuario.getInstance().actual);
-
-
 
                 if(num_bucleares != 1){
                     num_bucleares++;
@@ -349,7 +393,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onInfoWindowClick(Marker marker) {
             if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio") && !marker.getTitle().equals("Objeto")) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
                 InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
@@ -713,7 +757,7 @@ public class MapsFragment extends Fragment {
         JSONObject mapa = new JSONObject();
         try {
             //DAVID, AQUI CAMBIAS EL HARDCORED POR ELDEL ITEMTEXT
-            mapa.put("productName", "Test");
+            mapa.put("productName", textoObjeto.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
