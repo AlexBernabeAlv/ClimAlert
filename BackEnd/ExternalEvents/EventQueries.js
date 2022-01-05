@@ -5,7 +5,7 @@ const externalApis = require('./ExternalApis');
 async function checkEventos(api, incidencias) {
 	const urls = api.getUrls();
 	for (let i = 0; i < urls.length; i++) {
-		const respuesta = await callApi(api, url[i]);
+		const respuesta = await callApi(api, urls[i]);
 		//const respuesta = '';
 		const eventos = api.getEventos(respuesta);
 		console.log('eventos: ' + JSON.stringify(eventos, null, 2));

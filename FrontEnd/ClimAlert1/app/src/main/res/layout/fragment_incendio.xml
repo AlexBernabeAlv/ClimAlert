@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="ExtraText"
-    tools:context=".ui.catastrofes.Incendio_Fragment">
+    tools:context=".ui.catastrofes.Incendio_Forestal_Fragment">
 
     <TextView
         android:layout_width="match_parent"

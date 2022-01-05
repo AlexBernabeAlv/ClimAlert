@@ -67,10 +67,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.Vector;
@@ -84,8 +87,9 @@ public class MapsFragment extends Fragment {
     Timer timer;
     Marker UBI1;
     Marker UBI2;
-     HashMap<Integer, Marker> IncidenciasActuales =  new HashMap<Integer, Marker>();
-     HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();;
+    HashMap<Integer, Marker> IncidenciasActuales =  new HashMap<Integer, Marker>();
+    HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();
+    Vector<LatLng> items = new Vector<LatLng>();
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -95,8 +99,8 @@ public class MapsFragment extends Fragment {
     static public boolean alertaSinGPSMostrada = false;
     NotificationCompat.Builder mBuilder;
     JSONObject mapa;
-     boolean borrados = true;
-     boolean pintados = true;
+    boolean borrados = true;
+    boolean pintados = true;
     boolean localizacionespuestas = false;
     public Marker markerActual;
 
@@ -132,8 +136,6 @@ public class MapsFragment extends Fragment {
 */
 
     private void buclear(){
-
-
         if(borrados && pintados) {
             borrados = false;
             pintados = false;
@@ -142,15 +144,11 @@ public class MapsFragment extends Fragment {
             print_incidencias(InformacionUsuario.getInstance().aPintar);
         }
         Log.d("12345678", String.valueOf(markerActual));
-
         if(!localizacionespuestas) {
-
             LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
             LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
-
             if (ll1.latitude != 0) {
                 if(UBI1 != null) UBI1.remove();
-
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
@@ -169,9 +167,7 @@ public class MapsFragment extends Fragment {
                         .position(ll2));
                 localizacionespuestas = true;
             }
-
         }
-
 
         //tratar notificaciones
         if(InformacionUsuario.getInstance().actual.size() > InformacionUsuario.getInstance().actualtam) {
@@ -223,7 +219,7 @@ public class MapsFragment extends Fragment {
                 markerActual = null;
                 localizacionespuestas = false;
                 getloc();
-
+                formeforu();
                 print_incidencias(InformacionUsuario.getInstance().actual);
 
 
@@ -317,7 +313,7 @@ public class MapsFragment extends Fragment {
                 titleUi.setText("");
             }
             if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals(getString(R.string.map_refugio))) {
                 Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
                 Log.d("123456", "marker: " + marker.getTitle() );
                 Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
@@ -332,11 +328,11 @@ public class MapsFragment extends Fragment {
                 } else {
                     snippetUi.setText("");
                 }
-            }
-            else{
+            } else {
                 TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-                SpannableString snippetText = new SpannableString("Ubicación del usuario");
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 21, 0);
+                String ubicacionUsuario = getString(R.string.map_ubicacion_usuario);
+                SpannableString snippetText = new SpannableString(ubicacionUsuario);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, ubicacionUsuario.length(), 0);
                 snippetUi.setText(snippetText);
             }
             mMap.setOnInfoWindowClickListener(this);
@@ -345,7 +341,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onInfoWindowClick(Marker marker) {
             if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals(getString(R.string.map_refugio))) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
                 InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
@@ -461,8 +457,7 @@ public class MapsFragment extends Fragment {
     public void pintarRefugios(Activity a){
         RequestQueue queue = Volley.newRequestQueue(a);
         Log.d("refug", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-
-        String url = "https://climalert.herokuapp.com/refugios?latitud="+InformacionUsuario.getInstance().latitudactual+"&longitud="+InformacionUsuario.getInstance().longitudactual;
+        String url = "https://climalert.herokuapp.com/refugios?latitud=" + InformacionUsuario.getInstance().latitudactual + "&longitud=" + InformacionUsuario.getInstance().longitudactual;
         // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -472,8 +467,7 @@ public class MapsFragment extends Fragment {
                         float latitud;
                         float longitud;
                         try {
-                            if(response != null)
-                            {
+                            if(response != null) {
                                 nombre = response.getString("nombre");
                                 latitud = Float.parseFloat(response.getString("latitud"));
                                 longitud = Float.parseFloat(response.getString("longitud"));
@@ -481,7 +475,7 @@ public class MapsFragment extends Fragment {
                                 mMap.addMarker(new MarkerOptions()
                                         .anchor(0.0f, 1.0f)
                                         .alpha(0.7f)
-                                        .title("refugio")
+                                        .title(getString(R.string.map_refugio))
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                                         .position(lr));
                                 trazarRutaEntreOrigenDestino(InformacionUsuario.getInstance().latitudactual,InformacionUsuario.getInstance().longitudactual, latitud, longitud);
@@ -502,14 +496,11 @@ public class MapsFragment extends Fragment {
         queue.add(request);
     }
 
-
     private void trazarRuta(JSONObject response){
         JSONArray jRoutes = null;
         JSONArray jLegs = null;
         JSONArray jSteps = null;
-
         try {
-
             jRoutes = response.getJSONArray("routes");
             for (int i = 0; i < jRoutes.length(); i++) {
                 jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
@@ -531,11 +522,9 @@ public class MapsFragment extends Fragment {
     }
 
     private List<LatLng> decodePoly(String encoded) {
-
         List<LatLng> poly = new ArrayList<LatLng>();
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
-
         while (index < len) {
             int b, shift = 0, result = 0;
             do {
@@ -568,7 +557,7 @@ public class MapsFragment extends Fragment {
         String l2 = String.valueOf(longitud1);
         String l3 = String.valueOf(latitud2);
         String l4 = String.valueOf(longitud2);
-        String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+l1+","+l2+"&destination="+l3+","+l4+"&key=AIzaSyCGOeM2aM5SkecHOc4s_Tkf_B_KV77kWEo";
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + l1 + ","+l2 + "&destination=" + l3 + "," + l4 + "&key=AIzaSyCGOeM2aM5SkecHOc4s_Tkf_B_KV77kWEo";
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest jsor = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -582,7 +571,6 @@ public class MapsFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                     }
-
                 });
         queue.add(jsor);
     }
@@ -590,7 +578,7 @@ public class MapsFragment extends Fragment {
     public void dar_localizacion() {
         Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+InformacionUsuario.getInstance().email+"/localizaciones";
+        String url = "https://climalert.herokuapp.com/usuarios/" + InformacionUsuario.getInstance().email + "/localizaciones";
        // JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {
@@ -633,14 +621,14 @@ public class MapsFragment extends Fragment {
     private void Alert(int i, LatLng latLng) {
         if(i == 0) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
+            builder.setMessage(getString(R.string.map_msg_activa_gps))
                     .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.map_button_si), new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.map_button_no), new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             dialog.cancel();
                         }
@@ -651,9 +639,9 @@ public class MapsFragment extends Fragment {
         }
         if(i == 1) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Editar ubicaciones")
+            builder.setMessage(getString(R.string.map_editar_ubicaciones))
                     .setCancelable(false)
-                    .setPositiveButton("Ubicacion1", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.map_ubicacion_1), new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             if(UBI1 != null) UBI1.remove();
                             InformacionUsuario.getInstance().latitud1 = (float) latLng.latitude;
@@ -669,7 +657,7 @@ public class MapsFragment extends Fragment {
                                     .position(latLng));
                         }
                     })
-                    .setNeutralButton("Borrar Ubicaciones", new DialogInterface.OnClickListener() {
+                    .setNeutralButton(getString(R.string.map_borrar_ubicaciones), new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             if(UBI1 != null) UBI1.remove();
                             if(UBI2 != null) UBI2.remove();
@@ -681,7 +669,7 @@ public class MapsFragment extends Fragment {
                             dar_localizacion();
                         }
                     })
-                    .setNegativeButton("Ubicacion2", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.map_ubicacion_2), new DialogInterface.OnClickListener() {
                 public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                     if(UBI2 != null) UBI2.remove();
                     InformacionUsuario.getInstance().latitud2 = (float) latLng.latitude;
@@ -701,6 +689,51 @@ public class MapsFragment extends Fragment {
             alert.show();
 
         }
+    }
+
+    public void formeforu() {
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = "https://climalert.herokuapp.com/4me4u/products";
+        JSONObject mapa = new JSONObject();
+        try {
+            //DAVID, AQUI CAMBIAS EL HARDCORED POR ELDEL ITEMTEXT
+            mapa.put("productName", "Test");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Request a string response from the provided URL.
+        InformacionUsuario.myJsonArrayRequest request = new InformacionUsuario.myJsonArrayRequest(Request.Method.POST, url, mapa,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONObject item;
+                        try {
+                            for (int i = 0; i < response.length(); ++i) {
+                                item = response.getJSONObject(i);
+                                JSONObject userId = item.getJSONObject("userId");
+                                Float latitud = Float.parseFloat(userId.getString("latitude"));
+                                Float longitud = Float.parseFloat(userId.getString("longitude"));
+                                LatLng ll = new LatLng(latitud, longitud);
+                                items.add(ll);
+                            }
+                        }
+                        catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                        Log.d("a", String.valueOf(response));
+                        //Log.d("ALGO", "he acabado el bucle");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+
+                }) {
+        };
+        queue.add(request);
     }
 
     //el this por el getactivity
@@ -790,7 +823,63 @@ public class MapsFragment extends Fragment {
         if(print != null) {
             for (int i = 0; i < print.size(); ++i) {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
-                generarMarcadores(ll, (print.get(i).descripcion), print.get(i).nombre, (print.get(i).radio),(print.get(i).identificador));
+                MainActivity main = (MainActivity) getActivity();
+                String nombreFenomeno = null;
+                String descripcion = null;
+                switch(print.get(i).nombre) {
+                    case "CalorExtremo":
+                        nombreFenomeno = main.getString(R.string.text_calor_extremo);
+                        descripcion = main.getString(R.string.desc_incidencia_calor_extremo);
+                        break;
+                    case "Granizo":
+                        nombreFenomeno = main.getString(R.string.text_granizo);
+                        descripcion = main.getString(R.string.desc_incidencia_granizo);
+                        break;
+                    case "TormentaInvernal":
+                        nombreFenomeno = main.getString(R.string.text_tormenta_invernal);
+                        descripcion = main.getString(R.string.desc_incidencia_tormenta_invernal);
+                        break;
+                    case "Tornado":
+                        nombreFenomeno = main.getString(R.string.text_tornado);
+                        descripcion = main.getString(R.string.desc_incidencia_tornado);
+                        break;
+                    case "Inundacion":
+                        nombreFenomeno = main.getString(R.string.text_inundacion);
+                        descripcion = main.getString(R.string.desc_incidencia_inundacion);
+                        break;
+                    case "Incendio":
+                        nombreFenomeno = main.getString(R.string.text_incendio_forestal);
+                        descripcion = main.getString(R.string.desc_incidencia_incendio_forestal);
+                        break;
+                    case "Terremoto":
+                        nombreFenomeno = main.getString(R.string.text_terremoto);
+                        descripcion = main.getString(R.string.desc_incidencia_terremoto);
+                        break;
+                    case "Tsunami":
+                        nombreFenomeno = main.getString(R.string.text_tsunami);
+                        descripcion = main.getString(R.string.desc_incidencia_tsunami);
+                        break;
+                    case "Avalancha":
+                        nombreFenomeno = main.getString(R.string.text_avalancha);
+                        descripcion = main.getString(R.string.desc_incidencia_avalancha);
+                        break;
+                    case "LluviaAcida":
+                        nombreFenomeno = main.getString(R.string.text_lluvia_acida);
+                        descripcion = main.getString(R.string.desc_incidencia_lluvia_acida);
+                        break;
+                    case "ErupcionVolcanica":
+                        nombreFenomeno = main.getString(R.string.text_erupcion_volcanica);
+                        descripcion = main.getString(R.string.desc_incidencia_erupcion_volcanica);
+                        break;
+                    case "GotaFria":
+                        nombreFenomeno = main.getString(R.string.text_gota_fria);
+                        descripcion = main.getString(R.string.desc_incidencia_gota_fria);
+                        break;
+                    case "TormentaElectrica":
+                        nombreFenomeno = main.getString(R.string.text_tormenta_electrica);
+                        descripcion = main.getString(R.string.desc_incidencia_tormenta_electrica);
+                }
+                generarMarcadores(ll, descripcion, nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
             }
             if(print ==  InformacionUsuario.getInstance().aPintar){
 

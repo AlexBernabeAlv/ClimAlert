@@ -12,7 +12,7 @@
     <string name="text_tormenta_invernal">Tormenta invernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundación</string>
-    <string name="text_incendio">Incendio Forestal</string>
+    <string name="text_incendio_forestal">Incendio</string>
     <string name="text_terremoto">Terremoto</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Avalancha</string>
@@ -21,13 +21,74 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="unidad_calor_extremo">ºC de temperatura</string>
+    <string name="unidad_granizo">mm</string>
+    <string name="unidad_tormenta_invernal">mm</string>
+    <string name="unidad_tornado">km/h</string>
+    <string name="unidad_inundacion">mm</string>
+    <string name="unidad_incendio_forestal">Kelvin de brillo</string>
+    <string name="unidad_terremoto">de magnitud</string>
+    <string name="unidad_tsunami">mm</string>
+    <string name="unidad_avalancha">mm</string>
+    <string name="unidad_lluvia_acida">mm</string>
+    <string name="unidad_erupcion_volcanica">Kelvin de brillo</string>
+    <string name="unidad_gota_fria">mm</string>
+    <string name="unidad_tormenta_electrica">Kelvin de brillo</string>
+
+    <string name="desc_incidencia_calor_extremo">....</string>
+    <string name="desc_incidencia_granizo">....</string>
+    <string name="desc_incidencia_tormenta_invernal">....</string>
+    <string name="desc_incidencia_tornado">....</string>
+    <string name="desc_incidencia_inundacion">....</string>
+    <string name="desc_incidencia_incendio_forestal">....</string>
+    <string name="desc_incidencia_terremoto">....</string>
+    <string name="desc_incidencia_tsunami">....</string>
+    <string name="desc_incidencia_avalancha">....</string>
+    <string name="desc_incidencia_lluvia_acida">....</string>
+    <string name="desc_incidencia_erupcion_volcanica">....</string>
+    <string name="desc_incidencia_gota_fria">....</string>
+    <string name="desc_incidencia_tormenta_electrica">....</string>
+
+    <string name="map_ubicacion_usuario">Ubicación del usuario</string>
+    <string name="map_refugio">Refugio</string>
+    <string name="map_editar_ubicaciones">Editar ubicaciones</string>
+    <string name="map_borrar_ubicaciones">Borrar ubicaciones</string>
+    <string name="map_ubicacion_1">Ubicación 1</string>
+    <string name="map_ubicacion_2">Ubicación 2</string>
+    <string name="map_button_si">Sí</string>
+    <string name="map_button_no">No</string>
+    <string name="map_msg_activa_gps">El sistema GPS está desactivado. ¿Desea activarlo?</string>
+
+    <string name="sos_aviso_incidencia">Aviso de incidencia</string>
+    <string name="sos_hint_descripcion">Descripción</string>
+    <string name="sos_boton_enviar">Enviar</string>
+
     <string name= "boton_idioma"> Idioma </string>
     <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Cerrar Sessión </string>
-    <string name= "boton_guardar_cambios"> Guardar Cambios </string>
-    <string name= "radio_afectacion"> Radio Afectación </string>
-    <string name= "filtro_incidencias"> Filtro Incidencias </string>
-    <string name= "modo_administrador"> Modo Administrador </string>
+    <string name= "boton_logout"> Cerrar sesión </string>
+    <string name= "boton_guardar_cambios"> Guardar cambios </string>
+    <string name= "radio_afectacion"> Radio de afectación </string>
+    <string name= "filtro_incidencias"> Filtro de incidencias </string>
+    <string name= "modo_administrador"> Administrador </string>
+    <string name= "boton_ban"> Banear </string>
+    <string name= "boton_stats_incidencias"> Estadísticas Incidencias </string>
+    <string name= "boton_stats_comentarios"> Estadísticas Comentarios </string>
+    <string name= "text_email"> Email: </string>
+    <string name= "text_passw"> Contraseña: </string>
+    <string name= "text_grav"> Filtro Gravedad: </string>
+    <string name= "text_rad"> Radio: </string>
+    <string name= "text_add"> Añadir </string>
+    <string name= "nombre_refugio"> Nombre: </string>
+    <string name= "latitud_refugio"> Latitud: </string>
+    <string name= "longitud_refugio"> Longitud: </string>
+    <string name= "boton_validar"> Validar </string>
+    <string name= "fecha_incidencia"> Fecha: </string>
+    <string name= "hora_incidencia"> Hora: </string>
+    <string name= "desc_incidencia"> Descripción: </string>
+    <string name= "fuente_incidencia"> Fuente: </string>
+    <string name= "grvedad_incidencia"> Gravedad: </string>
+
+
 
     <string name="descripcion_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
         <b>\nPrevención\n</b>
@@ -35,55 +96,55 @@
         <li>Cubra las ventanas con cortinas o persianas.</li>\n
         <li>Aísle térmicamente las puertas y ventanas.</li>\n
         <b>\nQué hacer\n</b>
-        <li>No dejar a personas o mascotas en un automóvil cerrado.</li>\n
-        <li>Tomar duchas o baños fríos.</li>\n
-        <li>Usar ropa suelta, ligera y de colores claros.</li>\n
-        <li>Beber mucho líquido.</li>\n
-        <li>Evitar realizar actividades de alta energía o trabajo al aire libre durante el mediodía.</li>\n
-        <li>Si se está afuera, buscar sombra y usar sombrero lo suficientemente ancho como para proteger el rostro.</li>\n
+        <li>No dejar a personas o mascotas en un automóvil cerrado.</li>
+        <li>Tomar duchas o baños fríos.</li>
+        <li>Usar ropa suelta, liviana y de colores claros.</li>
+        <li>Beber mucho líquido.</li>
+        <li>Evitar realizar actividades de alta energía o trabajo al aire libre durante el mediodía.</li>
+        <li>Si se está afuera, buscar sombra y usar sombrero lo suficientemente ancho como para proteger el rostro.</li>
         <b>\nSeñales de insolación\n</b>
-        <li>Temperatura corporal extremadamente alta.</li>\n
-        <li>Piel enrojecida, caliente y seca sin sudor.</li>\n
-        <li>Pulso fuerte y rápido.</li>\n
+        <li>Temperatura corporal extremadamente alta.</li>
+        <li>Piel enrojecida, caliente y seca sin sudor.</li>
+        <li>Pulso fuerte y rápido.</li>
         <li>Mareos, confusión o pérdidas del conocimiento.</li>
     </string>
 
     <string name="descripcion_granizo">El granizo es un tipo de precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo. Está formado, principalmente de hielo de agua y su tamaño puede variar entre los 5 y 50 milímetros (0,19 y 1,968 pulgadas) de diámetro, e incluso superar esa medida.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>En caso de tener mascotas, meterlas adentro.</li>\n
         <li>Proteger los vehículos.</li>\n
         <li>Proteger los artículos en el exterior.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Dirigirse adentro.</li>\n
         <li>Asegurar ventanas.</li>\n
         <li>Localizar una zona segura.</li>\n
     </string>
 
     <string name="descripcion_tormenta_invernal">Una tormenta invernal es la precipitación de nieve sobre la superficie terrestre que incluye además vientos intensos.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Preparar la casa para protegerla del frío con aislamiento, sellador y cinta aislante.</li>\n
         <li>Reunir suministros en caso de necesitar quedarse en casa durante varios días sin energía eléctrica.</li>\n
         <li>Tenga baterías adicionales para radios y linternas.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Evitar salir a la carretera.</li>\n
         <li>En caso de estar atrapado en su automóvil, permanecer adentro.</li>\n
         <li>Limitar el tiempo al aire libre. En caso de salir, usar varias capas de ropa cálida y estar atento a los signos de congelación e hipotermia.</li>\n
-        <b>\nCongelación\n</b>
+        Congelación\n
         La congelación causa pérdida de sensibilidad y color alrededor de la cara, los dedos de las manos y de los pies.\n
         <li>Señales: entumecimiento, piel blanca o grisácea-amarillenta, piel firme o cerosa.</li>\n
         <li>Medidas: Vaya a una habitación cálida. Sumerja su cuerpo en agua tibia. Use el calor corporal para calentarse. No se masajee ni use una almohadilla térmica.</li>\n
-        <b>\nHipotermia\n</b>
+        Hipotermia\n
         La hipotermia es una temperatura corporal inusualmente baja. Una temperatura menor de 35ºC se considera una emergencia.\n
         <li>Señales: escalofríos, agotamiento, confusión, torpeza en el movimiento de las manos, pérdida de memoria, dificultad para hablar o somnolencia.</li>\n
         <li>Medidas: Vaya a una habitación cálida. Caliente el centro de su cuerpo primero, o sea: pecho, cuello, cabeza e ingle. Manténgase seco y envuelto en mantas cálidas, incluyendo la cabeza y el cuello.</li>\n
     </string>
 
     <string name="descripcion_tornado">Los tornados son columnas de aire que giran violentamente y que se extienden desde una tormenta eléctrica hasta el suelo. Los tornados pueden destruir edificios, voltear autos y crear mortales escombros impulsados por los vientos.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Conocer los indicios de un tornado: una nube giratoria en forma de embudo; una nube de escombros que se aproxima; o un rugido fuerte, similar a un tren de carga.</li>\n
         <li>Identificar un refugio seguro.</li>\n
         <li>Prepararse para refugiarse en el lugar, reuniendo suministros de emergencia, artículos de limpieza, alimentos no perecederos, agua, suministros médicos y medicamentos.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Ir inmediatamente a un lugar seguro que se haya identificado.</li>\n
         <li>Mantenerse informado en sistemas de alerta para recibir información actualizada e instrucciones sobre la emergencia.</li>\n
         <li>Protegerse cubriendo la cabeza o cuellos con los brazos y poniendo materiales como muebles y mantas a su alrededor o encima.</li>\n
@@ -91,14 +152,14 @@
     </string>
 
     <string name="descripcion_inundacion">Las inundaciones son desbordamientos de agua temporales hacia terrenos que normalmente están secos. Pueden producirse a raíz de lluvia, nieve, tormentas costeras, marejadas ciclónicas, desbordamientos de represas y otros sistemas de agua. Pueden causar apagones, interrumpir el transporte, dañar edificios y crear deslizamientos de tierra.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Estar preparado para cortar la electricidad cuando haya agua estancada o cables del tendido eléctrico caídos.</li>\n
         <li>Asegurarse de tener un extintor.</li>\n
         <li>Reunir los suministros de emergencia que haya almacenado en su casa y mantenga sintonizada la estación local de radio o televisión para recibir la información más actualizada.</li>\n
         <li>Tener a mano registros de vacunación.</li>\n
         <li>Llevar adentro de la casa las pertenencias que tenga al aire libre.</li>\n
         <li>Preparar un suministro de agua de emergencia. Almacenar al menos 3,5 L de agua por día para cada persona y cada mascota. Tener una reserva para al menos 3 días.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Recordar que sólo 15 cm de agua en movimientos pueden derribar a una persona y que 30 cm puede arrastrar un vehículo.</li>\n
         <li>Buscar refugio seguro de inmediato.</li>\n
         <li>No caminar o nada a través de aguas de inundación.</li>\n
@@ -108,7 +169,7 @@
     </string>
 
     <string name="descripcion_incendio">Un incendio forestal es el fuego que se extiende sin control en terreno forestal o silvestre, afectando a combustibles vegetales, flora y fauna. Se distingue de otros tipos de incendio por su amplia extensión, la velocidad con la que se puede extender desde su lugar de origen, su potencial para cambiar de dirección inesperadamente, y su capacidad para superar obstáculos como carreteras, ríos y cortafuegos.\n
-        <b>\nQué hacer\n</b>
+        Consejos\n
         <li>Alejarse del fuego en dirección opuesta al humo.</li>\n
         <li>Respirar por la nariz cubriéndose con un trapo mojado.</li>\n
         <li>No buscar refugio en cuevas, casetas agrícolas, partes altas del terreno o en el sentido del viento.</li>\n
@@ -120,12 +181,12 @@
     </string>
 
     <string name="descripcion_terremoto">Un terremoto es un temblor repentino y rápido del suelo ocasionado por el desplazamiento de rocas subterráneas muy por debajo de la superficie de la tierra. Los terremotos pueden causar incendios, tsunamis, deslizamientos de tierra o avalanchas.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Elaborar un plan de emergencia.</li>\n
         <li>Tener un kit de suministro con suficientes alimentos y agua para durar varios días, una linterna, un extintor de incendios, y un silbato.</li>\n
         <li>Sujetar de manera firme los artículos pesados del hogar, como estanterías, refrigeradores, televisores, etc.</li>\n
         <li>Guardar los objetos pesados y frágiles en los estantes bajos.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>En el caso de estar en un automóvil, se debe salir de la carretera y estacionar en un lugar apartado de estructuras pesadas, y accionar el freno de mano.</li>\n
         <li>En el caso de estar en la cama, ponerse boca abajo y cubrirse la cabeza y el cuello con una almohada.</li>\n
         <li>En el caso de encontrarse afuera, permanecer afuera y alejado de edificios.</li>\n
@@ -133,31 +194,31 @@
     </string>
 
     <string name="descripcion_tsunami">Los tsunamis, también conocidos como olas sísmicas, son una serie de olas enormes creadas por una alteración submarina, como terremotos, desprendimientos de tierra, erupciones volcánicas o meteoritos.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Dirigirse tierra adentro hasta un área lo más elevada posible.</li>\n
         <li>Retirarse apenas vea una señal natural de un tsunami o si recibe una advertencia oficial de tsunami.</li>\n
         <li>En caso de encontrarse en un bote, salir del mar inmediatamente.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Evacúe de inmediato tierra adentro a la mayor altura posible si las autoridades piden que se haga.</li>\n
         <li>En el caso de encontrarse en el agua, agarrarse a algo que flote, como por ejemplo, una balsa, un tronco de árbol o una puerta.</li>\n
         <li>En el caso de encontrarse en un bote, navegar en el sentido contrario a las olas y luego salir del mar.</li>\n
     </string>
 
     <string name="descripcion_avalancha">Una avalancha es una cantidad enorme de nieve que se desliza rápidamente montaña abajo, usualmente en inclinaciones de 30 hasta 45 grados. Cuando una avalancha se detiene, la nieve se solidifica como el hormigón y las personas quedan atrapadas. Las personas atrapadas en avalanchas pueden fallecer de sofocación, trauma o hipotermia.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Obtener equipo adecuado para protegerse de lesiones en la cabeza y crear espacios de aire.</li>\n
         <li>Aprender primeros auxilios para poder brindar tratamiento a los demás.</li>\n
         <li>Usar casco para minimizar lesiones en la cabeza.</li>\n
         <li>Usar una bolsa de aire para avalanchas.</li>\n
         <li>Llevar sonda colapsable de avalanchas y una pala pequeña para ayudar a rescatar a otras personas.</li>\n
-        <b>\nQué hacer\n</b>
-        <li>En caso de verse sorprendido por una avalancha, intentar escapar hacia un lateral manteniéndose sobre los esquís si es posible.</li>\n
-        <li>En caso de que la avalancha te atrape, tratar de proteger boca y nariz formando un hueco que te permita respirar y evitar el riesgo de asfixia.</li>\n
+        Qué hacer\n
+        <li>En caso de verse sorprendido por una avalancha, intentar escapar hacia un lateral manteniéndose sobre los esquís si es posible.</li>
+        <li>En caso de que la avalancha te atrape, tratar de proteger boca y nariz formando un hueco que te permita respirar y evitar el riesgo de asfixia.</li>
         <li>En caso de verse envuelto en la avalancha, tratar de nadar hacia la superficie.</li>
     </string>
 
     <string name="descripcion_lluvia_acida">La lluvia ácida es una de las consecuencias de la contaminación atmosférica. Es la precipitación que contiene tanto agua como residuos tóxicos, principalmente ácidos, procedentes de las emisiones tanto industriales como de otros tipos de maquinaria, como los vehículos. Esta acidificación del suelo y de las aguas superficiales tiene efectos devastadores sobre los ecosistemas y supone un grave peligro para los seres vivos.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Filtrar y desintoxicar el agua utilizada por las fábricas antes de devolverla a los ríos.</li>\n
         <li>Reducir la emisión de gases contaminantes por parte de la industria.</li>\n
         <li>Favorecer la producción y el uso de energías limpias, en detrimento de los combustibles fósiles.</li>\n
@@ -168,7 +229,7 @@
     </string>
 
     <string name="descripcion_erupcion_volcanica">Un volcán es una abertura en la corteza terrestre que permite el escape de roca derretida, gases y escombros hasta la superficie. Una erupción volcánica puede implicar lava y escombros que pueden desplazarse a una velocidad de hasta 100 mph, destruyendo todo a su paso. La ceniza volcánica puede desplazarse por cientos de millas y provocar graves problemas de salud.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Conozca el riesgo de una erupción volcánica en su área.</li>\n
         <li>Infórmese sobre los sistemas de alerta de la comunidad.</li>\n
         <li>Consiga los suministros necesarios con anticipación en caso de que tenga que evacuar inmediatamente o por si se producen cortes en los servicios públicos. Tenga presente las necesidades específicas de cada persona, incluidos los medicamentos. No se olvide de las necesidades de las mascotas.</li>\n
@@ -176,7 +237,7 @@
         <li>Practique un plan de comunicación y evacuación con todos los miembros de su familia.</li>\n
         <li>Tenga un plan de refugio si el mayor riesgo es la ceniza.</li>\n
         <li>Averigüe sobre la cobertura de su póliza de seguro de propietario de vivienda en casos de erupciones volcánicas.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Esté atento a las alertas.</li>\n
         <li>Siga las órdenes de evacuación de las autoridades locales. Desaloje anticipadamente.</li>\n
         <li>Evite las áreas en la dirección del viento, y los valles corriente abajo, del volcán. Los escombros y las cenizas serán arrastrados por el viento y caerán por gravedad.</li>\n
@@ -186,11 +247,11 @@
     </string>
 
     <string name="descripcion_gota_fria">Según la Agencia Estatal de Meteorología, una gota fría o DANA (Depresión Aislada en Niveles Altos) es una gran masa de aire a baja temperatura que se ha separado de un chorro polar. Esta, al encontrarse en zonas de clima más cálido, interactúa con el aire de mayor temperatura de la zona y origina tormentas de todo tipo e inestabilidad meteorológica, pudiendo causar, entre otras cosas, vientos de hasta 100 km/h. Es más habitual que se den en zonas de costa junto a aguas cálidas, ya que el aire cargado de humedad que asciende de estos mares cálidos propicia la formación de estas gotas frías cuando se encuentra con los chorros polares.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Evita dejar tus pertenencias en el porche, ya que pueden ser arrastrados por las fuertes lluvias, viento o inundaciones y provocar accidentes.</li>\n
         <li>No dejes tus macetas o cualquier otro objeto que pueda caer a la calle desde la ventana y provocar un accidente. Asegura bien las ventanas para no sufrir daños en el interior.</li>\n
         <li>Aléjate de lugares donde estés solo o haya árboles cerca. Es recomendable volver a casa o buscar un refugio si estás lejos.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Infórmate de los partes meteorológicos.</li>\n
         <li>En caso de riada, localiza los puntos más altos y/o establécete en un lugar que no sea susceptible de inundaciones.</li>\n
         <li>Aléjate de cauces de barrancos, torrentes y de sus puentes.</li>\n
@@ -198,15 +259,15 @@
     </string>
 
     <string name="descripcion_tormenta_electrica">Los rayos son una de las principales causas de lesiones y muertes por riesgos meteorológicos. Aunque la mayoría de las víctimas de los rayos sobreviven, las personas alcanzadas por un rayo suelen manifestar una serie de síntomas debilitantes a largo plazo. Las tormentas eléctricas son tormentas peligrosas que incluyen rayos y pueden crear o causar vientos potentes de más de 80 km/h, granizo, inundaciones repentinas y/o tornados.\n
-        <b>\nPrevención\n</b>
+        Prevención\n
         <li>Conozca el riesgo de tormentas eléctricas en su zona.</li>\n
         <li>Refuerce su casa: tale los árboles que podrían caer sobre ella, valore la posibilidad de comprar protectores contra sobretensiones o un pararrayos.</li>\n
         <li>Haga un plan de emergencia e identifique los edificios resistentes cercanos a donde vive, trabaja o estudia.</li>\n
-        <b>\nQué hacer\n</b>
+        Qué hacer\n
         <li>Si se oyen truenos, resguárdese en interiores. Si está al aire libre, entre en un edificio o automóvil con techo.</li>\n
         <li>Preste atención a las alertas y advertencias.</li>\n
         <li>Evite utilizar dispositivos electrónicos conectados a un tomacorriente.</li>\n
-        <li>Evite el agua del grifo.</li>\n
+        <li>Evite el agua de la llave.</li>\n
         <li>No conduzca en calles y carreteras inundadas. Solo bastan seis pulgadas de aguas rápidas para derribar a una persona, y un pie de agua en movimiento puede llegar a arrastrar un vehículo.</li>\n
     </string>
 

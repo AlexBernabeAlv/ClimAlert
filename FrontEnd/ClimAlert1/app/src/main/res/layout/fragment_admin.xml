@@ -16,12 +16,21 @@
         android:backgroundTint="#FF9800"/>
 
     <Button
+        android:id="@+id/incidencias_actuales_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Incidencias Actuales"
+        android:layout_below="@id/validar_incidencias_button"
+        android:backgroundTint="#FF9800"/>
+
+    <Button
         android:id="@+id/gestionar_usuarios_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Gestionar Usuarios"
-        android:layout_below="@id/validar_incidencias_button"
+        android:layout_below="@id/incidencias_actuales_button"
         android:backgroundTint="#FF9800"/>
 
     <Button

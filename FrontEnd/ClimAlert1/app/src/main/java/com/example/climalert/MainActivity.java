@@ -1,6 +1,7 @@
 package com.example.climalert;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.Foro.VentanaForo;
 import com.example.climalert.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -37,7 +39,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     String email_account;
-    String currentLocale;
+    String currentLang;
     private BottomNavigationView bottomNavigationView;
     Fragment fragment;
 
@@ -47,46 +49,45 @@ public class MainActivity extends AppCompatActivity {
         email_account = InformacionUsuario.getInstance().email;
         InformacionUsuario.getInstance().setActivity(this);
         getUsuario(email_account);
-        currentLocale = Locale.getDefault().getLanguage();
-        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("currentLocale")) {
-            currentLocale = getIntent().getStringExtra("currentLocale");
-        }
+        currentLang = Locale.getDefault().getLanguage();
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        String newLocale = prefs.getString("saved_locale", currentLocale);
-        cambio_idioma(newLocale);
-        //Toast.makeText(this, "email es: " + email_account, Toast.LENGTH_SHORT).show();
+        String savedLang = prefs.getString("saved_lang", currentLang);
+        if (savedLang != currentLang) {
+            setCurrentLocale(savedLang);
+        }
         InformacionUsuario.getInstance().getLocalizacionesSecundarias();
         fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contenedor, fragment, "MAPS")
                 .commit();
+        configureNav();
+    }
 
-        //InformacionUsuario.getInstance().buclear(this);
-        ActivityMainBinding binding;
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+    public void configureNav() {
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_call, R.id.navigation_settings, R.id.navigation_info)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        // Región para guardar los datos; así el usuario accede automáticamente, sin tener que
-        //pasar por [de nuevo] al inicio de sesión de Google
-        //SharedPreferences prefe = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE);
-
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
-
     }
 
-
+    public void changeLang (String newLang) {
+        if (!newLang.equals(currentLang)) {
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("saved_lang", newLang);
+            editor.apply();
+            setCurrentLocale(newLang);
+            View v = findViewById(R.id.navigation_home);
+            v.callOnClick();
+        }
+    }
     public void perfil_boton() {
         Fragment perfil = new PerfilFragment();
         getSupportFragmentManager()
@@ -96,23 +97,14 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-   public void cambio_idioma(String newLocale) {
-       if (!newLocale.equals(currentLocale)) {
-            currentLocale = newLocale;
-            SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("saved_locale", newLocale);
-            editor.apply();
-            Locale myLocale = new Locale(newLocale);
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
-            //onBackPressed();
-            View v = findViewById(R.id.navigation_settings);
-            v.callOnClick();
-        }
+    public void setCurrentLocale(String newLang) {
+        currentLang = newLang;
+        Locale newLocale = new Locale(newLang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.setLocale(newLocale);
+        res.updateConfiguration(conf, dm);
     }
 
     public void idioma_boton() {
@@ -124,8 +116,42 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void catastrofe_func(Fragment catastrofe) {
 
+    public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
+    public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(foro)
+                .replace(R.id.contenedor, foro, "FORO")
+                .commit();
+    }
+
+
+    public void admin_func(Fragment f) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f, "SETTINGS")
+                .commit();
+    }
+
+    public void modo_admin() {
+        Fragment f = new VentanaAdminFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f, "SETTINGS")
+                .commit();
+    }
+
+    public void catastrofe_func(Fragment catastrofe) { //se le podria hacer un rebrand
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(catastrofe)
@@ -133,8 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void getUsuario(String email){
-
+    private void getUsuario(String email) {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://climalert.herokuapp.com/usuarios/" + email;
                 // Request a string response from the provided URL.
@@ -207,15 +232,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                     }
-
                 })
         ;
         queue.add(request);
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragCatastrofe = fm.findFragmentByTag("CATASTROFE");
         if (fragCatastrofe != null && fragCatastrofe.isVisible()) {
@@ -239,22 +262,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new BottomNavigationView.OnNavigationItemSelectedListener(){
-
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             Fragment f;
-
             switch (item.getItemId()){
-
                 case R.id.navigation_home:
-
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.contenedor, fragment, "MAPS")
                             .commit();
-
                     break;
                 case R.id.navigation_call:
 
@@ -265,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     break;
                 case R.id.navigation_info:
-
                     f = new Info_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
@@ -273,24 +288,15 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     break;
                 case R.id.navigation_settings:
-
                     f = new Settings_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.contenedor, f)
                             .commit();
                     break;
-
             }
             return true;
         }
     };
-
-    public void modo_admin() {
-        Fragment f = new VentanaAdminFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contenedor, f)
-                .commit();
-    }
 }
+

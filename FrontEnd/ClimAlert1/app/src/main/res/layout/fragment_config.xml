@@ -33,6 +33,15 @@
             android:text="@string/boton_idioma"
             android:backgroundTint="#FF9800"/>
 
+        <Button
+            android:id="@+id/admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/idioma"
+            android:text="@string/modo_administrador"
+            android:backgroundTint="#FF9800"/>
+
     </RelativeLayout>
 
 </FrameLayout>

@@ -51,7 +51,7 @@ class DataController{
                 }  
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('yo@gmail.com', '1234', true, '0', '3');", (err, res) => {
+            pool.query("INSERT INTO refugio(nombre, latitud, longitud) VALUES($1, $2, $3);", ['Camp Nou', 41.38099258140189, 2.1228197983623125], (err, res) => {
 
                 if (err) {
 
@@ -59,14 +59,46 @@ class DataController{
                 }
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES('ecomute', 'ecomute1234', false, '0', '50');", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('yo@gmail.com', '1234', true, '0', '200', false);", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                }
+            });
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('WeatherApiComCurrent', '0', true, '0', '1', false);", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                }
+            });
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('FirmsViirsSnppNrt', '0', true, '0', '1', false);", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                }
+            });
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('SeismicPortalEu', '0', true, '0', '1', false);", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                }
+            });
+
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('ecomute', 'ecomute1234', false, '0', '50', false);", (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
 
-                    pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [false, "2021/12/25", "00:00", "Incendio", false], (err, res) => {
+                    pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api, email, medida) VALUES($1, $2, $3, $4, $5, 'yo@gmail.com', 0) RETURNING incfenid;", [false, "2021/12/25", "00:00", "Incendio", false], (err, res) => {
 
                         if (err) {
 
@@ -88,7 +120,7 @@ class DataController{
 
                                         if (res.rowCount == 1) {
 
-                                            resolve("Reset correcto");
+                                            resolve(200);
                                         }
 
                                     }
@@ -114,7 +146,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto) VALUES($1, $2, $3, $4, $5);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto], (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES($1, $2, $3, $4, $5, $6);", [usuario.email, usuario.password, usuario.isAdmin(), usuario.filtro.gravedad, usuario.filtro.radioEfecto, false], (err, res) => {
 
                 if (err) {
 
@@ -143,6 +175,25 @@ class DataController{
 
                     resolve(res);
                 }
+            });
+        });
+
+        return promise;
+    }
+
+    getUsuarios() {
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT * FROM usuario WHERE admin = false;", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+
             });
         });
 
@@ -187,10 +238,35 @@ class DataController{
 
                     if (res.rowCount == 0) {
 
-                        reject("Usuario no existe");
+                        reject(401);
                     }
                     else if (res.rowCount == 1) {
-                        resolve("Usuario borrado");
+                        resolve(200);
+                    }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    banUsuarrio(EmailUsr) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("UPDATE usuario SET banned = NOT banned WHERE email = $1 AND admin = false;", [EmailUsr], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    if (res.rowCount == 0) {
+
+                        reject(401);
+                    }
+                    else if (res.rowCount == 1) {
+                        resolve(200);
                     }
                 }
             });
@@ -211,29 +287,20 @@ class DataController{
                     reject(err);
                 } else {
 
-                    if (lat1 && lon1) {
+                    if (lat1 != null && lon1 != null) {
 
-                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);",
-                            [email, lat1, lon1],
-                            (err, res) => {
+                        pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat1, lon1], (err, res) => {
+                            if (err) {
 
-                                if (err) {
+                                reject(err);
+                            } else {
 
-                                    reject(err);
-                                } else {
-
-                                    resolve("Cambios en ubicaciones aplicados");
-                                }
-
-
-                            });
-
-                    } else {
-
-                        resolve("Nada que borrar");
+                                resolve(200);
+                            }
+                        });
                     }
 
-                    if (lat2 && lon2) {
+                    if (lat2 != null && lon2 != null) {
 
                         pool.query("INSERT INTO localizacionusuario(emailusr, latitud, longitud) VALUES($1, $2, $3);", [email, lat2, lon2], (err, res) => {
 
@@ -242,15 +309,12 @@ class DataController{
                                 reject(err);
                             } else {
 
-                                resolve("Cambios en ubicaciones aplicados");
+                                resolve(200);
                             }
                         });
-
-                    } else {
-
-                        resolve("Nada que borrar");
                     }
 
+                    resolve(200);
 
                 }
             });
@@ -289,11 +353,11 @@ class DataController{
         return promise;
     }
 
-    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api) {
+    createIncidencia(Latitud, Longitud, Fecha, Hora, NombreFenomeno, Valido, Api, Email, Medida) {
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api) VALUES($1, $2, $3, $4, $5) RETURNING incfenid;", [Valido, Fecha, Hora, NombreFenomeno, Api], (err, res) => {
+            pool.query("INSERT INTO incidenciafenomeno(valido, fecha, hora, nombrefen, api, email, medida) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING incfenid;", [Valido, Fecha, Hora, NombreFenomeno, Api, Email, Medida], (err, res) => {
 
                 if (err) {
 
@@ -347,14 +411,7 @@ class DataController{
                     reject(err);
                 } else {
 
-                    if (res.rows.length == 0) {
-
-                        reject(false);
-                    } else {
-
-                        resolve(res);
-                    }
-
+                    resolve(res);
                 }
 
             });
@@ -363,7 +420,64 @@ class DataController{
         return promise;
     }
 
-    updateIncidencia(Id, Gravedad) { 
+    getIncidenciasAdmin(Valido) {
+
+        var promise = new Promise((resolve, reject) => {
+            pool.query("SELECT * FROM incidencia i INNER JOIN incidenciafenomeno if ON i.id = if.incfenid INNER JOIN fenomenometeo f ON if.nombrefen = f.nombre WHERE valido = $1", [Valido], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
+                }
+
+            });
+        });
+
+        return promise;
+    }
+
+    getIncidenciasByCreadorGroupDia(Email) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT fecha, COUNT(*) FROM incidenciafenomeno WHERE email = $1 GROUP BY fecha;", [Email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res.rows);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getIncidenciasByCreadorGroupMinuto(Email) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT fecha, hora, COUNT(*) FROM incidenciafenomeno WHERE email = $1 GROUP BY fecha, hora;", [Email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res.rows);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    updateIncidencia(Id, Gravedad, RadioEfecto, Medida) {
 
         var promise = new Promise((resolve, reject) => {
 
@@ -374,7 +488,7 @@ class DataController{
                     reject(err);
                 } else {
 
-                    pool.query("UPDATE incidencia SET gravedad = $2 WHERE id = $1;", [Id, Gravedad], (err, res) => {
+                    pool.query("UPDATE incidencia SET gravedad = $2, radioefecto = $3, medida = $4 WHERE id = $1;", [Id, Gravedad, RadioEfecto, Medida], (err, res) => {
 
                         if (err) {
 
@@ -438,13 +552,8 @@ class DataController{
                 }
             });
         });
-
-
+        
         return promise;
-
-    }
-
-    updateRefugio(Refugio) {
 
     }
 
@@ -461,10 +570,10 @@ class DataController{
 
                     if (res.rowCount == 0) {
 
-                        reject("Refugio no existe");
+                        resolve(400);
                     }
                     else if (res.rowCount == 1) {
-                        resolve("Refugio borrado");
+                        resolve(200);
                     }
                 }
             });
@@ -486,11 +595,30 @@ class DataController{
 
                     if (res.rows.length == 0) {
 
-                        reject("Refugio no existe");
+                        reject(404);
                     } else {
-                        console.log(res.rows);
+
                         resolve(res.rows[0]);
                     }
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getRefugios() {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT * FROM refugio;", (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res);
                 }
             });
         });
@@ -504,13 +632,13 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("INSERT INTO comentario(emailusr, incfenid, contenido, comentresponseid) VALUES($1, $2, $3, $4) RETURNING id;", [Comentario.email, Comentario.incfenid, Comentario.contenido, Comentario.idresponsecomment], (err, res) => {
+            pool.query("INSERT INTO comentario(emailusr, incfenid, contenido, comentresponseid, fecha, hora) VALUES($1, $2, $3, $4, $5, $6) RETURNING id;", [Comentario.email, Comentario.incfenid, Comentario.contenido, Comentario.idresponsecomment, Comentario.fecha, Comentario.hora], (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
-                    console.log(res.rows[0].id);
+
                     resolve(res.rows[0].id);
                 }
             });
@@ -524,7 +652,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE id = $1", [Id], (err, res) => {
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid, fecha, hora FROM comentario WHERE id = $1", [Id], (err, res) => {
 
                 if (err) {
 
@@ -543,16 +671,33 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE incfenid = $1", [Incfenid], (err, res) => {
-
+            pool.query("SELECT * FROM incidenciafenomeno WHERE incfenid = $1", [Incfenid], (err, res) => {
+                console.log(res.rows);
                 if (err) {
 
                     reject(err);
                 } else {
 
-                    resolve(res);
+                    if (res.rows.length == 0) reject(404);
+
+                    else {
+
+                        pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid, fecha, hora FROM comentario WHERE incfenid = $1 AND comentresponseid IS NULL", [Incfenid], (err, res) => {
+
+                            console.log(res.rows);
+                            if (err) {
+
+                                reject(err);
+                            } else {
+
+                                resolve(res);
+                            }
+                        });
+                    }
                 }
             });
+
+            
         });
 
         return promise;
@@ -562,7 +707,7 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE emailusr = $1", [Email], (err, res) => {
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid, fecha, hora FROM comentario WHERE emailusr = $1", [Email], (err, res) => {
 
                 if (err) {
 
@@ -581,18 +726,56 @@ class DataController{
 
         var promise = new Promise((resolve, reject) => {
 
-            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid FROM comentario WHERE comentresponseid = $1", [CommentId], (err, res) => {
+            pool.query("SELECT id, emailusr, incfenid, contenido, comentresponseid, fecha, hora FROM comentario WHERE comentresponseid = $1", [CommentId], (err, res) => {
 
                 if (err) {
 
                     reject(err);
                 } else {
 
-                    resolve(res.rowCount);
+                    resolve(res);
                 }
             });
         });
         
+        return promise;
+    }
+
+    getComentariosByCreadorGroupDia(Email) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT fecha, COUNT(*) FROM comentario WHERE emailusr = $1 GROUP BY fecha;", [Email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res.rows);
+                }
+            });
+        });
+
+        return promise;
+    }
+
+    getComentariosByCreadorGroupMinuto(Email) {
+
+        var promise = new Promise((resolve, reject) => {
+
+            pool.query("SELECT fecha, hora, COUNT(*) FROM comentario WHERE emailusr = $1 GROUP BY fecha, hora;", [Email], (err, res) => {
+
+                if (err) {
+
+                    reject(err);
+                } else {
+
+                    resolve(res.rows);
+                }
+            });
+        });
+
         return promise;
     }
 

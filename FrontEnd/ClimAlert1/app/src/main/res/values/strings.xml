@@ -7,13 +7,12 @@
     <string name="title_dashboard">Panel de control</string>
     <string name="title_notifications">Notificaciones</string>
 
-
     <string name="text_calor_extremo">Calor extremo</string>
     <string name="text_granizo">Granizo</string>
     <string name="text_tormenta_invernal">Tormenta invernal</string>
     <string name="text_tornado">Tornado</string>
     <string name="text_inundacion">Inundación</string>
-    <string name="text_incendio">Incendio</string>
+    <string name="text_incendio_forestal">Incendio</string>
     <string name="text_terremoto">Terremoto</string>
     <string name="text_tsunami">Tsunami</string>
     <string name="text_avalancha">Avalancha</string>
@@ -22,13 +21,73 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="unidad_calor_extremo">ºC de temperatura</string>
+    <string name="unidad_granizo">mm</string>
+    <string name="unidad_tormenta_invernal">mm</string>
+    <string name="unidad_tornado">km/h</string>
+    <string name="unidad_inundacion">mm</string>
+    <string name="unidad_incendio_forestal">Kelvin de brillo</string>
+    <string name="unidad_terremoto">de magnitud</string>
+    <string name="unidad_tsunami">mm</string>
+    <string name="unidad_avalancha">mm</string>
+    <string name="unidad_lluvia_acida">mm</string>
+    <string name="unidad_erupcion_volcanica">Kelvin de brillo</string>
+    <string name="unidad_gota_fria">mm</string>
+    <string name="unidad_tormenta_electrica">Kelvin de brillo</string>
+
+    <string name="desc_incidencia_calor_extremo">....</string>
+    <string name="desc_incidencia_granizo">....</string>
+    <string name="desc_incidencia_tormenta_invernal">....</string>
+    <string name="desc_incidencia_tornado">....</string>
+    <string name="desc_incidencia_inundacion">....</string>
+    <string name="desc_incidencia_incendio_forestal">....</string>
+    <string name="desc_incidencia_terremoto">....</string>
+    <string name="desc_incidencia_tsunami">....</string>
+    <string name="desc_incidencia_avalancha">....</string>
+    <string name="desc_incidencia_lluvia_acida">....</string>
+    <string name="desc_incidencia_erupcion_volcanica">....</string>
+    <string name="desc_incidencia_gota_fria">....</string>
+    <string name="desc_incidencia_tormenta_electrica">....</string>
+
+    <string name="map_ubicacion_usuario">Ubicación del usuario</string>
+    <string name="map_refugio">Refugio</string>
+    <string name="map_editar_ubicaciones">Editar ubicaciones</string>
+    <string name="map_borrar_ubicaciones">Borrar ubicaciones</string>
+    <string name="map_ubicacion_1">Ubicación 1</string>
+    <string name="map_ubicacion_2">Ubicación 2</string>
+    <string name="map_button_si">Sí</string>
+    <string name="map_button_no">No</string>
+    <string name="map_msg_activa_gps">El sistema GPS está desactivado. ¿Desea activarlo?</string>
+
+    <string name="sos_aviso_incidencia">Aviso de incidencia</string>
+    <string name="sos_hint_descripcion">Descripción</string>
+    <string name="sos_boton_enviar">Enviar</string>
+
     <string name= "boton_idioma"> Idioma </string>
     <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Cerrar Sessión </string>
-    <string name= "boton_guardar_cambios"> Guardar Cambios </string>
-    <string name= "radio_afectacion"> Radio Afectacion </string>
-    <string name= "filtro_incidencias"> Filtro Incidencias </string>
-    <string name= "modo_administrador"> Modo Administrador </string>
+    <string name= "boton_logout"> Cerrar sesión </string>
+    <string name= "boton_guardar_cambios"> Guardar cambios </string>
+    <string name= "radio_afectacion"> Radio de afectación </string>
+    <string name= "filtro_incidencias"> Filtro de incidencias </string>
+    <string name= "modo_administrador"> Administrador </string>
+    <string name= "boton_ban"> Banear </string>
+    <string name= "boton_stats_incidencias"> Estadísticas Incidencias </string>
+    <string name= "boton_stats_comentarios"> Estadísticas Comentarios </string>
+    <string name= "text_email"> Email: </string>
+    <string name= "text_passw"> Contraseña: </string>
+    <string name= "text_grav"> Filtro Gravedad: </string>
+    <string name= "text_rad"> Radio: </string>
+    <string name= "text_add"> Añadir </string>
+    <string name= "nombre_refugio"> Nombre: </string>
+    <string name= "latitud_refugio"> Latitud: </string>
+    <string name= "longitud_refugio"> Longitud: </string>
+    <string name= "boton_validar"> Validar </string>
+    <string name= "fecha_incidencia"> Fecha: </string>
+    <string name= "hora_incidencia"> Hora: </string>
+    <string name= "desc_incidencia"> Descripción: </string>
+    <string name= "fuente_incidencia"> Fuente: </string>
+    <string name= "grvedad_incidencia"> Gravedad: </string>
+
 
 
     <string name="descripcion_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n

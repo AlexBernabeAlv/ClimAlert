@@ -32,6 +32,7 @@ public class InformacionUsuario {
     public String email;
     public String password;
     public String IDIncidenciaActual;
+    public String CommentResponseID;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -52,6 +53,7 @@ public class InformacionUsuario {
 
     public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g, boolean admin_app){
          IDIncidenciaActual = "";
+         CommentResponseID = "";
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
@@ -182,6 +184,7 @@ public class InformacionUsuario {
                                 JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
                                 JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
                                 String fecha =  incidenciaFenomeno.getString("fecha");
+                                String hora =  incidenciaFenomeno.getString("hora");
                                 Vector<String> indicaciones =  new Vector<String>();
                                 for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
                                     indicaciones.add(IndicacionIncidencia.getString(j));
@@ -193,9 +196,11 @@ public class InformacionUsuario {
                                 Float latitud = Float.parseFloat(localizacion.getString("latitud"));
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
+                                String fuente = incidenciaFenomeno.getString("creador");
+                                Float medida = Float.parseFloat(incidenciaFenomeno.getString("medida"));
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
-                                Notificacion n = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion, id);
+                                Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id, medida);
                                 aPintar.add(n);
                             }
                             //Log.d("asd", "onResponse: ");
@@ -279,7 +284,7 @@ public class InformacionUsuario {
         queue.add(request);
     }
 
-    public class myJsonArrayRequest extends JsonRequest<JSONArray> {
+    public static class myJsonArrayRequest extends JsonRequest<JSONArray> {
         public myJsonArrayRequest(int method, String url, JSONObject JsonRequest,
                                   Response.Listener<JSONArray> listener, Response.ErrorListener errorListener){
             super(method,url,(JsonRequest == null) ? null : JsonRequest.toString(), listener, errorListener);
