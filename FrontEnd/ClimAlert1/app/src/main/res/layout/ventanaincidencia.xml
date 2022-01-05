@@ -9,7 +9,7 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Incendio"
+        android:text="Nombre fenomeno ERROR"
         android:textSize="25dp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
@@ -34,8 +34,7 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="45dp"
             android:textSize="20dp"
-            android:hint="Fecha: 13/12/2021 ERROR"
-            />
+            android:hint="Fecha: 13/12/2021 ERROR" />
         <TextView
             android:id="@+id/hora"
             android:layout_width="match_parent"
@@ -50,6 +49,13 @@
             android:layout_marginTop="30dp"
             android:textSize="20dp"
             android:hint="Nombre API:  ERROR" />
+        <TextView
+            android:id="@+id/medida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:hint="Medida incidencia:  ERROR" />
         <Button
             android:id="@+id/btnConsejo"
             android:layout_width="match_parent"
@@ -62,8 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
             android:text="Foro"/>
-
-
     </LinearLayout>
 
 

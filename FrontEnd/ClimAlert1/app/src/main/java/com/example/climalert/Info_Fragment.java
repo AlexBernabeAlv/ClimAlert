@@ -91,8 +91,8 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
         Button b_inundacion = (Button) view.findViewById(R.id.button_inundacion);
         b_inundacion.setOnClickListener(this);
 
-        Button b_incendio = (Button) view.findViewById(R.id.button_incendio);
-        b_incendio.setOnClickListener(this);
+        Button b_incendio_forestal = (Button) view.findViewById(R.id.button_incendio_forestal);
+        b_incendio_forestal.setOnClickListener(this);
 
         Button b_terremoto = (Button) view.findViewById(R.id.button_terremoto);
         b_terremoto.setOnClickListener(this);
@@ -147,7 +147,7 @@ public class Info_Fragment extends Fragment implements View.OnClickListener {
                 main.catastrofe_func(new Inundacion_Fragment());
                 break;
 
-            case R.id.button_incendio:
+            case R.id.button_incendio_forestal:
                 main = (MainActivity) getActivity();
                 main.catastrofe_func(new Incendio_Forestal_Fragment());
                 break;
