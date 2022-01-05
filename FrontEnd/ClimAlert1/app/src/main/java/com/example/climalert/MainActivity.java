@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(foro)
-                .replace(R.id.contenedor, foro, "FORO")
+                .replace(R.id.contenedor, foro, "INCIDENCIA")
                 .commit();
     }
 
@@ -254,8 +254,13 @@ public class MainActivity extends AppCompatActivity {
                     View v = findViewById(R.id.navigation_settings);
                     v.callOnClick();
                 } else {
-                    View v = findViewById(R.id.navigation_home);
-                    v.callOnClick();
+                    Fragment fragIncidencia = fm.findFragmentByTag("INCIDENCIA");
+                    if(fragIncidencia != null && fragIncidencia.isVisible()) {
+
+                    } else {
+                        View v = findViewById(R.id.navigation_home);
+                        v.callOnClick();
+                    }
                 }
             }
         }
