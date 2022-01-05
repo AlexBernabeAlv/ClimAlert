@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, fragment, "MAPS")
+                .replace(R.id.contenedor, fragment, "DESTINO_BACKGROUND")
                 .commit();
         configureNav();
     }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(perfil)
-                .replace(R.id.contenedor, perfil, "SETTINGS")
+                .replace(R.id.contenedor, perfil, "DESTINO_AJUSTES")
                 .commit();
     }
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(idioma)
-                .replace(R.id.contenedor, idioma, "SETTINGS")
+                .replace(R.id.contenedor, idioma, "DESTINO_AJUSTES")
                 .commit();
     }
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(foro)
-                .replace(R.id.contenedor, foro, "INCIDENCIA")
+                .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
                 .commit();
     }
 
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
+                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                 .commit();
     }
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment f = new VentanaAdminFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
+                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                 .commit();
     }
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(catastrofe)
-                .replace(R.id.contenedor, catastrofe, "CATASTROFE")
+                .replace(R.id.contenedor, catastrofe, "DESTINO_CONSEJOS")
                 .commit();
     }
 
@@ -240,29 +240,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragCatastrofe = fm.findFragmentByTag("CATASTROFE");
-        if (fragCatastrofe != null && fragCatastrofe.isVisible()) {
+        Fragment frag = fm.findFragmentByTag("DESTINO_CONSEJOS");
+        if (frag != null && frag.isVisible()) {
             View v = findViewById(R.id.navigation_info);
             v.callOnClick();
-        } else {
-            Fragment fragMaps = fm.findFragmentByTag("MAPS");
-            if (fragMaps != null && fragMaps.isVisible()) {
-                moveTaskToBack(true);
-            } else {
-                Fragment fragPerfil = fm.findFragmentByTag("SETTINGS");
-                if (fragPerfil != null && fragPerfil.isVisible()) {
-                    View v = findViewById(R.id.navigation_settings);
-                    v.callOnClick();
-                } else {
-                    Fragment fragIncidencia = fm.findFragmentByTag("INCIDENCIA");
-                    if(fragIncidencia != null && fragIncidencia.isVisible()) {
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_BACKGROUND");
+        if (frag != null && frag.isVisible()) {
+            moveTaskToBack(true);
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_AJUSTES");
+        if (frag != null && frag.isVisible()) {
+            View v = findViewById(R.id.navigation_settings);
+            v.callOnClick();
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_INCIDENCIA");
+        if(frag != null && frag.isVisible()) {
 
-                    } else {
-                        View v = findViewById(R.id.navigation_home);
-                        v.callOnClick();
-                    }
-                }
-            }
+        }
+        frag = fm.findFragmentByTag("DESTINO_MAPA");
+        if (frag != null && frag.isVisible()) {
+            View v = findViewById(R.id.navigation_home);
+            v.callOnClick();
+            return;
         }
     }
 
@@ -274,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, fragment, "MAPS")
+                            .replace(R.id.contenedor, fragment, "DESTINO_BACKGROUND")
                             .commit();
                     break;
                 case R.id.navigation_call:
@@ -282,21 +285,21 @@ public class MainActivity extends AppCompatActivity {
                     f = new LlamaditaFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, f, "DESTINO_MAPA")
                             .commit();
                     break;
                 case R.id.navigation_info:
                     f = new Info_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, f, "DESTINO_MAPA")
                             .commit();
                     break;
                 case R.id.navigation_settings:
                     f = new Settings_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, f, "DESTINO_MAPA")
                             .commit();
                     break;
             }

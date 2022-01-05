@@ -82,7 +82,7 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
                 f = new GestionPerfilStatsIncidenciasFragment();
                 f.setArguments(b);
                 fm.beginTransaction()
-                        .replace(R.id.contenedor, f, "SETTINGS")
+                        .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                         .commit();
                 break;
 
@@ -90,7 +90,7 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
                 f = new GestionPerfilStatsComentariosFragment();
                 f.setArguments(b);
                 fm.beginTransaction()
-                        .replace(R.id.contenedor, f, "SETTINGS")
+                        .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                         .commit();
                 break;
         }
