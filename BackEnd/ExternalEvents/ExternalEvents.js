@@ -1,17 +1,20 @@
 const eventQueries = require('./EventQueries');
 const externalApis = require('./ExternalApis');
 
-const locs = [
-	'barcelona',
-	'madrid'
-]
-
 const apis = [
-	externalApis.WeatherApiComCurrent
+	externalApis.WeatherApiComCurrent,
+	externalApis.FirmsViirsSnppNrt,
+	externalApis.SeismicPortalEu
 ]
 
-for (const loc of locs) {
+async function checkEventos() {
+	let incidencias = [];
 	for (const api of apis) {
-		eventQueries.checkEventos(loc, api);
+		incidencias = await eventQueries.checkEventos(api, incidencias);
 	}
-};
+	return incidencias;
+}
+
+module.exports = {
+	checkEventos
+}

@@ -2,31 +2,40 @@
 const FenomenoMeteo = require('./FenomenoMeteo');
 const Incidencia = require('./Incidencia');
 const Notificacion = require('./Notificacion');
-const GestorIncidencias = require('./GestorIncidencias');
+//const GestorIncidencias = require('./GestorIncidencias');
 const ConsultorRefugios = require('./ConsultorRefugios');
 const AdapterPrestamos = require('./AdapterPrestamos');
 
 class IncidenciaFenomeno{
 
-    #notif;
-
-    constructor(Fecha, Hora, NombreFenomeno, Radio, Gravedad, Loc)
+    constructor(Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud)
     {
+        this.id = Id;
         this.valido = false;
+        this.API = false;
         this.fecha = Fecha;
         this.hora = Hora;
-        this.incidencia = new Incidencia(Radio, Gravedad, Loc);
-        this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno);
-        this.#notif = new Notificacion(this, null, null);
-    }
-    
+        this.incidencia = new Incidencia(Radio, Gravedad, Latitud, Longitud);
+        this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno, Descripcion, null, null);
+        this.creador = "no se sabe";
+        this.medida = 0;
 
-    getNotificacion() {
-        return this.#notif;
     }
 
     setValido(){
         this.valido = true;
+    }
+
+    setAPI() {
+        this.API = true;
+    }
+
+    setMedida(Medida) {
+        this.medida = Medida;
+    }
+
+    setCreador(Creador) {
+        this.creador = Creador;
     }
 }
 
