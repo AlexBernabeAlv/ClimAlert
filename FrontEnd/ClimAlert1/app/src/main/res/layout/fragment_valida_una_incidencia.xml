@@ -24,9 +24,9 @@
         android:id="@+id/texto_nombre_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_alignParentTop="true"
         android:text="@string/nombre_refugio" />
 
     <TextView
@@ -34,8 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_nombre_incidencia" />
 
 
@@ -46,17 +45,16 @@
         android:id="@+id/texto_fecha_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_nombre_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_nombre_incidencia"
         android:text="@string/fecha_incidencia" />
 
     <TextView
         android:id="@+id/texto_fecha_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
         android:layout_toEndOf="@id/texto_fecha_incidencia"
         android:layout_below="@id/texto_nombre_incidencia_a_rellenar" />
 
@@ -67,17 +65,16 @@
         android:id="@+id/texto_hora_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_fecha_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_fecha_incidencia"
         android:text="@string/hora_incidencia" />
 
     <TextView
         android:id="@+id/texto_hora_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
         android:layout_toEndOf="@id/texto_hora_incidencia"
         android:layout_below="@id/texto_fecha_incidencia_a_rellenar" />
 
@@ -88,17 +85,16 @@
         android:id="@+id/texto_desc_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_hora_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_hora_incidencia"
         android:text="@string/desc_incidencia" />
 
     <TextView
         android:id="@+id/texto_desc_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
         android:layout_toEndOf="@id/texto_desc_incidencia"
         android:layout_below="@id/texto_hora_incidencia_a_rellenar" />
 
@@ -109,18 +105,17 @@
         android:id="@+id/texto_fuente_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_desc_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_desc_incidencia"
         android:text="@string/fuente_incidencia" />
 
     <TextView
         android:id="@+id/texto_fuente_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_fuente_incidencia"
+        android:layout_marginVertical="3dp"
         android:layout_below="@id/texto_desc_incidencia_a_rellenar" />
 
 
@@ -130,19 +125,18 @@
         android:id="@+id/texto_radio_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_fuente_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_fuente_incidencia"
         android:text="@string/radio_afectacion" />
 
     <TextView
         android:id="@+id/texto_radio_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_radio_incidencia"
-        android:layout_below="@id/texto_fuente_incidencia_a_rellenar" />
+        android:layout_below="@id/texto_fuente_incidencia_a_rellenar"
+        android:layout_marginVertical="3dp"/>
 
 
 
@@ -151,18 +145,17 @@
         android:id="@+id/texto_latitud_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_radio_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_radio_incidencia"
         android:text="@string/latitud_refugio" />
 
     <TextView
         android:id="@+id/texto_latitud_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_latitud_incidencia"
+        android:layout_marginVertical="3dp"
         android:layout_below="@id/texto_radio_incidencia_a_rellenar" />
 
 
@@ -172,24 +165,24 @@
         android:id="@+id/texto_longitud_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/texto_latitud_incidencia"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_latitud_incidencia"
         android:text="@string/longitud_refugio" />
 
     <TextView
         android:id="@+id/texto_longitud_incidencia_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_longitud_incidencia"
+        android:layout_marginVertical="3dp"
         android:layout_below="@id/texto_latitud_incidencia_a_rellenar" />
 
     <CheckBox
         android:id="@+id/checkbox_gravedad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:text="@string/grvedad_incidencia"
         android:layout_below="@id/texto_longitud_incidencia"
         />
