@@ -1,0 +1,622 @@
+openapi: 3.0.0
+info:
+  description: |
+    Servidor que retorna alertas climatológicas.
+  version: "0.1.0"
+  title: ClimAlert
+servers:
+  - url: 'https://climalert.herokuapp.com/'
+    description: "Production server."
+  - url: 'http://localhost:5000/'
+    description: "Local server."
+paths:
+  /:
+    get:
+      responses:
+        "200":
+          description: "Ping."
+          schema:
+            type: string
+  /usuarios:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUsuario'
+      responses:
+        "200":
+          description: "Returns the created user data."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        "400":
+          description: "Bad request: User with email already exists."
+  /usuarios/{email}:
+    get:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Returns the user data with email."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        "404":
+          description: "Not found: No user with such email."
+    put:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutUsuario'
+      responses:
+        "200":
+          description: "Returns the updated user data."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+        "404":
+          description: "Not found: No user with such email."
+    delete:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+        "404":
+          description: "Not found: No user with such email."
+  /usuarios/{email}/filtro:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostFiltro'
+      responses:
+        "200":
+          description: ""
+  /usuarios/{email}/localizaciones:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostLoc'
+      responses:
+        "200":
+          description: ""
+  /usuariosEstandar:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getUsuariosEstandar'
+      responses:
+        "200":
+          description: "OK"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Forbidden"
+  /incidencias:
+    post:
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostIncidencia'
+      responses:
+        "200":
+          description: ""
+    put:
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutIncidencia'
+      responses:
+        "200":
+          description: ""
+  /usuarios/{email}/incidenciasNoValidas:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostNotificacion'
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incidencia"
+        "404":
+          description: "Not found: No incidencias at such coordinates."
+  /usuarios/{email}/incidenciasAdmin:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIncidenciasAdmin'
+      responses:
+        "200":
+          description: "OK"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Forbidden"
+  /usuarios/{email}/notificaciones:
+    post:
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostNotificacion'
+      responses:
+        "200":
+          description: ""
+  /refugios:
+    get:
+      parameters:
+        - name: latitud
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: longitud
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Refugio"
+        "404":
+          description: "Not found: No shelters at such coordinates."
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRefugio'
+      responses:
+        "200":
+          description: ""
+  /refugios/{nombre}:
+    delete:
+      parameters:
+        - name: nombre
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  /allRefugios:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getAllRefugios'
+      responses:
+        "200":
+          description: "OK"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Forbidden"
+  /comentarios:
+    get:
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Returns all comments of user with email."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No user with such email."
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostComentarios'
+      responses:
+        "200":
+          description: ""
+  /comentarios/{commentid}/respuestas:
+    get:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns all replies to the comment with commentid."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No comment with such id."
+  /incidenciasFenomeno/{incfenid}/comentarios:
+    get:
+      parameters:
+        - name: incfenid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns all comments to the incidencia with incfenid."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No incidencia with such id."
+  /comentarios/{commentid}:
+    get:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns all comments to the incidencia with incfenid."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comentario"
+        "404":
+          description: "Not found: No incidencia with such id."
+    put:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutComment'
+      responses:
+        "200":
+          description: "Deletes the comment with commentid."
+        "404":
+          description: "Not found: No comment with such id."
+  /comentarios/{commentid}/delete:
+    put:
+      parameters:
+        - name: commentid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteComment'
+      responses:
+        "200":
+          description: "Deletes the comment with commentid."
+        "404":
+          description: "Not found: No comment with such id."
+
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        filtro:
+          type: object
+          properties:
+            localizacion1:
+              type: object
+              properties:
+                latitud:
+                  type: number
+                longitud:
+                  type: number
+            localizacion2:
+              type: object
+              properties:
+                latitud:
+                  type: number
+                longitud:
+                  type: number
+            radioEfecto:
+              type: integer
+            gravedad:
+              type: integer
+    Incidencia:
+      type: object
+      properties:
+        x:
+          type: string
+        y:
+          type: string
+        fecha:
+          type: date
+        hora:
+          type: time
+    Refugio:
+      type: object
+      properties:
+        nombre:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+        distancia:
+          type: number
+    Comentario:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        incfenid:
+          type: integer
+        contenido:
+          type: string
+        commentresponseid:
+          type: integer
+        fecha:
+          type: string
+        hora:
+          type: string
+    PostFiltro:
+      type: object
+      properties:
+        password:
+          type: number
+    PostUsuario:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PutUsuario:
+      type: object
+      properties:
+        password:
+          type: string
+        gravedad:
+          type: boolean
+        radioEfecto:
+          type: number
+    PostLoc:
+      type: object
+      properties:
+        password:
+          type: string
+        latitud1:
+          type: number
+        longitud1:
+          type: number
+        latitud2:
+          type: number
+        longitud2:
+          type: number
+    PostIncidencia:
+      type: object
+      properties:
+        nombreFenomeno:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+        fecha:
+          type: string
+        hora:
+          type: string
+        password:
+          type: string
+    PutIncidencia:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        gravedad:
+          type: integer
+    PostNotificacion:
+      type: object
+      properties:
+        password:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+    PostRefugio:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        nombre:
+          type: string
+        latitud:
+          type: number
+        longitud:
+          type: number
+    PostComentarios:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        incfenid:
+          type: integer
+        commentresponseid:
+          type: integer
+        contenido:
+          type: string
+        fecha:
+          type: string
+        hora:
+          type: string
+    DeleteComment:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PutComment:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        contenido:
+          type: string
+    getUsuariosEstandar:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    getIncidenciasAdmin:
+      type: object
+      properties:
+        password:
+          type: string
+        valido:
+          type: boolean
+    getAllRefugios:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string

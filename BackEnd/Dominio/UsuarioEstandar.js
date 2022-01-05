@@ -1,16 +1,16 @@
 
 const Usuario = require('./Usuario');
-const GestorIncidencias = require('./GestorIncidencias');
 
-class UsuarioEstandar extends Usuario{
+class UsuarioEstandar extends Usuario {
 
-    constructor(Email) {
-        super(Email);
+    constructor(Email, Passwd) {
+
+        super(Email, Passwd);
+        this.admin = false;
     }
 
-    setEmail(Email) {
-        this.email = Email;
-        
+    isAdmin() {
+        return false;
     }
 
 }

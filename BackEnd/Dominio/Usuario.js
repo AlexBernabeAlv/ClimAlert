@@ -1,19 +1,26 @@
 
 const Filtro = require('./Filtro');
-const GestorUsuarios = require('./GestorUsuarios');
+//const GestorUsuarios = require('./GestorUsuarios');
 const Notificacion = require('./Notificacion');
 
 class Usuario {
 
-    constructor(Email) {
+    constructor(Email, Passwd) {
+
         this.email = Email;
-        this.notificaciones = [];
-        
+        this.password = Passwd;
+        this.filtro = new Filtro();
+        this.admin = false;
+        this.banned = false;
     }
 
-    setNotificacion(notif) {
+    isAdmin() {
+    }
 
-        this.notificaciones.push(notif);
+    setFiltro(g, r) {
+
+        this.filtro.setGravedad(g);
+        this.filtro.setRadioEfecto(r);
     }
 
 }

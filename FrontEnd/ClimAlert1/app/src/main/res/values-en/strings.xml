@@ -1,0 +1,290 @@
+<resources>
+    <string name="app_name">ClimAlert</string>
+    <string name="title_home">Home</string>
+    <string name="title_call">S.O.S.</string>
+    <string name="title_info">Tips</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="text_calor_extremo">Extreme heat</string>
+    <string name="text_granizo">Hail</string>
+    <string name="text_tormenta_invernal">Winter storm</string>
+    <string name="text_tornado">Tornado</string>
+    <string name="text_inundacion">Flood</string>
+    <string name="text_incendio_forestal">Wildfire</string>
+    <string name="text_terremoto">Earthquake</string>
+    <string name="text_tsunami">Tsunami</string>
+    <string name="text_avalancha">Avalanche</string>
+    <string name="text_lluvia_acida">Acid rain</string>
+    <string name="text_erupcion_volcanica">Vulcanic eruption</string>
+    <string name="text_gota_fria">Cold drop</string>
+    <string name="text_tormenta_electrica">Thunder storm</string>
+
+    <string name="unidad_calor_extremo">ºC of temperature</string>
+    <string name="unidad_granizo">mm</string>
+    <string name="unidad_tormenta_invernal">mm</string>
+    <string name="unidad_tornado">km/h</string>
+    <string name="unidad_inundacion">mm</string>
+    <string name="unidad_incendio_forestal">Kelvin of brightness</string>
+    <string name="unidad_terremoto">of magnitude</string>
+    <string name="unidad_tsunami">mm</string>
+    <string name="unidad_avalancha">mm</string>
+    <string name="unidad_lluvia_acida">mm</string>
+    <string name="unidad_erupcion_volcanica">Kelvin of brightness</string>
+    <string name="unidad_gota_fria">mm</string>
+    <string name="unidad_tormenta_electrica">Kelvin of brightness</string>
+
+    <string name="desc_incidencia_calor_extremo">....</string>
+    <string name="desc_incidencia_granizo">....</string>
+    <string name="desc_incidencia_tormenta_invernal">....</string>
+    <string name="desc_incidencia_tornado">....</string>
+    <string name="desc_incidencia_inundacion">....</string>
+    <string name="desc_incidencia_incendio_forestal">....</string>
+    <string name="desc_incidencia_terremoto">....</string>
+    <string name="desc_incidencia_tsunami">....</string>
+    <string name="desc_incidencia_avalancha">....</string>
+    <string name="desc_incidencia_lluvia_acida">....</string>
+    <string name="desc_incidencia_erupcion_volcanica">....</string>
+    <string name="desc_incidencia_gota_fria">....</string>
+    <string name="desc_incidencia_tormenta_electrica">....</string>
+
+    <string name="map_ubicacion_usuario">User location</string>
+    <string name="map_refugio">Shelter</string>
+    <string name="map_editar_ubicaciones">Edit locations</string>
+    <string name="map_borrar_ubicaciones">Remove locations</string>
+    <string name="map_ubicacion_1">Location 1</string>
+    <string name="map_ubicacion_2">Location 2</string>
+    <string name="map_button_si">Sí</string>
+    <string name="map_button_no">No</string>
+    <string name="map_msg_activa_gps">The GPS system is turned off. Do you wish to turn it on?</string>
+
+    <string name="sos_aviso_incidencia">Incident warning</string>
+    <string name="sos_hint_descripcion">Description</string>
+    <string name="sos_boton_enviar">Send</string>
+
+    <string name= "boton_idioma"> Language </string>
+    <string name= "boton_perfil"> Profile </string>
+
+    <string name= "boton_logout"> Log out </string>
+    <string name= "boton_guardar_cambios"> Save changes </string>
+    <string name= "radio_afectacion"> Effect radius </string>
+    <string name= "filtro_incidencias"> Incidents filter </string>
+    <string name= "modo_administrador"> Administrator </string>
+    <string name= "boton_ban"> Ban </string>
+    <string name= "boton_stats_incidencias"> Ocurrences Stats </string>
+    <string name= "boton_stats_comentarios"> Comments Stats </string>
+    <string name= "text_email"> Email: </string>
+    <string name= "text_passw"> Password: </string>
+    <string name= "text_grav"> Severity Filter: </string>
+    <string name= "text_rad"> Radius: </string>
+    <string name= "text_add"> Add </string>
+    <string name= "nombre_refugio"> Name: </string>
+    <string name= "latitud_refugio"> Latitude: </string>
+    <string name= "longitud_refugio"> Longitude: </string>
+    <string name= "boton_validar"> Validate </string>
+    <string name= "fecha_incidencia"> Date: </string>
+    <string name= "hora_incidencia"> Hour: </string>
+    <string name= "desc_incidencia"> Description: </string>
+    <string name= "fuente_incidencia"> Resource: </string>
+    <string name= "grvedad_incidencia"> Severity: </string>
+
+
+    <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or
+        much more humid conditions than average. This extreme heat can cause heat stroke,
+        which is a condition characterized by nausea, vomiting, headache, heat of the skin,
+        drowsiness, and disruption of muscle fibers exposed to its effects.
+        This is caused by the fact that the body does not have the capacity to cool
+        itself adequately.\n
+        <b>\nPrevention\n</b>
+        <li>Identify places in your community where you can go to cool off, such as libraries or shopping centers.</li>\n
+        <li>Cover windows with curtains or blinds.</li>\n
+        <li>Insulate doors and windows.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Do not leave people or pets in a closed car.</li>\n
+        <li>Take cool showers or baths.</li>\n
+        <li>Wear loose-fitting, light-colored, lightweight clothing.</li>\n
+        <li>Drink plenty of fluids.</li>\n
+        <li>Avoid high-energy activities or outdoor work during the middle of the day.</li>\n
+        <li>If outdoors, seek shade and wear a hat wide enough to protect your face.</li>\n
+        <b>\nSigns of heat stroke\n</b>
+        <li>Extremely high body temperature.</li>\n
+        <li>Red, hot, dry skin with no sweating.</li>\n
+        <li>Strong, rapid pulse.</li>\n
+        <li>Dizziness, confusion, or loss of consciousness.</li>\n
+    </string>
+
+    <string name="descripcion_granizo">Hail is a type of solid precipitation that is composed of irregular balls or lumps of ice, each of which is referred to as a hailstone. It is formed mainly of water ice and its size can vary between 5 and 50 millimeters (0.19 and 1.968 inches) in diameter, and even exceed that size.\n
+        <b>\nPrevention\n</b>
+        <li>If you have pets, bring them inside.</li>\n
+        <li>Protect vehicles.</li>\n
+        <li>Protect outdoor items.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Head indoors.</li>\n
+        <li>Secure windows.</li>\n
+        <li>Locate a safe area.</li>\n
+    </string>
+
+    <string name="descripcion_tormenta_invernal">A winter storm is precipitation of snow on the earth\'s surface that also includes intense winds.\n
+        <b>\nPrevention\n</b>
+        <li>Prepare your home to protect it from the cold with insulation, sealant and duct tape.</li>\n
+        <li>Gather supplies in case you need to stay home for several days without power.</li>\n
+        <li>Have extra batteries for radios and flashlights.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Avoid going out on the road.</li>\n
+        <li>If you are trapped in your car, stay indoors.</li>\n
+        <li>Limit time outdoors. If you do go outside, wear several layers of warm clothing and watch for signs of frostbite and hypothermia.</li>\n
+        <b>\nFreezing\n</b>
+        <li>Frostbite causes loss of feeling and color around the face, fingers and toes.</li>\n
+        <li>Signs: numbness, white or grayish-yellow skin, firm or waxy skin.</li>\n
+        <li>Action: Go to a warm room. Immerse your body in warm water. Use body heat to warm up. Do not massage or use a heating pad.</li>\n
+        <b>\nHypothermia\n</b>
+        <li>Hypothermia is an unusually low body temperature. A temperature below 35°C is considered an emergency.</li>\n
+        <li>Signs: shivering, exhaustion, confusion, clumsiness of hand movements, memory loss, slurred speech or drowsiness.</li>\n
+        <li>Action: Go to a warm room. Warm the center of your body first, that is: chest, neck, head and groin. Keep dry and wrapped in warm blankets, including head and neck.</li>\n
+    </string>
+
+    <string name="descripcion_tornado">Tornadoes are violently spinning columns of air that extend from a thunderstorm to the ground. Tornadoes can destroy buildings, flip cars and create deadly wind-driven debris.\n
+        <b>\nPrevention\n</b>
+        <li>Know the signs of a tornado: a spinning, funnel-shaped cloud; an approaching cloud of debris; or a loud, freight train-like roar.</li>\n
+        <li>Identifying a safe shelter.</li>\n
+        <li>Prepare to shelter-in-place by gathering emergency supplies, cleaning supplies, non-perishable food, water, medical supplies and medications.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Go immediately to a safe place that has been identified.</li>\n
+        <li>Stay informed on alert systems to receive updated information and instructions on the emergency.</li>\n
+        <li>Protect yourself by covering your head or neck with your arms and placing materials such as furniture and blankets around you or on top of you.</li>\n
+        <li>Do not try to escape from a tornado in a vehicle if you are in a car.</li>\n
+    </string>
+
+    <string name="descripcion_inundacion">Floods are temporary overflows of water onto land that is normally dry. They can result from rain, snow, coastal storms, storm surges, dam overflows and other water systems. They can cause power outages, disrupt transportation, damage buildings and create landslides.\n
+        <b>\nPrevention\n</b>
+        <li>Be prepared to turn off power when there is standing water or downed power lines.</li>\n
+        <li>Make sure you have a fire extinguisher.</li>\n
+        <li>Gather emergency supplies that you have stored in your home and stay tuned to your local radio or television station for the most up-to-date information.</li>\n
+        <li>Have immunization records on hand.</li>\n
+        <li>Bring outdoor belongings inside the home.</li>\n
+        <li>Prepare an emergency water supply. Store at least 3.5 L of water per day for each person and each pet. Have at least a 3-day supply.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Remember that only 15 cm of moving water can knock a person down and 30 cm can sweep away a vehicle.</li>\n
+        <li>Seek safe shelter immediately.</li>\n
+        <li>Do not walk or swim through floodwaters.</li>\n
+        <li>Do not cross bridges over fast-moving water. Fast moving water can knock down bridges without warning.</li>\n
+        <li>If trapped in the vehicle, stay inside. If water begins to rise inside the vehicle, climb onto the roof.</li>\n
+        <li>If trapped in a building, go to the highest level. Climb onto the roof and signal for help.</li>\n
+    </string>
+
+    <string name="descripcion_incendio">A wildfire is a fire that spreads uncontrolled in forest or wild land, affecting plant fuels, flora and fauna. It is distinguished from other types of fire by its wide spread, the speed with which it can spread from its place of origin, its potential to change direction unexpectedly, and its ability to overcome obstacles such as roads, rivers, and firebreaks.\n
+        <b>\nWhat to do\n</b>
+        <li>Move away from the fire in the opposite direction of the smoke.</li>\n
+        <li>Breathe through your nose by covering your nose with a wet cloth.</li>\n
+        <li>Do not seek shelter in caves, farm huts, high ground or downwind of the fire.</li>\n
+        <li>Remember that fire rises uphill.</li>\n
+        <li>Do not use a vehicle if you are surrounded by fire.</li>\n
+        <li>In case of fire, try to flee by the flanks, looking for an area devoid of vegetation.</li>\n
+        <li>If there is no other way out, wet your clothes, protect your face and cross where the front is narrow or of low intensity.</li>\n
+        <li>In the event of clothing catching on fire, do not run. Roll on the ground or cover yourself with a blanket.</li>\n
+    </string>
+
+    <string name="descripcion_terremoto">An earthquake is a sudden and rapid shaking of the ground caused by the displacement of subway rocks deep below the earth\'s surface. Earthquakes can cause fires, tsunamis, landslides or avalanches.\n
+        <b>\nPrevention\n</b>
+        <li>Develop an emergency plan.</li>\n
+        <li>Have a supply kit with enough food and water to last several days, a flashlight, a fire extinguisher, and a whistle.</li>\n
+        <li>Securely hold heavy household items such as bookshelves, refrigerators, televisions, etc.</li>\n
+        <li>Store heavy and fragile items on low shelves.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>If you are in a car, pull off the road and park away from heavy structures and set the parking brake.</li>\n
+        <li>If you are in bed, lie on your stomach and cover your head and neck with a pillow.</li>\n
+        <li>If outside, stay outdoors and away from buildings.</li>\n
+        <li>If inside, crouch down, cover your head and neck with your arm, get under a table, and hold on to a table leg.</li>\n
+    </string>
+
+    <string name="descripcion_tsunami">Tsunamis, also known as seismic waves, are a series of huge waves created by underwater disturbances such as earthquakes, landslides, volcanic eruptions or meteorites.\n
+        <b>\nPrevention\n</b>
+        <li>Head inland to as high an area as possible.</li>\n
+        <li>Retreat as soon as you see a natural sign of a tsunami or if you receive an official tsunami warning.</li>\n
+        <li>If in a boat, leave the sea immediately.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Immediately evacuate inland as far inland as possible if asked to do so by authorities.</li>\n
+        <li>If in the water, hold on to something that floats, such as a raft, tree trunk or door.</li>\n
+        <li>In the event of being in a boat, sail in the opposite direction to the waves and then get out of the sea.</li>\n
+    </string>
+
+    <string name="descripcion_avalancha">An avalanche is a huge amount of snow that slides rapidly down the mountain, usually on slopes of 30 to 45 degrees. When an avalanche stops, the snow solidifies like concrete and people become trapped. People trapped in avalanches can die from suffocation, trauma or hypothermia.\n
+        <b>\nPrevention\n</b>
+        <li>Obtain proper equipment to protect against head injuries and create air spaces.</li>\n
+        <li>Learn first aid to be able to treat others.</li>\n
+        <li>Wear a helmet to minimize head injury.</li>\n
+        <li>Use an avalanche air bag.</li>\n
+        <li>Carry collapsible avalanche probe and small shovel to assist in rescuing others.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>If caught in an avalanche, try to escape to the side by staying on skis if possible.</li>\n
+        <li>In case you are caught in an avalanche, try to protect your mouth and nose by forming a hole to allow you to breathe and avoid the risk of asphyxiation.</li>\n
+        <li>In case you are caught in the avalanche, try to swim to the surface.</li>\n
+    </string>
+
+    <string name="descripcion_lluvia_acida">Acid rain is one of the consequences of atmospheric pollution. It is precipitation containing both water and toxic residues, mainly acidic, from industrial emissions and other types of machinery, such as vehicles. This acidification of soil and surface water has devastating effects on ecosystems and poses a serious danger to living beings.\n
+        <b>\nPrevention\n</b>
+        <li>Filter and detoxify the water used by factories before returning it to rivers.</li>\n
+        <li>Reduce the emission of polluting gases by industry.</li>\n
+        <li>To favor the production and use of clean energies, to the detriment of fossil fuels.</li>\n
+        <li>Reduce energy consumption in factories and companies.</li>\n
+        <li>Plant trees to absorb polluted air.</li>\n
+        <li>Raise awareness of the importance of reducing energy consumption in homes.</li>\n
+        <li>Encourage the use of electric cars and other non-polluting vehicles, such as bicycles.</li>\n
+    </string>
+
+    <string name="descripcion_erupcion_volcanica">A volcano is an opening in the earth\'s crust
+        that allows molten rock, gases and debris to escape to the surface.
+        A volcanic eruption can involve lava and debris that can move at speeds
+        of up to 100 mph, destroying everything in its path. Volcanic ash can
+        travel for hundreds of miles and cause serious health problems.\n
+        <b>\nPrevention\n</b>
+        <li>Know the risk of a volcanic eruption in your area.</li>\n
+        <li>Learn about community warning systems.</li>\n
+        <li>Get necessary supplies ahead of time in case you have to evacuate immediately or in case of utility outages. Be aware of each person\'s specific needs, including medications. Don\'t forget the needs of pets.</li>\n
+        <li>Consult with your physician if you have pre-existing respiratory difficulties.</li>\n
+        <li>Practice a communication and evacuation plan with all members of your family.</li>\n
+        <li>Have a shelter plan if ash is the greatest risk.</li>\n
+        <li>Find out about your homeowner\'s insurance policy coverage for volcanic eruptions.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Be alert to warnings.</li>\n
+        <li>Follow evacuation orders from local authorities. Evacuate early.</li>\n
+        <li>Avoid areas downwind, and valleys downstream, from the volcano. Debris and ash will be carried by the wind and fall by gravity.</li>\n
+        <li>If you have sufficient supplies, temporarily protect yourself from volcanic ash where you are. Cover air vents and seal doors and windows.</li>\n
+        <li>If you are outdoors, protect yourself from falling ash that can irritate skin and damage respiratory tract, eyes and open wounds. Wear a certified, well-fitting respirator, such as an N95.</li>\n
+        <li>Avoid driving while heavy ash is falling. If you must drive, then turn off your vehicle lights.</li>\n
+    </string>
+
+    <string name="descripcion_gota_fria">According to the State Meteorological Agency, a cold drop or DANA (Isolated High Level Depression) is a large mass of low temperature air that has separated from a polar jet. This, being in areas of warmer weather, interacts with the air of higher temperature in the area and causes storms of all kinds and meteorological instability, and can cause, among other things, winds of up to 100 km / h. It is more common in coastal areas near warm waters, since the moisture-laden air rising from these warm seas favors the formation of these cold drops when it meets the polar jets.\n
+        <b>\nPrevention\n</b>
+        <li>Avoid leaving your belongings on the porch, as they can be swept away by heavy rains, wind or floods and cause accidents.</li>\n
+        <li>Do not leave your flower pots or any other object that could fall into the street from the window and cause an accident. Secure windows well to avoid damage to the interior.</li>\n
+        <li>Stay away from places where you are alone or where there are trees nearby. It is advisable to return home or seek shelter if you are far away.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>Be informed of weather forecasts.</li>\n
+        <li>In case of flooding, locate the highest points and/or settle in a place that is not susceptible to flooding.</li>\n
+        <li>Stay away from ravines, torrents and their bridges.</li>\n
+        <li>Do not cross flooded sections, the force of the current can drag you. In the event that you find yourself in one with your car, the most important thing is to abandon the car and look for higher ground.</li>\n
+    </string>
+
+    <string name="descripcion_tormenta_electrica">Lightning is one of the leading causes of injury and death from weather hazards. Although most lightning victims survive, people struck by lightning often manifest a number of long-term debilitating symptoms. Thunderstorms are dangerous storms that include lightning and can create or cause powerful winds in excess of 50 mph (80 km/h), hail, flash flooding and/or tornadoes.\n
+        <b>\nPrevention\n</b>
+        <li>Know the risk of thunderstorms in your area.</li>\n
+        <li>Reinforce your home: cut down trees that could fall on it, consider purchasing surge protectors or a lightning rod.</li>\n
+        <li>Make an emergency plan and identify resistant buildings near where you live, work or study.</li>\n
+        <b>\nWhat to do\n</b>
+        <li>If you hear thunder, take shelter indoors. If you are outdoors, go inside a building or car with a roof.</li>\n
+        <li>Pay attention to alerts and warnings.</li>\n
+        <li>Avoid using electronic devices plugged into an electrical outlet.</li>\n
+        <li>Avoid tap water.</li>\n
+        <li>Do not drive on flooded streets and roads. It only takes six inches of rushing water to knock a person down, and a foot of moving water can sweep away a vehicle.</li>\n
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button">Button</string>
+    <string name="google">GOOGLE</string>
+    <string name="prefs_file">863788857384-1fuvh34n2o9j8t92b0ips2u3ra57scgu.apps.googleusercontent.com</string>
+    <string name="Token_Id">AIzaSyBp9uSKVgoEIIfva6pWU6M03A6b_E4Wlgk</string>
+
+</resources>
