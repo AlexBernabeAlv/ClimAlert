@@ -32,7 +32,7 @@ public class InformacionUsuario {
     public String email;
     public String password;
     public String IDIncidenciaActual;
-    public String CommentResponseID;
+    public int CommentResponseID;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -53,7 +53,6 @@ public class InformacionUsuario {
 
     public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g, boolean admin_app){
          IDIncidenciaActual = "";
-         CommentResponseID = "";
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
@@ -94,6 +93,10 @@ public class InformacionUsuario {
         };
         handler.postDelayed(runnable, milliseconds);
     }*/
+
+    public void setCommentResponseID(int commentResponseID) {
+        CommentResponseID = commentResponseID;
+    }
 
     public void getLocalizacionesSecundarias(){
 

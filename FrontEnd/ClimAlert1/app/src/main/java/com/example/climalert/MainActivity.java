@@ -256,7 +256,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Fragment fragIncidencia = fm.findFragmentByTag("INCIDENCIA");
                     if(fragIncidencia != null && fragIncidencia.isVisible()) {
-
+                        Fragment f = new VentanaIncidencia();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.contenedor, f)
+                                .commit();
                     } else {
                         View v = findViewById(R.id.navigation_home);
                         v.callOnClick();
