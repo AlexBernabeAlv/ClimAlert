@@ -31,15 +31,6 @@
         android:text="@string/boton_guardar_cambios"
         android:backgroundTint="#4ABC4E"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/modo_administrador_button"
-        android:layout_centerInParent="true"
-        android:layout_above="@id/guardar_cambios_button"
-        android:text="@string/modo_administrador"
-        android:backgroundTint="#D4AF37"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
