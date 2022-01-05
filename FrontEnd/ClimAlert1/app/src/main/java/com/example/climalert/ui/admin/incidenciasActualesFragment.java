@@ -142,7 +142,7 @@ public class incidenciasActualesFragment  extends Fragment {
         f.setArguments(b);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
+                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                 .commit();
     }
 
