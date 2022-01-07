@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/scroll_padre"
         android:id="@+id/scroll_incidencias_actuales"
         android:fillViewport="true"
         tools:context=".ui.admin.incidenciasActualesFragment"
