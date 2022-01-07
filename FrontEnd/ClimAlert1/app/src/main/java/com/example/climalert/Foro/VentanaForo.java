@@ -1,5 +1,7 @@
 package com.example.climalert.Foro;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +49,10 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
     private RecyclerView rvMensajes;
     private EditText txtMensaje;
     private Button btnEnviar;
+
+    AlertDialog alert = null;
+    Boolean banned = false;
+
 
     private AdapterMensajes adapter;
 
@@ -106,6 +112,7 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         int pos = u.indexOf("@");
         u = u.substring(0, pos);
         nombreUs.setText(u);
+        getUsuario(InformacionUsuario.getInstance().email);
 
         if (foroDeInc) obtener_comentarios_incidencia();
         else obtener_comentarios_comentario();
@@ -114,15 +121,18 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 Log.d("MENSAJE", txtMensaje.getText().toString());
-                if (txtMensaje.getText().toString() != "") {
-                    Log.d("mensajes", txtMensaje.getText().toString());
-                    enviar_mensaje();
-                    //adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
-                    txtMensaje.setText("");
-                    MainActivity main;
-                    main = (MainActivity) getActivity();
-                    if (foroDeInc) main.foro_incidencia_boton(IdInc, true);
-                    else main.foro_comentario_boton(IdCom, IdInc, false);
+                if(banned) Alert();
+                else {
+                    if (txtMensaje.getText().toString() != "") {
+                        Log.d("mensajes", txtMensaje.getText().toString());
+                        enviar_mensaje();
+                        //adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(), nombreUs.getText().toString()));
+                        txtMensaje.setText("");
+                        MainActivity main;
+                        main = (MainActivity) getActivity();
+                        if (foroDeInc) main.foro_incidencia_boton(IdInc, true);
+                        else main.foro_comentario_boton(IdCom, IdInc, false);
+                    }
                 }
             }
         });
@@ -194,6 +204,45 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
 
                 }) {
         };
+        queue.add(request);
+    }
+
+    private void Alert() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Usuario baneado")
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                    }
+                });
+
+        alert = builder.create();
+        alert.show();
+    }
+    private void getUsuario(String email){
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = "https://climalert.herokuapp.com/usuarios/" + email;
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            banned = Boolean.parseBoolean(response.getString("banned"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                })
+                ;
         queue.add(request);
     }
 
