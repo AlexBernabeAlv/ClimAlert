@@ -68,7 +68,7 @@
     <string name= "boton_logout"> Tancar sessió </string>
     <string name= "boton_guardar_cambios"> Guardar canvis </string>
     <string name= "radio_afectacion"> Radi d\'afectació </string>
-    <string name= "filtro_incidencias"> Filtre d\'incidencies </string>
+    <string name= "filtro_incidencias"> Filtrar incidencies </string>
     <string name= "modo_administrador"> Administrador </string>
     <string name= "boton_ban"> Ban </string>
     <string name= "boton_stats_incidencias"> Estadístiques Incidencies </string>

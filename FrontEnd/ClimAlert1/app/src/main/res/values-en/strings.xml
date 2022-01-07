@@ -69,7 +69,7 @@
     <string name= "boton_logout"> Log out </string>
     <string name= "boton_guardar_cambios"> Save changes </string>
     <string name= "radio_afectacion"> Effect radius </string>
-    <string name= "filtro_incidencias"> Incidents filter </string>
+    <string name= "filtro_incidencias"> Filter Incidents </string>
     <string name= "modo_administrador"> Administrator </string>
     <string name= "boton_ban"> Ban </string>
     <string name= "boton_stats_incidencias"> Ocurrences Stats </string>
