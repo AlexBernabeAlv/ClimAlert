@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +30,7 @@ import java.util.Vector;
 public class incidenciasActualesFragment  extends Fragment {
         JSONObject mapa = new JSONObject();
         View view;
+        ScrollView scrollView;
         LinearLayout linearLayout;
         public Vector<Notificacion> incidenciasActuales = new Vector<Notificacion>();
 
@@ -106,15 +108,15 @@ public class incidenciasActualesFragment  extends Fragment {
 
         private void setUp_incidencias() {
             int n = incidenciasActuales.size();
-            linearLayout = view.findViewById(R.id.layout_incidencias_actuales);
+            linearLayout = new LinearLayout(getContext());
+            scrollView = (ScrollView) view.findViewById(R.id.scroll_incidencias_actuales);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
             for (int i = 0; i < n; ++i) {
                 Button btn = new Button(getContext());
                 btn.setLayoutParams(new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 btn.setId(i);
-                int marg = linearLayout.getWidth();
-                setMargins(view, marg/3, 10, marg/3, 10);
                 Notificacion noti = incidenciasActuales.get(i);
                 btn.setText(noti.nombre);
                 btn.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +127,9 @@ public class incidenciasActualesFragment  extends Fragment {
                 });
                 linearLayout.addView(btn);
             }
+            int marg = scrollView.getWidth();
+            setMargins(view, marg/3, 5, marg/3, 5);
+            scrollView.addView(linearLayout);
         }
 
     private void valida_la_incidencia(Notificacion n) {
