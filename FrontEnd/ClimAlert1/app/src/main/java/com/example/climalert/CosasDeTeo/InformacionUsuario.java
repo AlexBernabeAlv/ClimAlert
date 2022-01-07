@@ -305,8 +305,12 @@ public class InformacionUsuario {
             }
         }
     }
+
     public void setActivity(Activity a){
         activity = a;
+    }
 
+    public void setAdmin(Boolean b){
+        admin = b;
     }
 }
