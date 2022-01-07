@@ -76,6 +76,18 @@ public class NavegacionEspressoTest {
         onView(withId(R.id.idioma)).perform(click());
         onView(isRoot()).perform(pressBack());
         onView(withId(R.id.admin)).perform(click());
+        onView(withId(R.id.gestionar_refugios_button)).perform(click());
+        onView(isRoot()).perform(pressBack());
+        onView(withId(R.id.gestionar_usuarios_button)).perform(click());
+        onView(isRoot()).perform(pressBack());
+        onView(withId(R.id.validar_incidencias_button)).perform(click());
+        onView(isRoot()).perform(pressBack());
+        onView(withId(R.id.incidencias_actuales_button)).perform(click());
+        onView(isRoot()).perform(pressBack());
+        onView(withId(R.id.gestionar_refugios_button)).perform(click());
+        onView(isRoot()).perform(pressBack());
+        onView(isRoot()).perform(pressBack());
+        onView(withId(R.id.admin)).perform(click());
     }
 
     @Test
@@ -87,5 +99,6 @@ public class NavegacionEspressoTest {
         onView(withId(R.id.idioma)).perform(click());
         onView(isRoot()).perform(pressBack());
         onView(not(withId(R.id.admin)));
+        onView(withId(R.id.perfil_usuario)).perform(click());
     }
 }
