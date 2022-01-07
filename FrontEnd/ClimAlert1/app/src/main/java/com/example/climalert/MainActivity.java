@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad, admin);
 
-                        Log.d("a", String.valueOf(response));
+                        //Log.d("a", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener() {

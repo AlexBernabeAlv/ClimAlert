@@ -91,6 +91,9 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
 
             case R.id.guardar_cambios_button:
                 update_usuario();
+                MainActivity main = (MainActivity) getActivity();
+                View vista = main.findViewById(R.id.navigation_home);
+                vista.callOnClick();
                 break;
 
 
