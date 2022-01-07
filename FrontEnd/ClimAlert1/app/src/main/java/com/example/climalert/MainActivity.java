@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                 .commit();
     }
 
@@ -279,6 +279,15 @@ public class MainActivity extends AppCompatActivity {
                     .beginTransaction()
                     .remove(foro)
                     .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
+                    .commit();
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_ADMIN");
+        if (frag != null && frag.isVisible()) {
+            Fragment f = new VentanaAdminFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                     .commit();
             return;
         }

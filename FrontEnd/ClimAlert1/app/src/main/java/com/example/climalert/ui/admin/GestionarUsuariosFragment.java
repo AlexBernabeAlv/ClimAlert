@@ -160,7 +160,7 @@ public class GestionarUsuariosFragment extends Fragment {
         gestionPerfilFragment.setArguments(b);
         fm = getFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.contenedor, gestionPerfilFragment, "DESTINO_AJUSTES")
+                .replace(R.id.contenedor, gestionPerfilFragment, "DESTINO_ADMIN")
                 .commit();
     }
 }
