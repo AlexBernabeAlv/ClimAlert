@@ -2,6 +2,8 @@ package com.example.climalert;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.google.android.gms.auth.api.Auth;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,11 +67,18 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_config, container, false);
+
         Button perfil = (Button) view.findViewById(R.id.perfil_usuario);
         perfil.setOnClickListener(this);
 
         Button idioma = (Button) view.findViewById(R.id.idioma);
         idioma.setOnClickListener(this);
+
+        Button admin = (Button) view.findViewById(R.id.admin);
+        if(InformacionUsuario.getInstance().admin) admin.setVisibility(View.VISIBLE);
+        else admin.setVisibility(View.GONE);
+        admin.setOnClickListener(this);
+
         return view;
     }
 
@@ -85,6 +94,11 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
             case R.id.idioma:
                 main = (MainActivity) getActivity();
                 main.idioma_boton();
+                break;
+
+            case R.id.admin:
+                main = (MainActivity) getActivity();
+                main.modo_admin();
                 break;
 
         }

@@ -85,7 +85,7 @@ public class ValidarIncidenciasFragment extends Fragment {
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = IncidenciaResponse.getJSONObject("fenomenoMeteo");
                                 String fuente = IncidenciaResponse.getString("creador");
-                                String medida = IncidenciaResponse.getString("medida");
+                                Float medida = Float.parseFloat(IncidenciaResponse.getString("medida"));
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
 
@@ -144,7 +144,7 @@ public class ValidarIncidenciasFragment extends Fragment {
         f.setArguments(b);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
+                .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                 .commit();
     }
 

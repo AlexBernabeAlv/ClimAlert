@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/text_email" />
 
     <TextView
@@ -21,8 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_email" />
 
 
@@ -32,16 +31,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/texto_email"
+        android:layout_marginVertical="3dp"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:text="@string/text_passw" />
 
     <TextView
         android:id="@+id/texto_password_a_rellenar"
         android:layout_width="wrap_content"
+        android:layout_marginVertical="3dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:layout_toEndOf="@id/texto_password"
         android:layout_below="@id/texto_email_a_rellenar" />
 
@@ -52,17 +50,16 @@
         android:id="@+id/texto_gravedad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
         android:layout_below="@id/texto_password"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:text="@string/text_grav" />
 
     <TextView
         android:id="@+id/texto_gravedad_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
         android:layout_toEndOf="@id/texto_gravedad"
         android:layout_below="@id/texto_password_a_rellenar" />
 
@@ -74,18 +71,16 @@
         android:id="@+id/texto_radio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
         android:layout_below="@id/texto_gravedad"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
-        android:layout_marginTop="38dp"
         android:text="@string/text_rad" />
 
     <TextView
         android:id="@+id/texto_radio_a_rellenar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginVertical="3dp"
         android:layout_toEndOf="@id/texto_radio"
         android:layout_below="@id/texto_gravedad_a_rellenar" />
 
@@ -96,22 +91,26 @@
         android:id="@+id/ban_button"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_marginBottom="100dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:text="@string/boton_ban"
         android:backgroundTint="#F44336"/>
 
     <Button
-        android:id="@+id/stats_button"
+        android:id="@+id/stats_incidencias_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="100dp"
+        android:layout_above="@id/ban_button"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="#3F51B5"
-        android:text="@string/boton_stats" />
+        android:text="@string/boton_stats_incidencias" />
+
+    <Button
+        android:id="@+id/stats_comentarios_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/stats_incidencias_button"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#03A9F4"
+        android:text="@string/boton_stats_comentarios" />
 
 </RelativeLayout>

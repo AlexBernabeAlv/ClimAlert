@@ -32,7 +32,7 @@ public class InformacionUsuario {
     public String email;
     public String password;
     public String IDIncidenciaActual;
-    public String CommentResponseID;
+    public int CommentResponseID;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -53,7 +53,6 @@ public class InformacionUsuario {
 
     public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g, boolean admin_app){
          IDIncidenciaActual = "";
-         CommentResponseID = "";
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
@@ -94,6 +93,10 @@ public class InformacionUsuario {
         };
         handler.postDelayed(runnable, milliseconds);
     }*/
+
+    public void setCommentResponseID(int commentResponseID) {
+        CommentResponseID = commentResponseID;
+    }
 
     public void getLocalizacionesSecundarias(){
 
@@ -197,7 +200,7 @@ public class InformacionUsuario {
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
                                 String fuente = incidenciaFenomeno.getString("creador");
-                                String medida = incidenciaFenomeno.getString("medida");
+                                Float medida = Float.parseFloat(incidenciaFenomeno.getString("medida"));
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
                                 Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id, medida);
@@ -302,8 +305,12 @@ public class InformacionUsuario {
             }
         }
     }
+
     public void setActivity(Activity a){
         activity = a;
+    }
 
+    public void setAdmin(Boolean b){
+        admin = b;
     }
 }

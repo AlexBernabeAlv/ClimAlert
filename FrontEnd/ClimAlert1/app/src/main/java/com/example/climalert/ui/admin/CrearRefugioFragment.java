@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.MainActivity;
 import com.example.climalert.R;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -54,6 +55,9 @@ public class CrearRefugioFragment extends Fragment {
                     latitudRefugio = Float.valueOf(latitud.getText().toString());
                     longitudRefugio = Float.parseFloat(longitud.getText().toString());
                     addRefugio();
+                    MainActivity main = (MainActivity) getActivity();
+                    View vista = main.findViewById(R.id.navigation_settings);
+                    vista.callOnClick();
                 }
                 else Alert();
             }

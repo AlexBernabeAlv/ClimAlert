@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.CosasDeTeo.Refugio;
+import com.example.climalert.MainActivity;
 import com.example.climalert.R;
 
 import org.json.JSONArray;
@@ -67,6 +68,9 @@ public class GestionarRefugiosFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     eliminar_refugio(r.nombre);
+                    MainActivity main = (MainActivity) getActivity();
+                    View vista = main.findViewById(R.id.navigation_settings);
+                    vista.callOnClick();
                 }
             });
             linearLayout.addView(btn);
@@ -79,10 +83,8 @@ public class GestionarRefugiosFragment extends Fragment {
         add.setId(id);
         add.setBackgroundColor(Color.GREEN);
         add.setText(R.string.text_add);
-        int l = linearLayout.getWidth();
-        int marg = l/3;
+        int marg = linearLayout.getWidth();
         setMargins(view, marg/3, 5, marg/3, 5);
-        //add.setGravity(Gravity.CENTER_HORIZONTAL);
         add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +92,7 @@ public class GestionarRefugiosFragment extends Fragment {
                 CrearRefugioFragment f = new CrearRefugioFragment();
                 FragmentManager fm = getFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.contenedor, f, "SETTINGS")
+                        .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                         .commit();
             }
         });

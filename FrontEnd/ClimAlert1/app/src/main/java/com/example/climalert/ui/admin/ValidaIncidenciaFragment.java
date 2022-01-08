@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.climalert.CosasDeTeo.InformacionUsuario;
+import com.example.climalert.MainActivity;
 import com.example.climalert.R;
 
 import org.json.JSONException;
@@ -117,7 +118,14 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if(gravedad.isChecked()) validarIncidencia(1);
-        else validarIncidencia(0);
+        switch (v.getId()) {
+            case R.id.valida_una_incidencia_button:
+                if(gravedad.isChecked()) validarIncidencia(1);
+                else validarIncidencia(0);
+                MainActivity main = (MainActivity) getActivity();
+                View vista = main.findViewById(R.id.navigation_settings);
+                vista.callOnClick();
+                break;
+        }
     }
 }
