@@ -102,9 +102,10 @@ public class GestionarUsuariosFragment extends Fragment {
                                 boolean admin =  usuarioResponse.getBoolean("admin");
                                 JSONObject filtro = usuarioResponse.getJSONObject("filtro");
                                 int radioEfecto =  filtro.getInt("radioEfecto");
+                                boolean banned =  usuarioResponse.getBoolean("email");
                                 int gravedad =  filtro.getInt("gravedad");
                                 UsuarioEstandar n = new UsuarioEstandar(email, password,
-                                        radioEfecto, gravedad, admin);
+                                        radioEfecto, gravedad, admin, banned);
                                 usuariosEstandar.add(n);
                             }
                             mostrar_usuarios();
@@ -159,6 +160,7 @@ public class GestionarUsuariosFragment extends Fragment {
         b.putString("email", u.email);
         b.putString("password", u.password);
         b.putInt("radio", u.radioEfecto);
+        b.putBoolean("ban", u.banned);
         b.putInt("gravedad", u.gravedad);
         gestionPerfilFragment.setArguments(b);
         fm = getFragmentManager();
