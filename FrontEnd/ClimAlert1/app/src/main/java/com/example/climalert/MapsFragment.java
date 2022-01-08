@@ -742,8 +742,9 @@ public class MapsFragment extends Fragment {
         JSONObject mapa = new JSONObject();
         try {
             Log.d("ENTRA", textoObjeto.getText().toString());
-            //DAVID, AQUI CAMBIAS EL HARDCORED POR ELDEL ITEMTEXT
-            mapa.put("productName", textoObjeto.getText().toString());
+            //SI el texto está vacío que pase cualquier cosa para que no salgan todos los objetos
+            if(textoObjeto.getText().toString().equals("")) mapa.put("productName", "Torpedo Intergaláctico");
+            else mapa.put("productName", textoObjeto.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
