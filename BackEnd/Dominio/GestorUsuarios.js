@@ -16,7 +16,7 @@ class GestorUsuarios {
 
         var res = await dataController.getUsuario(Email).catch(error => { console.error(error) });
 
-
+        
         var usuario;
 
         if (res.rows.length == 0) {
@@ -64,13 +64,17 @@ class GestorUsuarios {
             var usuarios = [];
 
             var usus = await dataController.getUsuarios().catch(error => { console.error(error) });
-
+            
             var usu;
 
             for (var i = 0; i < usus.rows.length; i++) {
 
                 usu = new UsuarioEstandar(usus.rows[i].email, usus.rows[i].password);
+                usu.banned = usus.rows[i].banned;
+
+                usu.setFiltro(usus.rows[i].gravedad, usus.rows[i].radioefecto);
                 usuarios.push(usu);
+                
             }
             return usuarios;
         }
