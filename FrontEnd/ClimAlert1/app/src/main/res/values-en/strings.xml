@@ -71,7 +71,7 @@
     <string name= "radio_afectacion"> Effect radius </string>
     <string name= "filtro_incidencias"> Filter Incidents </string>
     <string name= "modo_administrador"> Administrator </string>
-    <string name= "boton_ban"> Ban </string>
+    <string name= "boton_ban"> Ban/Unban </string>
     <string name= "boton_stats_incidencias"> Ocurrences Stats </string>
     <string name= "boton_stats_comentarios"> Comments Stats </string>
     <string name= "text_email"> Email: </string>
@@ -88,6 +88,9 @@
     <string name= "desc_incidencia"> Description: </string>
     <string name= "fuente_incidencia"> Resource: </string>
     <string name= "grvedad_incidencia"> Severity: </string>
+    <string name= "esta_baneado_si"> Yes </string>
+    <string name= "esta_baneado_no"> No </string>
+    <string name= "texto_baneado"> Banned: </string>
 
 
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or

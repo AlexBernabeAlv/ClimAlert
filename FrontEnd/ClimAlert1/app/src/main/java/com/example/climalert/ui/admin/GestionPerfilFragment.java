@@ -28,6 +28,7 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
     JSONObject mapa = new JSONObject();
     String mail, pass;
     int gravedad, radio;
+    boolean baneo;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         pass = getArguments().getString("password");
         gravedad = getArguments().getInt("gravedad");
         radio = getArguments().getInt("radio");
+        baneo = getArguments().getBoolean("ban");
 
         String rad, grav;
         rad = String.valueOf(radio);
@@ -50,9 +52,13 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         TextView t_pass = view.findViewById(R.id.texto_password_a_rellenar);
         t_pass.setText(pass);
         TextView t_gravedad = view.findViewById(R.id.texto_gravedad_a_rellenar);
-        t_gravedad.setText(grav);
+        if(gravedad == 1) t_gravedad.setText(R.string.esta_baneado_si);
+        else t_gravedad.setText(R.string.esta_baneado_no);
         TextView t_radio = view.findViewById(R.id.texto_radio_a_rellenar);
         t_radio.setText(rad);
+        TextView t_ban = view.findViewById(R.id.texto_ban_a_rellenar);
+        if(baneo) t_ban.setText(R.string.esta_baneado_si);
+        else t_ban.setText(R.string.esta_baneado_no);
 
         Button ban = (Button) view.findViewById(R.id.ban_button);
         ban.setOnClickListener(this);
@@ -66,10 +72,6 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Fragment f;
-        Bundle b = new Bundle();
-        b.putString(mail, "email");
-        FragmentManager fm = getFragmentManager();;
         switch (v.getId()) {
             case R.id.ban_button:
                 banUsuario(mail);
@@ -79,18 +81,24 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.stats_incidencias_button:
-                f = new GestionPerfilStatsIncidenciasFragment();
+                GestionPerfilStatsIncidenciasFragment f = new GestionPerfilStatsIncidenciasFragment();
+                Bundle b = new Bundle();
+                b.putString("email", mail);
                 f.setArguments(b);
+                FragmentManager fm = getFragmentManager();
                 fm.beginTransaction()
                         .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                         .commit();
                 break;
 
             case R.id.stats_comentarios_button:
-                f = new GestionPerfilStatsComentariosFragment();
-                f.setArguments(b);
-                fm.beginTransaction()
-                        .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                GestionPerfilStatsComentariosFragment f1 = new GestionPerfilStatsComentariosFragment();
+                Bundle b1 = new Bundle();
+                b1.putString("email", mail);
+                f1.setArguments(b1);
+                FragmentManager fm1 = getFragmentManager();
+                fm1.beginTransaction()
+                        .replace(R.id.contenedor, f1, "DESTINO_AJUSTES")
                         .commit();
                 break;
         }

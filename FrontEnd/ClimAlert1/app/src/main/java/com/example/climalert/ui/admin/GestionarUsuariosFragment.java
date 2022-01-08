@@ -102,7 +102,7 @@ public class GestionarUsuariosFragment extends Fragment {
                                 boolean admin =  usuarioResponse.getBoolean("admin");
                                 JSONObject filtro = usuarioResponse.getJSONObject("filtro");
                                 int radioEfecto =  filtro.getInt("radioEfecto");
-                                boolean banned =  usuarioResponse.getBoolean("email");
+                                boolean banned =  usuarioResponse.getBoolean("banned");
                                 int gravedad =  filtro.getInt("gravedad");
                                 UsuarioEstandar n = new UsuarioEstandar(email, password,
                                         radioEfecto, gravedad, admin, banned);
@@ -149,7 +149,7 @@ public class GestionarUsuariosFragment extends Fragment {
             linearLayout.addView(btn);
         }
         int marg = linearLayout.getWidth();
-        setMargins(view, 5, marg/3, marg/3, 5);
+        setMargins(view, 5, 5, marg/3, 5);
         scrollView.addView(linearLayout);
     }
 
