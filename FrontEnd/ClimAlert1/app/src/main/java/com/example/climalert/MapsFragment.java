@@ -92,6 +92,7 @@ public class MapsFragment extends Fragment {
     HashMap<Integer, Marker> IncidenciasActuales =  new HashMap<Integer, Marker>();
     HashMap<Integer, Circle> CirculosIncidencias =  new HashMap<Integer, Circle>();;
     Vector<LatLng> items = new Vector<LatLng>();
+    Vector<Marker> UbicacionObjetos =  new Vector<Marker>();
     LocationManager locationManager;
     LocationListener locationListener;
     private static final String TAG = "MapsFragment";
@@ -227,6 +228,7 @@ public class MapsFragment extends Fragment {
                     textoObjeto.setText("");
                     textoObjeto.setVisibility(View.INVISIBLE);
                     Buscar.setVisibility(View.INVISIBLE);
+                    limpiar_objetos();
                 }
                 else {
                     buscador_pulsado = true;
@@ -240,22 +242,9 @@ public class MapsFragment extends Fragment {
         Buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                limpiar_objetos();
                 formeforu();
                 Log.d("ENTRA", "HACE FORMEFORU");
-                if (items != null){
-                    for (int i = 0; i < items.size(); ++i) {
-                        Log.d("ENTRA", items.get(i).toString());
-                        LatLng ll = items.get(i);
-                        Marker m = mMap.addMarker(new MarkerOptions()
-                                .snippet(textoObjeto.getText().toString())
-                                .position(ll)
-                                .alpha(0.9f)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                                .title("Objeto"));
-                    }
-                    items.removeAllElements();
-                }
-
             }
         });
 
@@ -273,7 +262,6 @@ public class MapsFragment extends Fragment {
                 markerActual = null;
                 localizacionespuestas = false;
                 getloc();
-                formeforu();
                 print_incidencias(InformacionUsuario.getInstance().actual);
 
                 if(num_bucleares != 1){
@@ -365,7 +353,7 @@ public class MapsFragment extends Fragment {
                 titleUi.setText("");
             }
             if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio")) {
+                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals("refugio") && !marker.getTitle().equals("Objeto")) {
                 Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
                 Log.d("123456", "marker: " + marker.getTitle() );
                 Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
@@ -381,7 +369,19 @@ public class MapsFragment extends Fragment {
                     snippetUi.setText("");
                 }
             }
-            else{
+            else if (marker.getTitle().equals("Objeto")){
+                TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+                SpannableString snippetText = new SpannableString(textoObjeto.getText().toString());
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippetText.length(), 0);
+                snippetUi.setText(snippetText);
+            }
+            else if (marker.getTitle().equals("Refugio")){
+                TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+                SpannableString snippetText = new SpannableString("Safe place");
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippetText.length(), 0);
+                snippetUi.setText(snippetText);
+            }
+            else {
                 TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
                 SpannableString snippetText = new SpannableString("Ubicación del usuario");
                 snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 21, 0);
@@ -756,6 +756,7 @@ public class MapsFragment extends Fragment {
         String url = "https://climalert.herokuapp.com/4me4u/products";
         JSONObject mapa = new JSONObject();
         try {
+            Log.d("ENTRA", textoObjeto.getText().toString());
             //DAVID, AQUI CAMBIAS EL HARDCORED POR ELDEL ITEMTEXT
             mapa.put("productName", textoObjeto.getText().toString());
         } catch (JSONException e) {
@@ -770,12 +771,27 @@ public class MapsFragment extends Fragment {
                         JSONObject item;
                         try {
                             for (int i = 0; i < response.length(); ++i) {
+                                Log.d("ENTRA", "RESPONDE");
                                 item = response.getJSONObject(i);
                                 JSONObject userId = item.getJSONObject("userId");
                                 Float latitud = Float.parseFloat(userId.getString("latitude"));
                                 Float longitud = Float.parseFloat(userId.getString("longitude"));
                                 LatLng ll = new LatLng(latitud, longitud);
                                 items.add(ll);
+                            }
+                            if (items != null){
+                                for (int i = 0; i < items.size(); ++i) {
+                                    Log.d("ENTRA", items.get(i).toString());
+                                    LatLng ll = items.get(i);
+                                    Marker m = mMap.addMarker(new MarkerOptions()
+                                            .snippet(textoObjeto.getText().toString())
+                                            .position(ll)
+                                            .alpha(0.9f)
+                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                            .title("Objeto"));
+                                    UbicacionObjetos.add(m);
+                                }
+                                items.removeAllElements();
                             }
                         }
                         catch(JSONException e){
@@ -825,6 +841,13 @@ public class MapsFragment extends Fragment {
         // Adding the circle to the GoogleMap
         Circle C = mMap.addCircle(circleOptions);
         CirculosIncidencias.put(id, C);
+    }
+
+    private void limpiar_objetos(){
+        for (int i = 0; i < UbicacionObjetos.size(); ++i ) {
+            UbicacionObjetos.get(i).remove();
+        }
+        UbicacionObjetos.clear();
     }
 
     private void limpiar_incidencias(){
