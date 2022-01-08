@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scroll_gestionar_usuarios"
+    android:fillViewport="true"
+    tools:context=".ui.admin.GestionarUsuariosFragment"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linear_layout_usuarios"
-    android:orientation="vertical"
-    tools:context=".ui.admin.GestionarUsuariosFragment">
+    android:orientation="vertical">
 
-</LinearLayout>
+</ScrollView>

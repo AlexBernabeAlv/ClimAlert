@@ -41,9 +41,9 @@ import java.util.Vector;
 
 public class GestionarUsuariosFragment extends Fragment {
     JSONObject mapa = new JSONObject();
-    LinearLayout linearLayout;
     View view;
     FragmentManager fm;
+    ScrollView scrollView;
     GestionPerfilFragment gestionPerfilFragment;
     public Vector<UsuarioEstandar> usuariosEstandar = new Vector<UsuarioEstandar>();
 
@@ -127,18 +127,18 @@ public class GestionarUsuariosFragment extends Fragment {
 
     public void mostrar_usuarios() {
         int n = usuariosEstandar.size();
-        linearLayout = view.findViewById(R.id.linear_layout_usuarios);
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        scrollView = (ScrollView) view.findViewById(R.id.scroll_gestionar_usuarios);
         for(int i = 0; i < n; ++i) {
             Button btn = new Button(getContext());
             btn.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
-            int l = linearLayout.getWidth();
-            int marg = l/3;
-            setMargins(view, marg, 5, marg, 5);
+
             UsuarioEstandar u = usuariosEstandar.get(i);
-            btn.setText(usuariosEstandar.get(i).email);
+            btn.setText(u.email);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -147,6 +147,9 @@ public class GestionarUsuariosFragment extends Fragment {
             });
             linearLayout.addView(btn);
         }
+        int marg = linearLayout.getWidth();
+        setMargins(view, 5, marg/3, marg/3, 5);
+        scrollView.addView(linearLayout);
     }
 
 
