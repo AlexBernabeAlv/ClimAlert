@@ -67,10 +67,7 @@ public class GestionarRefugiosFragment extends Fragment {
             btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    eliminar_refugio(r.nombre);
-                    MainActivity main = (MainActivity) getActivity();
-                    View vista = main.findViewById(R.id.navigation_settings);
-                    vista.callOnClick();
+                    eliminar_refugio(r);
                 }
             });
             linearLayout.addView(btn);
@@ -92,15 +89,27 @@ public class GestionarRefugiosFragment extends Fragment {
                 CrearRefugioFragment f = new CrearRefugioFragment();
                 FragmentManager fm = getFragmentManager();
                 fm.beginTransaction()
-                        .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                        .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                         .commit();
             }
         });
         linearLayout.addView(add);
     }
 
-    private void eliminar_refugio(String nombre) {
-        //aqui podeis eliminar el refugio
+    private void eliminar_refugio(Refugio r) {
+        EliminarRefugioFragment f = new EliminarRefugioFragment();
+        Bundle b = new Bundle();
+        b.putString("nombre", r.nombre);
+        String lat, lon;
+        lat = String.valueOf(r.latitud);
+        lon = String.valueOf(r.longitud);
+        b.putString("latitud", lat);
+        b.putString("longitud", lon);
+        f.setArguments(b);
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.contenedor, f, "DESTINO_ADMIN")
+                .commit();
     }
 
     private void setMargins(View view, int left, int top, int right, int bottom) {

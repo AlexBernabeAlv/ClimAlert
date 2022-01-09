@@ -54,7 +54,7 @@ public class GestionPerfilStatsIncidenciasFragment extends Fragment {
 
     private void muestra_fechas() {
         int n = estadisticos.size(); //o estadisticos normal
-        linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas);
+        linearLayout = view.findViewById(R.id.linear_layout_gestion_incidencias);
         for(int i = 0; i < n; ++i) {
             TextView t = new TextView(getContext());
             t.setLayoutParams(new LinearLayout.LayoutParams(
@@ -62,8 +62,10 @@ public class GestionPerfilStatsIncidenciasFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             t.setId(i);
             int marg = linearLayout.getWidth();
-            setMargins(view, marg/3, 5, marg/3, 5);
-            t.setText(estadisticos.get(i));
+            setMargins(view, marg/4, 5, 5, 5);
+            String res = String.valueOf(i+1);
+            res = res.concat(":  " + estadisticos.get(i));
+            t.setText(res);
             linearLayout.addView(t);
         }
     }
@@ -75,6 +77,7 @@ public class GestionPerfilStatsIncidenciasFragment extends Fragment {
         try {
             mapa.put("filtro", "dia");
             mapa.put("password", InformacionUsuario.getInstance().password);
+            mapa.put("email", InformacionUsuario.getInstance().email);
         } catch (JSONException e) {
             e.printStackTrace();
         }

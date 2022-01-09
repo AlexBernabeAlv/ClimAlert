@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Stack;
 import java.util.Vector;
 
 //import com.example.climalert.MapsFragment;
@@ -33,6 +34,8 @@ public class InformacionUsuario {
     public String password;
     public String IDIncidenciaActual;
     public int CommentResponseID;
+    public Stack<Integer> StackCommentsID = new Stack<>();
+    public int levelComment;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -60,6 +63,7 @@ public class InformacionUsuario {
          radioEfecto = re;
          gravedad = g;
          admin = admin_app;
+         levelComment = 0;
     }
     public void SetLocalizaciones(float la1, float lo1, float la2, float lo2){
         latitud1 = la1;
@@ -96,6 +100,35 @@ public class InformacionUsuario {
 
     public void setCommentResponseID(int commentResponseID) {
         CommentResponseID = commentResponseID;
+    }
+
+    public int getCommentResponseID() {
+        return CommentResponseID;
+    }
+
+    public Integer getTopStackCommentsID() {
+        return StackCommentsID.pop();
+    }
+
+    public void pushStackCommentsID(Integer CommentID) {
+        Log.d("pushstack", "entro en la funcion de informacionUsuario");
+        StackCommentsID.push(CommentID);
+    }
+
+    public int getLevelComment() {
+        return levelComment;
+    }
+
+    public void setLevelComment(int levelComment) {
+        this.levelComment = levelComment;
+    }
+
+    public void incLevelComm() {
+        levelComment += 1;
+    }
+
+    public void decLevelComm() {
+        levelComment -= 1;
     }
 
     public void getLocalizacionesSecundarias(){
@@ -305,8 +338,12 @@ public class InformacionUsuario {
             }
         }
     }
+
     public void setActivity(Activity a){
         activity = a;
+    }
 
+    public void setAdmin(Boolean b){
+        admin = b;
     }
 }

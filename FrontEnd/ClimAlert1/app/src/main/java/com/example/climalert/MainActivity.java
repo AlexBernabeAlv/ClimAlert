@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
             v.callOnClick();
         }
     }
+
+    //aqui
     public void perfil_boton() {
         Fragment perfil = new PerfilFragment();
         getSupportFragmentManager()
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
     }
 
+
+    //aqui
     public void idioma_boton() {
         Fragment idioma = new IdiomaFragment();
         getSupportFragmentManager()
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        InformacionUsuario.getInstance().setLevelComment(0);
         Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -127,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        InformacionUsuario.getInstance().incLevelComm();
         Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -136,13 +142,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    //aqui
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                 .commit();
     }
 
+
+    //aqui
     public void modo_admin() {
         Fragment f = new VentanaAdminFragment();
         getSupportFragmentManager()
@@ -151,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    //aqui
     public void catastrofe_func(Fragment catastrofe) { //se le podria hacer un rebrand
         getSupportFragmentManager()
                 .beginTransaction()
@@ -274,11 +286,33 @@ public class MainActivity extends AppCompatActivity {
         frag = fm.findFragmentByTag("DESTINO_FORO");
         if (frag != null && frag.isVisible()) {
             int IdInc = Integer.parseInt(InformacionUsuario.getInstance().IDIncidenciaActual);
-            Fragment foro = new VentanaForo(IdInc, true);
+            if (InformacionUsuario.getInstance().getLevelComment() <= 1) {
+                InformacionUsuario.getInstance().decLevelComm();
+                Fragment foro = new VentanaForo(IdInc, true);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(foro)
+                        .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
+                        .commit();
+            }
+            else {
+                InformacionUsuario.getInstance().decLevelComm();
+                int IdCom = InformacionUsuario.getInstance().getTopStackCommentsID();
+                Fragment foro = new VentanaForo(IdCom, IdInc, false);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(foro)
+                        .replace(R.id.contenedor, foro, "DESTINO_FORO")
+                        .commit();
+            }
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_ADMIN");
+        if (frag != null && frag.isVisible()) {
+            Fragment f = new VentanaAdminFragment();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .remove(foro)
-                    .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
+                    .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
                     .commit();
             return;
         }

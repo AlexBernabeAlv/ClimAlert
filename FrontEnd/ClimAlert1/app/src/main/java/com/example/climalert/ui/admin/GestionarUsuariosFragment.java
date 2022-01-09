@@ -41,9 +41,9 @@ import java.util.Vector;
 
 public class GestionarUsuariosFragment extends Fragment {
     JSONObject mapa = new JSONObject();
-    LinearLayout linearLayout;
     View view;
     FragmentManager fm;
+    ScrollView scrollView;
     GestionPerfilFragment gestionPerfilFragment;
     public Vector<UsuarioEstandar> usuariosEstandar = new Vector<UsuarioEstandar>();
 
@@ -102,9 +102,10 @@ public class GestionarUsuariosFragment extends Fragment {
                                 boolean admin =  usuarioResponse.getBoolean("admin");
                                 JSONObject filtro = usuarioResponse.getJSONObject("filtro");
                                 int radioEfecto =  filtro.getInt("radioEfecto");
+                                boolean banned =  usuarioResponse.getBoolean("banned");
                                 int gravedad =  filtro.getInt("gravedad");
                                 UsuarioEstandar n = new UsuarioEstandar(email, password,
-                                        radioEfecto, gravedad, admin);
+                                        radioEfecto, gravedad, admin, banned);
                                 usuariosEstandar.add(n);
                             }
                             mostrar_usuarios();
@@ -127,18 +128,18 @@ public class GestionarUsuariosFragment extends Fragment {
 
     public void mostrar_usuarios() {
         int n = usuariosEstandar.size();
-        linearLayout = view.findViewById(R.id.linear_layout_usuarios);
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        scrollView = (ScrollView) view.findViewById(R.id.scroll_gestionar_usuarios);
         for(int i = 0; i < n; ++i) {
             Button btn = new Button(getContext());
             btn.setLayoutParams(new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             btn.setId(i);
-            int l = linearLayout.getWidth();
-            int marg = l/3;
-            setMargins(view, marg, 5, marg, 5);
+
             UsuarioEstandar u = usuariosEstandar.get(i);
-            btn.setText(usuariosEstandar.get(i).email);
+            btn.setText(u.email);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -147,6 +148,9 @@ public class GestionarUsuariosFragment extends Fragment {
             });
             linearLayout.addView(btn);
         }
+        int marg = linearLayout.getWidth();
+        setMargins(view, 5, 5, marg/3, 5);
+        scrollView.addView(linearLayout);
     }
 
 
@@ -156,11 +160,12 @@ public class GestionarUsuariosFragment extends Fragment {
         b.putString("email", u.email);
         b.putString("password", u.password);
         b.putInt("radio", u.radioEfecto);
+        b.putBoolean("ban", u.banned);
         b.putInt("gravedad", u.gravedad);
         gestionPerfilFragment.setArguments(b);
         fm = getFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.contenedor, gestionPerfilFragment, "DESTINO_AJUSTES")
+                .replace(R.id.contenedor, gestionPerfilFragment, "DESTINO_ADMIN")
                 .commit();
     }
 }

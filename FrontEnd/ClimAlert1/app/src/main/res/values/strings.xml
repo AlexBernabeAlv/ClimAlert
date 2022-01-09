@@ -70,7 +70,7 @@
     <string name= "radio_afectacion"> Radio de afectación </string>
     <string name= "filtro_incidencias"> Filtrar Incidencias </string>
     <string name= "modo_administrador"> Administrador </string>
-    <string name= "boton_ban"> Banear </string>
+    <string name= "boton_ban"> Banear/Desbanear </string>
     <string name= "boton_stats_incidencias"> Estadísticas Incidencias </string>
     <string name= "boton_stats_comentarios"> Estadísticas Comentarios </string>
     <string name= "text_email"> Email: </string>
@@ -87,6 +87,11 @@
     <string name= "desc_incidencia"> Descripción: </string>
     <string name= "fuente_incidencia"> Fuente: </string>
     <string name= "grvedad_incidencia"> Gravedad: </string>
+    <string name= "esta_baneado_si"> Si </string>
+    <string name= "esta_baneado_no"> No </string>
+    <string name= "texto_baneado"> Baneado: </string>
+    <string name= "eliminar_ref_button"> Eliminar </string>
+
 
 
 
