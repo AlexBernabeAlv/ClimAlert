@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.admin.EliminarRefugioFragment">
+
+    <TextView
+        android:id="@+id/texto_nombre_refugio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/nombre_refugio" />
+
+    <TextView
+        android:id="@+id/texto_nombre_refugio_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@id/texto_nombre_refugio" />
+
+
+
+
+    <TextView
+        android:id="@+id/texto_latitud_refugio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_nombre_refugio"
+        android:layout_marginVertical="3dp"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:text="@string/latitud_refugio" />
+
+    <TextView
+        android:id="@+id/texto_latitud_refugio_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/texto_latitud_refugio"
+        android:layout_below="@id/texto_nombre_refugio_a_rellenar" />
+
+
+
+
+    <TextView
+        android:id="@+id/texto_longitud_refugio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto_latitud_refugio"
+        android:layout_marginVertical="3dp"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:text="@string/longitud_refugio" />
+
+    <TextView
+        android:id="@+id/texto_longitud_refugio_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/texto_latitud_refugio"
+        android:layout_below="@id/texto_latitud_refugio_a_rellenar" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eliminar_ref_button"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:text="@string/eliminar_ref_button"
+        android:backgroundTint="#F44336"/>
+
+
+</RelativeLayout>

@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
             v.callOnClick();
         }
     }
+
+    //aqui
     public void perfil_boton() {
         Fragment perfil = new PerfilFragment();
         getSupportFragmentManager()
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
     }
 
+
+    //aqui
     public void idioma_boton() {
         Fragment idioma = new IdiomaFragment();
         getSupportFragmentManager()
@@ -138,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    //aqui
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -145,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    //aqui
     public void modo_admin() {
         Fragment f = new VentanaAdminFragment();
         getSupportFragmentManager()
@@ -153,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    //aqui
     public void catastrofe_func(Fragment catastrofe) { //se le podria hacer un rebrand
         getSupportFragmentManager()
                 .beginTransaction()
