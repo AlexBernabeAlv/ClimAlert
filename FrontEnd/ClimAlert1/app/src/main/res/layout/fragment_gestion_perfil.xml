@@ -81,8 +81,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="3dp"
-        android:layout_toEndOf="@id/texto_radio"
-        android:layout_below="@id/texto_gravedad_a_rellenar" />
+        android:layout_below="@id/texto_gravedad_a_rellenar"
+        android:layout_toEndOf="@id/texto_radio"/>
+
+    <TextView
+        android:id="@+id/texto_ban"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_radio"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:text="@string/texto_baneado" />
+
+    <TextView
+        android:id="@+id/texto_ban_a_rellenar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:layout_below="@id/texto_radio_a_rellenar"
+        android:layout_toEndOf="@id/texto_ban"/>
 
 
     <Button
