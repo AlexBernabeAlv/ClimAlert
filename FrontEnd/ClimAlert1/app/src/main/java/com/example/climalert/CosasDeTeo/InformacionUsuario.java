@@ -222,7 +222,7 @@ public class InformacionUsuario {
                                 String fecha =  incidenciaFenomeno.getString("fecha");
                                 String hora =  incidenciaFenomeno.getString("hora");
                                 Vector<String> indicaciones =  new Vector<String>();
-                                for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
+                                for(int j = 0; j <  IndicacionIncidencia.length(); ++j) {
                                     indicaciones.add(IndicacionIncidencia.getString(j));
                                 }
                                 JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");

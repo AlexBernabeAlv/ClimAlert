@@ -637,7 +637,6 @@ public class MapsFragment extends Fragment {
                 mapa.put("latitud2", InformacionUsuario.getInstance().latitud2);
                 mapa.put("longitud2", InformacionUsuario.getInstance().longitud2);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

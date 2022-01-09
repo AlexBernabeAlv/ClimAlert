@@ -91,6 +91,10 @@
     <string name= "esta_baneado_no"> No </string>
     <string name= "texto_baneado"> Baneado: </string>
     <string name= "eliminar_ref_button"> Eliminar </string>
+    <string name= "validar_incidencias_button"> Validar Incidencias </string>
+    <string name= "gestionar_usuarios_button"> Gestionar Usuarios </string>
+    <string name= "gestionar_refugios_button"> Gestionar Refugios </string>
+    <string name= "validar_incidencias_actuales_button"> Validar Incidencias Actuales </string>
 
 
 

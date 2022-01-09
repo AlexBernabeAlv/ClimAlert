@@ -92,6 +92,10 @@
     <string name= "esta_baneado_no"> No </string>
     <string name= "texto_baneado"> Banned: </string>
     <string name= "eliminar_ref_button"> Delete </string>
+    <string name= "validar_incidencias_button"> Validate Incidents </string>
+    <string name= "gestionar_usuarios_button"> Manage Users </string>
+    <string name= "gestionar_refugios_button"> Manage Shelters </string>
+    <string name= "validar_incidencias_actuales_button"> Validate Current Incidents </string>
 
 
     <string name="descripcion_calor_extremo">Extreme heat is defined as much higher summer temperatures or

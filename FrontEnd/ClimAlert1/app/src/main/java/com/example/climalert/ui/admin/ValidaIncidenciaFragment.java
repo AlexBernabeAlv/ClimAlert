@@ -60,10 +60,9 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
         t_desc.setText(desc);
         TextView t_fuente = view.findViewById(R.id.texto_fuente_incidencia_a_rellenar);
         t_fuente.setText(fuente);
-        String lat, lon, iden, radi;
+        String lat, lon, radi;
         lat = String.valueOf(latitud);
         lon = String.valueOf(longitud);
-        //iden = String.valueOf(id);
         radi = String.valueOf(radio);
         TextView t_lat = view.findViewById(R.id.texto_latitud_incidencia_a_rellenar);
         t_lat.setText(lat);
