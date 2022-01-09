@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        InformacionUsuario.getInstance().setLevelComment(0);
         Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        InformacionUsuario.getInstance().incLevelComm();
         Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -274,12 +276,25 @@ public class MainActivity extends AppCompatActivity {
         frag = fm.findFragmentByTag("DESTINO_FORO");
         if (frag != null && frag.isVisible()) {
             int IdInc = Integer.parseInt(InformacionUsuario.getInstance().IDIncidenciaActual);
-            Fragment foro = new VentanaForo(IdInc, true);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .remove(foro)
-                    .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
-                    .commit();
+            if (InformacionUsuario.getInstance().getLevelComment() <= 1) {
+                InformacionUsuario.getInstance().decLevelComm();
+                Fragment foro = new VentanaForo(IdInc, true);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(foro)
+                        .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
+                        .commit();
+            }
+            else {
+                InformacionUsuario.getInstance().decLevelComm();
+                int IdCom = InformacionUsuario.getInstance().getTopStackCommentsID();
+                Fragment foro = new VentanaForo(IdCom, IdInc, false);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(foro)
+                        .replace(R.id.contenedor, foro, "DESTINO_FORO")
+                        .commit();
+            }
             return;
         }
     }
