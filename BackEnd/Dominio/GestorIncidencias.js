@@ -123,9 +123,11 @@ class GestorIncidencias {
                         incid.rows[i].radioefecto,
                         incid.rows[i].gravedad,
                         incid.rows[i].latitud,
-                        incid.rows[i].longitud);
+                        incid.rows[i].longitud,
+                        incid.rows[i].email,
+                        incid.rows[i].medida
+                    );
 
-                    inc.creador = incid.rows[i].email;
 
                     incidencias.push(inc);
                     if (incid.rows[i].valido) {
