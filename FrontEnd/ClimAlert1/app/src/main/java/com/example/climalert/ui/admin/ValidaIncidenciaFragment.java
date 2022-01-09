@@ -83,7 +83,7 @@ public class ValidaIncidenciaFragment extends Fragment implements View.OnClickLi
 
     public void validarIncidencia(int i) {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/incidencias?id="+ "aquiVaLaId";
+        String url = "https://climalert.herokuapp.com/incidencias?id="+ id;
         mapa = new JSONObject();
         try {
             mapa.put("email", InformacionUsuario.getInstance().email);
