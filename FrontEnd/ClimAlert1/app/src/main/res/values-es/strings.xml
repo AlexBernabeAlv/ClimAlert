@@ -21,6 +21,12 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="incidencia_etiqueta_fuente">Fuente: </string>
+    <string name="incidencia_etiqueta_fecha">Fecha: </string>
+    <string name="incidencia_fecha_no_disponible">Fecha no disponible</string>
+    <string name="incidencia_boton_info_fenomeno">Sobre el fenómeno</string>
+    <string name="incidencia_boton_foro">Foro</string>
+
     <string name="unidad_calor_extremo">ºC de temperatura</string>
     <string name="unidad_granizo">mm</string>
     <string name="unidad_tormenta_invernal">mm</string>
@@ -91,10 +97,11 @@
     <string name= "esta_baneado_no"> No </string>
     <string name= "texto_baneado"> Baneado: </string>
     <string name= "eliminar_ref_button"> Eliminar </string>
-    <string name= "gestionar_usuarios_button"> Gestionar Usuarios </string>
     <string name= "validar_incidencias_button"> Validar Incidencias </string>
+    <string name= "gestionar_usuarios_button"> Gestionar Usuarios </string>
     <string name= "gestionar_refugios_button"> Gestionar Refugios </string>
     <string name= "validar_incidencias_actuales_button"> Validar Incidencias Actuales </string>
+
 
 
 

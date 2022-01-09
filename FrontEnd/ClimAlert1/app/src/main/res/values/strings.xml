@@ -21,6 +21,12 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
+    <string name="incidencia_etiqueta_fuente">Fuente: </string>
+    <string name="incidencia_etiqueta_fecha">Fecha: </string>
+    <string name="incidencia_fecha_no_disponible">Fecha no disponible</string>
+    <string name="incidencia_boton_info_fenomeno">Sobre el fenómeno</string>
+    <string name="incidencia_boton_foro">Foro</string>
+
     <string name="unidad_calor_extremo">ºC de temperatura</string>
     <string name="unidad_granizo">mm</string>
     <string name="unidad_tormenta_invernal">mm</string>

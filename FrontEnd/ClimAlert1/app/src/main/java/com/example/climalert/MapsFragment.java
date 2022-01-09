@@ -893,61 +893,47 @@ public class MapsFragment extends Fragment {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
                 MainActivity main = (MainActivity) getActivity();
                 String nombreFenomeno = null;
-                String descripcion = null;
                 switch(print.get(i).nombre) {
                     case "CalorExtremo":
                         nombreFenomeno = main.getString(R.string.text_calor_extremo);
-                        descripcion = main.getString(R.string.desc_incidencia_calor_extremo);
                         break;
                     case "Granizo":
                         nombreFenomeno = main.getString(R.string.text_granizo);
-                        descripcion = main.getString(R.string.desc_incidencia_granizo);
                         break;
                     case "TormentaInvernal":
                         nombreFenomeno = main.getString(R.string.text_tormenta_invernal);
-                        descripcion = main.getString(R.string.desc_incidencia_tormenta_invernal);
                         break;
                     case "Tornado":
                         nombreFenomeno = main.getString(R.string.text_tornado);
-                        descripcion = main.getString(R.string.desc_incidencia_tornado);
                         break;
                     case "Inundacion":
                         nombreFenomeno = main.getString(R.string.text_inundacion);
-                        descripcion = main.getString(R.string.desc_incidencia_inundacion);
                         break;
                     case "Incendio":
                         nombreFenomeno = main.getString(R.string.text_incendio_forestal);
-                        descripcion = main.getString(R.string.desc_incidencia_incendio_forestal);
                         break;
                     case "Terremoto":
                         nombreFenomeno = main.getString(R.string.text_terremoto);
-                        descripcion = main.getString(R.string.desc_incidencia_terremoto);
                         break;
                     case "Tsunami":
                         nombreFenomeno = main.getString(R.string.text_tsunami);
-                        descripcion = main.getString(R.string.desc_incidencia_tsunami);
                         break;
                     case "Avalancha":
                         nombreFenomeno = main.getString(R.string.text_avalancha);
-                        descripcion = main.getString(R.string.desc_incidencia_avalancha);
                         break;
                     case "LluviaAcida":
                         nombreFenomeno = main.getString(R.string.text_lluvia_acida);
-                        descripcion = main.getString(R.string.desc_incidencia_lluvia_acida);
                         break;
                     case "ErupcionVolcanica":
                         nombreFenomeno = main.getString(R.string.text_erupcion_volcanica);
-                        descripcion = main.getString(R.string.desc_incidencia_erupcion_volcanica);
                         break;
                     case "GotaFria":
                         nombreFenomeno = main.getString(R.string.text_gota_fria);
-                        descripcion = main.getString(R.string.desc_incidencia_gota_fria);
                         break;
                     case "TormentaElectrica":
                         nombreFenomeno = main.getString(R.string.text_tormenta_electrica);
-                        descripcion = main.getString(R.string.desc_incidencia_tormenta_electrica);
                 }
-                generarMarcadores(ll, descripcion, nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
+                generarMarcadores(ll, "...", nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
             }
             if(print ==  InformacionUsuario.getInstance().aPintar){
 

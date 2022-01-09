@@ -21,6 +21,12 @@
     <string name="text_gota_fria">Cold drop</string>
     <string name="text_tormenta_electrica">Thunder storm</string>
 
+    <string name="incidencia_etiqueta_fuente">Source: </string>
+    <string name="incidencia_etiqueta_fecha">Date: </string>
+    <string name="incidencia_fecha_no_disponible">Date unavailable</string>
+    <string name="incidencia_boton_info_fenomeno">About the phenomenon</string>
+    <string name="incidencia_boton_foro">Forum</string>
+
     <string name="unidad_calor_extremo">ºC of temperature</string>
     <string name="unidad_granizo">mm</string>
     <string name="unidad_tormenta_invernal">mm</string>
