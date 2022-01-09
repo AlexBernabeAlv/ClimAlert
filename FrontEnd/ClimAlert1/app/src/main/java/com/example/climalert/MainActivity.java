@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                 .commit();
     }
 
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad, admin);
 
-                        Log.d("a", String.valueOf(response));
+                        //Log.d("a", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener() {
@@ -295,6 +295,15 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.contenedor, foro, "DESTINO_FORO")
                         .commit();
             }
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_ADMIN");
+        if (frag != null && frag.isVisible()) {
+            Fragment f = new VentanaAdminFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                    .commit();
             return;
         }
     }

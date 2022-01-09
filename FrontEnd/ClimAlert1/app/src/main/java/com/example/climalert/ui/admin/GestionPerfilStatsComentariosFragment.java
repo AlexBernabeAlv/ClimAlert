@@ -55,11 +55,12 @@ public class GestionPerfilStatsComentariosFragment extends Fragment {
 
     public void getEstadisticosComentarios(String email) {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+ email + "/estadisticosIncidencias";
+        String url = "https://climalert.herokuapp.com/usuarios/"+ email + "/estadisticosComentarios";
         mapa = new JSONObject();
         try {
             mapa.put("filtro", "dia");
             mapa.put("password", InformacionUsuario.getInstance().password);
+            mapa.put("email", InformacionUsuario.getInstance().email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -97,7 +98,7 @@ public class GestionPerfilStatsComentariosFragment extends Fragment {
 
     private void muestra_fechas() {
         int n = estadisticosComent.size();
-        linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas);
+        linearLayout = view.findViewById(R.id.linear_layout_gestion_estadisticas_comentarios);
         for(int i = 0; i < n; ++i) {
             TextView t = new TextView(getContext());
             t.setLayoutParams(new LinearLayout.LayoutParams(
@@ -105,8 +106,10 @@ public class GestionPerfilStatsComentariosFragment extends Fragment {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             t.setId(i);
             int marg = linearLayout.getWidth();
-            setMargins(view, marg/3, 5, marg/3, 5);
-            t.setText(estadisticosComent.get(i));
+            setMargins(view, marg/4, 5, 5, 5);
+            String res = String.valueOf(i+1);
+            res = res.concat(":  " + estadisticosComent.get(i));
+            t.setText(res);
             linearLayout.addView(t);
         }
     }
