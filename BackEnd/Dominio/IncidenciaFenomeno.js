@@ -8,7 +8,7 @@ const AdapterPrestamos = require('./AdapterPrestamos');
 
 class IncidenciaFenomeno{
 
-    constructor(Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud)
+    constructor(Id, Fecha, Hora, NombreFenomeno, Descripcion, Radio, Gravedad, Latitud, Longitud, crea, med)
     {
         this.id = Id;
         this.valido = false;
@@ -17,8 +17,8 @@ class IncidenciaFenomeno{
         this.hora = Hora;
         this.incidencia = new Incidencia(Radio, Gravedad, Latitud, Longitud);
         this.fenomenoMeteo = new FenomenoMeteo(NombreFenomeno, Descripcion, null, null);
-        this.creador = "no se sabe";
-        this.medida = 0;
+        this.creador = crea;
+        this.medida = med;
 
     }
 

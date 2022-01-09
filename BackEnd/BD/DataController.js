@@ -67,7 +67,7 @@ class DataController{
                 }
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('WeatherApiComCurrent', '0', true, '0', '1', false);", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('Weather Api Current', '0', true, '0', '1', false);", (err, res) => {
 
                 if (err) {
 
@@ -75,7 +75,7 @@ class DataController{
                 }
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('FirmsViirsSnppNrt', '0', true, '0', '1', false);", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('Fire Information for Resource Management System', '0', true, '0', '1', false);", (err, res) => {
 
                 if (err) {
 
@@ -83,7 +83,7 @@ class DataController{
                 }
             });
 
-            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('SeismicPortalEu', '0', true, '0', '1', false);", (err, res) => {
+            pool.query("INSERT INTO usuario(email, password, admin, gravedad, radioEfecto, banned) VALUES('Seismic Portal EU', '0', true, '0', '1', false);", (err, res) => {
 
                 if (err) {
 

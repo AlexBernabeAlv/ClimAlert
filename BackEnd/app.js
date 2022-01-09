@@ -39,9 +39,11 @@ const DataController = require('./BD/DataController');
 //Inicializar base datos
 
 app.post('/BD/reset', async (req, res) => {
-    
+
+   
     var result = await DataController.resetBD().catch(error => { console.error(error) });
     await ConsultExternalApis();
+    
     if (typeof result == 'number') {
 
         var message = checkReturnCode(result);

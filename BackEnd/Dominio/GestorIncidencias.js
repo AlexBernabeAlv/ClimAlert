@@ -61,7 +61,12 @@ class GestorIncidencias {
                     incid.rows[i].radioefecto,
                     incid.rows[i].gravedad,
                     incid.rows[i].latitud,
-                    incid.rows[i].longitud);
+                    incid.rows[i].longitud,
+                    incid.rows[i].email,
+                    incid.rows[i].medida);
+
+
+
                 incidenciasfenomeno.push(inc);
                 if (incid.rows[i].valido) {
                     inc.setValido();
