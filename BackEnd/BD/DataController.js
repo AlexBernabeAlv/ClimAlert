@@ -28,19 +28,19 @@ class DataController{
             var fenomenosMeteos = ["Incendio", "Terremoto", "Tornado", "Inundacion", "Avalancha", "Lluvia Acida", "Erupcion Volcanica", "Gota fria", "Calor Extremo", "Granizo", "Tormenta electrica", "Tormenta invernal", "Tsunami"];
             var descripcionesFenomenosMeteo = [
 
-                "Cosa que quema",
-                "Cosa que tiembla",
-                "Cosa que airea",
-                "Cosa que llena de agua",
-                "Cosa que tira cosas encima de cosas",
-                "Cosa que moja, pero poco y mal",
-                "Cosa que explota",
-                "Cosa que hace canicas los hue..",
-                "Cosa que da calor",
-                "Cosa que llueve hielo",
-                "Impactrueno",
-                "Impactrueno pero muy frio",
-                "Ola muy grande"
+                "Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.",
+                "Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.",
+                "Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.",
+                "Ocupación por parte del agua de zonas que habitualmente están libres de esta, por desbordamiento de ríos, torrentes o ramblas, por lluvias torrenciales, deshielo, maremotos, huracanes, entre otros.",
+                "Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.",
+                "Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.",
+                "Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.",
+                "Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.",
+                "Altas temperaturas",
+                "Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.",
+                "Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.",
+                "Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.",
+                "Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc."
             ];
 
             pool.query("INSERT INTO fenomenometeo(nombre, descripcion) VALUES($1, $2), ($3, $4), ($5, $6), ($7, $8), ($9, $10), ($11, $12), ($13, $14), ($15, $16), ($17, $18), ($19, $20), ($21, $22), ($23, $24), ($25, $26);", [fenomenosMeteos[0], descripcionesFenomenosMeteo[0], fenomenosMeteos[1], descripcionesFenomenosMeteo[1], fenomenosMeteos[2], descripcionesFenomenosMeteo[2], fenomenosMeteos[3], descripcionesFenomenosMeteo[3], fenomenosMeteos[4], descripcionesFenomenosMeteo[4], fenomenosMeteos[5], descripcionesFenomenosMeteo[5], fenomenosMeteos[6], descripcionesFenomenosMeteo[6], fenomenosMeteos[7], descripcionesFenomenosMeteo[7], fenomenosMeteos[8], descripcionesFenomenosMeteo[8], fenomenosMeteos[9], descripcionesFenomenosMeteo[9], fenomenosMeteos[10], descripcionesFenomenosMeteo[10], fenomenosMeteos[11], descripcionesFenomenosMeteo[11], fenomenosMeteos[12], descripcionesFenomenosMeteo[12]], (err, res) => {
