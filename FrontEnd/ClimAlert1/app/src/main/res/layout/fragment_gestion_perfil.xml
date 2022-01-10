@@ -91,7 +91,7 @@
         android:layout_marginVertical="3dp"
         android:layout_below="@id/texto_radio"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:text="@string/texto_baneado" />
+        android:text="@string/usuarios_texto_bloqueado" />
 
     <TextView
         android:id="@+id/texto_ban_a_rellenar"
@@ -109,7 +109,7 @@
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"
-        android:text="@string/boton_ban"
+        android:text="@string/usuarios_boton_bloquear"
         android:backgroundTint="#F44336"/>
 
     <Button
