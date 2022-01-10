@@ -51,7 +51,7 @@ public class ValidarIncidenciasFragment extends Fragment {
     //dependiendo del valor de valido devuelve las validadas (true) o las no validadas (false)
     public void getIncidenciasNoValidas() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/usuarios/"+ InformacionUsuario.getInstance().email+"/incidenciasAdmin";
+        String url = "https://climalert.herokuapp.com/usuarios/"+ InformacionUsuario.getInstance().email + "/incidenciasAdmin";
 
         mapa = new JSONObject();
         try {
@@ -87,7 +87,49 @@ public class ValidarIncidenciasFragment extends Fragment {
                                 String fuente = IncidenciaResponse.getString("creador");
                                 Float medida = Float.parseFloat(IncidenciaResponse.getString("medida"));
                                 String nombre = femomenoMeteo.getString("nombre");
-                                String descripcion = femomenoMeteo.getString("descripcion");
+
+                                String descripcion = null;
+
+                                switch(nombre) {
+                                    case "CalorExtremo":
+                                        descripcion = getString(R.string.incidencia_desc_calor_extremo);
+                                        break;
+                                    case "Granizo":
+                                        descripcion = getString(R.string.incidencia_desc_granizo);
+                                        break;
+                                    case "TormentaInvernal":
+                                        descripcion = getString(R.string.incidencia_desc_tormenta_invernal);
+                                        break;
+                                    case "Tornado":
+                                        descripcion = getString(R.string.incidencia_desc_tornado);
+                                        break;
+                                    case "Inundacion":
+                                        descripcion = getString(R.string.incidencia_desc_inundacion);
+                                        break;
+                                    case "Incendio":
+                                        descripcion = getString(R.string.incidencia_desc_incendio_forestal);
+                                        break;
+                                    case "Terremoto":
+                                        descripcion = getString(R.string.incidencia_desc_terremoto);
+                                        break;
+                                    case "Tsunami":
+                                        descripcion = getString(R.string.incidencia_desc_tsunami);
+                                        break;
+                                    case "Avalancha":
+                                        descripcion = getString(R.string.incidencia_desc_avalancha);
+                                        break;
+                                    case "LluviaAcida":
+                                        descripcion = getString(R.string.incidencia_desc_lluvia_acida);
+                                        break;
+                                    case "ErupcionVolcanica":
+                                        descripcion = getString(R.string.incidencia_desc_erupcion_volcanica);
+                                        break;
+                                    case "GotaFria":
+                                        descripcion = getString(R.string.incidencia_desc_gota_fria);
+                                        break;
+                                    case "TormentaElectrica":
+                                        descripcion = getString(R.string.incidencia_desc_tormenta_electrica);
+                                }
 
                                 Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id, medida);
                                 incidenciasNoValidas.add(n);
@@ -139,8 +181,49 @@ public class ValidarIncidenciasFragment extends Fragment {
         b.putFloat("latitud", n.latitud);
         b.putFloat("longitud", n.longitud);
         b.putString("nombre", n.nombre);
-        b.putString("descripcion", n.descripcion);
         b.putInt("id", n.identificador);
+
+        switch(n.nombre) {
+            case "CalorExtremo":
+                b.putString("descripcion", getString(R.string.incidencia_desc_calor_extremo));
+                break;
+            case "Granizo":
+                b.putString("descripcion", getString(R.string.incidencia_desc_granizo));
+                break;
+            case "TormentaInvernal":
+                b.putString("descripcion", getString(R.string.incidencia_desc_tormenta_invernal));
+                break;
+            case "Tornado":
+                b.putString("descripcion", getString(R.string.incidencia_desc_tornado));
+                break;
+            case "Inundacion":
+                b.putString("descripcion", getString(R.string.incidencia_desc_inundacion));
+                break;
+            case "Incendio":
+                b.putString("descripcion", getString(R.string.incidencia_desc_incendio_forestal));
+                break;
+            case "Terremoto":
+                b.putString("descripcion", getString(R.string.incidencia_desc_terremoto));
+                break;
+            case "Tsunami":
+                b.putString("descripcion", getString(R.string.incidencia_desc_tsunami));
+                break;
+            case "Avalancha":
+                b.putString("descripcion", getString(R.string.incidencia_desc_avalancha));
+                break;
+            case "LluviaAcida":
+                b.putString("descripcion", getString(R.string.incidencia_desc_lluvia_acida));
+                break;
+            case "ErupcionVolcanica":
+                b.putString("descripcion", getString(R.string.incidencia_desc_erupcion_volcanica));
+                break;
+            case "GotaFria":
+                b.putString("descripcion", getString(R.string.incidencia_desc_gota_fria));
+                break;
+            case "TormentaElectrica":
+                b.putString("descripcion", getString(R.string.incidencia_desc_tormenta_electrica));
+        }
+
         f.setArguments(b);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()

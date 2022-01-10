@@ -21,6 +21,58 @@
     <string name="text_gota_fria">Gota freda</string>
     <string name="text_tormenta_electrica">Tempesta elèctrica</string>
 
+    <string name="map_ubicacion_usuario">Ubicació de l\'usuari</string>
+    <string name="map_ubicacion_actual">UBICACIÓ ACTUAL</string>
+    <string name="map_refugio">Refugi</string>
+    <string name="map_editar_ubicaciones">Editar ubicacions</string>
+    <string name="map_borrar_ubicaciones">Esborrar ubicacions</string>
+    <string name="map_ubicacion_1">Ubicació 1</string>
+    <string name="map_ubicacion_2">Ubicació 2</string>
+    <string name="map_button_si">Sí</string>
+    <string name="map_button_no">No</string>
+    <string name="map_msg_activa_gps">El sistema GPS està desactivat. Voleu activar-lo?</string>
+
+    <string name="sos_aviso_incidencia">Avís d\'incidència</string>
+    <string name="sos_hint_descripcion">Descripció</string>
+    <string name="sos_boton_enviar">Enviar</string>
+
+    <string name= "ajustes_boton_idioma"> Idioma </string>
+    <string name= "ajutes_boton_perfil"> Perfil </string>
+    <string name= "ajustes_boton_admin"> Administrador </string>
+
+    <string name= "perfil_boton_logout"> Tancar sessió </string>
+    <string name= "perfil_boton_guardar_cambios"> Guardar canvis </string>
+    <string name= "perfil_radio_afectacion"> Radi d\'afectació </string>
+    <string name= "perfil_filtro_incidencias"> Només incidencies greus </string>
+
+    <string name= "admin_validar_incidencias_button"> Validar Incidencies </string>
+    <string name= "admin_gestionar_usuarios_button"> Gestionar Usuaris </string>
+    <string name= "admin_gestionar_refugios_button"> Gestionar Refugis </string>
+    <string name= "admin_validar_incidencias_actuales_button"> Validar Incidencies Actuals </string>
+
+    <string name= "usuarios_boton_bloquear"> Bloquejar o desbloquejar </string>
+    <string name= "boton_stats_incidencias"> Estadístiques incidencies </string>
+    <string name= "boton_stats_comentarios"> Estadístiques comentaris </string>
+    <string name= "text_email"> Email: </string>
+    <string name= "text_grav"> Filtre Gravetat: </string>
+    <string name= "text_passw"> Contrasenya: </string>
+    <string name= "text_rad"> Radi: </string>
+    <string name= "text_add"> Afegir </string>
+
+    <string name= "nombre_refugio"> Nom: </string>
+    <string name= "latitud_refugio"> Latitud: </string>
+    <string name= "longitud_refugio"> Longitud: </string>
+    <string name= "boton_validar"> Validar </string>
+    <string name= "fecha_incidencia"> Data: </string>
+    <string name= "hora_incidencia"> Hora: </string>
+    <string name= "desc_incidencia"> Descripció: </string>
+    <string name= "fuente_incidencia"> Font: </string>
+    <string name= "grvedad_incidencia"> Es gravetat crítica </string>
+    <string name= "usuarios_esta_bloqueado"> Sí </string>
+    <string name= "usuarios_no_esta_bloqueado"> No </string>
+    <string name= "usuarios_texto_bloqueado"> Bloqueado: </string>
+    <string name= "eliminar_ref_button"> Eliminar </string>
+
     <string name="incidencia_etiqueta_fuente">Font: </string>
     <string name="incidencia_etiqueta_fecha">Data: </string>
     <string name="incidencia_fecha_no_disponible">Data no disponible</string>
@@ -41,70 +93,21 @@
     <string name="unidad_gota_fria">mm</string>
     <string name="unidad_tormenta_electrica">Kelvin de brillantor</string>
 
-    <string name="desc_incidencia_calor_extremo">....</string>
-    <string name="desc_incidencia_granizo">....</string>
-    <string name="desc_incidencia_tormenta_invernal">....</string>
-    <string name="desc_incidencia_tornado">....</string>
-    <string name="desc_incidencia_inundacion">....</string>
-    <string name="desc_incidencia_incendio_forestal">....</string>
-    <string name="desc_incidencia_terremoto">....</string>
-    <string name="desc_incidencia_tsunami">....</string>
-    <string name="desc_incidencia_avalancha">....</string>
-    <string name="desc_incidencia_lluvia_acida">....</string>
-    <string name="desc_incidencia_erupcion_volcanica">....</string>
-    <string name="desc_incidencia_gota_fria">....</string>
-    <string name="desc_incidencia_tormenta_electrica">....</string>
+    <string name="incidencia_desc_calor_extremo">Altas temperaturas que pueden causar deshidratación y desmayos, sobretodo en gente mayor.</string>
+    <string name="incidencia_desc_granizo">Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.</string>
+    <string name="incidencia_desc_tormenta_invernal">Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.</string>
+    <string name="incidencia_desc_tornado">Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.</string>
+    <string name="incidencia_desc_inundacion">Ocupación por parte del agua de zonas que habitualmente están libres de ésta, por desbordamiento de ríos, torrentes o ramblas, o por lluvias torrenciales, deshielo, maremotos o huracanes, entre otros.</string>
+    <string name="incidencia_desc_incendio_forestal">Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.</string>
+    <string name="incidencia_desc_terremoto">Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.</string>
+    <string name="incidencia_desc_tsunami">Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc.</string>
+    <string name="incidencia_desc_avalancha">Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.</string>
+    <string name="incidencia_desc_lluvia_acida">Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.</string>
+    <string name="incidencia_desc_erupcion_volcanica">Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.</string>
+    <string name="incidencia_desc_gota_fria">Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.</string>
+    <string name="incidencia_desc_tormenta_electrica">Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.</string>
 
-    <string name="map_ubicacion_usuario">Ubicació de l\'usuari</string>
-    <string name="map_ubicacion_actual">UBICACIÓ ACTUAL</string>
-    <string name="map_refugio">Refugi</string>
-    <string name="map_editar_ubicaciones">Editar ubicacions</string>
-    <string name="map_borrar_ubicaciones">Esborrar ubicacions</string>
-    <string name="map_ubicacion_1">Ubicació 1</string>
-    <string name="map_ubicacion_2">Ubicació 2</string>
-    <string name="map_button_si">Sí</string>
-    <string name="map_button_no">No</string>
-    <string name="map_msg_activa_gps">El sistema GPS està desactivat. Voleu activar-lo?</string>
-
-    <string name="sos_aviso_incidencia">Avís d\'incidència</string>
-    <string name="sos_hint_descripcion">Descripció</string>
-    <string name="sos_boton_enviar">Enviar</string>
-
-    <string name= "boton_idioma"> Idioma </string>
-    <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Tancar sessió </string>
-    <string name= "boton_guardar_cambios"> Guardar canvis </string>
-    <string name= "radio_afectacion"> Radi d\'afectació </string>
-    <string name= "filtro_incidencias"> Només incidencies greus </string>
-    <string name= "modo_administrador"> Administrador </string>
-    <string name= "boton_ban"> Ban/Desban </string>
-    <string name= "boton_stats_incidencias"> Estadístiques Incidencies </string>
-    <string name= "boton_stats_comentarios"> Estadístiques Comentaris </string>
-    <string name= "text_email"> Email: </string>
-    <string name= "text_grav"> Filtre Gravetat: </string>
-    <string name= "text_passw"> Contrasenya: </string>
-    <string name= "text_rad"> Radi: </string>
-    <string name= "text_add"> Afegir </string>
-    <string name= "nombre_refugio"> Nom: </string>
-    <string name= "latitud_refugio"> Latitud: </string>
-    <string name= "longitud_refugio"> Longitud: </string>
-    <string name= "boton_validar"> Validar </string>
-    <string name= "fecha_incidencia"> Data: </string>
-    <string name= "hora_incidencia"> Hora: </string>
-    <string name= "desc_incidencia"> Descripció: </string>
-    <string name= "fuente_incidencia"> Font: </string>
-    <string name= "grvedad_incidencia"> Es gravetat crítica </string>
-    <string name= "esta_baneado_si"> Si </string>
-    <string name= "esta_baneado_no"> No </string>
-    <string name= "texto_baneado"> Ban: </string>
-    <string name= "eliminar_ref_button"> Eliminar </string>
-    <string name= "validar_incidencias_button"> Validar Incidencies </string>
-    <string name= "gestionar_usuarios_button"> Gestionar Usuaris </string>
-    <string name= "gestionar_refugios_button"> Gestionar Refugis </string>
-    <string name= "validar_incidencias_actuales_button"> Validar Incidencies Actuals </string>
-
-
-    <string name="descripcion_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n
+    <string name="consejos_desc_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n
         <b>\nPrevenció\n</b>
         <li>Identificar llocs en la seva comunitat als quals pugui anar a refrescar-se, com a biblioteques o centres comercials.</li>\n
         <li>Cobreixi les finestres amb cortines o persianes.</li>\n
@@ -123,7 +126,7 @@
         <li>Marejos, confusió o pèrdues del coneixement.</li>\n
     </string>
 
-    <string name="descripcion_granizo">La calamarsa és un tipus de precipitació sòlida que es compon de boles o grumolls irregulars de gel, cadascun dels quals es refereix com una pedra de calamarsa. Està format, principalment de gel d\'aigua i la seva grandària pot variar entre els 5 i 50 mil·límetres (0,19 i 1,968 polzades) de diàmetre, i fins i tot superar aquesta mesura.\n
+    <string name="consejos_desc_granizo">La calamarsa és un tipus de precipitació sòlida que es compon de boles o grumolls irregulars de gel, cadascun dels quals es refereix com una pedra de calamarsa. Està format, principalment de gel d\'aigua i la seva grandària pot variar entre els 5 i 50 mil·límetres (0,19 i 1,968 polzades) de diàmetre, i fins i tot superar aquesta mesura.\n
         <b>\nPrevenció\n</b>
         <li>En cas de tenir mascotes, ficar-les endins de casa.</li>\n
         <li>Protegir els vehicles.</li>\n
@@ -134,7 +137,7 @@
         <li>Localitzar una zona segura.</li>\n
     </string>
 
-    <string name="descripcion_tormenta_invernal">Una tempesta hivernal és la precipitació de neu sobre la superfície terrestre que inclou a més vents intensos.\n
+    <string name="consejos_desc_tormenta_invernal">Una tempesta hivernal és la precipitació de neu sobre la superfície terrestre que inclou a més vents intensos.\n
         <b>\nPrevenció\n</b>
         <li>Preparar la casa per a protegir-la del fred amb aïllament, segellador i cinta aïllant.</li>\n
         <li>Reunir subministraments en cas de necessitar quedar-se a casa durant diversos dies sense energia elèctrica.</li>\n
@@ -153,7 +156,7 @@
         <li>Mesures: Vagi a una habitació càlida. Calent el centre del seu cos primer, és a dir: pit, coll, cap i engonal. Mantingui\'s sec i embolicat en mantes càlides, incloent el cap i el coll.</li>\n
     </string>
 
-    <string name="descripcion_tornado">Els tornados són columnes d\'aire que giren violentament i que s\'estenen des d\'una tempesta elèctrica fins al sòl. Els tornados poden destruir edificis, voltejar actuacions i crear mortals enderrocs impulsats pels vents.\n
+    <string name="consejos_desc_tornado">Els tornados són columnes d\'aire que giren violentament i que s\'estenen des d\'una tempesta elèctrica fins al sòl. Els tornados poden destruir edificis, voltejar actuacions i crear mortals enderrocs impulsats pels vents.\n
         <b>\nPrevenció\n</b>
         <li>Conèixer els indicis d\'un tornado: un núvol giratori en forma d\'embut; un núvol d\'enderrocs que s\'aproxima; o un rugit fort, similar a un tren de càrrega.</li>\n
         <li>Identificar un refugi segur.</li>\n
@@ -165,7 +168,7 @@
         <li>No tractar d\'escapar d\'un tornado en un vehicle si s\'està en un automòbil.</li>\n
     </string>
 
-    <string name="descripcion_inundacion">Les inundacions són desbordaments d\'aigua temporals cap a terrenys que normalment estan secs. Poden produir-se arran de pluja, neu, tempestes costaneres, marors ciclòniques, desbordaments de rescloses i altres sistemes d\'aigua. Poden causar apagades, interrompre el transport, danyar edificis i crear lliscaments de terra.\n
+    <string name="consejos_desc_inundacion">Les inundacions són desbordaments d\'aigua temporals cap a terrenys que normalment estan secs. Poden produir-se arran de pluja, neu, tempestes costaneres, marors ciclòniques, desbordaments de rescloses i altres sistemes d\'aigua. Poden causar apagades, interrompre el transport, danyar edificis i crear lliscaments de terra.\n
         <b>\nPrevenció\n</b>
         <li>Estar preparat per a tallar l\'electricitat quan hi hagi aigua estancada o cables de la línia elèctrica caiguts.</li>\n
         <li>Assegurar-se de tenir un extintor.</li>\n
@@ -182,7 +185,7 @@
         <li>En cas de quedar-se atrapat en un edifici, dirigir-se al nivell més alt. Pujar-se al sostre i fer senyals per a demanar ajuda.</li>\n
     </string>
 
-    <string name="descripcion_incendio">Un incendi forestal és un foc que s\'extén sense control en terreny forestal o silvestre, afectant a combustibles vegetals, flora i fauna. Es distingeix d\'altres tipus d\'incendis per la seva àmplia extensió, la velocitat amb la qual es pot extendre des del lloc d\'origen, el seu potencial per a cambiar de direcció inesperadament, i la seva capacitat per a superar obstacles com carreteres, rius i tallafocs.\n
+    <string name="consejos_desc_incendio">Un incendi forestal és un foc que s\'extén sense control en terreny forestal o silvestre, afectant a combustibles vegetals, flora i fauna. Es distingeix d\'altres tipus d\'incendis per la seva àmplia extensió, la velocitat amb la qual es pot extendre des del lloc d\'origen, el seu potencial per a cambiar de direcció inesperadament, i la seva capacitat per a superar obstacles com carreteres, rius i tallafocs.\n
 \n<b>Consells</b>\n
 <li>Allunyeu-vos del foc en direcció oposada al fum.</li>\n
 <li>Respireu pel nas tapant-vos amb un drap moll.</li>\n
@@ -194,7 +197,7 @@
 <li>En cas que se us cremi la roba, no correu. Poseu-vos a rodar pel terra o tapeu-vos amb una manta.</li>\n
     </string>
 
-    <string name="descripcion_terremoto">Un terratrèmol és un tremolor sobtat i ràpid del sòl ocasionat pel desplaçament de roques subterrànies molt per sota de la superfície de la terra. Els terratrèmols poden causar incendis, tsunamis, lliscaments de terra o allaus.\n
+    <string name="consejos_desc_terremoto">Un terratrèmol és un tremolor sobtat i ràpid del sòl ocasionat pel desplaçament de roques subterrànies molt per sota de la superfície de la terra. Els terratrèmols poden causar incendis, tsunamis, lliscaments de terra o allaus.\n
         <b>\nPrevenció\n</b>
         <li>Elaborar un pla d\'emergència.</li>\n
         <li>Tenir un kit de subministrament amb suficients aliments i aigua per a durar diversos dies, una llanterna, un extintor d\'incendis, i un xiulet.</li>\n
@@ -207,7 +210,7 @@
         <li>En el cas de trobar-se dins, ajupir-se, cobrir-se amb el braç el cap i el clatell, posar-se sota alguna taula, i agafar-se a una pota de la taula.</li>\n
     </string>
 
-    <string name="descripcion_tsunami">Els tsunamis, també coneguts com a ones sísmiques, són una sèrie d\'ones enormes creades per una alteració submarina, com a terratrèmols, despreniments de terra, erupcions volcàniques o meteorits.\n
+    <string name="consejos_desc_tsunami">Els tsunamis, també coneguts com a ones sísmiques, són una sèrie d\'ones enormes creades per una alteració submarina, com a terratrèmols, despreniments de terra, erupcions volcàniques o meteorits.\n
         <b>\nPrevenció\n</b>
         <li>Dirigir-se terra endins fins a una àrea el més elevada possible.</li>\n
         <li>Retirar-se a tant punt vegi un senyal natural d\'un tsunami o si rep un advertiment oficial de tsunami.</li>\n
@@ -218,7 +221,7 @@
         <li>En el cas de trobar-se en un vaixell, navegar en el sentit contrari a les ones i després sortir de la mar.</li>\n
     </string>
 
-    <string name="descripcion_avalancha">Una allau és una quantitat enorme de neu que es llisca ràpidament muntanya a baix, usualment en inclinacions de 30 fins a 45 graus. Quan una allau es deté, la neu se solidifica com el formigó i les persones queden atrapades. Les persones atrapades en allaus poden morir de sufocació, trauma o hipotèrmia.\n
+    <string name="consejos_desc_avalancha">Una allau és una quantitat enorme de neu que es llisca ràpidament muntanya a baix, usualment en inclinacions de 30 fins a 45 graus. Quan una allau es deté, la neu se solidifica com el formigó i les persones queden atrapades. Les persones atrapades en allaus poden morir de sufocació, trauma o hipotèrmia.\n
         <b>\nPrevenció\n</b>
         <li>Obtenir equip adequat per a protegir-se de lesions al cap i crear espais d\'aire.</li>\n
         <li>Aprendre primers auxilis per a poder brindar tractament als altres.</li>\n
@@ -231,7 +234,7 @@
         <li>En cas de veure\'s embolicat en l\'allau, tractar de nedar cap a la superfície.</li>\n
     </string>
 
-    <string name="descripcion_lluvia_acida">La pluja àcida és una de les conseqüències de la contaminació atmosfèrica. És la precipitació que conté tant aigua com residus tòxics, principalment àcids, procedents de les emissions tant industrials com d\'altres tipus de maquinària, com els vehicles. Aquesta acidificació del sòl i de les aigües superficials té efectes devastadors sobre els ecosistemes i suposa un greu perill per als éssers vius.\n
+    <string name="consejos_desc_lluvia_acida">La pluja àcida és una de les conseqüències de la contaminació atmosfèrica. És la precipitació que conté tant aigua com residus tòxics, principalment àcids, procedents de les emissions tant industrials com d\'altres tipus de maquinària, com els vehicles. Aquesta acidificació del sòl i de les aigües superficials té efectes devastadors sobre els ecosistemes i suposa un greu perill per als éssers vius.\n
         <b>\nPrevenció\n</b>
         <li>Filtrar i desintoxicar l\'aigua utilitzada per les fàbriques abans de retornar-la als rius.</li>\n
         <li>Reduir l\'emissió de gasos contaminants per part de la indústria.</li>\n
@@ -242,7 +245,7 @@
         <li>Fomentar l\'ús del cotxe elèctric i d\'altres vehicles no contaminants, com la bicicleta.</li>\n
     </string>
 
-    <string name="descripcion_erupcion_volcanica">Un volcà és una obertura en l\'escorça terrestre que permet la fuita de roca fosa, gasos i enderrocs fins a la superfície. Una erupció volcànica pot implicar lava i enderrocs que poden desplaçar-se a una velocitat de fins a 100 mph, destruint tot al seu pas. La cendra volcànica pot desplaçar-se per centenars de milles i provocar greus problemes de salut.\n
+    <string name="consejos_desc_erupcion_volcanica">Un volcà és una obertura en l\'escorça terrestre que permet la fuita de roca fosa, gasos i enderrocs fins a la superfície. Una erupció volcànica pot implicar lava i enderrocs que poden desplaçar-se a una velocitat de fins a 100 mph, destruint tot al seu pas. La cendra volcànica pot desplaçar-se per centenars de milles i provocar greus problemes de salut.\n
         <b>\nPrevenció\n</b>
         <li>Conegui el risc d\'una erupció volcànica en la seva àrea.</li>\n
         <li>Informi\'s sobre els sistemes d\'alerta de la comunitat.</li>\n
@@ -260,7 +263,7 @@
         <li>Eviti conduir mentre cau cendra de manera intensa. Si ha de conduir, llavors apagui les llums del seu vehicle.</li>\n
     </string>
 
-    <string name="descripcion_gota_fria">
+    <string name="consejos_desc_gota_fria">
         Segons l\'Agència Estatal de Meteorologia, una gota freda o DANA
         (Depressió Aïllada en Nivells Alts) és una gran massa d\'aire a
         baixa temperatura que s\'ha separat d\'un corrent polar.
@@ -283,7 +286,7 @@
         <li>No creuis per trams inundats, la força del corrent et pot arrossegar. En el cas que et trobis en un amb el teu cotxe, el més important és abandonar l\'automòbil i buscar un terreny més elevat.</li>\n
     </string>
 
-    <string name="descripcion_tormenta_electrica">Els llamps són una de les principals causes de lesions i morts per riscos meteorològics. Encara que la majoria de les víctimes dels raigs sobreviuen, les persones impactades per un raig solen manifestar una sèrie de símptomes debilitants a llarg termini. Les tempestes elèctriques són tempestes perilloses que inclouen llamps i poden crear o causar vents potents de més de 50 mph (80 km/h),calamarsa, Inundacions sobtades i/o tornados.\n
+    <string name="consejos_desc_tormenta_electrica">Els llamps són una de les principals causes de lesions i morts per riscos meteorològics. Encara que la majoria de les víctimes dels raigs sobreviuen, les persones impactades per un raig solen manifestar una sèrie de símptomes debilitants a llarg termini. Les tempestes elèctriques són tempestes perilloses que inclouen llamps i poden crear o causar vents potents de més de 50 mph (80 km/h),calamarsa, Inundacions sobtades i/o tornados.\n
         <b>\nPrevenció\n</b>
         <li>Conegui el risc de tempestes elèctriques en la seva zona.</li>\n
         <li>Reforci la seva casa: tali els arbres que podrien caure sobre ella, valori la possibilitat de comprar protectors contra sobretensions o un parallamps.</li>\n
