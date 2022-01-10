@@ -150,7 +150,6 @@ public class MapsFragment extends Fragment {
             limpiar_incidencias();
             print_incidencias(InformacionUsuario.getInstance().aPintar);
         }
-        Log.d("12345678", String.valueOf(markerActual));
         if(!localizacionespuestas) {
             LatLng ll1 = new LatLng(InformacionUsuario.getInstance().latitud1, InformacionUsuario.getInstance().longitud1);
             LatLng ll2 = new LatLng(InformacionUsuario.getInstance().latitud2, InformacionUsuario.getInstance().longitud2);
@@ -159,7 +158,7 @@ public class MapsFragment extends Fragment {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title("  1")
+                        .title("UBICACIÓN 1")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
                 localizacionespuestas = true;
@@ -169,7 +168,7 @@ public class MapsFragment extends Fragment {
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title("  2")
+                        .title("UBICACIÓN 2")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
                 localizacionespuestas = true;
@@ -236,7 +235,6 @@ public class MapsFragment extends Fragment {
             public void onClick(View v) {
                 limpiar_objetos();
                 formeforu();
-                Log.d("ENTRA", "HACE FORMEFORU");
             }
         });
 
@@ -336,19 +334,19 @@ public class MapsFragment extends Fragment {
             String title = marker.getTitle();
 
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
-            if (title != null) {
-                // Spannable string allows us to edit the formatting of the text.
+            if (title.equals("UBICACIÓN 1") || title.equals("UBICACIÓN 2") ||
+                    title.equals(getString(R.string.map_ubicacion_actual))){
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.rgb(255, 165, 0)), 0, titleText.length(), 0);
+                titleUi.setText(titleText);
+            }else {
                 SpannableString titleText = new SpannableString(title);
                 titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
                 titleUi.setText(titleText);
-            } else {
-                titleUi.setText("");
             }
-            if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
+            /*
+            if(!marker.getTitle().equals("UBICACIÓN 1")  && !marker.getTitle().equals("UBICACIÓN 2") &&
                     !marker.getTitle().equals(getString(R.string.map_ubicacion_actual)) && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
-                Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
-                Log.d("123456", "marker: " + marker.getTitle() );
-                Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
                 String snippet = marker.getSnippet();
                 int pos = snippet.lastIndexOf(" ");
                 snippet = snippet.substring(0, pos);
@@ -373,19 +371,20 @@ public class MapsFragment extends Fragment {
                 snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, snippetText.length(), 0);
                 snippetUi.setText(snippetText);
             }
+            /*
             else {
                 TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
                 String ubicacionUsuario = getString(R.string.map_ubicacion_usuario);
                 SpannableString snippetText = new SpannableString(ubicacionUsuario);
                 snippetText.setSpan(new ForegroundColorSpan(Color.BLACK), 0, ubicacionUsuario.length(), 0);
                 snippetUi.setText(snippetText);
-            }
+            }*/
             mMap.setOnInfoWindowClickListener(this);
         }
 
         @Override
         public void onInfoWindowClick(Marker marker) {
-            if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
+            if (!marker.getTitle().equals("UBICACIÓN 1")  && !marker.getTitle().equals("UBICACIÓN 2") &&
                     !marker.getTitle().equals(getString(R.string.map_ubicacion_actual)) && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
@@ -424,7 +423,6 @@ public class MapsFragment extends Fragment {
       //  Location location = locationManager.getLastKnownLocation(bestProvider);
         LocationListener loc_listener = new LocationListener() {
             public void onLocationChanged(Location l) {
-                Log.d("1234567", "onloc");
                 LatLng llact = new LatLng(l.getLatitude(), l.getLongitude());
                 InformacionUsuario.getInstance().latitudactual = (float) l.getLatitude();
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
@@ -433,11 +431,9 @@ public class MapsFragment extends Fragment {
                     markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getString(R.string.map_ubicacion_actual)));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
-                Log.d("berni", "onChanged " +  InformacionUsuario.getInstance().latitudactual);
                 if(markerActual != null) markerActual.setPosition(llact);
             }
             public void onProviderEnabled(String p) {
-                Log.d("1234567", "onprov");
                 if (markerActual != null) {
                     markerActual.setVisible(true);
                     markerActual.setAlpha(1);
@@ -448,7 +444,6 @@ public class MapsFragment extends Fragment {
                 }
             }
             public void onProviderDisabled(String p) {
-                Log.d("1234567", "onprovdis");
                 if(markerActual != null) {
                     markerActual.setVisible(false);
                     markerActual.setAlpha(0);
@@ -621,13 +616,11 @@ public class MapsFragment extends Fragment {
     }
 
     public void dar_localizacion() {
-        Log.d("secun", "dar loc entrar ");
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuarios/" + InformacionUsuario.getInstance().email + "/localizaciones";
        // JSONObject mapa = new JSONObject();
         mapa = new JSONObject();
         try {
-            Log.d("secun", InformacionUsuario.getInstance().password);
             mapa.put("password", InformacionUsuario.getInstance().password);
             if (InformacionUsuario.getInstance().latitud1 != 0) {
                 mapa.put("latitud1", InformacionUsuario.getInstance().latitud1);
@@ -646,15 +639,12 @@ public class MapsFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //JSONObject usuario;
-                        //Log.d("a", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Log.d("secun", "dar loc fallar " + error);
                     }
 
                 }) {
@@ -690,13 +680,12 @@ public class MapsFragment extends Fragment {
                             if(UBI1 != null) UBI1.remove();
                             InformacionUsuario.getInstance().latitud1 = (float) latLng.latitude;
                             InformacionUsuario.getInstance().longitud1 = (float) latLng.longitude;
-                            Log.d("secun", "ubi 1 asignar ");
                             dar_localizacion();
 
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
-                                    .title("  1")
+                                    .title("UBICACIÓN 1")
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(latLng));
                         }
@@ -709,7 +698,6 @@ public class MapsFragment extends Fragment {
                             InformacionUsuario.getInstance().longitud1 = 0;
                             InformacionUsuario.getInstance().latitud2 = 0;
                             InformacionUsuario.getInstance().longitud2 = 0;
-
                             dar_localizacion();
                         }
                     })
@@ -723,15 +711,13 @@ public class MapsFragment extends Fragment {
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
-                            .title("  2")
+                            .title("UBICACIÓN 2")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(latLng));
                     }
                  });
-
             alert = builder.create();
             alert.show();
-
         }
     }
 
@@ -740,8 +726,6 @@ public class MapsFragment extends Fragment {
         String url = "https://climalert.herokuapp.com/4me4u/products";
         JSONObject mapa = new JSONObject();
         try {
-            Log.d("ENTRA", textoObjeto.getText().toString());
-            //SI el texto está vacío que pase cualquier cosa para que no salgan todos los objetos
             if(textoObjeto.getText().toString().equals("")) mapa.put("productName", "Torpedo Intergaláctico");
             else mapa.put("productName", textoObjeto.getText().toString());
         } catch (JSONException e) {
@@ -756,7 +740,6 @@ public class MapsFragment extends Fragment {
                         JSONObject item;
                         try {
                             for (int i = 0; i < response.length(); ++i) {
-                                Log.d("ENTRA", "RESPONDE");
                                 item = response.getJSONObject(i);
                                 JSONObject userId = item.getJSONObject("userId");
                                 Float latitud = Float.parseFloat(userId.getString("latitude"));
@@ -782,8 +765,6 @@ public class MapsFragment extends Fragment {
                         catch(JSONException e){
                             e.printStackTrace();
                         }
-                        Log.d("a", String.valueOf(response));
-                        //Log.d("ALGO", "he acabado el bucle");
                     }
                 },
                 new Response.ErrorListener() {
@@ -865,9 +846,6 @@ public class MapsFragment extends Fragment {
 
             InformacionUsuario.getInstance().aBorrar.removeElement(aux.get(i));
         }
-
-        Log.d("bernat", String.format("Circulos %d %d", CirculosIncidencias.size(), contador));
-        Log.d("bernat", String.format("Marcadores %d %d", IncidenciasActuales.size(), contador));
 
         contador++;
 

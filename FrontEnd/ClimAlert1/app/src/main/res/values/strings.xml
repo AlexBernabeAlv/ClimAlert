@@ -56,7 +56,7 @@
     <string name="desc_incidencia_tormenta_electrica">....</string>
 
     <string name="map_ubicacion_usuario">Ubicación del usuario</string>
-    <string name="map_ubicacion_actual">ACTUAL</string>
+    <string name="map_ubicacion_actual">UBICACIÓN ACTUAL</string>
     <string name="map_refugio">Refugio</string>
     <string name="map_editar_ubicaciones">Editar ubicaciones</string>
     <string name="map_borrar_ubicaciones">Borrar ubicaciones</string>
