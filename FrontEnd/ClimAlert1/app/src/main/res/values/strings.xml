@@ -41,19 +41,19 @@
     <string name="unidad_gota_fria">mm</string>
     <string name="unidad_tormenta_electrica">Kelvin de brillo</string>
 
-    <string name="desc_incidencia_calor_extremo">....</string>
-    <string name="desc_incidencia_granizo">....</string>
-    <string name="desc_incidencia_tormenta_invernal">....</string>
-    <string name="desc_incidencia_tornado">....</string>
-    <string name="desc_incidencia_inundacion">....</string>
-    <string name="desc_incidencia_incendio_forestal">....</string>
-    <string name="desc_incidencia_terremoto">....</string>
-    <string name="desc_incidencia_tsunami">....</string>
-    <string name="desc_incidencia_avalancha">....</string>
-    <string name="desc_incidencia_lluvia_acida">....</string>
-    <string name="desc_incidencia_erupcion_volcanica">....</string>
-    <string name="desc_incidencia_gota_fria">....</string>
-    <string name="desc_incidencia_tormenta_electrica">....</string>
+    <string name="incidencia_desc_calor_extremo">Altas temperaturas que pueden causar deshidratación y desmayos, sobretodo en gente mayor.</string>
+    <string name="incidencia_desc_granizo">Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.</string>
+    <string name="incidencia_desc_tormenta_invernal">Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.</string>
+    <string name="incidencia_desc_tornado">Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.</string>
+    <string name="incidencia_desc_inundacion">Ocupación por parte del agua de zonas que habitualmente están libres de ésta, por desbordamiento de ríos, torrentes o ramblas, o por lluvias torrenciales, deshielo, maremotos o huracanes, entre otros.</string>
+    <string name="incidencia_desc_incendio_forestal">Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.</string>
+    <string name="incidencia_desc_terremoto">Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.</string>
+    <string name="incidencia_desc_tsunami">Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc.</string>
+    <string name="incidencia_desc_avalancha">Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.</string>
+    <string name="incidencia_desc_lluvia_acida">Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.</string>
+    <string name="incidencia_desc_erupcion_volcanica">Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.</string>
+    <string name="incidencia_desc_gota_fria">Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.</string>
+    <string name="incidencia_desc_tormenta_electrica">Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.</string>
 
     <string name="map_ubicacion_usuario">Ubicación del usuario</string>
     <string name="map_ubicacion_actual">ACTUAL</string>
@@ -70,14 +70,14 @@
     <string name="sos_hint_descripcion">Descripción</string>
     <string name="sos_boton_enviar">Enviar</string>
 
-    <string name= "boton_idioma"> Idioma </string>
-    <string name= "boton_perfil"> Perfil </string>
-    <string name= "boton_logout"> Cerrar sesión </string>
-    <string name= "boton_guardar_cambios"> Guardar cambios </string>
-    <string name= "radio_afectacion"> Radio de afectación </string>
-    <string name= "filtro_incidencias"> Solo incidencias graves </string>
-    <string name= "modo_administrador"> Administrador </string>
-    <string name= "boton_ban"> Banear/Desbanear </string>
+    <string name= "ajustes_boton_idioma"> Idioma </string>
+    <string name= "ajutes_boton_perfil"> Perfil </string>
+    <string name= "perfil_boton_logout"> Cerrar sesión </string>
+    <string name= "perfil_boton_guardar_cambios"> Guardar cambios </string>
+    <string name= "perfil_radio_afectacion"> Radio de afectación </string>
+    <string name= "perfil_filtro_incidencias"> Solo incidencias graves </string>
+    <string name= "ajustes_boton_admin"> Administrador </string>
+    <string name= "usuarios_boton_bloquear"> Banear/Desbanear </string>
     <string name= "boton_stats_incidencias"> Estadísticas Incidencias </string>
     <string name= "boton_stats_comentarios"> Estadísticas Comentarios </string>
     <string name= "text_email"> Email: </string>
@@ -94,19 +94,19 @@
     <string name= "desc_incidencia"> Descripción: </string>
     <string name= "fuente_incidencia"> Fuente: </string>
     <string name= "grvedad_incidencia"> Es gravedad crítica </string>
-    <string name= "esta_baneado_si"> Si </string>
-    <string name= "esta_baneado_no"> No </string>
-    <string name= "texto_baneado"> Baneado: </string>
+    <string name= "usuarios_esta_bloqueado"> Si </string>
+    <string name= "usuarios_no_esta_bloqueado"> No </string>
+    <string name= "usuarios_texto_bloqueado"> Baneado: </string>
     <string name= "eliminar_ref_button"> Eliminar </string>
-    <string name= "validar_incidencias_button"> Validar Incidencias </string>
-    <string name= "gestionar_usuarios_button"> Gestionar Usuarios </string>
-    <string name= "gestionar_refugios_button"> Gestionar Refugios </string>
-    <string name= "validar_incidencias_actuales_button"> Validar Incidencias Actuales </string>
+    <string name= "admin_validar_incidencias_button"> Validar Incidencias </string>
+    <string name= "admin_gestionar_usuarios_button"> Gestionar Usuarios </string>
+    <string name= "admin_gestionar_refugios_button"> Gestionar Refugios </string>
+    <string name= "admin_validar_incidencias_actuales_button"> Validar Incidencias Actuales </string>
 
 
 
 
-    <string name="descripcion_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
+    <string name="consejos_desc_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
         <b>\nPrevención\n</b>
         <li>Identificar lugares en su comunidad a los que pueda ir a refrescarse, como bibliotecas o centros comerciales.</li>\n
         <li>Cubra las ventanas con cortinas o persianas.</li>\n
@@ -125,7 +125,7 @@
         <li>Mareos, confusión o pérdidas del conocimiento.</li>
     </string>
 
-    <string name="descripcion_granizo">El granizo es un tipo de precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo. Está formado, principalmente de hielo de agua y su tamaño puede variar entre los 5 y 50 milímetros (0,19 y 1,968 pulgadas) de diámetro, e incluso superar esa medida.\n
+    <string name="consejos_desc_granizo">El granizo es un tipo de precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo. Está formado, principalmente de hielo de agua y su tamaño puede variar entre los 5 y 50 milímetros (0,19 y 1,968 pulgadas) de diámetro, e incluso superar esa medida.\n
         Prevención\n
         <li>En caso de tener mascotas, meterlas adentro.</li>\n
         <li>Proteger los vehículos.</li>\n
@@ -136,7 +136,7 @@
         <li>Localizar una zona segura.</li>\n
     </string>
 
-    <string name="descripcion_tormenta_invernal">Una tormenta invernal es la precipitación de nieve sobre la superficie terrestre que incluye además vientos intensos.\n
+    <string name="consejos_desc_tormenta_invernal">Una tormenta invernal es la precipitación de nieve sobre la superficie terrestre que incluye además vientos intensos.\n
         Prevención\n
         <li>Preparar la casa para protegerla del frío con aislamiento, sellador y cinta aislante.</li>\n
         <li>Reunir suministros en caso de necesitar quedarse en casa durante varios días sin energía eléctrica.</li>\n
@@ -155,7 +155,7 @@
         <li>Medidas: Vaya a una habitación cálida. Caliente el centro de su cuerpo primero, o sea: pecho, cuello, cabeza e ingle. Manténgase seco y envuelto en mantas cálidas, incluyendo la cabeza y el cuello.</li>\n
     </string>
 
-    <string name="descripcion_tornado">Los tornados son columnas de aire que giran violentamente y que se extienden desde una tormenta eléctrica hasta el suelo. Los tornados pueden destruir edificios, voltear autos y crear mortales escombros impulsados por los vientos.\n
+    <string name="consejos_desc_tornado">Los tornados son columnas de aire que giran violentamente y que se extienden desde una tormenta eléctrica hasta el suelo. Los tornados pueden destruir edificios, voltear autos y crear mortales escombros impulsados por los vientos.\n
         Prevención\n
         <li>Conocer los indicios de un tornado: una nube giratoria en forma de embudo; una nube de escombros que se aproxima; o un rugido fuerte, similar a un tren de carga.</li>\n
         <li>Identificar un refugio seguro.</li>\n
@@ -167,7 +167,7 @@
         <li>No tratar de escapar de un tornado en un vehículo si se está en un automóvil.</li>\n
     </string>
 
-    <string name="descripcion_inundacion">Las inundaciones son desbordamientos de agua temporales hacia terrenos que normalmente están secos. Pueden producirse a raíz de lluvia, nieve, tormentas costeras, marejadas ciclónicas, desbordamientos de represas y otros sistemas de agua. Pueden causar apagones, interrumpir el transporte, dañar edificios y crear deslizamientos de tierra.\n
+    <string name="consejos_desc_inundacion">Las inundaciones son desbordamientos de agua temporales hacia terrenos que normalmente están secos. Pueden producirse a raíz de lluvia, nieve, tormentas costeras, marejadas ciclónicas, desbordamientos de represas y otros sistemas de agua. Pueden causar apagones, interrumpir el transporte, dañar edificios y crear deslizamientos de tierra.\n
         Prevención\n
         <li>Estar preparado para cortar la electricidad cuando haya agua estancada o cables del tendido eléctrico caídos.</li>\n
         <li>Asegurarse de tener un extintor.</li>\n
@@ -184,7 +184,7 @@
         <li>En caso de quedarse atrapado en un edificio, dirigirse al nivel más alto. Subirse al techo y hacer señales para pedir ayuda.</li>\n
     </string>
 
-    <string name="descripcion_incendio">Un incendio forestal es el fuego que se extiende sin control en terreno forestal o silvestre, afectando a combustibles vegetales, flora y fauna. Se distingue de otros tipos de incendio por su amplia extensión, la velocidad con la que se puede extender desde su lugar de origen, su potencial para cambiar de dirección inesperadamente, y su capacidad para superar obstáculos como carreteras, ríos y cortafuegos.\n
+    <string name="consejos_desc_incendio">Un incendio forestal es el fuego que se extiende sin control en terreno forestal o silvestre, afectando a combustibles vegetales, flora y fauna. Se distingue de otros tipos de incendio por su amplia extensión, la velocidad con la que se puede extender desde su lugar de origen, su potencial para cambiar de dirección inesperadamente, y su capacidad para superar obstáculos como carreteras, ríos y cortafuegos.\n
         Consejos\n
         <li>Alejarse del fuego en dirección opuesta al humo.</li>\n
         <li>Respirar por la nariz cubriéndose con un trapo mojado.</li>\n
@@ -196,7 +196,7 @@
         <li>En el caso de que se nos prenda la ropa, no correr. Echarse a rodar sobre el suelo o cubrirse con una manta.</li>\n
     </string>
 
-    <string name="descripcion_terremoto">Un terremoto es un temblor repentino y rápido del suelo ocasionado por el desplazamiento de rocas subterráneas muy por debajo de la superficie de la tierra. Los terremotos pueden causar incendios, tsunamis, deslizamientos de tierra o avalanchas.\n
+    <string name="consejos_desc_terremoto">Un terremoto es un temblor repentino y rápido del suelo ocasionado por el desplazamiento de rocas subterráneas muy por debajo de la superficie de la tierra. Los terremotos pueden causar incendios, tsunamis, deslizamientos de tierra o avalanchas.\n
         Prevención\n
         <li>Elaborar un plan de emergencia.</li>\n
         <li>Tener un kit de suministro con suficientes alimentos y agua para durar varios días, una linterna, un extintor de incendios, y un silbato.</li>\n
@@ -209,7 +209,7 @@
         <li>En el caso de encontrarse dentro, agacharse, cubrirse con el brazo la cabeza y la nuca, ponerse debajo de alguna mesa, y agarrarse a una pata de la mesa.</li>\n
     </string>
 
-    <string name="descripcion_tsunami">Los tsunamis, también conocidos como olas sísmicas, son una serie de olas enormes creadas por una alteración submarina, como terremotos, desprendimientos de tierra, erupciones volcánicas o meteoritos.\n
+    <string name="consejos_desc_tsunami">Los tsunamis, también conocidos como olas sísmicas, son una serie de olas enormes creadas por una alteración submarina, como terremotos, desprendimientos de tierra, erupciones volcánicas o meteoritos.\n
         Prevención\n
         <li>Dirigirse tierra adentro hasta un área lo más elevada posible.</li>\n
         <li>Retirarse apenas vea una señal natural de un tsunami o si recibe una advertencia oficial de tsunami.</li>\n
@@ -220,7 +220,7 @@
         <li>En el caso de encontrarse en un bote, navegar en el sentido contrario a las olas y luego salir del mar.</li>\n
     </string>
 
-    <string name="descripcion_avalancha">Una avalancha es una cantidad enorme de nieve que se desliza rápidamente montaña abajo, usualmente en inclinaciones de 30 hasta 45 grados. Cuando una avalancha se detiene, la nieve se solidifica como el hormigón y las personas quedan atrapadas. Las personas atrapadas en avalanchas pueden fallecer de sofocación, trauma o hipotermia.\n
+    <string name="consejos_desc_avalancha">Una avalancha es una cantidad enorme de nieve que se desliza rápidamente montaña abajo, usualmente en inclinaciones de 30 hasta 45 grados. Cuando una avalancha se detiene, la nieve se solidifica como el hormigón y las personas quedan atrapadas. Las personas atrapadas en avalanchas pueden fallecer de sofocación, trauma o hipotermia.\n
         Prevención\n
         <li>Obtener equipo adecuado para protegerse de lesiones en la cabeza y crear espacios de aire.</li>\n
         <li>Aprender primeros auxilios para poder brindar tratamiento a los demás.</li>\n
@@ -233,7 +233,7 @@
         <li>En caso de verse envuelto en la avalancha, tratar de nadar hacia la superficie.</li>
     </string>
 
-    <string name="descripcion_lluvia_acida">La lluvia ácida es una de las consecuencias de la contaminación atmosférica. Es la precipitación que contiene tanto agua como residuos tóxicos, principalmente ácidos, procedentes de las emisiones tanto industriales como de otros tipos de maquinaria, como los vehículos. Esta acidificación del suelo y de las aguas superficiales tiene efectos devastadores sobre los ecosistemas y supone un grave peligro para los seres vivos.\n
+    <string name="consejos_desc_lluvia_acida">La lluvia ácida es una de las consecuencias de la contaminación atmosférica. Es la precipitación que contiene tanto agua como residuos tóxicos, principalmente ácidos, procedentes de las emisiones tanto industriales como de otros tipos de maquinaria, como los vehículos. Esta acidificación del suelo y de las aguas superficiales tiene efectos devastadores sobre los ecosistemas y supone un grave peligro para los seres vivos.\n
         Prevención\n
         <li>Filtrar y desintoxicar el agua utilizada por las fábricas antes de devolverla a los ríos.</li>\n
         <li>Reducir la emisión de gases contaminantes por parte de la industria.</li>\n
@@ -244,7 +244,7 @@
         <li>Fomentar el uso del coche eléctrico y de otros vehículos no contaminantes, como la bicicleta.</li>\n
     </string>
 
-    <string name="descripcion_erupcion_volcanica">Un volcán es una abertura en la corteza terrestre que permite el escape de roca derretida, gases y escombros hasta la superficie. Una erupción volcánica puede implicar lava y escombros que pueden desplazarse a una velocidad de hasta 100 mph, destruyendo todo a su paso. La ceniza volcánica puede desplazarse por cientos de millas y provocar graves problemas de salud.\n
+    <string name="consejos_desc_erupcion_volcanica">Un volcán es una abertura en la corteza terrestre que permite el escape de roca derretida, gases y escombros hasta la superficie. Una erupción volcánica puede implicar lava y escombros que pueden desplazarse a una velocidad de hasta 100 mph, destruyendo todo a su paso. La ceniza volcánica puede desplazarse por cientos de millas y provocar graves problemas de salud.\n
         Prevención\n
         <li>Conozca el riesgo de una erupción volcánica en su área.</li>\n
         <li>Infórmese sobre los sistemas de alerta de la comunidad.</li>\n
@@ -262,7 +262,7 @@
         <li>Evite manejar mientras cae ceniza de forma intensa. Si tiene que manejar, entonces apague las luces de su vehículo.</li>\n
     </string>
 
-    <string name="descripcion_gota_fria">Según la Agencia Estatal de Meteorología, una gota fría o DANA (Depresión Aislada en Niveles Altos) es una gran masa de aire a baja temperatura que se ha separado de un chorro polar. Esta, al encontrarse en zonas de clima más cálido, interactúa con el aire de mayor temperatura de la zona y origina tormentas de todo tipo e inestabilidad meteorológica, pudiendo causar, entre otras cosas, vientos de hasta 100 km/h. Es más habitual que se den en zonas de costa junto a aguas cálidas, ya que el aire cargado de humedad que asciende de estos mares cálidos propicia la formación de estas gotas frías cuando se encuentra con los chorros polares.\n
+    <string name="consejos_desc_gota_fria">Según la Agencia Estatal de Meteorología, una gota fría o DANA (Depresión Aislada en Niveles Altos) es una gran masa de aire a baja temperatura que se ha separado de un chorro polar. Esta, al encontrarse en zonas de clima más cálido, interactúa con el aire de mayor temperatura de la zona y origina tormentas de todo tipo e inestabilidad meteorológica, pudiendo causar, entre otras cosas, vientos de hasta 100 km/h. Es más habitual que se den en zonas de costa junto a aguas cálidas, ya que el aire cargado de humedad que asciende de estos mares cálidos propicia la formación de estas gotas frías cuando se encuentra con los chorros polares.\n
         Prevención\n
         <li>Evita dejar tus pertenencias en el porche, ya que pueden ser arrastrados por las fuertes lluvias, viento o inundaciones y provocar accidentes.</li>\n
         <li>No dejes tus macetas o cualquier otro objeto que pueda caer a la calle desde la ventana y provocar un accidente. Asegura bien las ventanas para no sufrir daños en el interior.</li>\n
@@ -274,7 +274,7 @@
         <li>No cruces por tramos inundados, la fuerza de la corriente te puede arrastrar. En el caso de que te encuentres en uno con tu coche, lo más importante es abandonar el automóvil y buscar un terreno más elevado.</li>\n
     </string>
 
-    <string name="descripcion_tormenta_electrica">Los rayos son una de las principales causas de lesiones y muertes por riesgos meteorológicos. Aunque la mayoría de las víctimas de los rayos sobreviven, las personas alcanzadas por un rayo suelen manifestar una serie de síntomas debilitantes a largo plazo. Las tormentas eléctricas son tormentas peligrosas que incluyen rayos y pueden crear o causar vientos potentes de más de 80 km/h, granizo, inundaciones repentinas y/o tornados.\n
+    <string name="consejos_desc_tormenta_electrica">Los rayos son una de las principales causas de lesiones y muertes por riesgos meteorológicos. Aunque la mayoría de las víctimas de los rayos sobreviven, las personas alcanzadas por un rayo suelen manifestar una serie de síntomas debilitantes a largo plazo. Las tormentas eléctricas son tormentas peligrosas que incluyen rayos y pueden crear o causar vientos potentes de más de 80 km/h, granizo, inundaciones repentinas y/o tornados.\n
         Prevención\n
         <li>Conozca el riesgo de tormentas eléctricas en su zona.</li>\n
         <li>Refuerce su casa: tale los árboles que podrían caer sobre ella, valore la posibilidad de comprar protectores contra sobretensiones o un pararrayos.</li>\n
