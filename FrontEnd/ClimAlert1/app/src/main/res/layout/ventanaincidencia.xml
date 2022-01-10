@@ -42,20 +42,13 @@
             android:layout_marginTop="25dp"
             android:textSize="20dp"
             android:hint="Hora: 13:31 ERROR" />
-    	<TextView
-            android:id="@+id/etiqueta_fuente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:textSize="20dp"
-            android:text="@string/incidencia_etiqueta_fuente" />
         <TextView
-            android:id="@+id/nombre_fuente"
+            android:id="@+id/fuente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:textSize="20dp"
-            android:hint="Nombre fuente ERROR" />
+            android:hint="Fuente ERROR" />
         <TextView
             android:id="@+id/medida"
             android:layout_width="match_parent"

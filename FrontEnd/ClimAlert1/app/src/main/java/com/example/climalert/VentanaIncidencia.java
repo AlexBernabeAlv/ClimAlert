@@ -78,8 +78,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
         TextView Descripcion = (TextView) view.findViewById(R.id.descripcion_incidencia);
         TextView Fecha = (TextView) view.findViewById(R.id.fecha);
         TextView Hora = (TextView) view.findViewById(R.id.hora);
-        //TextView EtiquetaFuente = (TextView) view.findViewById(R.id.etiqueta_fuente);
-        TextView NombreFuente = (TextView) view.findViewById(R.id.nombre_fuente);
+        TextView Fuente = (TextView) view.findViewById(R.id.fuente);
         TextView Medida = (TextView) view.findViewById(R.id.medida);
 
         Button Info = (Button) view.findViewById(R.id.btnConsejo);
@@ -96,16 +95,17 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 if(InformacionUsuario.getInstance().actual.get(i).fecha == null || InformacionUsuario.getInstance().actual.get(i).fecha == "null") {
                     SFecha = getString(R.string.incidencia_fecha_no_disponible);
                 } else {
-                    SFecha = getString(R.string.incidencia_etiqueta_fecha) + InformacionUsuario.getInstance().actual.get(i).fecha.substring(0, 10);
+                    SFecha = InformacionUsuario.getInstance().actual.get(i).fecha.substring(0, 10);
                 }
                 //String SID = "ID: " + InformacionUsuario.getInstance().actual.get(i).identificador;
                 Fecha.setText(SFecha);
-                Hora.setText(InformacionUsuario.getInstance().actual.get(i).descripcion); //????????
+                Hora.setText("Hora: ...");
+                //Hora.setText(InformacionUsuario.getInstance().actual.get(i).descripcion); //????????
                 //Hora.setText("Hora: " + String.valueOf(InformacionUsuario.getInstance().actual.get(i).));
                 nombreFenomeno = InformacionUsuario.getInstance().actual.get(i).nombre;
                 Titulo.setText(nombreFenomeno);
                 String fuente = InformacionUsuario.getInstance().actual.get(i).fuente;
-                NombreFuente.setText(fuente);
+                Fuente.setText(getString(R.string.incidencia_etiqueta_fuente) + " " + fuente);
                 Float medida = InformacionUsuario.getInstance().actual.get(i).medida;
                 String unidad = null;
                 switch(nombreFenomeno) {
