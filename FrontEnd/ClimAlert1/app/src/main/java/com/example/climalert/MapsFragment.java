@@ -396,7 +396,7 @@ public class MapsFragment extends Fragment {
                         .replace(R.id.contenedor, f)
                         .commit();
             }
-            if(marker.getTitle().equals(getString(R.string.map_ubicacion_actual))){
+            if(marker.getTitle().equals("ACTUAL")){
                 pintarRefugios(getActivity());
 
             }
@@ -428,7 +428,7 @@ public class MapsFragment extends Fragment {
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getString(R.string.map_ubicacion_actual)));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("ACTUAL"));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 if(markerActual != null) markerActual.setPosition(llact);
