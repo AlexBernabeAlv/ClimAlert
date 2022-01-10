@@ -34,6 +34,7 @@ public class VentanaAdminFragment extends Fragment implements View.OnClickListen
         Button validar_incidencias = (Button) view.findViewById(R.id.validar_incidencias_button);
         validar_incidencias.setOnClickListener(this);
         Button incidencias_actuales = (Button) view.findViewById(R.id.incidencias_actuales_button);
+        incidencias_actuales.setVisibility(View.GONE);
         incidencias_actuales.setOnClickListener(this);
         return view;
     }

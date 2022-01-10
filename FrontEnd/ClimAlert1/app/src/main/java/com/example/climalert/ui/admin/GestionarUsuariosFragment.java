@@ -69,13 +69,7 @@ public class GestionarUsuariosFragment extends Fragment {
         }
     }
 
-    //ESTA FUNCION BANEA Y DESBANEA AL USUARIO QUE LE PASAS COMO PARAMETRO
 
-    //esta función obtiene una lista con todos los usuarios que no son admin
-
-
-
-    //esta función obtiene una lista con todos los usuarios que no son admin
     public void getUsuariosEstandar() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "https://climalert.herokuapp.com/usuariosEstandar";
