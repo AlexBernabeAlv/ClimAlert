@@ -345,7 +345,7 @@ public class MapsFragment extends Fragment {
                 titleUi.setText("");
             }
             if(!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
+                    !marker.getTitle().equals(getString(R.string.map_ubicacion_actual)) && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
                 Log.d("123456", "ENTRO AQUI CUANDO NO DEBERIA");
                 Log.d("123456", "marker: " + marker.getTitle() );
                 Log.d("123456", "boolean es: " + !marker.getTitle().equals("   1") );
@@ -386,7 +386,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onInfoWindowClick(Marker marker) {
             if (!marker.getTitle().equals("  1")  && !marker.getTitle().equals("  2") &&
-                    !marker.getTitle().equals("ACTUAL") && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
+                    !marker.getTitle().equals(getString(R.string.map_ubicacion_actual)) && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
                 InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
@@ -397,7 +397,7 @@ public class MapsFragment extends Fragment {
                         .replace(R.id.contenedor, f)
                         .commit();
             }
-            if(marker.getTitle().equals("ACTUAL")){
+            if(marker.getTitle().equals(getString(R.string.map_ubicacion_actual))){
                 pintarRefugios(getActivity());
 
             }
@@ -430,7 +430,7 @@ public class MapsFragment extends Fragment {
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("ACTUAL"));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getString(R.string.map_ubicacion_actual)));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 Log.d("berni", "onChanged " +  InformacionUsuario.getInstance().latitudactual);
