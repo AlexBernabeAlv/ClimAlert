@@ -82,8 +82,6 @@ public class NavegacionEspressoTest {
         onView(isRoot()).perform(pressBack());
         onView(withId(R.id.validar_incidencias_button)).perform(click());
         onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.incidencias_actuales_button)).perform(click());
-        onView(isRoot()).perform(pressBack());
         onView(withId(R.id.gestionar_refugios_button)).perform(click());
         onView(isRoot()).perform(pressBack());
         onView(isRoot()).perform(pressBack());
