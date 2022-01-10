@@ -20,12 +20,12 @@
         android:orientation="vertical"
         android:layout_below="@+id/titulo">
         <TextView
-            android:id="@+id/ID"
+            android:id="@+id/descripcion_incidencia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:textSize="20dp"
-            android:hint="ID: 26 ERROR" />
+            android:hint="Descripción: ERROR" />
         <TextView
             android:id="@+id/fecha"
             android:layout_width="match_parent"
@@ -41,14 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:textSize="20dp"
-            android:hint="Hora: 13:31" />
-    	<TextView
-            android:id="@+id/desc_api"
+            android:hint="Hora: 13:31 ERROR" />
+        <TextView
+            android:id="@+id/fuente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:textSize="20dp"
-            android:hint="Nombre API:  ERROR" />
+            android:hint="Fuente ERROR" />
         <TextView
             android:id="@+id/medida"
             android:layout_width="match_parent"
@@ -61,13 +61,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Información sobre el fenómeno"/>
+            android:text="@string/incidencia_boton_info_fenomeno" />
         <Button
             android:id="@+id/btnForo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:text="Foro"/>
+            android:text="@string/incidencia_boton_foro" />
     </LinearLayout>
 
 

@@ -21,6 +21,12 @@
     <string name="text_gota_fria">Cold drop</string>
     <string name="text_tormenta_electrica">Thunder storm</string>
 
+    <string name="incidencia_etiqueta_fuente">Source: </string>
+    <string name="incidencia_etiqueta_fecha">Date: </string>
+    <string name="incidencia_fecha_no_disponible">Date unavailable</string>
+    <string name="incidencia_boton_info_fenomeno">About the phenomenon</string>
+    <string name="incidencia_boton_foro">Forum</string>
+
     <string name="unidad_calor_extremo">ºC of temperature</string>
     <string name="unidad_granizo">mm</string>
     <string name="unidad_tormenta_invernal">mm</string>
@@ -50,12 +56,13 @@
     <string name="desc_incidencia_tormenta_electrica">....</string>
 
     <string name="map_ubicacion_usuario">User location</string>
+    <string name="map_ubicacion_actual">CURRENT</string>
     <string name="map_refugio">Shelter</string>
     <string name="map_editar_ubicaciones">Edit locations</string>
     <string name="map_borrar_ubicaciones">Remove locations</string>
     <string name="map_ubicacion_1">Location 1</string>
     <string name="map_ubicacion_2">Location 2</string>
-    <string name="map_button_si">Sí</string>
+    <string name="map_button_si">Yes</string>
     <string name="map_button_no">No</string>
     <string name="map_msg_activa_gps">The GPS system is turned off. Do you wish to turn it on?</string>
 

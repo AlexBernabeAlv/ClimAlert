@@ -21,6 +21,12 @@
     <string name="text_gota_fria">Gota freda</string>
     <string name="text_tormenta_electrica">Tempesta elèctrica</string>
 
+    <string name="incidencia_etiqueta_fuente">Font: </string>
+    <string name="incidencia_etiqueta_fecha">Data: </string>
+    <string name="incidencia_fecha_no_disponible">Data no disponible</string>
+    <string name="incidencia_boton_info_fenomeno">Sobre el fenomen</string>
+    <string name="incidencia_boton_foro">Fòrum</string>
+
     <string name="unidad_calor_extremo">ºC de temperatura</string>
     <string name="unidad_granizo">mm</string>
     <string name="unidad_tormenta_invernal">mm</string>
@@ -50,6 +56,7 @@
     <string name="desc_incidencia_tormenta_electrica">....</string>
 
     <string name="map_ubicacion_usuario">Ubicació de l\'usuari</string>
+    <string name="map_ubicacion_actual">ACTUAL</string>
     <string name="map_refugio">Refugi</string>
     <string name="map_editar_ubicaciones">Editar ubicacions</string>
     <string name="map_borrar_ubicaciones">Esborrar ubicacions</string>
