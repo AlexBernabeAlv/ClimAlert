@@ -44,9 +44,8 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         radio = getArguments().getInt("radio");
         baneo = getArguments().getBoolean("ban");
 
-        String rad, grav;
+        String rad;
         rad = String.valueOf(radio);
-        grav = String.valueOf(gravedad);
         TextView t_email = view.findViewById(R.id.texto_email_a_rellenar);
         t_email.setText(mail);
         TextView t_pass = view.findViewById(R.id.texto_password_a_rellenar);

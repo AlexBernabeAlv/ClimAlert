@@ -75,7 +75,7 @@
     <string name= "boton_logout"> Tancar sessió </string>
     <string name= "boton_guardar_cambios"> Guardar canvis </string>
     <string name= "radio_afectacion"> Radi d\'afectació </string>
-    <string name= "filtro_incidencias"> Filtrar incidencies </string>
+    <string name= "filtro_incidencias"> Només incidencies greus </string>
     <string name= "modo_administrador"> Administrador </string>
     <string name= "boton_ban"> Ban/Desban </string>
     <string name= "boton_stats_incidencias"> Estadístiques Incidencies </string>
@@ -93,7 +93,7 @@
     <string name= "hora_incidencia"> Hora: </string>
     <string name= "desc_incidencia"> Descripció: </string>
     <string name= "fuente_incidencia"> Font: </string>
-    <string name= "grvedad_incidencia"> Gravetat: </string>
+    <string name= "grvedad_incidencia"> Es gravetat crítica </string>
     <string name= "esta_baneado_si"> Si </string>
     <string name= "esta_baneado_no"> No </string>
     <string name= "texto_baneado"> Ban: </string>

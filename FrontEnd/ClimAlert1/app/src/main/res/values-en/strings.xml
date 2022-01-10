@@ -76,7 +76,7 @@
     <string name= "boton_logout"> Log out </string>
     <string name= "boton_guardar_cambios"> Save changes </string>
     <string name= "radio_afectacion"> Effect radius </string>
-    <string name= "filtro_incidencias"> Filter Incidents </string>
+    <string name= "filtro_incidencias"> Only critical incidents </string>
     <string name= "modo_administrador"> Administrator </string>
     <string name= "boton_ban"> Ban/Unban </string>
     <string name= "boton_stats_incidencias"> Ocurrences Stats </string>
@@ -94,7 +94,7 @@
     <string name= "hora_incidencia"> Hour: </string>
     <string name= "desc_incidencia"> Description: </string>
     <string name= "fuente_incidencia"> Resource: </string>
-    <string name= "grvedad_incidencia"> Severity: </string>
+    <string name= "grvedad_incidencia"> Critical severity </string>
     <string name= "esta_baneado_si"> Yes </string>
     <string name= "esta_baneado_no"> No </string>
     <string name= "texto_baneado"> Banned: </string>
