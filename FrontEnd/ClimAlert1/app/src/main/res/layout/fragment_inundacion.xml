@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/descripcion_inundacion"
+            android:text="@string/consejos_desc_inundacion"
             android:elegantTextHeight="true"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"

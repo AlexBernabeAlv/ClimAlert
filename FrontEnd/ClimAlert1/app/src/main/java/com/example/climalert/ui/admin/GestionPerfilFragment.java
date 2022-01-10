@@ -51,13 +51,13 @@ public class GestionPerfilFragment extends Fragment implements View.OnClickListe
         TextView t_pass = view.findViewById(R.id.texto_password_a_rellenar);
         t_pass.setText(pass);
         TextView t_gravedad = view.findViewById(R.id.texto_gravedad_a_rellenar);
-        if(gravedad == 1) t_gravedad.setText(R.string.esta_baneado_si);
-        else t_gravedad.setText(R.string.esta_baneado_no);
+        if(gravedad == 1) t_gravedad.setText(R.string.usuarios_esta_bloqueado);
+        else t_gravedad.setText(R.string.usuarios_no_esta_bloqueado);
         TextView t_radio = view.findViewById(R.id.texto_radio_a_rellenar);
         t_radio.setText(rad);
         TextView t_ban = view.findViewById(R.id.texto_ban_a_rellenar);
-        if(baneo) t_ban.setText(R.string.esta_baneado_si);
-        else t_ban.setText(R.string.esta_baneado_no);
+        if(baneo) t_ban.setText(R.string.usuarios_esta_bloqueado);
+        else t_ban.setText(R.string.usuarios_no_esta_bloqueado);
 
         Button ban = (Button) view.findViewById(R.id.ban_button);
         ban.setOnClickListener(this);
