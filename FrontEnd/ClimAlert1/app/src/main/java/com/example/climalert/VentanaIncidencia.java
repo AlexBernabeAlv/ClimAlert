@@ -76,7 +76,6 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
         TextView Titulo = (TextView) view.findViewById(R.id.titulo);
         TextView Descripcion = (TextView) view.findViewById(R.id.descripcion_incidencia);
         TextView Fecha = (TextView) view.findViewById(R.id.fecha);
-        TextView Hora = (TextView) view.findViewById(R.id.hora);
         TextView Fuente = (TextView) view.findViewById(R.id.fuente);
         TextView Medida = (TextView) view.findViewById(R.id.medida);
 
@@ -98,7 +97,6 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 }
                 //String SID = "ID: " + InformacionUsuario.getInstance().actual.get(i).identificador;
                 Fecha.setText(SFecha);
-                Hora.setText("Hora: ...");
                 //Hora.setText(InformacionUsuario.getInstance().actual.get(i).descripcion); //????????
                 //Hora.setText("Hora: " + String.valueOf(InformacionUsuario.getInstance().actual.get(i).));
                 nombreFenomeno = InformacionUsuario.getInstance().actual.get(i).nombre;
