@@ -20,6 +20,7 @@
     <string name="text_erupcion_volcanica">Vulcanic eruption</string>
     <string name="text_gota_fria">Cold drop</string>
     <string name="text_tormenta_electrica">Thunder storm</string>
+    <string name="hintobjeto"><i>Object name</i></string>
 
     <string name="map_ubicacion_usuario">User location</string>
     <string name="map_ubicacion_actual">CURRENT LOCATION</string>

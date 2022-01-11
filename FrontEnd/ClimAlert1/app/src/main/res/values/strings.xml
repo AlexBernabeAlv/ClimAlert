@@ -65,6 +65,7 @@
     <string name="map_button_si">Sí</string>
     <string name="map_button_no">No</string>
     <string name="map_msg_activa_gps">El sistema GPS está desactivado. ¿Desea activarlo?</string>
+    <string name="hintobjeto"><i>Nombre del objeto</i></string>
 
     <string name="sos_aviso_incidencia">Aviso de incidencia</string>
     <string name="sos_hint_descripcion">Descripción</string>
