@@ -20,7 +20,7 @@
     <string name="text_erupcion_volcanica">Erupción volcánica</string>
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
-    <string name="hintobjeto"><i>Busca "nutria" o "test"</i></string>
+    <string name="hintobjeto"><i>Busca "nutria" o "Test"</i></string>
 
     <string name="map_ubicacion_usuario">Ubicación del usuario</string>
     <string name="map_ubicacion_actual">UBICACIÓN ACTUAL</string>
