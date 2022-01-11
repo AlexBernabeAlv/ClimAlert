@@ -24,6 +24,7 @@
     <string name="map_ubicacion_usuario">Ubicació de l\'usuari</string>
     <string name="map_ubicacion_actual">UBICACIÓ ACTUAL</string>
     <string name="map_refugio">Refugi</string>
+    <string name="map_objeto">Objecte</string>
     <string name="map_editar_ubicaciones">Editar ubicacions</string>
     <string name="map_borrar_ubicaciones">Esborrar ubicacions</string>
     <string name="map_ubicacion_1">Ubicació 1</string>
