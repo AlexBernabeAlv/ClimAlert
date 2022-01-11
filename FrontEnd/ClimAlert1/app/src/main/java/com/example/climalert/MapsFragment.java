@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -106,11 +108,11 @@ public class MapsFragment extends Fragment {
     boolean pintados = true;
     boolean localizacionespuestas = false;
     public Marker markerActual;
-    Button Buscador;
+    ImageButton Buscador;
     boolean buscador_objeto = false;
     boolean buscar_objeto = false;
     EditText textoObjeto;
-    Button Buscar;
+    ImageButton Buscar;
 
 
     /*
@@ -211,7 +213,7 @@ public class MapsFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-        Buscador = (Button) view.findViewById(R.id.botonbuscador);
+        Buscador = (ImageButton) view.findViewById(R.id.botonbuscador);
         Buscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,14 +239,6 @@ public class MapsFragment extends Fragment {
             }
         });
         textoObjeto = (EditText) view.findViewById(R.id.textoObj);
-        Buscar = (Button) view.findViewById(R.id.buscarObj);
-        Buscar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                limpiar_objetos();
-                formeforu();
-            }
-        });
 
 
         SupportMapFragment mapFragment =
