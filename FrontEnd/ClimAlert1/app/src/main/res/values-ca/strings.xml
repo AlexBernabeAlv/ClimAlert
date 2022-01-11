@@ -95,19 +95,19 @@
     <string name="unidad_gota_fria">mm</string>
     <string name="unidad_tormenta_electrica">Kelvin de brillantor</string>
 
-    <string name="incidencia_desc_calor_extremo">Altas temperaturas que pueden causar deshidratación y desmayos, sobretodo en gente mayor.</string>
-    <string name="incidencia_desc_granizo">Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.</string>
-    <string name="incidencia_desc_tormenta_invernal">Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.</string>
-    <string name="incidencia_desc_tornado">Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.</string>
-    <string name="incidencia_desc_inundacion">Ocupación por parte del agua de zonas que habitualmente están libres de ésta, por desbordamiento de ríos, torrentes o ramblas, o por lluvias torrenciales, deshielo, maremotos o huracanes, entre otros.</string>
-    <string name="incidencia_desc_incendio_forestal">Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.</string>
-    <string name="incidencia_desc_terremoto">Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.</string>
-    <string name="incidencia_desc_tsunami">Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc.</string>
-    <string name="incidencia_desc_avalancha">Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.</string>
-    <string name="incidencia_desc_lluvia_acida">Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.</string>
-    <string name="incidencia_desc_erupcion_volcanica">Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.</string>
-    <string name="incidencia_desc_gota_fria">Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.</string>
-    <string name="incidencia_desc_tormenta_electrica">Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.</string>
+    <string name="incidencia_desc_calor_extremo">Altes temperatures que poden causar deshidratació i desmais, sobretot en gent gran.</string>
+    <string name="incidencia_desc_granizo">Precipitació sòlida que es compon de boles o grumolls irregulars de gel, cada un dels quals s\'anomena com una pedra de calamarsa.</string>
+    <string name="incidencia_desc_tormenta_invernal">Esdeveniments dominats per precipitació formada a baixes temperatures com neu o pluja congelada. Poden durar diversos dies i estar acompanyades de forts vents i temperatures extremadament fredes.</string>
+    <string name="incidencia_desc_tornado">Columna d\'aire amb alta velocitat angular l\'extrem de la qual está tocant la Terra. Es tracta del fenomen atmosfèric ciclònic de major densitat energètica de la Terra.</string>
+    <string name="incidencia_desc_inundacion">Ocupació per part de l\'aigua de zones que habitualment estan lliures d\'aquesta, per desbordament de rius, torrents o rambles, o per pluges torrencials, desgel, sismes submarins o huracans, entre d\'altres.</string>
+    <string name="incidencia_desc_incendio_forestal">Ocurrència de foc no controlada que pot afectar o abrassar quelcom que no està destinat a cremar-se. Pot afectar a estructures i a sers vius.</string>
+    <string name="incidencia_desc_terremoto">Sacsejada brusca i pasatgera de l\'escorça terrestre produïda per l\'alliberament d\'energia acumulada en forma d\'ones sísmiques. Els més comuns es produeixen per l\'activitat de falles geològiques.</string>
+    <string name="incidencia_desc_tsunami">Esdeveniment produit en desplaçar-se una gran massa d\'aigua a causa d\'algún fenomen exraordinari, com un terratrèmol, una erupció vulcànica, despreniments de gel glaciar, impactes de meteorits, etc.</string>
+    <string name="incidencia_desc_avalancha">Desplaçament d\'una capa de neu en una zona amb pendent que es dirigeix vessant avall amb velocitat variable. Es pot incorporar part del substrat i de la cobertura vegetal del pendent.</string>
+    <string name="incidencia_desc_lluvia_acida">Pluja formada quan la humitat de l\'aire es combina amb òxids de nitrogen, diòxids de sofre o triòxids de sofre emesos per al consum de petroli que contingui sofre.</string>
+    <string name="incidencia_desc_erupcion_volcanica">Fenomen geològic caracteritzat per l\'emissió violenta en la superfície terrestre, per un volcà, de laves i/o tefra acompanyades de gasos volcànics.</string>
+    <string name="incidencia_desc_gota_fria">Esdeveniment de pluja d\'alt impacte durant la tardor en el Mediterrani occidental, i pot ser anàleg a l\'Episodi Cenevol francès o Episodi Mediterrani.</string>
+    <string name="incidencia_desc_tormenta_electrica">Fenomen meteorològic asociat al desenvolupament vertical de nuvolositat acompanyat de descàrregues elèctriques o llamps i, habitualment, precipitació i ràfagues de vent intenses en superfície.</string>
 
     <string name="consejos_desc_calor_extremo">La calor extrema es defineix com a temperatures d\'estiu molt més altes o condicions molt més humides de les mitjana. Aquesta calor extrema pot provocar insolació, que és una malaltia que es caracteritza per nàusees, vòmits, cefalea, calor de la pell, somnolència, i alteració de les fibres musculars exposades als seus efectes. Això és causat pel fet que el cos no té capacitat de refredar-se adequadament.\n
         <b>\nPrevenció\n</b>
