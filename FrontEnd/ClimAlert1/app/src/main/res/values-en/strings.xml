@@ -25,6 +25,7 @@
     <string name="map_ubicacion_usuario">User location</string>
     <string name="map_ubicacion_actual">CURRENT LOCATION</string>
     <string name="map_refugio">Shelter</string>
+    <string name="map_objeto">Item</string>
     <string name="map_editar_ubicaciones">Edit locations</string>
     <string name="map_borrar_ubicaciones">Remove locations</string>
     <string name="map_ubicacion_1">Location 1</string>

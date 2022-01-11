@@ -161,7 +161,7 @@ public class MapsFragment extends Fragment {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title("UBICACIÓN 1")
+                        .title(getString(R.string.map_ubicacion_1))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
                 localizacionespuestas = true;
@@ -171,7 +171,7 @@ public class MapsFragment extends Fragment {
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title("UBICACIÓN 2")
+                        .title(getString(R.string.map_ubicacion_2))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
                 localizacionespuestas = true;
@@ -336,7 +336,7 @@ public class MapsFragment extends Fragment {
             String title = marker.getTitle();
 
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
-            if (title.equals("UBICACIÓN 1") || title.equals("UBICACIÓN 2") ||
+            if (title.equals(getString(R.string.map_ubicacion_1)) || title.equals(getString(R.string.map_ubicacion_2)) ||
                     title.equals(getString(R.string.map_ubicacion_actual))){
                 SpannableString titleText = new SpannableString(title);
                 titleText.setSpan(new ForegroundColorSpan(Color.rgb(255, 165, 0)), 0, titleText.length(), 0);
@@ -386,8 +386,8 @@ public class MapsFragment extends Fragment {
 
         @Override
         public void onInfoWindowClick(Marker marker) {
-            if (!marker.getTitle().equals("UBICACIÓN 1")  && !marker.getTitle().equals("UBICACIÓN 2") &&
-                    !marker.getTitle().equals(getString(R.string.map_ubicacion_actual)) && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals("Objeto")) {
+            if (!marker.getTitle().equals(getString(R.string.map_ubicacion_1))  && !marker.getTitle().equals(getString(R.string.map_ubicacion_2)) &&
+                    !marker.getTitle().equals(getString(R.string.map_ubicacion_actual)) && !marker.getTitle().equals(getString(R.string.map_refugio)) && !marker.getTitle().equals(getString(R.string.map_objeto))) {
                 String snippet = marker.getSnippet();
                 String lastWord = snippet.substring(snippet.lastIndexOf(" ") + 1);
                 InformacionUsuario.getInstance().IDIncidenciaActual = lastWord;
@@ -398,7 +398,7 @@ public class MapsFragment extends Fragment {
                         .replace(R.id.contenedor, f)
                         .commit();
             }
-            if(marker.getTitle().equals("ACTUAL")){
+            if(marker.getTitle().equals(getString(R.string.map_ubicacion_actual))){
                 pintarRefugios(getActivity());
 
             }
@@ -430,7 +430,7 @@ public class MapsFragment extends Fragment {
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title("ACTUAL"));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getString(R.string.map_ubicacion_actual)));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 if(markerActual != null) markerActual.setPosition(llact);
@@ -449,7 +449,6 @@ public class MapsFragment extends Fragment {
                 if(markerActual != null) {
                     markerActual.setVisible(false);
                     markerActual.setAlpha(0);
-                    Log.d("berni", "onDisabled");
                 }
                 if (!MapsFragment.alertaSinGPSMostrada) {
                     Alert(0, null);
@@ -687,7 +686,7 @@ public class MapsFragment extends Fragment {
                             UBI1 = mMap.addMarker(new MarkerOptions()
                                     .anchor(0.0f, 1.0f)
                                     .alpha(0.7f)
-                                    .title("UBICACIÓN 1")
+                                    .title(getString(R.string.map_ubicacion_1))
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                                     .position(latLng));
                         }
@@ -713,7 +712,7 @@ public class MapsFragment extends Fragment {
                     UBI2 = mMap.addMarker(new MarkerOptions()
                             .anchor(0.0f, 1.0f)
                             .alpha(0.7f)
-                            .title("UBICACIÓN 2")
+                            .title(getString(R.string.map_ubicacion_2))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                             .position(latLng));
                     }
@@ -758,7 +757,7 @@ public class MapsFragment extends Fragment {
                                             .position(ll)
                                             .alpha(0.9f)
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                                            .title("Objeto"));
+                                            .title(getString(R.string.map_objeto)));
                                     UbicacionObjetos.add(m);
                                 }
                                 items.removeAllElements();
