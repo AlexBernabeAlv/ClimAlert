@@ -286,7 +286,7 @@ public class LlamaditaFragment extends Fragment {
 
     public void dar_incidencia() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/incidencias";
+        String url = "https://climalert.herokuapp.com/incidencias?email=" + InformacionUsuario.getInstance().email ;
         JSONObject mapa = new JSONObject();
         try {
             mapa.put("nombreFenomeno", spinnerres);
@@ -299,7 +299,6 @@ public class LlamaditaFragment extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             hour = sdf.format(new Date());
             mapa.put("hora", hour);
-            mapa.put("email", InformacionUsuario.getInstance().email);
             mapa.put("password", InformacionUsuario.getInstance().password);
 
         } catch (JSONException e) {
