@@ -71,11 +71,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
         switchF.setChecked(InformacionUsuario.getInstance().gravedad == 1);
         switchF.setOnClickListener(this);
 
-        admin_button = (Button) view.findViewById(R.id.modo_administrador_button);
-        if(InformacionUsuario.getInstance().admin) admin_button.setVisibility(View.VISIBLE);
-        else admin_button.setVisibility(View.GONE);
-        admin_button.setOnClickListener(this);
-
         return view;
     }
 
@@ -96,11 +91,9 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Sl
 
             case R.id.guardar_cambios_button:
                 update_usuario();
-                break;
-
-            case R.id.modo_administrador_button:
                 MainActivity main = (MainActivity) getActivity();
-                main.modo_admin();
+                View vista = main.findViewById(R.id.navigation_home);
+                vista.callOnClick();
                 break;
 
 

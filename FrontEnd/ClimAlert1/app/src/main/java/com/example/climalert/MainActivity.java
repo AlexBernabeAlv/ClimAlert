@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, fragment, "MAPS")
+                .replace(R.id.contenedor, fragment, "DESTINO_BACKGROUND")
                 .commit();
         configureNav();
     }
@@ -77,15 +77,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 
-    public void perfil_boton() {
-        Fragment perfil = new PerfilFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(perfil)
-                .replace(R.id.contenedor, perfil, "SETTINGS")
-                .commit();
-    }
-
     public void changeLang (String newLang) {
         if (!newLang.equals(currentLang)) {
             SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
@@ -98,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //aqui
+    public void perfil_boton() {
+        Fragment perfil = new PerfilFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(perfil)
+                .replace(R.id.contenedor, perfil, "DESTINO_AJUSTES")
+                .commit();
+    }
+
     public void setCurrentLocale(String newLang) {
         currentLang = newLang;
         Locale newLocale = new Locale(newLang);
@@ -108,47 +109,65 @@ public class MainActivity extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
     }
 
+
+    //aqui
     public void idioma_boton() {
         Fragment idioma = new IdiomaFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(idioma)
-                .replace(R.id.contenedor, idioma, "SETTINGS")
+                .replace(R.id.contenedor, idioma, "DESTINO_AJUSTES")
                 .commit();
     }
 
 
     public void foro_incidencia_boton(int IdInc, boolean esDeIncidencia) {
+        InformacionUsuario.getInstance().setLevelComment(0);
         Fragment foro = new VentanaForo(IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(foro)
-                .replace(R.id.contenedor, foro, "FORO")
+                .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
                 .commit();
     }
 
     public void foro_comentario_boton(int IdCom, int IdInc, boolean esDeIncidencia) {
+        InformacionUsuario.getInstance().incLevelComm();
         Fragment foro = new VentanaForo(IdCom, IdInc, esDeIncidencia);
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(foro)
-                .replace(R.id.contenedor, foro, "FORO")
+                .replace(R.id.contenedor, foro, "DESTINO_FORO")
                 .commit();
     }
 
 
+
+    //aqui
     public void admin_func(Fragment f) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
+                .replace(R.id.contenedor, f, "DESTINO_ADMIN")
                 .commit();
     }
-    
+
+
+    //aqui
+    public void modo_admin() {
+        Fragment f = new VentanaAdminFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                .commit();
+    }
+
+
+    //aqui
     public void catastrofe_func(Fragment catastrofe) { //se le podria hacer un rebrand
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(catastrofe)
-                .replace(R.id.contenedor, catastrofe, "CATASTROFE")
+                .replace(R.id.contenedor, catastrofe, "DESTINO_CONSEJOS")
                 .commit();
     }
 
@@ -217,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         InformacionUsuario.getInstance().SetInformacion(latitud1, longitud1, latitud2, longitud2, radio, gravedad, admin);
 
-                        Log.d("a", String.valueOf(response));
+                        //Log.d("a", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener() {
@@ -233,24 +252,69 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragCatastrofe = fm.findFragmentByTag("CATASTROFE");
-        if (fragCatastrofe != null && fragCatastrofe.isVisible()) {
+        Fragment frag = fm.findFragmentByTag("DESTINO_CONSEJOS");
+        if (frag != null && frag.isVisible()) {
             View v = findViewById(R.id.navigation_info);
             v.callOnClick();
-        } else {
-            Fragment fragMaps = fm.findFragmentByTag("MAPS");
-            if (fragMaps != null && fragMaps.isVisible()) {
-                moveTaskToBack(true);
-            } else {
-                Fragment fragPerfil = fm.findFragmentByTag("SETTINGS");
-                if (fragPerfil != null && fragPerfil.isVisible()) {
-                    View v = findViewById(R.id.navigation_settings);
-                    v.callOnClick();
-                } else {
-                    View v = findViewById(R.id.navigation_home);
-                    v.callOnClick();
-                }
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_BACKGROUND");
+        if (frag != null && frag.isVisible()) {
+            moveTaskToBack(true);
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_AJUSTES");
+        if (frag != null && frag.isVisible()) {
+            View v = findViewById(R.id.navigation_settings);
+            v.callOnClick();
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_INCIDENCIA");
+        if(frag != null && frag.isVisible()) {
+		Fragment f = new VentanaIncidencia();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, f)
+                        .commit();
+        }
+        frag = fm.findFragmentByTag("DESTINO_MAPA");
+        if (frag != null && frag.isVisible()) {
+            View v = findViewById(R.id.navigation_home);
+            v.callOnClick();
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_FORO");
+        if (frag != null && frag.isVisible()) {
+            int IdInc = Integer.parseInt(InformacionUsuario.getInstance().IDIncidenciaActual);
+            if (InformacionUsuario.getInstance().getLevelComment() <= 1) {
+                InformacionUsuario.getInstance().decLevelComm();
+                Fragment foro = new VentanaForo(IdInc, true);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(foro)
+                        .replace(R.id.contenedor, foro, "DESTINO_INCIDENCIA")
+                        .commit();
             }
+            else {
+                InformacionUsuario.getInstance().decLevelComm();
+                int IdCom = InformacionUsuario.getInstance().getTopStackCommentsID();
+                Fragment foro = new VentanaForo(IdCom, IdInc, false);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(foro)
+                        .replace(R.id.contenedor, foro, "DESTINO_FORO")
+                        .commit();
+            }
+            return;
+        }
+        frag = fm.findFragmentByTag("DESTINO_ADMIN");
+        if (frag != null && frag.isVisible()) {
+            Fragment f = new VentanaAdminFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contenedor, f, "DESTINO_AJUSTES")
+                    .commit();
+            return;
         }
     }
 
@@ -262,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, fragment, "MAPS")
+                            .replace(R.id.contenedor, fragment, "DESTINO_BACKGROUND")
                             .commit();
                     break;
                 case R.id.navigation_call:
@@ -270,33 +334,26 @@ public class MainActivity extends AppCompatActivity {
                     f = new LlamaditaFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, f, "DESTINO_MAPA")
                             .commit();
                     break;
                 case R.id.navigation_info:
                     f = new Info_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, f, "DESTINO_MAPA")
                             .commit();
                     break;
                 case R.id.navigation_settings:
                     f = new Settings_Fragment();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.contenedor, f)
+                            .replace(R.id.contenedor, f, "DESTINO_MAPA")
                             .commit();
                     break;
             }
             return true;
         }
     };
-
-    public void modo_admin() {
-        Fragment f = new VentanaAdminFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contenedor, f, "SETTINGS")
-                .commit();
-    }
 }
+

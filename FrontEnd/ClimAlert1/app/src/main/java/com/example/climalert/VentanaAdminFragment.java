@@ -13,6 +13,7 @@ import com.example.climalert.CosasDeTeo.InformacionUsuario;
 import com.example.climalert.ui.admin.GestionarRefugiosFragment;
 import com.example.climalert.ui.admin.GestionarUsuariosFragment;
 import com.example.climalert.ui.admin.ValidarIncidenciasFragment;
+import com.example.climalert.ui.admin.incidenciasActualesFragment;
 import com.google.android.material.slider.Slider;
 
 public class VentanaAdminFragment extends Fragment implements View.OnClickListener {
@@ -32,6 +33,9 @@ public class VentanaAdminFragment extends Fragment implements View.OnClickListen
         gestionar_usuarios.setOnClickListener(this);
         Button validar_incidencias = (Button) view.findViewById(R.id.validar_incidencias_button);
         validar_incidencias.setOnClickListener(this);
+        Button incidencias_actuales = (Button) view.findViewById(R.id.incidencias_actuales_button);
+        incidencias_actuales.setVisibility(View.GONE);
+        incidencias_actuales.setOnClickListener(this);
         return view;
     }
 
@@ -52,6 +56,10 @@ public class VentanaAdminFragment extends Fragment implements View.OnClickListen
             case R.id.validar_incidencias_button:
                 main = (MainActivity) getActivity();
                 main.admin_func(new ValidarIncidenciasFragment());
+                break;
+            case R.id.incidencias_actuales_button:
+                main = (MainActivity) getActivity();
+                main.admin_func(new incidenciasActualesFragment());
                 break;
         }
 

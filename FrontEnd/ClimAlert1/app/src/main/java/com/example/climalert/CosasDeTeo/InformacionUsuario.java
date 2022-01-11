@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Stack;
 import java.util.Vector;
 
 //import com.example.climalert.MapsFragment;
@@ -32,7 +33,9 @@ public class InformacionUsuario {
     public String email;
     public String password;
     public String IDIncidenciaActual;
-    public String CommentResponseID;
+    public int CommentResponseID;
+    public Stack<Integer> StackCommentsID = new Stack<>();
+    public int levelComment;
     public float latitudactual;
     public float longitudactual;
     public float latitud1;
@@ -53,7 +56,6 @@ public class InformacionUsuario {
 
     public void SetInformacion(float la1, float lo1, float la2, float lo2, int re, int g, boolean admin_app){
          IDIncidenciaActual = "";
-         CommentResponseID = "";
          latitud1 = la1;
          longitud1 = lo1;
          latitud2 =la2;
@@ -61,6 +63,7 @@ public class InformacionUsuario {
          radioEfecto = re;
          gravedad = g;
          admin = admin_app;
+         levelComment = 0;
     }
     public void SetLocalizaciones(float la1, float lo1, float la2, float lo2){
         latitud1 = la1;
@@ -95,9 +98,40 @@ public class InformacionUsuario {
         handler.postDelayed(runnable, milliseconds);
     }*/
 
+    public void setCommentResponseID(int commentResponseID) {
+        CommentResponseID = commentResponseID;
+    }
+
+    public int getCommentResponseID() {
+        return CommentResponseID;
+    }
+
+    public Integer getTopStackCommentsID() {
+        return StackCommentsID.pop();
+    }
+
+    public void pushStackCommentsID(Integer CommentID) {
+        StackCommentsID.push(CommentID);
+    }
+
+    public int getLevelComment() {
+        return levelComment;
+    }
+
+    public void setLevelComment(int levelComment) {
+        this.levelComment = levelComment;
+    }
+
+    public void incLevelComm() {
+        levelComment += 1;
+    }
+
+    public void decLevelComm() {
+        levelComment -= 1;
+    }
+
     public void getLocalizacionesSecundarias(){
 
-        Log.d("secun", "getlocsecun");
         RequestQueue queue = Volley.newRequestQueue(activity);
         String url = "https://climalert.herokuapp.com/usuarios/" +InformacionUsuario.getInstance().email+ "/filtro";
         JSONObject mapa = new JSONObject();
@@ -111,7 +145,6 @@ public class InformacionUsuario {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("secun", "getlocsecun onresponse");
 
                         float latitud1 = 0;
                         float longitud1 = 0;
@@ -134,19 +167,16 @@ public class InformacionUsuario {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("secun", "getlocsecun onexception" + e);
 
                         }
                         InformacionUsuario.getInstance().SetLocalizaciones(latitud1, longitud1, latitud2, longitud2);
 
-                      //  Log.d("a", String.valueOf(response));
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Log.d("secun", "getlocsecun error" + error);
                     }
 
                 }) {
@@ -184,8 +214,9 @@ public class InformacionUsuario {
                                 JSONObject incidenciaFenomeno = Notificacion.getJSONObject("incidenciaFenomeno");
                                 JSONArray IndicacionIncidencia = Notificacion.getJSONArray("indicacionIncidencia");
                                 String fecha =  incidenciaFenomeno.getString("fecha");
+                                String hora =  incidenciaFenomeno.getString("hora");
                                 Vector<String> indicaciones =  new Vector<String>();
-                                for(int j= 0; j <  IndicacionIncidencia.length(); ++j) {
+                                for(int j = 0; j <  IndicacionIncidencia.length(); ++j) {
                                     indicaciones.add(IndicacionIncidencia.getString(j));
                                 }
                                 JSONObject incidencia = incidenciaFenomeno.getJSONObject("incidencia");
@@ -195,12 +226,13 @@ public class InformacionUsuario {
                                 Float latitud = Float.parseFloat(localizacion.getString("latitud"));
                                 Float longitud = Float.parseFloat(localizacion.getString("longitud"));
                                 JSONObject femomenoMeteo = incidenciaFenomeno.getJSONObject("fenomenoMeteo");
+                                String fuente = incidenciaFenomeno.getString("creador");
+                                Float medida = Float.parseFloat(incidenciaFenomeno.getString("medida"));
                                 String nombre = femomenoMeteo.getString("nombre");
                                 String descripcion = femomenoMeteo.getString("descripcion");
-                                Notificacion n = new Notificacion(fecha, radio, latitud, longitud, nombre, descripcion, id);
+                                Notificacion n = new Notificacion(fecha,hora,fuente ,radio, latitud, longitud, nombre, descripcion, id, medida);
                                 aPintar.add(n);
                             }
-                            //Log.d("asd", "onResponse: ");
                             Vector<Notificacion>aux =  new Vector<Notificacion>();
                             for(int i = 0; i < actual.size(); ++i)
                             {
@@ -241,11 +273,9 @@ public class InformacionUsuario {
                             for(int i = 0; i < aux.size(); ++i){
                             //    aPintar.removeElementAt(aux.get(i));
                                 aPintar.removeElement(aux.get(i));
-                               // Log.d("asdasdasdasdadsa", String.valueOf(aux.get(i)));
                               //  aPintar.remove()
                             }
                             actual.addAll(aPintar);
-                            Log.d("asd", "onResponse: ");
                             /*
                             for(todas){
                                 if(! esta en pintar)
@@ -263,10 +293,6 @@ public class InformacionUsuario {
                             a todas le meto pintar, concat
 
                             */
-
-                            Log.d("bernat", "Actual " + String.valueOf(InformacionUsuario.getInstance().actual.size()));
-                            Log.d("bernat", "Pintar " + String.valueOf(InformacionUsuario.getInstance().aPintar.size()));
-                            Log.d("bernat", "Borrar " + String.valueOf(InformacionUsuario.getInstance().aBorrar.size()));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -299,8 +325,12 @@ public class InformacionUsuario {
             }
         }
     }
+
     public void setActivity(Activity a){
         activity = a;
+    }
 
+    public void setAdmin(Boolean b){
+        admin = b;
     }
 }

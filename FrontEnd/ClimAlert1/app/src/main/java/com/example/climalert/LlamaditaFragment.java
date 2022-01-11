@@ -1,6 +1,8 @@
 package com.example.climalert;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -37,6 +39,7 @@ import com.example.climalert.ui.catastrofes.Tormenta_Electrica_Fragment;
 import com.example.climalert.ui.catastrofes.Tormenta_Invernal_Fragment;
 import com.example.climalert.ui.catastrofes.Tornado_Fragment;
 import com.example.climalert.ui.catastrofes.Tsunami_Fragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +55,9 @@ import java.util.Locale;
  * create an instance of this fragment.
  */
 public class LlamaditaFragment extends Fragment {
+
+    AlertDialog alert = null;
+    Boolean banned = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,6 +107,7 @@ public class LlamaditaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.formulario, container, false);
+        getUsuario(InformacionUsuario.getInstance().email);
 
         mSpinner = (Spinner) view.findViewById(R.id.mSpinner);
         ArrayList<String> incidencias = new ArrayList<String>();
@@ -150,74 +157,132 @@ public class LlamaditaFragment extends Fragment {
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-                Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
-                int position = mSpinner.getSelectedItemPosition();
-                MainActivity main;
-                Fragment catastrofeFragment = null;
-                switch (position) {
-                    case 0:
-                        spinnerres = getString(R.string.text_calor_extremo);
-                        catastrofeFragment = new Calor_Extremo_Fragment();
-                        break;
-                    case 1:
-                        spinnerres = getString(R.string.text_granizo);
-                        catastrofeFragment = new Granizo_Fragment();
-                        break;
-                    case 2:
-                        spinnerres = getString(R.string.text_tormenta_invernal);
-                        catastrofeFragment = new Tormenta_Invernal_Fragment();
-                        break;
-                    case 3:
-                        spinnerres = getString(R.string.text_tornado);
-                        catastrofeFragment = new Tornado_Fragment();
-                        break;
-                    case 4:
-                        spinnerres = getString(R.string.text_inundacion);
-                        catastrofeFragment = new Inundacion_Fragment();
-                        break;
-                    case 5:
-                        spinnerres = getString(R.string.text_incendio_forestal);
-                        catastrofeFragment = new Incendio_Forestal_Fragment();
-                        break;
-                    case 6:
-                        spinnerres = getString(R.string.text_terremoto);
-                        catastrofeFragment = new Terremoto_Fragment();
-                        break;
-                    case 7:
-                        spinnerres = getString(R.string.text_tsunami);
-                        catastrofeFragment = new Tsunami_Fragment();
-                        break;
-                    case 8:
-                        spinnerres = getString(R.string.text_avalancha);
-                        catastrofeFragment = new Avalancha_Fragment();
-                        break;
-                    case 9:
-                        spinnerres = getString(R.string.text_lluvia_acida);
-                        catastrofeFragment = new Lluvia_Acida_Fragment();
-                        break;
-                    case 10:
-                        spinnerres = getString(R.string.text_erupcion_volcanica);
-                        catastrofeFragment = new Erupcion_Volcanica_Fragment();
-                        break;
-                    case 11:
-                        spinnerres = getString(R.string.text_gota_fria);
-                        catastrofeFragment = new Gota_Fria_Fragment();
-                        break;
-                    case 12:
-                        spinnerres = getString(R.string.text_tormenta_electrica);
-                        catastrofeFragment = new Tormenta_Electrica_Fragment();
-                        break;
+                if(banned) Alert(0);
+                else if(InformacionUsuario.getInstance().latitudactual == 0) Alert(1);
+                else {
+                    Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
+                    Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
+                    int position = mSpinner.getSelectedItemPosition();
+                    MainActivity main;
+                    Fragment catastrofeFragment = null;
+                    switch (position) {
+                        case 0:
+                            spinnerres = getString(R.string.text_calor_extremo);
+                            catastrofeFragment = new Calor_Extremo_Fragment();
+                            break;
+                        case 1:
+                            spinnerres = getString(R.string.text_granizo);
+                            catastrofeFragment = new Granizo_Fragment();
+                            break;
+                        case 2:
+                            spinnerres = getString(R.string.text_tormenta_invernal);
+                            catastrofeFragment = new Tormenta_Invernal_Fragment();
+                            break;
+                        case 3:
+                            spinnerres = getString(R.string.text_tornado);
+                            catastrofeFragment = new Tornado_Fragment();
+                            break;
+                        case 4:
+                            spinnerres = getString(R.string.text_inundacion);
+                            catastrofeFragment = new Inundacion_Fragment();
+                            break;
+                        case 5:
+                            spinnerres = getString(R.string.text_incendio_forestal);
+                            catastrofeFragment = new Incendio_Forestal_Fragment();
+                            break;
+                        case 6:
+                            spinnerres = getString(R.string.text_terremoto);
+                            catastrofeFragment = new Terremoto_Fragment();
+                            break;
+                        case 7:
+                            spinnerres = getString(R.string.text_tsunami);
+                            catastrofeFragment = new Tsunami_Fragment();
+                            break;
+                        case 8:
+                            spinnerres = getString(R.string.text_avalancha);
+                            catastrofeFragment = new Avalancha_Fragment();
+                            break;
+                        case 9:
+                            spinnerres = getString(R.string.text_lluvia_acida);
+                            catastrofeFragment = new Lluvia_Acida_Fragment();
+                            break;
+                        case 10:
+                            spinnerres = getString(R.string.text_erupcion_volcanica);
+                            catastrofeFragment = new Erupcion_Volcanica_Fragment();
+                            break;
+                        case 11:
+                            spinnerres = getString(R.string.text_gota_fria);
+                            catastrofeFragment = new Gota_Fria_Fragment();
+                            break;
+                        case 12:
+                            spinnerres = getString(R.string.text_tormenta_electrica);
+                            catastrofeFragment = new Tormenta_Electrica_Fragment();
+                            break;
+                    }
+                    dar_incidencia();
+                    main = (MainActivity) getActivity();
+                    main.catastrofe_func(catastrofeFragment);
                 }
-                dar_incidencia();
-                main = (MainActivity) getActivity();
-                main.catastrofe_func(catastrofeFragment);
                 //Intent CambiarVentana = new Intent(getActivity(), MapsFragment.class);
                 //startActivity(CambiarVentana);
             }
         });
         return view;
     }
+
+    private void getUsuario(String email){
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = "https://climalert.herokuapp.com/usuarios/" + email;
+        // Request a string response from the provided URL.
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            banned = Boolean.parseBoolean(response.getString("banned"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                })
+                ;
+        queue.add(request);
+    }
+
+    private void Alert(int i) {
+        if(i == 0) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Usuario baneado")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        }
+                    });
+
+            alert = builder.create();
+            alert.show();
+        }
+        if(i == 1) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Localizacion no activada")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        }
+                    });
+            alert = builder.create();
+            alert.show();
+        }
+    }
+
+
 
     public void dar_incidencia() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());

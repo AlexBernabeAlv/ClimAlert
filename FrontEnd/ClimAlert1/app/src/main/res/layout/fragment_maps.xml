@@ -16,6 +16,28 @@
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="20dp" />
 
+    <ImageButton
+        android:id="@+id/botonbuscador"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/ic_baseline_search_24" />
+
+    <EditText
+        android:id="@+id/textoObj"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="110dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/botonbuscador"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        android:textColorHint="#a9a9a9"
+        android:hint="@string/hintobjeto"
+        android:background="@color/white" />
 
 
 </RelativeLayout>

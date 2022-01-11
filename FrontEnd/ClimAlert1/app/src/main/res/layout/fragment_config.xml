@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/boton_perfil"
+            android:text="@string/ajutes_boton_perfil"
             android:backgroundTint="#FF9800"/>
 
         <Button
@@ -30,7 +30,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_below="@id/perfil_usuario"
-            android:text="@string/boton_idioma"
+            android:text="@string/ajustes_boton_idioma"
+            android:backgroundTint="#FF9800"/>
+
+        <Button
+            android:id="@+id/admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@id/idioma"
+            android:text="@string/ajustes_boton_admin"
             android:backgroundTint="#FF9800"/>
 
     </RelativeLayout>

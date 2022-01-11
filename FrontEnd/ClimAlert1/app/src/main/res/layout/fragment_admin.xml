@@ -10,9 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Validar Incidencias"
+        android:text="@string/admin_validar_incidencias_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:backgroundTint="#FF9800"/>
+
+    <Button
+        android:id="@+id/incidencias_actuales_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/admin_validar_incidencias_actuales_button"
+        android:layout_below="@id/validar_incidencias_button"
         android:backgroundTint="#FF9800"/>
 
     <Button
@@ -20,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Gestionar Usuarios"
-        android:layout_below="@id/validar_incidencias_button"
+        android:text="@string/admin_gestionar_usuarios_button"
+        android:layout_below="@id/incidencias_actuales_button"
         android:backgroundTint="#FF9800"/>
 
     <Button
@@ -30,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_below="@id/gestionar_usuarios_button"
-        android:text="Gestionar Refugios"
+        android:text="@string/admin_gestionar_refugios_button"
         android:backgroundTint="#FF9800"/>
 
 </RelativeLayout>

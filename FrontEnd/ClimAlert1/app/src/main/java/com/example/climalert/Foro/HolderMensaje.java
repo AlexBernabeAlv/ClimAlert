@@ -128,6 +128,12 @@ public class HolderMensaje extends RecyclerView.ViewHolder implements View.OnCli
         MainActivity main;
         switch (v.getId()) {
             case R.id.btnVerComentario:
+                if (InformacionUsuario.getInstance().getLevelComment() > 0) {
+                    Integer prevComm = InformacionUsuario.getInstance().getCommentResponseID();
+                    Log.d("pushstack", "prevComm es " + prevComm);
+                    InformacionUsuario.getInstance().pushStackCommentsID(prevComm);
+                }
+                InformacionUsuario.getInstance().setCommentResponseID(id);
                 Log.d("prueba", "entra en el boton");
                 main = (MainActivity) c;
                 main.foro_comentario_boton(id, idInc, false);
