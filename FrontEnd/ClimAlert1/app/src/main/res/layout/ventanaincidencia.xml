@@ -20,6 +20,13 @@
         android:orientation="vertical"
         android:layout_below="@+id/titulo">
         <TextView
+        android:id="@+id/descripcion_incidencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:hint="Descripción: ERROR" />
+        <TextView
             android:id="@+id/fecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
