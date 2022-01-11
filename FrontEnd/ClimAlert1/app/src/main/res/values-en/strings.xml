@@ -95,19 +95,19 @@
     <string name="unidad_gota_fria">mm</string>
     <string name="unidad_tormenta_electrica">Kelvin of brightness</string>
 
-    <string name="incidencia_desc_calor_extremo">Altas temperaturas que pueden causar deshidratación y desmayos, sobretodo en gente mayor.</string>
-    <string name="incidencia_desc_granizo">Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.</string>
-    <string name="incidencia_desc_tormenta_invernal">Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.</string>
-    <string name="incidencia_desc_tornado">Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.</string>
-    <string name="incidencia_desc_inundacion">Ocupación por parte del agua de zonas que habitualmente están libres de ésta, por desbordamiento de ríos, torrentes o ramblas, o por lluvias torrenciales, deshielo, maremotos o huracanes, entre otros.</string>
-    <string name="incidencia_desc_incendio_forestal">Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.</string>
-    <string name="incidencia_desc_terremoto">Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.</string>
-    <string name="incidencia_desc_tsunami">Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc.</string>
-    <string name="incidencia_desc_avalancha">Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.</string>
-    <string name="incidencia_desc_lluvia_acida">Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.</string>
-    <string name="incidencia_desc_erupcion_volcanica">Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.</string>
-    <string name="incidencia_desc_gota_fria">Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.</string>
-    <string name="incidencia_desc_tormenta_electrica">Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.</string>
+    <string name="incidencia_desc_calor_extremo">High temperatures can cause dehydration and fainting, especially in older people.</string>
+    <string name="incidencia_desc_granizo">Solid precipitation that is composed of irregular balls or lumps of ice, each of which is referred to as a hailstone.</string>
+    <string name="incidencia_desc_tormenta_invernal">Events dominated by precipitation formed at low temperatures as snow or freezing rain. They may last several days and be accompanied by strong winds and extremely cold temperatures.</string>
+    <string name="incidencia_desc_tornado">A column of air with high angular velocity whose tip is touching the Earth. It is the most energy-dense cyclonic atmospheric phenomenon on Earth.</string>
+    <string name="incidencia_desc_inundacion">Occupation by water of areas that are usually free of water, due to the overflowing of rivers, torrents or wadis, or due to torrential rains, snowmelt, tidal waves or hurricanes, among others.</string>
+    <string name="incidencia_desc_incendio_forestal">An uncontrolled fire occurrence that can affect or scorch something that is not intended to burn. It can affect structures and living things.</string>
+    <string name="incidencia_desc_terremoto">An abrupt and transient shaking of the earth\'s crust caused by the release of accumulated energy in the form of seismic waves. The most common are produced by the activity of geological faults.</string>
+    <string name="incidencia_desc_tsunami">Event produced when a large mass of water is displaced by some extraordinary phenomenon, such as an earthquake, volcanic eruption, glacial ice slides, meteorite impact, etc.</string>
+    <string name="incidencia_desc_avalancha">Displacement of a layer of snow in a slope area that moves downslope with variable speed. Part of the substrate and vegetation cover of the slope may be incorporated.</string>
+    <string name="incidencia_desc_lluvia_acida">Rainfall formed when moisture in the air combines with nitrogen oxides, sulfur dioxide or sulfur trioxide emitted from the consumption of sulfur-containing oil.</string>
+    <string name="incidencia_desc_erupcion_volcanica">A geological phenomenon characterized by the violent emission of lava and/or tephra accompanied by volcanic gases on the earth\'s surface by a volcano.</string>
+    <string name="incidencia_desc_gota_fria">High impact rainfall event during autumn across the western Mediterranean and may be analogous to the French Cevenol Episode or Mediterranean Episode.</string>
+    <string name="incidencia_desc_tormenta_electrica">Meteorological phenomenon associated with the vertical development of cloudiness accompanied by electrical discharges or lightning and, usually, precipitation and intense gusts of wind on the surface.</string>
 
     <string name="consejos_desc_calor_extremo">Extreme heat is defined as much higher summer temperatures or
         much more humid conditions than average. This extreme heat can cause heat stroke,
