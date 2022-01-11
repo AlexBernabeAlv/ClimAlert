@@ -107,7 +107,8 @@ public class MapsFragment extends Fragment {
     boolean localizacionespuestas = false;
     public Marker markerActual;
     Button Buscador;
-    boolean buscador_pulsado = false;
+    boolean buscador_objeto = false;
+    boolean buscar_objeto = false;
     EditText textoObjeto;
     Button Buscar;
 
@@ -214,17 +215,24 @@ public class MapsFragment extends Fragment {
         Buscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(buscador_pulsado){
-                    buscador_pulsado = false;
-                    textoObjeto.setText("");
-                    textoObjeto.setVisibility(View.INVISIBLE);
-                    Buscar.setVisibility(View.INVISIBLE);
+                if(buscador_objeto && buscar_objeto){
+                    buscar_objeto = false;
+                    buscador_objeto =  false;
+                    //textoObjeto.setText("");
+                    //textoObjeto.setVisibility(View.INVISIBLE);
+                    //Buscar.setVisibility(View.INVISIBLE);
                     limpiar_objetos();
                 }
+                else if (buscador_objeto){
+                    buscar_objeto = true;
+                    formeforu();
+                    textoObjeto.setText("");
+                    textoObjeto.setVisibility(View.INVISIBLE);
+                    //Buscar.setVisibility(View.VISIBLE);
+                }
                 else {
-                    buscador_pulsado = true;
                     textoObjeto.setVisibility(View.VISIBLE);
-                    Buscar.setVisibility(View.VISIBLE);
+                    buscador_objeto =  true;
                 }
             }
         });
