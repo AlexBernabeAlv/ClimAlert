@@ -59,7 +59,7 @@
     <string name= "text_passw"> Contrasenya: </string>
     <string name= "text_rad"> Radi: </string>
     <string name= "text_add"> Afegir </string>
-    <string name= "hintobjeto"><i>Nom de l\'objecte</i></string>
+    <string name= "hintobjeto"><i>Cerca "nutria" o "Test"</i></string>
 
     <string name= "nombre_refugio"> Nom: </string>
     <string name= "latitud_refugio"> Latitud: </string>
