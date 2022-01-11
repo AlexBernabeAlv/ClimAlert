@@ -201,7 +201,7 @@
 
     <string name="consejos_desc_terremoto">Un terratrèmol és un tremolor sobtat i ràpid del sòl ocasionat pel desplaçament de roques subterrànies molt per sota de la superfície de la terra. Els terratrèmols poden causar incendis, tsunamis, lliscaments de terra o allaus.\n
         <b>\nPrevenció\n</b>
-        <li>Elaborar un pla d\'emergència.</li>
+        <li>Elaborar un pla d\'emergència.\n</li>
         <li>Tenir un kit de subministrament amb suficients aliments i aigua per a durar diversos dies, una llanterna, un extintor d\'incendis, i un xiulet.\n</li>
         <li>Subjectar de manera ferma els articles pesats de la llar, com a prestatgeries, refrigeradors, televisors, etc.\n</li>
         <li>Guardar els objectes pesats i fràgils en els prestatges baixos.\n</li>
@@ -283,7 +283,7 @@
         <li>Allunya\'t de llocs on estiguis sol o hi hagi arbres a prop. És recomanable tornar a casa o buscar un refugi si estàs lluny.\n</li>
         <b>\nQuè fer\n</b>
         <li>Informa\'t dels comunicats meteorològics.\n</li>
-        <li>En cas de riuada, localitza els punts més alts i/o estableix-te en un lloc que no sigui susceptible d\'inundacions.</li>
+        <li>En cas de riuada, localitza els punts més alts i/o estableix-te en un lloc que no sigui susceptible d\'inundacions.\n</li>
         <li>Allunya\'t de llocs amb barrancs, torrents i dels seus ponts.\n</li>
         <li>No creuis per trams inundats, la força del corrent et pot arrossegar. En el cas que et trobis en un amb el teu cotxe, el més important és abandonar l\'automòbil i buscar un terreny més elevat.\n</li>
     </string>
