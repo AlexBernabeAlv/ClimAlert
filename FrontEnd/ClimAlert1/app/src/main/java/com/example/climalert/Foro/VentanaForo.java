@@ -49,6 +49,7 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
     private RecyclerView rvMensajes;
     private EditText txtMensaje;
     private Button btnEnviar;
+    private String nombrefenomeno;
 
     AlertDialog alert = null;
     Boolean banned = false;
@@ -111,7 +112,12 @@ public class VentanaForo extends Fragment implements View.OnClickListener {
         String u = InformacionUsuario.getInstance().email;
         int pos = u.indexOf("@");
         u = u.substring(0, pos);
-        nombreUs.setText(u);
+        for (int i = 0; i < InformacionUsuario.getInstance().actual.size(); ++i) {
+            if (IdInc == InformacionUsuario.getInstance().actual.get(i).identificador) {
+                nombrefenomeno = InformacionUsuario.getInstance().actual.get(i).nombre;
+            }
+        }
+        nombreUs.setText(nombrefenomeno);
         getUsuario(InformacionUsuario.getInstance().email);
 
         if (foroDeInc) obtener_comentarios_incidencia();
