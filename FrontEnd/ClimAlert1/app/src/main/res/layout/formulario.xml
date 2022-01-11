@@ -27,13 +27,6 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="45dp"
         />
-    <EditText
-        android:id="@+id/editDescripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:hint="@string/sos_hint_descripcion"
-        android:inputType="text"/>
     <Button
         android:id="@+id/btnAceptar"
         android:layout_width="match_parent"

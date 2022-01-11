@@ -137,7 +137,6 @@ public class LlamaditaFragment extends Fragment {
                 incidencias);
         mSpinner.setAdapter(adp);
         //on click spinner con variable
-        //descripcion = (EditText) view.findViewById(R.id.editDescripcion);
         aceptar = (Button) view.findViewById(R.id.btnAceptar);
         SOS = (Button) view.findViewById(R.id.btnSOS);
         SOS.setOnClickListener(new View.OnClickListener() {
