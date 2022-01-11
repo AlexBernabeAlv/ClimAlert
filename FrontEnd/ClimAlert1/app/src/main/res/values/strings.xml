@@ -21,40 +21,6 @@
     <string name="text_gota_fria">Gota fría</string>
     <string name="text_tormenta_electrica">Tormenta eléctrica</string>
 
-    <string name="incidencia_etiqueta_fuente">Fuente: </string>
-    <string name="incidencia_etiqueta_fecha">Fecha: </string>
-    <string name="incidencia_fecha_no_disponible">Fecha no disponible</string>
-    <string name="incidencia_boton_info_fenomeno">Sobre el fenómeno</string>
-    <string name="incidencia_boton_foro">Foro</string>
-
-    <string name="unidad_calor_extremo">ºC de temperatura</string>
-    <string name="unidad_granizo">mm</string>
-    <string name="unidad_tormenta_invernal">mm</string>
-    <string name="unidad_tornado">km/h</string>
-    <string name="unidad_inundacion">mm</string>
-    <string name="unidad_incendio_forestal">Kelvin de brillo</string>
-    <string name="unidad_terremoto">de magnitud</string>
-    <string name="unidad_tsunami">mm</string>
-    <string name="unidad_avalancha">mm</string>
-    <string name="unidad_lluvia_acida">mm</string>
-    <string name="unidad_erupcion_volcanica">Kelvin de brillo</string>
-    <string name="unidad_gota_fria">mm</string>
-    <string name="unidad_tormenta_electrica">Kelvin de brillo</string>
-
-    <string name="incidencia_desc_calor_extremo">Altas temperaturas que pueden causar deshidratación y desmayos, sobretodo en gente mayor.</string>
-    <string name="incidencia_desc_granizo">Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.</string>
-    <string name="incidencia_desc_tormenta_invernal">Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.</string>
-    <string name="incidencia_desc_tornado">Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.</string>
-    <string name="incidencia_desc_inundacion">Ocupación por parte del agua de zonas que habitualmente están libres de ésta, por desbordamiento de ríos, torrentes o ramblas, o por lluvias torrenciales, deshielo, maremotos o huracanes, entre otros.</string>
-    <string name="incidencia_desc_incendio_forestal">Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.</string>
-    <string name="incidencia_desc_terremoto">Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.</string>
-    <string name="incidencia_desc_tsunami">Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc.</string>
-    <string name="incidencia_desc_avalancha">Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.</string>
-    <string name="incidencia_desc_lluvia_acida">Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.</string>
-    <string name="incidencia_desc_erupcion_volcanica">Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.</string>
-    <string name="incidencia_desc_gota_fria">Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.</string>
-    <string name="incidencia_desc_tormenta_electrica">Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.</string>
-
     <string name="map_ubicacion_usuario">Ubicación del usuario</string>
     <string name="map_ubicacion_actual">UBICACIÓN ACTUAL</string>
     <string name="map_refugio">Refugio</string>
@@ -106,6 +72,39 @@
 
 
 
+    <string name="incidencia_etiqueta_fuente">Fuente: </string>
+    <string name="incidencia_etiqueta_fecha">Fecha: </string>
+    <string name="incidencia_fecha_no_disponible">Fecha no disponible</string>
+    <string name="incidencia_boton_info_fenomeno">Sobre el fenómeno</string>
+    <string name="incidencia_boton_foro">Foro</string>
+
+    <string name="unidad_calor_extremo">ºC de temperatura</string>
+    <string name="unidad_granizo">mm</string>
+    <string name="unidad_tormenta_invernal">mm</string>
+    <string name="unidad_tornado">km/h</string>
+    <string name="unidad_inundacion">mm</string>
+    <string name="unidad_incendio_forestal">Kelvin de brillo</string>
+    <string name="unidad_terremoto">de magnitud</string>
+    <string name="unidad_tsunami">mm</string>
+    <string name="unidad_avalancha">mm</string>
+    <string name="unidad_lluvia_acida">mm</string>
+    <string name="unidad_erupcion_volcanica">Kelvin de brillo</string>
+    <string name="unidad_gota_fria">mm</string>
+    <string name="unidad_tormenta_electrica">Kelvin de brillo</string>
+
+    <string name="incidencia_desc_calor_extremo">Altas temperaturas que pueden causar deshidratación y desmayos, sobretodo en gente mayor.</string>
+    <string name="incidencia_desc_granizo">Precipitación sólida que se compone de bolas o grumos irregulares de hielo, cada uno de los cuales se refiere como una piedra de granizo.</string>
+    <string name="incidencia_desc_tormenta_invernal">Eventos dominados por precipitación formada a bajas temperaturas como nieve o lluvia congelada. Pueden durar varios días y estar acompañadas de fuertes vientos y temperaturas extremadamente frías.</string>
+    <string name="incidencia_desc_tornado">Columna de aire con alta velocidad angular cuyo extremo está tocando la Tierra. Se trata del fenómeno atmosférico ciclónico de mayor densidad energética de la Tierra.</string>
+    <string name="incidencia_desc_inundacion">Ocupación por parte del agua de zonas que habitualmente están libres de ésta, por desbordamiento de ríos, torrentes o ramblas, o por lluvias torrenciales, deshielo, maremotos o huracanes, entre otros.</string>
+    <string name="incidencia_desc_incendio_forestal">Ocurrencia de fuego no controlada que puede afectar o abrasar algo que no está destinado a quemarse. Puede afectar a estructuras y a seres vivos.</string>
+    <string name="incidencia_desc_terremoto">Sacudida brusca y pasajera de la corteza terrestre producida por la liberación de energía acumulada en forma de ondas sísmicas. Los más comunes se producen por la actividad de fallas geológicas.</string>
+    <string name="incidencia_desc_tsunami">Evento producido cuando se desplaza una gran masa de agua por algún fenómeno extraordinario, como un terremoto, erupción volcánica, desprendimientos de hielo glaciar, impacto de meteoritos, etc.</string>
+    <string name="incidencia_desc_avalancha">Desplazamiento de una capa de nieve en una zona en pendiente que se dirige ladera abajo con velocidad variable. Se puede incorporar parte del sustrato y de la cobertura vegetal de la pendiente.</string>
+    <string name="incidencia_desc_lluvia_acida">Lluvia formada cuando la humedad del aire se combina con óxidos de nitrógeno, dióxido de azufre o trióxido de azufre emitidos por la consumición de petróleo que contenga azufre.</string>
+    <string name="incidencia_desc_erupcion_volcanica">Fenómeno geológico caracterizado por la emisión violenta en la superficie terrestre, por un volcán, de lavas y/o tefras acompañadas de gases volcánicos.</string>
+    <string name="incidencia_desc_gota_fria">Evento de lluvia de alto impacto durante el otoño a lo largo del Mediterráneo occidental y puede ser análogo al Episodio Cevenol francés o Episodio Mediterráneo.</string>
+    <string name="incidencia_desc_tormenta_electrica">Fenómeno meteorológico asociado al desarrollo vertical de nubosidad acompañado de descargas eléctricas o rayos y, habitualmente, precipitación y rachas de viento intensas en superficie.</string>
 
     <string name="consejos_desc_calor_extremo">El calor extremo se define como temperaturas de verano mucho más altas o condiciones mucho más húmedas de las promedio. Este calor extremo puede provocar insolación, que es una enfermedad que se caracteriza por náuseas, vómitos, cefalea, calor de la piel, sopor, somnolencia, y alteración de las fibras musculares expuestas a sus efectos. Esto es causado por el hecho de que el cuerpo no tiene capacidad de enfriarse adecuadamente.\n
         <b>\nPrevención\n</b>
