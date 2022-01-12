@@ -160,8 +160,6 @@ public class LlamaditaFragment extends Fragment {
                 if(banned) Alert(0);
                 else if(InformacionUsuario.getInstance().latitudactual == 0) Alert(1);
                 else {
-                    Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-                    Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
                     position = mSpinner.getSelectedItemPosition();
                     MainActivity main;
                     Fragment catastrofeFragment = null;

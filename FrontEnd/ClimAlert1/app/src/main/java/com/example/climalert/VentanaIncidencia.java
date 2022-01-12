@@ -105,7 +105,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 Float medida = InformacionUsuario.getInstance().actual.get(i).medida;
                 String unidad = null;
                 switch(nombreFenomeno) {
-                    case "CalorExtremo":
+                    case "Calor Extremo":
                         Titulo.setText(getString(R.string.text_calor_extremo));
                         Descripcion.setText(getString(R.string.incidencia_desc_calor_extremo));
                         unidad = getString(R.string.unidad_calor_extremo);
@@ -115,7 +115,7 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                         Descripcion.setText(getString(R.string.incidencia_desc_granizo));
                         unidad = getString(R.string.unidad_granizo);
                         break;
-                    case "TormentaInvernal":
+                    case "Tormenta Invernal":
                         Titulo.setText(getString(R.string.text_tormenta_invernal));
                         Descripcion.setText(getString(R.string.incidencia_desc_tormenta_invernal));
                         unidad = getString(R.string.unidad_tormenta_invernal);
@@ -150,22 +150,22 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                         Descripcion.setText(getString(R.string.incidencia_desc_avalancha));
                         unidad = getString(R.string.unidad_avalancha);
                         break;
-                    case "LluviaAcida":
+                    case "Lluvia Acida":
                         Titulo.setText(getString(R.string.text_lluvia_acida));
                         Descripcion.setText(getString(R.string.incidencia_desc_lluvia_acida));
                         unidad = getString(R.string.unidad_lluvia_acida);
                         break;
-                    case "ErupcionVolcanica":
+                    case "Erupcion Volcanica":
                         Titulo.setText(getString(R.string.text_erupcion_volcanica));
                         Descripcion.setText(getString(R.string.incidencia_desc_erupcion_volcanica));
                         unidad = getString(R.string.unidad_erupcion_volcanica);
                         break;
-                    case "GotaFria":
+                    case "Gota Fria":
                         Titulo.setText(getString(R.string.text_gota_fria));
                         Descripcion.setText(getString(R.string.incidencia_desc_gota_fria));
                         unidad = getString(R.string.unidad_gota_fria);
                         break;
-                    case "TormentaElectrica":
+                    case "Tormenta Electrica":
                         Titulo.setText(getString(R.string.text_tormenta_electrica));
                         Descripcion.setText(getString(R.string.incidencia_desc_tormenta_electrica));
                         unidad = getString(R.string.unidad_tormenta_electrica);

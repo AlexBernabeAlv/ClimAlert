@@ -873,44 +873,44 @@ public class MapsFragment extends Fragment {
                // MainActivity main = (MainActivity) getActivity();
                 String nombreFenomeno = null;
                 switch(print.get(i).nombre) {
-                    case "CalorExtremo":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_calor_extremo);
+                    case "Calor Extremo":
+                        nombreFenomeno = getString(R.string.text_calor_extremo);
                         break;
                     case "Granizo":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_granizo);
+                        nombreFenomeno = getString(R.string.text_granizo);
                         break;
-                    case "TormentaInvernal":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tormenta_invernal);
+                    case "Tormenta Invernal":
+                        nombreFenomeno = getString(R.string.text_tormenta_invernal);
                         break;
                     case "Tornado":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tornado);
+                        nombreFenomeno = getString(R.string.text_tornado);
                         break;
                     case "Inundacion":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_inundacion);
+                        nombreFenomeno = getString(R.string.text_inundacion);
                         break;
                     case "Incendio":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_incendio_forestal);
+                        nombreFenomeno = getString(R.string.text_incendio_forestal);
                         break;
                     case "Terremoto":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_terremoto);
+                        nombreFenomeno = getString(R.string.text_terremoto);
                         break;
                     case "Tsunami":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tsunami);
+                        nombreFenomeno = getString(R.string.text_tsunami);
                         break;
                     case "Avalancha":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_avalancha);
+                        nombreFenomeno = getString(R.string.text_avalancha);
                         break;
-                    case "LluviaAcida":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_lluvia_acida);
+                    case "Lluvia Acida":
+                        nombreFenomeno = getString(R.string.text_lluvia_acida);
                         break;
-                    case "ErupcionVolcanica":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_erupcion_volcanica);
+                    case "Erupcion Volcanica":
+                        nombreFenomeno =getString(R.string.text_erupcion_volcanica);
                         break;
-                    case "GotaFria":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_gota_fria);
+                    case "Gota Fria":
+                        nombreFenomeno = getString(R.string.text_gota_fria);
                         break;
-                    case "TormentaElectrica":
-                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tormenta_electrica);
+                    case "Tormenta Electrica":
+                        nombreFenomeno = getString(R.string.text_tormenta_electrica);
                 }
                 generarMarcadores(ll, "...", nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
             }
@@ -928,7 +928,7 @@ public class MapsFragment extends Fragment {
                     .snippet(info + " " + ID)
                     .position(latLng)
                     .alpha(0.9f)
-                    .rotation(8.0f)
+                    .rotation(6.0f)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                     .title(tip));
             drawCircle(latLng, radio * 2000, id);
