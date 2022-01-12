@@ -874,7 +874,7 @@ public class MapsFragment extends Fragment {
                 String nombreFenomeno = null;
                 switch(print.get(i).nombre) {
                     case "Calor Extremo":
-                        nombreFenomeno = getString(R.string.text_calor_extremo);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_calor_extremo);
                         break;
                     case "Granizo":
                         nombreFenomeno = getString(R.string.text_granizo);
@@ -895,7 +895,7 @@ public class MapsFragment extends Fragment {
                         nombreFenomeno = getString(R.string.text_terremoto);
                         break;
                     case "Tsunami":
-                        nombreFenomeno = getString(R.string.text_tsunami);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tsunami);
                         break;
                     case "Avalancha":
                         nombreFenomeno = getString(R.string.text_avalancha);
