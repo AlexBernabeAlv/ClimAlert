@@ -161,7 +161,7 @@ public class MapsFragment extends Fragment {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title(getActivity().getString(R.string.map_ubicacion_1))
+                        .title(InformacionUsuario.getInstance().activity.getString(R.string.map_ubicacion_1))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
                 localizacionespuestas = true;
@@ -171,7 +171,7 @@ public class MapsFragment extends Fragment {
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title(getActivity().getString(R.string.map_ubicacion_2))
+                        .title(InformacionUsuario.getInstance().activity.getString(R.string.map_ubicacion_2))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
                 localizacionespuestas = true;
@@ -430,7 +430,7 @@ public class MapsFragment extends Fragment {
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getActivity().getString(R.string.map_ubicacion_actual)));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(InformacionUsuario.getInstance().activity.getString(R.string.map_ubicacion_actual)));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 if(markerActual != null) markerActual.setPosition(llact);
@@ -870,47 +870,47 @@ public class MapsFragment extends Fragment {
         if(print != null) {
             for (int i = 0; i < print.size(); ++i) {
                 LatLng ll = new LatLng((print.get(i).latitud), (print.get(i).longitud));
-                MainActivity main = (MainActivity) getActivity();
+               // MainActivity main = (MainActivity) getActivity();
                 String nombreFenomeno = null;
                 switch(print.get(i).nombre) {
                     case "CalorExtremo":
-                        nombreFenomeno = main.getString(R.string.text_calor_extremo);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_calor_extremo);
                         break;
                     case "Granizo":
-                        nombreFenomeno = main.getString(R.string.text_granizo);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_granizo);
                         break;
                     case "TormentaInvernal":
-                        nombreFenomeno = main.getString(R.string.text_tormenta_invernal);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tormenta_invernal);
                         break;
                     case "Tornado":
-                        nombreFenomeno = main.getString(R.string.text_tornado);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tornado);
                         break;
                     case "Inundacion":
-                        nombreFenomeno = main.getString(R.string.text_inundacion);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_inundacion);
                         break;
                     case "Incendio":
-                        nombreFenomeno = main.getString(R.string.text_incendio_forestal);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_incendio_forestal);
                         break;
                     case "Terremoto":
-                        nombreFenomeno = main.getString(R.string.text_terremoto);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_terremoto);
                         break;
                     case "Tsunami":
-                        nombreFenomeno = main.getString(R.string.text_tsunami);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tsunami);
                         break;
                     case "Avalancha":
-                        nombreFenomeno = main.getString(R.string.text_avalancha);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_avalancha);
                         break;
                     case "LluviaAcida":
-                        nombreFenomeno = main.getString(R.string.text_lluvia_acida);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_lluvia_acida);
                         break;
                     case "ErupcionVolcanica":
-                        nombreFenomeno = main.getString(R.string.text_erupcion_volcanica);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_erupcion_volcanica);
                         break;
                     case "GotaFria":
-                        nombreFenomeno = main.getString(R.string.text_gota_fria);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_gota_fria);
                         break;
                     case "TormentaElectrica":
-                        nombreFenomeno = main.getString(R.string.text_tormenta_electrica);
+                        nombreFenomeno = InformacionUsuario.getInstance().activity.getString(R.string.text_tormenta_electrica);
                 }
                 generarMarcadores(ll, "...", nombreFenomeno, (print.get(i).radio),(print.get(i).identificador));
             }
