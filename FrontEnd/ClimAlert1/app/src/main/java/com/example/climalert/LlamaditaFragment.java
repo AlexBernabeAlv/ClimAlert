@@ -160,8 +160,6 @@ public class LlamaditaFragment extends Fragment {
                 if(banned) Alert(0);
                 else if(InformacionUsuario.getInstance().latitudactual == 0) Alert(1);
                 else {
-                    Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
-                    Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
                     position = mSpinner.getSelectedItemPosition();
                     MainActivity main;
                     Fragment catastrofeFragment = null;
@@ -291,13 +289,13 @@ public class LlamaditaFragment extends Fragment {
         try {
             switch (position) {
                 case 0:
-                    mapa.put("nombreFenomeno", "CalorExtremo");
+                    mapa.put("nombreFenomeno", "Calor Extremo");
                     break;
                 case 1:
                     mapa.put("nombreFenomeno", "Granizo");
                     break;
                 case 2:
-                    mapa.put("nombreFenomeno", "TormentaInvernal");
+                    mapa.put("nombreFenomeno", "Tormenta Invernal");
                     break;
                 case 3:
                     mapa.put("nombreFenomeno", "Tornado");
@@ -318,16 +316,16 @@ public class LlamaditaFragment extends Fragment {
                     mapa.put("nombreFenomeno", "Avalancha");
                     break;
                 case 9:
-                    mapa.put("nombreFenomeno", "LluviaAcida");
+                    mapa.put("nombreFenomeno", "Lluvia Acida");
                     break;
                 case 10:
-                    mapa.put("nombreFenomeno", "ErupcionVolcanica");
+                    mapa.put("nombreFenomeno", "Erupcion Volcanica");
                     break;
                 case 11:
-                    mapa.put("nombreFenomeno", "GotaFria");
+                    mapa.put("nombreFenomeno", "Gota Fria");
                     break;
                 case 12:
-                    mapa.put("nombreFenomeno", "TormentaElectrica");
+                    mapa.put("nombreFenomeno", "Tormenta Electrica");
                     break;
             }
             if (InformacionUsuario.getInstance().latitudactual != 0) {
@@ -350,9 +348,6 @@ public class LlamaditaFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //JSONObject usuario;
-                        Log.d("a", String.valueOf(response));
-                        //Log.d("ALGO", "he acabado el bucle");
                     }
                 },
                 new Response.ErrorListener() {
