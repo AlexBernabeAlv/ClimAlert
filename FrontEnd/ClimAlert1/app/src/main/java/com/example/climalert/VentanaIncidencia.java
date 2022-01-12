@@ -100,61 +100,73 @@ public class VentanaIncidencia extends Fragment implements View.OnClickListener 
                 //Hora.setText(InformacionUsuario.getInstance().actual.get(i).descripcion); //????????
                 //Hora.setText("Hora: " + String.valueOf(InformacionUsuario.getInstance().actual.get(i).));
                 nombreFenomeno = InformacionUsuario.getInstance().actual.get(i).nombre;
-                Titulo.setText(nombreFenomeno);
                 String fuente = InformacionUsuario.getInstance().actual.get(i).fuente;
                 Fuente.setText(getString(R.string.incidencia_etiqueta_fuente) + " " + fuente);
                 Float medida = InformacionUsuario.getInstance().actual.get(i).medida;
                 String unidad = null;
                 switch(nombreFenomeno) {
                     case "CalorExtremo":
+                        Titulo.setText(getString(R.string.text_calor_extremo));
                         Descripcion.setText(getString(R.string.incidencia_desc_calor_extremo));
                         unidad = getString(R.string.unidad_calor_extremo);
                         break;
                     case "Granizo":
+                        Titulo.setText(getString(R.string.text_granizo));
                         Descripcion.setText(getString(R.string.incidencia_desc_granizo));
                         unidad = getString(R.string.unidad_granizo);
                         break;
                     case "TormentaInvernal":
-                           Descripcion.setText(getString(R.string.incidencia_desc_tormenta_invernal));
+                        Titulo.setText(getString(R.string.text_tormenta_invernal));
+                        Descripcion.setText(getString(R.string.incidencia_desc_tormenta_invernal));
                         unidad = getString(R.string.unidad_tormenta_invernal);
                         break;
                     case "Tornado":
+                        Titulo.setText(getString(R.string.text_tornado));
                         Descripcion.setText(getString(R.string.incidencia_desc_tornado));
                         unidad = getString(R.string.unidad_tornado);
                         break;
                     case "Inundacion":
+                        Titulo.setText(getString(R.string.text_inundacion));
                         Descripcion.setText(getString(R.string.incidencia_desc_inundacion));
                         unidad = getString(R.string.unidad_inundacion);
                         break;
                     case "Incendio":
+                        Titulo.setText(getString(R.string.text_incendio_forestal));
                         Descripcion.setText(getString(R.string.incidencia_desc_incendio_forestal));
                         unidad = getString(R.string.unidad_incendio_forestal);
                         break;
                     case "Terremoto":
+                        Titulo.setText(getString(R.string.text_terremoto));
                         Descripcion.setText(getString(R.string.incidencia_desc_terremoto));
                         unidad = getString(R.string.unidad_terremoto);
                         break;
                     case "Tsunami":
+                        Titulo.setText(getString(R.string.text_tsunami));
                         Descripcion.setText(getString(R.string.incidencia_desc_tsunami));
                         unidad = getString(R.string.unidad_tsunami);
                         break;
                     case "Avalancha":
+                        Titulo.setText(getString(R.string.text_avalancha));
                         Descripcion.setText(getString(R.string.incidencia_desc_avalancha));
                         unidad = getString(R.string.unidad_avalancha);
                         break;
                     case "LluviaAcida":
+                        Titulo.setText(getString(R.string.text_lluvia_acida));
                         Descripcion.setText(getString(R.string.incidencia_desc_lluvia_acida));
                         unidad = getString(R.string.unidad_lluvia_acida);
                         break;
                     case "ErupcionVolcanica":
+                        Titulo.setText(getString(R.string.text_erupcion_volcanica));
                         Descripcion.setText(getString(R.string.incidencia_desc_erupcion_volcanica));
                         unidad = getString(R.string.unidad_erupcion_volcanica);
                         break;
                     case "GotaFria":
+                        Titulo.setText(getString(R.string.text_gota_fria));
                         Descripcion.setText(getString(R.string.incidencia_desc_gota_fria));
                         unidad = getString(R.string.unidad_gota_fria);
                         break;
                     case "TormentaElectrica":
+                        Titulo.setText(getString(R.string.text_tormenta_electrica));
                         Descripcion.setText(getString(R.string.incidencia_desc_tormenta_electrica));
                         unidad = getString(R.string.unidad_tormenta_electrica);
                 }

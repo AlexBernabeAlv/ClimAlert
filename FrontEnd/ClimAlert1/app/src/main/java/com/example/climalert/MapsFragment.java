@@ -161,7 +161,7 @@ public class MapsFragment extends Fragment {
                 UBI1 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title(getString(R.string.map_ubicacion_1))
+                        .title(getActivity().getString(R.string.map_ubicacion_1))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .position(ll1));
                 localizacionespuestas = true;
@@ -171,7 +171,7 @@ public class MapsFragment extends Fragment {
                 UBI2 = mMap.addMarker(new MarkerOptions()
                         .anchor(0.0f, 1.0f)
                         .alpha(0.7f)
-                        .title(getString(R.string.map_ubicacion_2))
+                        .title(getActivity().getString(R.string.map_ubicacion_2))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                         .position(ll2));
                 localizacionespuestas = true;
@@ -430,7 +430,7 @@ public class MapsFragment extends Fragment {
                 InformacionUsuario.getInstance().longitudactual = (float) l.getLongitude();
                 if(InformacionUsuario.getInstance().latitudactual != 0 && markerActual == null){
                     LatLng actual = new LatLng(InformacionUsuario.getInstance().latitudactual, InformacionUsuario.getInstance().longitudactual);
-                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getString(R.string.map_ubicacion_actual)));
+                    markerActual = mMap.addMarker(new MarkerOptions().position(actual).title(getActivity().getString(R.string.map_ubicacion_actual)));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
                 }
                 if(markerActual != null) markerActual.setPosition(llact);

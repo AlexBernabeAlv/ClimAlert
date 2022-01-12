@@ -75,6 +75,7 @@ public class LlamaditaFragment extends Fragment {
     String date;
     String hour;
     String spinnerres;
+    int position;
 
     public LlamaditaFragment() {
         // Required empty public constructor
@@ -136,7 +137,6 @@ public class LlamaditaFragment extends Fragment {
                 incidencias);
         mSpinner.setAdapter(adp);
         //on click spinner con variable
-        descripcion = (EditText) view.findViewById(R.id.editDescripcion);
         aceptar = (Button) view.findViewById(R.id.btnAceptar);
         SOS = (Button) view.findViewById(R.id.btnSOS);
         SOS.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +162,7 @@ public class LlamaditaFragment extends Fragment {
                 else {
                     Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                     Log.d("ubi", String.valueOf(InformacionUsuario.getInstance().longitudactual));
-                    int position = mSpinner.getSelectedItemPosition();
+                    position = mSpinner.getSelectedItemPosition();
                     MainActivity main;
                     Fragment catastrofeFragment = null;
                     switch (position) {
@@ -286,10 +286,50 @@ public class LlamaditaFragment extends Fragment {
 
     public void dar_incidencia() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = "https://climalert.herokuapp.com/incidencias";
+        String url = "https://climalert.herokuapp.com/incidencias?email=" + InformacionUsuario.getInstance().email ;
         JSONObject mapa = new JSONObject();
         try {
-            mapa.put("nombreFenomeno", spinnerres);
+            switch (position) {
+                case 0:
+                    mapa.put("nombreFenomeno", "CalorExtremo");
+                    break;
+                case 1:
+                    mapa.put("nombreFenomeno", "Granizo");
+                    break;
+                case 2:
+                    mapa.put("nombreFenomeno", "TormentaInvernal");
+                    break;
+                case 3:
+                    mapa.put("nombreFenomeno", "Tornado");
+                    break;
+                case 4:
+                    mapa.put("nombreFenomeno", "Inundacion");
+                    break;
+                case 5:
+                    mapa.put("nombreFenomeno", "Incendio");
+                    break;
+                case 6:
+                    mapa.put("nombreFenomeno", "Terremoto");
+                    break;
+                case 7:
+                    mapa.put("nombreFenomeno", "Tsunami");
+                    break;
+                case 8:
+                    mapa.put("nombreFenomeno", "Avalancha");
+                    break;
+                case 9:
+                    mapa.put("nombreFenomeno", "LluviaAcida");
+                    break;
+                case 10:
+                    mapa.put("nombreFenomeno", "ErupcionVolcanica");
+                    break;
+                case 11:
+                    mapa.put("nombreFenomeno", "GotaFria");
+                    break;
+                case 12:
+                    mapa.put("nombreFenomeno", "TormentaElectrica");
+                    break;
+            }
             if (InformacionUsuario.getInstance().latitudactual != 0) {
                 mapa.put("latitud", String.valueOf(InformacionUsuario.getInstance().latitudactual));
                 mapa.put("longitud", String.valueOf(InformacionUsuario.getInstance().longitudactual));
@@ -299,7 +339,6 @@ public class LlamaditaFragment extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             hour = sdf.format(new Date());
             mapa.put("hora", hour);
-            mapa.put("email", InformacionUsuario.getInstance().email);
             mapa.put("password", InformacionUsuario.getInstance().password);
 
         } catch (JSONException e) {
