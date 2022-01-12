@@ -928,6 +928,7 @@ public class MapsFragment extends Fragment {
                     .snippet(info + " " + ID)
                     .position(latLng)
                     .alpha(0.9f)
+                    .rotation(8.0f)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                     .title(tip));
             drawCircle(latLng, radio * 2000, id);
